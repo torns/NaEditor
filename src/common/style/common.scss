@@ -1,0 +1,20 @@
+html body {
+    font-family: 'tahoma, arial, "Microsoft YaHei", "Hiragino Sans GB", u5b8bu4f53, sans-serif';
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 被eld-json-render覆盖，暂时这样 */
+::-webkit-scrollbar-track-piece {
+    background-color: rgba(236, 236, 236, .4)!important;
+}
+
+::-webkit-scrollbar {
+    width: 5px!important;
+}

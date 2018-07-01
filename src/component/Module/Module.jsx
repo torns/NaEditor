@@ -13,6 +13,7 @@ export default class Moudle extends React.Component {
     }
 
     focusHandle() {
+        
         this.setState({
             isFocus: true
         })

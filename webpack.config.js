@@ -60,14 +60,11 @@ module.exports = {
                 exclude: /node_modules/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
             },
-            // {
-            //     test: /\.css/,
-            //     use: ExtractTextPlugin.extract({
-            //         fallback: 'style-loader',
-            //         //如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
-            //         use: ['css-loader']
-            //     })
-            // },
+            {
+                test: /\.css/,
+                // exclude: /node_modules/,
+                use: ['style-loader', 'css-loader']
+            },
         ],
     },
     devtool: 'source-map',

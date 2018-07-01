@@ -33447,6 +33447,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ImageHotspot; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
@@ -33456,7 +33457,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = (class extends _component_Module__WEBPACK_IMPORTED_MODULE_2__["default"] {
+
+class ImageHotspot extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor() {
         super();
     }
@@ -33477,13 +33479,13 @@ __webpack_require__.r(__webpack_exports__);
      */
     render() {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            'div',
-            { className: 'J_module' },
+            _component_Module__WEBPACK_IMPORTED_MODULE_2__["default"],
+            null,
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('img', { src: this.state.imgSrc })
         );
     }
 
-});
+}
 
 /***/ }),
 
@@ -33526,12 +33528,29 @@ __webpack_require__.r(__webpack_exports__);
 class Moudle extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
         super();
+        this.state = {
+            isFocus: false
+        };
+    }
+
+    focusHandle() {
+        this.setState({
+            isFocus: true
+        });
     }
 
     render() {
+
+        const { isFocus } = this.state;
+
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             _component_ModuleWrap__WEBPACK_IMPORTED_MODULE_2__["default"],
-            null,
+            {
+                isFocus: isFocus,
+                onFocus: () => {
+                    this.focusHandle();
+                }
+            },
             this.props.children
         );
     }
@@ -33564,28 +33583,38 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ModuleWrap; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-/* harmony default export */ __webpack_exports__["default"] = (class extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class ModuleWrap extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 
     constructor(props) {
         super();
     }
 
-    render() {
+    componentWillMount() {}
 
+    focus() {
+        this.props.onFocus();
+    }
+
+    render() {
+        const { isFocus } = this.props;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "div",
-            { className: "J_module",
-                "data-module-name": this.props.moduleName,
-                "data-module-id": this.props.moduleId },
+            'div',
+            { className: `J_module ${isFocus === true ? 'focus' : ''}`,
+                onClick: () => {
+                    this.focus();
+                },
+                'data-module-name': this.props.moduleName,
+                'data-module-id': this.props.moduleId },
             this.props.children
         );
     }
 
-});
+}
 
 /***/ }),
 

@@ -1,3 +1,8 @@
 {
-    "presets": ["react", "stage-0"]
+    "presets": ["react", "stage-0"],
+    "plugins": [
+        ["import", {
+            "libraryName": "antd"
+        }]
+    ]
 }

@@ -1,10 +1,10 @@
-// import React from "react";
-// import ReactDOM from 'react-dom';
-// import Module from '@component/Module/index';
+import React from "react";
+import ReactDOM from 'react-dom';
 import localforage from 'localforage';
 
 import '@component/Messager';
 import Action from '@common/script/action';
+import ConfigDialog from '@component/ConfigDialog';
 
 window.Messager = window._eldInstanceMessager;
 const Messager = window.Messager;
@@ -33,6 +33,9 @@ DP.addAction({
 Messager.on('refreshModules', (req, res) => {
     console.log(res);
 })
+
+
+ReactDOM.render(<ConfigDialog/>, document.querySelector('.J_configDialog'));
 
 
 document.querySelector('.J_removeModule').addEventListener('click', (e) => {

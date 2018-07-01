@@ -3,7 +3,7 @@ import $ from 'jquery';
 import Module from '@component/Module';
 
 
-export default class extends Module {
+export default class UserDefine extends React.Component {
     constructor() {
         super();
     }
@@ -31,9 +31,9 @@ export default class extends Module {
 
     render() {
         return (
-            <div className="J_module" ref="module">
-            </div>
-
+            <Module>
+                <div ref="module"></div>
+            </Module>
         )
     }
 

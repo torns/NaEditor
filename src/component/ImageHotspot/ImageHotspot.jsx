@@ -1,9 +1,10 @@
 import React from 'react';
 import $ from 'jquery';
+
 import Module from '@component/Module';
 
 
-export default class extends Module {
+export default class ImageHotspot extends React.Component {
     constructor() {
         super();
     }
@@ -24,9 +25,9 @@ export default class extends Module {
      */
     render() {
         return (
-            <div className="J_module">
+            <Module>
                 <img src={this.state.imgSrc} />
-            </div>
+            </Module>
 
         )
     }

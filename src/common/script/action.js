@@ -1,8 +1,8 @@
 import localforage from "localforage";
+import idb from 'idb';
 
 
-
-export default {
+const Action = {
     /**
      * 更新模块
      * @param {Array} moduleData 模块数据列表
@@ -52,7 +52,7 @@ export default {
         const moduleId = Math.max(...dbModuleData.map(v => v.moduleId)) + 1;
 
         // 根据moduleTypeId查模块名称
-        const moduleName = (await localforage.getItem('moduleName'))[moduleTypeId];
+        const moduleName = await Action.getModuleName(moduleTypeId);
 
         const moduleData = {
             moduleId,
@@ -70,5 +70,16 @@ export default {
      */
     async getModulesList() {
         return localforage.getItem('moduleData');
+    },
+    /**
+     * 根据moduleTypeId获取模块名称
+     * @param {Number} moduleTypeId 模块类型Id
+     */
+    async getModuleName(moduleTypeId) {
+        const db = await idb.open('NaEditor');
+        return await db.transaction('moduleName').objectStore('moduleName').get(moduleTypeId);
     }
+
 }
+
+export default Action;

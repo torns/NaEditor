@@ -28,7 +28,6 @@ const HtmlWebpackPlugins = [
     new HtmlWebpackPlugin({
         filename: '/page/decorate.html',
         template: './src/page/decorate/index.html',
-        chunks: ['page/decorate']
     }),
 ]
 

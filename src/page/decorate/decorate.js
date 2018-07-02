@@ -6,10 +6,13 @@ import idb from 'idb';
 import '@component/Messager';
 import Action from '@common/script/action';
 import ConfigDialog from '@component/ConfigDialog';
+import Canvas from '@component/Canvas';
 
 window.Messager = window._eldInstanceMessager;
 const Messager = window.Messager;
 const DP = window._eldInstanceDataPersistence;
+const sWin = document.querySelector('.J_canvas').contentWindow;
+const sDom = sWin.document;
 
 // 初始化模块名称表
 localforage.setItem('moduleName', {
@@ -78,6 +81,22 @@ document.querySelector('.J_restore').onclick = () => {
 document.querySelector('.J_refresh').onclick = () => {
     Messager.trigger('refreshModules')
 }
+
+
+
+
+
+
+window.addEventListener('load', () => {
+    const el = < Canvas />
+    ReactDOM.render(
+        el,
+        sDom.querySelector('#Container')
+    )
+
+})
+
+
 
 
 // // 我们的客户数据看起来像这样。

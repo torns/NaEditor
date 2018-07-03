@@ -8,6 +8,7 @@ import Action from '@common/script/action';
 import '../../db/createStore';
 import ConfigDialog from '@component/ConfigDialog';
 import Canvas from '@component/Canvas';
+import DBInit from '@db/dataInitial';
 
 window.Messager = window._eldInstanceMessager;
 const Messager = window.Messager;
@@ -48,29 +49,14 @@ document.querySelector('.J_addModule').addEventListener('click', (e) => {
     moduleTypeId = Number.parseInt(moduleTypeId.trim());
     Messager.trigger('addModule', {
         moduleTypeId,
+        pageId: Number.parseInt(BASE_DATA.pageId),
     });
 })
 
+document.querySelector('.J_dbInitial').addEventListener('click', (e) => {
+    DBInit();
+})
 
-document.querySelector('.J_restore').onclick = () => {
-    const moduleData = [{
-        moduleTypeId: 1,
-        moduleName: '自定义代码模块',
-        moduleId: 1,
-        data: {
-            code: `<style>div{color:red;}</style>
-                <div class="a">dsf</div>`
-        }
-    }, {
-        moduleTypeId: 2,
-        moduleName: '图片热区模块',
-        moduleId: 2,
-        data: {
-            imgSrc: `https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2141015511,3653211916&fm=58&bpow=400&bpoh=400`
-        }
-    }]
-    localforage.setItem('moduleData', moduleData);
-}
 
 document.querySelector('.J_refresh').onclick = () => {
     Messager.trigger('refreshModules')
@@ -86,5 +72,3 @@ window.addEventListener('load', () => {
     )
 
 })
-
-

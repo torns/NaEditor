@@ -38314,10 +38314,11 @@ const Action = {
      * 添加模块
      * @param {Object} args 入参，模块类型，位置等
      */
-    addModule(args = { preModuleId: 1, moduleTypeId: 1, data: {} }) {
+    addModule(args = { preModuleId: 1, moduleTypeId: 1, data: {}, pageId: 1 }) {
         return _asyncToGenerator(function* () {
 
-            let { preModuleId, moduleTypeId, data } = args;
+            let { preModuleId, moduleTypeId, data, pageId } = args;
+            pageId === undefined ? pageId = 1 : '';
             let dbModuleData = yield localforage__WEBPACK_IMPORTED_MODULE_0___default.a.getItem('moduleData');
 
             //没有前一个模块的Id则默认添加到页面最后
@@ -38333,15 +38334,47 @@ const Action = {
             const moduleName = yield Action.getModuleName(moduleTypeId);
 
             const moduleData = {
-                // moduleId,
+                pageId,
                 moduleTypeId,
                 moduleName,
                 data
-            };
 
-            const db = yield idb__WEBPACK_IMPORTED_MODULE_1___default.a.open(DB_NAME);
+                // return new Promise(async(resolve, reject) => {
+                //     const db = await idb.open(DB_NAME);
+                //     const tx = db.transaction(['module', 'page'], 'readwrite');
+
+                //     const pageStore = tx.objectStore('page');
+                //     const moduleStore = tx.objectStore('module');
+
+
+                //     tx.onsuccess = resolve;
+                //     tx.onerror = reject;
+                // })
+
+                // const tx = db.transaction('module', 'readwrite').objectStore('module');
+                // const moduleId = await tx.put(moduleData);
+
+                // // 到page表中，在该page下的moduleList里加入这个模块
+                // const pageStore = await db.transaction('page', 'readwrite').objectStore('page');
+                // const page = pageStore.get(pageId);
+                // page.moduleList === undefined && (page.moduleList = [])
+                // page.moduleList.push(moduleId);
+                // pageStore.put(page);
+                // console.log(result);
+
+
+            };const db = yield idb__WEBPACK_IMPORTED_MODULE_1___default.a.open(DB_NAME);
             const tx = db.transaction('module', 'readwrite').objectStore('module');
             const moduleId = yield tx.put(moduleData);
+
+            // 到page表中，在该page下的moduleList里加入这个模块
+            const pageStore = yield db.transaction('page', 'readwrite').objectStore('page');
+            const page = pageStore.get(pageId);
+            page.moduleList === undefined && (page.moduleList = []);
+            page.moduleList.push(moduleId);
+            pageStore.put(page);
+            console.log(result);
+
             return yield db.transaction('module', 'readonly').objectStore('module').get(moduleId);
         })();
     },
@@ -38401,6 +38434,18 @@ const Action = {
                     return _ref2.apply(this, arguments);
                 };
             })());
+        })();
+    },
+    /**
+     * 新增页面
+     */
+    addPage(pageData = { name: '页面名称' }) {
+        return _asyncToGenerator(function* () {
+            const NAME = `page`;
+            const db = yield idb__WEBPACK_IMPORTED_MODULE_1___default.a.open(DB_NAME);
+            const tx = db.transaction(NAME, 'readwrite').objectStore(NAME);
+            const pageId = yield tx.put(pageData);
+            return yield db.transaction(NAME, 'readonly').objectStore(NAME).get(pageId);
         })();
     }
 
@@ -39191,7 +39236,6 @@ let updatePage = (() => {
     var _ref2 = _asyncToGenerator(function* (db) {
         const StoreName = 'page';
         if (!Array.from(db.objectStoreNames).includes(StoreName)) {
-            console.log(1);
             const objectStore = db.createObjectStore(StoreName, { keyPath: "pageId", autoIncrement: true });
             objectStore.createIndex('pageName', 'pageName', { unique: false });
         }
@@ -39206,7 +39250,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-const DB_VERSION = 21;
+const DB_VERSION = 1;
 
 var DBOpenRequest = window.indexedDB.open("NaEditor", DB_VERSION);
 
@@ -39228,10 +39272,10 @@ function updateModuleName(db) {
     // }, {
     //     moduleName: '图片热区',
     // }];
-    let objectStore;
+
     const StoreName = 'moduleName';
     if (!Array.from(db.objectStoreNames).includes(StoreName)) {
-        objectStore = db.createObjectStore(objectStore, { keyPath: "moduleTypeId", autoIncrement: true });
+        const objectStore = db.createObjectStore(StoreName, { keyPath: "moduleTypeId", autoIncrement: true });
         objectStore.createIndex('moduleName', 'moduleName', { unique: false });
     }
 

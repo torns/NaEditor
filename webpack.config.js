@@ -66,6 +66,7 @@ module.exports = {
         alias: {
             '@common': path.resolve(__dirname, 'src/common/'),
             '@component': path.resolve(__dirname, 'src/component/'),
+            '@db': path.resolve(__dirname, 'src/db/'),
         },
         extensions: ['.js', '.json', '.jsx'],
     },

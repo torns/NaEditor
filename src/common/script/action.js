@@ -1,7 +1,7 @@
 import localforage from "localforage";
 import idb from 'idb';
+import DB from '@db/dbConfig';
 
-const DB_NAME = `NaEditor`;
 
 const Action = {
     /**
@@ -26,15 +26,25 @@ const Action = {
      */
     async removeModule(moduleId) {
         return new Promise(async(resolve, reject) => {
-            const db = await idb.open(DB_NAME);
-            const tx = db.transaction('module', 'readwrite').objectStore('module');
-            const result = tx.delete(moduleId).request;
-            result.onsuccess = () => {
-                resolve({ result: true });
-            }
-            result.onerror = () => {
-                reject({ result: false });
-            }
+            const db = await idb.open(DB.Name);
+            const tx = db.transaction(['page', 'module'], 'readwrite');
+            const pageStore = tx.objectStore('page');
+            const moduleStore = tx.objectStore('module');
+
+            // 删除页面引用
+            const belongToPageId = (await moduleStore.get(moduleId)).pageId;
+            let page = await pageStore.get(belongToPageId);
+            page.moduleList = page.moduleList.filter(v => v !== moduleId);
+            // 回填到页面
+            await pageStore.put(page);
+
+            // 删除模块实例
+            await moduleStore.delete(moduleId);
+
+            resolve({
+                result:true,
+            })
+
         })
     },
     /**
@@ -44,7 +54,6 @@ const Action = {
     async addModule(args = { preModuleId: 1, moduleTypeId: 1, data: {}, pageId: 1 }) {
 
         let { preModuleId, moduleTypeId, data, pageId } = args;
-        pageId === undefined ? pageId = 1 : '';
         let dbModuleData = await localforage.getItem('moduleData');
 
         //没有前一个模块的Id则默认添加到页面最后
@@ -53,67 +62,41 @@ const Action = {
         // 没有模块数据默认为空对象
         data === undefined && (data = {});
 
-        // TODO:如果是真实数据库，应该是自增1的值
-        // const moduleId = Math.max(...dbModuleData.map(v => v.moduleId)) + 1;
 
         // 根据moduleTypeId查模块名称
         const moduleName = await Action.getModuleName(moduleTypeId);
 
         const moduleData = {
-            pageId,
             moduleTypeId,
             moduleName,
             data,
+            pageId,
         }
 
-        // return new Promise(async(resolve, reject) => {
-        //     const db = await idb.open(DB_NAME);
-        //     const tx = db.transaction(['module', 'page'], 'readwrite');
+        return new Promise(async(resolve, reject) => {
+            const db = await idb.open(DB.Name);
+            const tx = db.transaction(['module', 'page'], 'readwrite');
 
-        //     const pageStore = tx.objectStore('page');
-        //     const moduleStore = tx.objectStore('module');
+            const pageStore = tx.objectStore('page');
+            const moduleStore = tx.objectStore('module');
 
+            const moduleId = await moduleStore.add(moduleData);
 
-        //     tx.onsuccess = resolve;
-        //     tx.onerror = reject;
-        // })
+            // 在该page中插入模块id
+            let page = await pageStore.get(pageId);
+            page.moduleList === undefined && (page.moduleList = []);
+            page.moduleList.push(moduleId);
+            // 更新page
+            pageStore.put(page);
 
-        // const tx = db.transaction('module', 'readwrite').objectStore('module');
-        // const moduleId = await tx.put(moduleData);
-
-        // // 到page表中，在该page下的moduleList里加入这个模块
-        // const pageStore = await db.transaction('page', 'readwrite').objectStore('page');
-        // const page = pageStore.get(pageId);
-        // page.moduleList === undefined && (page.moduleList = [])
-        // page.moduleList.push(moduleId);
-        // pageStore.put(page);
-        // console.log(result);
-
-
-
-
-
-        const db = await idb.open(DB_NAME);
-        const tx = db.transaction('module', 'readwrite').objectStore('module');
-        const moduleId = await tx.put(moduleData);
-
-        // 到page表中，在该page下的moduleList里加入这个模块
-        const pageStore = await db.transaction('page', 'readwrite').objectStore('page');
-        const page = pageStore.get(pageId);
-        page.moduleList === undefined && (page.moduleList = [])
-        page.moduleList.push(moduleId);
-        pageStore.put(page);
-        console.log(result);
-
-
-        return await db.transaction('module', 'readonly').objectStore('module').get(moduleId);
-
+            resolve(await moduleStore.get(moduleId));
+        })
     },
     /**
      * 获得模块列表
      */
     async getModulesList() {
-        const db = await idb.open('NaEditor');
+        const db = await idb.open(DB.Name);
         const result = await db.transaction('module').objectStore('module').getAll();
         return result;
     },
@@ -122,7 +105,7 @@ const Action = {
      * @param {Number} moduleTypeId 模块类型Id
      */
     async getModuleName(moduleTypeId) {
-        const db = await idb.open('NaEditor');
+        const db = await idb.open(DB.Name);
         const result = await db.transaction('moduleName').objectStore('moduleName').get(moduleTypeId);
         return result.moduleName;
     },
@@ -131,7 +114,7 @@ const Action = {
      */
     async deleteAllModules() {
 
-        const db = await idb.open('NaEditor');
+        const db = await idb.open(DB.Name);
         const moduleResult = await db.transaction('module').objectStore('module').getAll();
         const moduleIds = moduleResult.map(v => v.moduleId);
 
@@ -158,7 +141,7 @@ const Action = {
      */
     async addPage(pageData = { name: '页面名称' }) {
         const NAME = `page`
-        const db = await idb.open(DB_NAME);
+        const db = await idb.open(DB.Name);
         const tx = db.transaction(NAME, 'readwrite').objectStore(NAME);
         const pageId = await tx.put(pageData)
         return await db.transaction(NAME, 'readonly').objectStore(NAME).get(pageId);

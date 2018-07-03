@@ -1,9 +1,10 @@
 import idb from 'idb';
+import DB from '@db/dbConfig';
 
-const DB_VERSION = 21;
+const DB_VERSION = DB.Version;
 
 
-var DBOpenRequest = window.indexedDB.open("NaEditor", DB_VERSION);
+var DBOpenRequest = window.indexedDB.open(DB.Name, DB_VERSION);
 
 DBOpenRequest.onupgradeneeded = (e) => {
     const db = e.target.result;
@@ -24,10 +25,11 @@ function updateModuleName(db) {
     // }, {
     //     moduleName: '图片热区',
     // }];
-    let objectStore;
+
     const StoreName = 'moduleName';
     if (!Array.from(db.objectStoreNames).includes(StoreName)) {
-        objectStore = db.createObjectStore(objectStore, { keyPath: "moduleTypeId", autoIncrement: true });
+        const objectStore = db.createObjectStore(StoreName, { keyPath: "moduleTypeId", autoIncrement: true });
+        objectStore.createIndex('moduleTypeId', 'moduleTypeId', { unique: true });
         objectStore.createIndex('moduleName', 'moduleName', { unique: false });
     }
 

@@ -38264,6 +38264,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+const DB_NAME = `NaEditor`;
+
 const Action = {
     /**
      * 更新模块
@@ -38289,21 +38291,30 @@ const Action = {
      */
     removeModule(moduleId) {
         return _asyncToGenerator(function* () {
-            let dbModuleData = yield localforage__WEBPACK_IMPORTED_MODULE_0___default.a.getItem('moduleData');
-            dbModuleData.forEach(function (v, i) {
-                let _moduleData = dbModuleData[i];
-                if (_moduleData.moduleId === moduleId) {
-                    dbModuleData.splice(i, 1);
-                }
-            });
-            return localforage__WEBPACK_IMPORTED_MODULE_0___default.a.setItem('moduleData', dbModuleData);
+            return new Promise((() => {
+                var _ref = _asyncToGenerator(function* (resolve, reject) {
+                    const db = yield idb__WEBPACK_IMPORTED_MODULE_1___default.a.open(DB_NAME);
+                    const tx = db.transaction('module', 'readwrite').objectStore('module');
+                    const result = tx.delete(moduleId).request;
+                    result.onsuccess = function () {
+                        resolve({ result: true });
+                    };
+                    result.onerror = function () {
+                        reject({ result: false });
+                    };
+                });
+
+                return function (_x, _x2) {
+                    return _ref.apply(this, arguments);
+                };
+            })());
         })();
     },
     /**
      * 添加模块
      * @param {Object} args 入参，模块类型，位置等
      */
-    addModule(args) {
+    addModule(args = { preModuleId: 1, moduleTypeId: 1, data: {} }) {
         return _asyncToGenerator(function* () {
 
             let { preModuleId, moduleTypeId, data } = args;
@@ -38316,21 +38327,22 @@ const Action = {
             data === undefined && (data = {});
 
             // TODO:如果是真实数据库，应该是自增1的值
-            const moduleId = Math.max(...dbModuleData.map(function (v) {
-                return v.moduleId;
-            })) + 1;
+            // const moduleId = Math.max(...dbModuleData.map(v => v.moduleId)) + 1;
 
             // 根据moduleTypeId查模块名称
             const moduleName = yield Action.getModuleName(moduleTypeId);
 
             const moduleData = {
-                moduleId,
+                // moduleId,
                 moduleTypeId,
                 moduleName,
                 data
             };
 
-            return localforage__WEBPACK_IMPORTED_MODULE_0___default.a.setItem('moduleData', dbModuleData.concat(moduleData));
+            const db = yield idb__WEBPACK_IMPORTED_MODULE_1___default.a.open(DB_NAME);
+            const tx = db.transaction('module', 'readwrite').objectStore('module');
+            const moduleId = yield tx.put(moduleData);
+            return yield db.transaction('module', 'readonly').objectStore('module').get(moduleId);
         })();
     },
     /**
@@ -38338,7 +38350,9 @@ const Action = {
      */
     getModulesList() {
         return _asyncToGenerator(function* () {
-            return localforage__WEBPACK_IMPORTED_MODULE_0___default.a.getItem('moduleData');
+            const db = yield idb__WEBPACK_IMPORTED_MODULE_1___default.a.open('NaEditor');
+            const result = yield db.transaction('module').objectStore('module').getAll();
+            return result;
         })();
     },
     /**
@@ -38348,11 +38362,51 @@ const Action = {
     getModuleName(moduleTypeId) {
         return _asyncToGenerator(function* () {
             const db = yield idb__WEBPACK_IMPORTED_MODULE_1___default.a.open('NaEditor');
-            return yield db.transaction('moduleName').objectStore('moduleName').get(moduleTypeId);
+            const result = yield db.transaction('moduleName').objectStore('moduleName').get(moduleTypeId);
+            return result.moduleName;
+        })();
+    },
+    /**
+     * 删除所有模块
+     */
+    deleteAllModules() {
+        return _asyncToGenerator(function* () {
+
+            const db = yield idb__WEBPACK_IMPORTED_MODULE_1___default.a.open('NaEditor');
+            const moduleResult = yield db.transaction('module').objectStore('module').getAll();
+            const moduleIds = moduleResult.map(function (v) {
+                return v.moduleId;
+            });
+
+            return new Promise((() => {
+                var _ref2 = _asyncToGenerator(function* (resolve, reject) {
+                    Promise.all(moduleIds.map(function (moduleId) {
+                        return new Promise(function (resolve, reject) {
+                            const tx = db.transaction('module', 'readwrite').objectStore('module');
+                            const result = tx.delete(moduleId).request;
+
+                            result.onsuccess = function () {
+                                resolve({ result: true });
+                            };
+                            result.onerror = function () {
+                                reject({ result: false });
+                            };
+                        });
+                    })).then(function () {
+                        resolve(true);
+                    });
+                });
+
+                return function (_x3, _x4) {
+                    return _ref2.apply(this, arguments);
+                };
+            })());
         })();
     }
 
 };
+
+window.Action = Action;
 
 /* harmony default export */ __webpack_exports__["default"] = (Action);
 
@@ -38429,15 +38483,19 @@ class Canvas extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
      */
     bindGlobalEvent() {
 
-        _component_Messager__WEBPACK_IMPORTED_MODULE_3__["default"].on('removeModule', (moduleId, moduleData) => {
-            this.setState({
-                moduleData
-            });
+        _component_Messager__WEBPACK_IMPORTED_MODULE_3__["default"].on('removeModule', (moduleId, result) => {
+            if (result.result === true) {
+                const newModuleData = this.state.moduleData.filter(v => v.moduleId !== moduleId);
+                this.setState({
+                    moduleData: newModuleData
+                });
+            }
         });
 
         _component_Messager__WEBPACK_IMPORTED_MODULE_3__["default"].on('addModule', (req, moduleData) => {
+            const oldModuleData = this.state.moduleData;
             this.setState({
-                moduleData
+                moduleData: [...oldModuleData, ...[moduleData]]
             });
         });
 
@@ -38619,9 +38677,7 @@ class ImageHotspot extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
         });
     }
 
-    componentWillUnmount() {
-        console.log('remove', this);
-    }
+    componentWillUnmount() {}
 
     /**
      * 
@@ -39089,6 +39145,103 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/db/createStore.js":
+/*!*******************************!*\
+  !*** ./src/db/createStore.js ***!
+  \*******************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! idb */ "./node_modules/idb/lib/idb.js");
+/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(idb__WEBPACK_IMPORTED_MODULE_0__);
+let updateModule = (() => {
+    var _ref = _asyncToGenerator(function* (db) {
+
+        // const data = [{
+        //     moduleTypeId: 1,
+        //     moduleName: '自定321义代码模块',
+        //     data: {
+        //         code: `<style>div{color:red;}</style>
+        //         <div class="a">dsf</div>`
+        //     }
+        // }, {
+        //     moduleTypeId: 2,
+        //     moduleName: '图片热区模块',
+        //     data: {
+        //         imgSrc: `https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2141015511,3653211916&fm=58&bpow=400&bpoh=400`
+        //     }
+        // }]
+
+        const StoreName = 'module';
+        if (!Array.from(db.objectStoreNames).includes(StoreName)) {
+            const objectStore = db.createObjectStore(StoreName, { keyPath: "moduleId", autoIncrement: true });
+            objectStore.createIndex('moduleName', 'moduleName', { unique: false });
+            objectStore.createIndex('moduleTypeId', 'moduleTypeId', { unique: false });
+        }
+    });
+
+    return function updateModule(_x) {
+        return _ref.apply(this, arguments);
+    };
+})();
+
+let updatePage = (() => {
+    var _ref2 = _asyncToGenerator(function* (db) {
+        const StoreName = 'page';
+        if (!Array.from(db.objectStoreNames).includes(StoreName)) {
+            console.log(1);
+            const objectStore = db.createObjectStore(StoreName, { keyPath: "pageId", autoIncrement: true });
+            objectStore.createIndex('pageName', 'pageName', { unique: false });
+        }
+    });
+
+    return function updatePage(_x2) {
+        return _ref2.apply(this, arguments);
+    };
+})();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+
+
+const DB_VERSION = 21;
+
+var DBOpenRequest = window.indexedDB.open("NaEditor", DB_VERSION);
+
+DBOpenRequest.onupgradeneeded = e => {
+    const db = e.target.result;
+    const func = [updateModuleName, updateModule, updatePage];
+    func.forEach(func => {
+        try {
+            func(db);
+        } catch (e) {
+            console.log(e);
+        }
+    });
+};
+
+function updateModuleName(db) {
+    // const data = [{
+    //     moduleName: '自定义代码',
+    // }, {
+    //     moduleName: '图片热区',
+    // }];
+    let objectStore;
+    const StoreName = 'moduleName';
+    if (!Array.from(db.objectStoreNames).includes(StoreName)) {
+        objectStore = db.createObjectStore(objectStore, { keyPath: "moduleTypeId", autoIncrement: true });
+        objectStore.createIndex('moduleName', 'moduleName', { unique: false });
+    }
+
+    // data.forEach(v => {
+    //     objectStore.add(v);
+    // })
+}
+
+/***/ }),
+
 /***/ "./src/page/decorate/decorate.js":
 /*!***************************************!*\
   !*** ./src/page/decorate/decorate.js ***!
@@ -39108,9 +39261,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(idb__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _component_Messager__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @component/Messager */ "./src/component/Messager/index.js");
 /* harmony import */ var _common_script_action__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @common/script/action */ "./src/common/script/action.js");
-/* harmony import */ var _component_ConfigDialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @component/ConfigDialog */ "./src/component/ConfigDialog/index.js");
-/* harmony import */ var _component_Canvas__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @component/Canvas */ "./src/component/Canvas/index.js");
+/* harmony import */ var _db_createStore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../db/createStore */ "./src/db/createStore.js");
+/* harmony import */ var _component_ConfigDialog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @component/ConfigDialog */ "./src/component/ConfigDialog/index.js");
+/* harmony import */ var _component_Canvas__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @component/Canvas */ "./src/component/Canvas/index.js");
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 
 
 
@@ -39127,12 +39282,6 @@ const Messager = window.Messager;
 const DP = window._eldInstanceDataPersistence;
 const sWin = document.querySelector('.J_canvas').contentWindow;
 const sDom = sWin.document;
-
-// 初始化模块名称表
-localforage__WEBPACK_IMPORTED_MODULE_2___default.a.setItem('moduleName', {
-    1: '自定义代码',
-    2: '图片热区'
-});
 
 DP.addAction({
     removeModule: (() => {
@@ -39168,7 +39317,7 @@ Messager.on('refreshModules', (req, res) => {
     console.log(res);
 });
 
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_ConfigDialog__WEBPACK_IMPORTED_MODULE_6__["default"], null), document.querySelector('.J_configDialog'));
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_ConfigDialog__WEBPACK_IMPORTED_MODULE_7__["default"], null), document.querySelector('.J_configDialog'));
 
 document.querySelector('.J_removeModule').addEventListener('click', e => {
     let moduleId = document.querySelector('.J_removeModuleInput').value;
@@ -39209,61 +39358,9 @@ document.querySelector('.J_refresh').onclick = () => {
 };
 
 window.addEventListener('load', () => {
-    const el = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_Canvas__WEBPACK_IMPORTED_MODULE_7__["default"], null);
+    const el = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_Canvas__WEBPACK_IMPORTED_MODULE_8__["default"], null);
     react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(el, sDom.querySelector('#Container'));
 });
-
-// // 我们的客户数据看起来像这样。
-// const moduleName = [
-//     { moduleTypeId: 1, name: '自定义代码' },
-//     { moduleTypeId: 2, name: '图片热区' },
-// ];
-// const dbName = "NaEditor";
-
-// var request = indexedDB.open(dbName, 1);
-
-// request.onerror = function (event) {
-//     // 错误处理程序在这里。
-// };
-
-// request.onsuccess = (e) => {
-//     var db = e.target.result;
-//     var transaction = db.transaction(["moduleName"], "readwrite");
-//     console.log(transaction);
-//     var objectStore = transaction.objectStore("moduleName");
-//     let result = objectStore.get(2);
-//     result.onsuccess = (e) => {
-//         console.log(e)
-//     }
-// }
-
-// request.onupgradeneeded = function (event) {
-
-//     var db = event.target.result;
-
-//     // 创建一个对象存储空间来持有有关我们客户的信息。
-//     // 我们将使用 "ssn" 作为我们的 key path 因为它保证是唯一的。
-//     var objectStore = db.createObjectStore("moduleName", { keyPath: "moduleTypeId" });
-
-//     // 创建一个索引来通过 name 搜索客户。
-//     // 可能会有重复的，因此我们不能使用 unique 索引。
-//     objectStore.createIndex("name", "name", { unique: false });
-
-//     // 创建一个索引来通过 email 搜索客户。
-//     // 我们希望确保不会有两个客户使用相同的 email 地址，因此我们使用一个 unique 索引。
-//     objectStore.createIndex("moduleTypeId", "moduleTypeId", { unique: true });
-
-//     // 在新创建的对象存储空间中保存值
-//     moduleName.forEach((v) => {
-//         objectStore.add(v);
-//     })
-// }
-
-
-// dbPromise.then(db => {
-//     return db.transaction('moduleName')
-//         .objectStore('moduleName').get(1);
-// }).then(obj => console.log(obj));
 
 /***/ }),
 

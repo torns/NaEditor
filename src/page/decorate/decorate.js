@@ -5,6 +5,7 @@ import idb from 'idb';
 
 import '@component/Messager';
 import Action from '@common/script/action';
+import '../../db/createStore';
 import ConfigDialog from '@component/ConfigDialog';
 import Canvas from '@component/Canvas';
 
@@ -13,13 +14,6 @@ const Messager = window.Messager;
 const DP = window._eldInstanceDataPersistence;
 const sWin = document.querySelector('.J_canvas').contentWindow;
 const sDom = sWin.document;
-
-// 初始化模块名称表
-localforage.setItem('moduleName', {
-    1: '自定义代码',
-    2: '图片热区',
-})
-
 
 DP.addAction({
     removeModule: async (moduleId) => {
@@ -84,9 +78,6 @@ document.querySelector('.J_refresh').onclick = () => {
 
 
 
-
-
-
 window.addEventListener('load', () => {
     const el = < Canvas />
     ReactDOM.render(
@@ -97,59 +88,3 @@ window.addEventListener('load', () => {
 })
 
 
-
-
-// // 我们的客户数据看起来像这样。
-// const moduleName = [
-//     { moduleTypeId: 1, name: '自定义代码' },
-//     { moduleTypeId: 2, name: '图片热区' },
-// ];
-// const dbName = "NaEditor";
-
-// var request = indexedDB.open(dbName, 1);
-
-// request.onerror = function (event) {
-//     // 错误处理程序在这里。
-// };
-
-// request.onsuccess = (e) => {
-//     var db = e.target.result;
-//     var transaction = db.transaction(["moduleName"], "readwrite");
-//     console.log(transaction);
-//     var objectStore = transaction.objectStore("moduleName");
-//     let result = objectStore.get(2);
-//     result.onsuccess = (e) => {
-//         console.log(e)
-//     }
-// }
-
-// request.onupgradeneeded = function (event) {
-
-//     var db = event.target.result;
-
-//     // 创建一个对象存储空间来持有有关我们客户的信息。
-//     // 我们将使用 "ssn" 作为我们的 key path 因为它保证是唯一的。
-//     var objectStore = db.createObjectStore("moduleName", { keyPath: "moduleTypeId" });
-
-//     // 创建一个索引来通过 name 搜索客户。
-//     // 可能会有重复的，因此我们不能使用 unique 索引。
-//     objectStore.createIndex("name", "name", { unique: false });
-
-//     // 创建一个索引来通过 email 搜索客户。
-//     // 我们希望确保不会有两个客户使用相同的 email 地址，因此我们使用一个 unique 索引。
-//     objectStore.createIndex("moduleTypeId", "moduleTypeId", { unique: true });
-
-//     // 在新创建的对象存储空间中保存值
-//     moduleName.forEach((v) => {
-//         objectStore.add(v);
-//     })
-// }
-
-
-
-
-
-// dbPromise.then(db => {
-//     return db.transaction('moduleName')
-//         .objectStore('moduleName').get(1);
-// }).then(obj => console.log(obj));

@@ -52,15 +52,20 @@ export default class Canvas extends React.Component {
      */
     bindGlobalEvent() {
 
-        Messager.on('removeModule', (moduleId, moduleData) => {
-            this.setState({
-                moduleData,
-            })
+        Messager.on('removeModule', (moduleId, result) => {
+            if (result.result === true) {
+                const newModuleData = this.state.moduleData.filter(v => v.moduleId !== moduleId);
+                this.setState({
+                    moduleData: newModuleData,
+                })
+            }
+
         })
 
         Messager.on('addModule', (req, moduleData) => {
+            const oldModuleData = this.state.moduleData;
             this.setState({
-                moduleData,
+                moduleData: [...oldModuleData, ...[moduleData]],
             })
         })
 
@@ -81,7 +86,7 @@ export default class Canvas extends React.Component {
         const moduleData = this.state.moduleData;
 
         function getModuleList(moduleData) {
-            if(!moduleData){
+            if (!moduleData) {
                 return <div></div>
             }
             return moduleData.map((v, i) => {

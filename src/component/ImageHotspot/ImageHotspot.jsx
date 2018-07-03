@@ -17,7 +17,7 @@ export default class ImageHotspot extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('remove', this)
+        
     }
 
     /**

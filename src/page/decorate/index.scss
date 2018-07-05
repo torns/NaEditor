@@ -32,6 +32,14 @@
             .cd-iframe-warp {
                 box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
             }
+            .cd-canvas-wrap {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                z-index: 2;
+            }
         }
         iframe.cd-canvas {
             position: relative;

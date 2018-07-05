@@ -20,10 +20,8 @@ export default class ModuleWrap extends React.Component {
     render() {
         const { isFocus } = this.props;
         return (
-            <div className={`J_module ${isFocus === true ? 'focus' : ''}`}
-                onClick={() => { this.focus() }}
-                data-module-name={this.props.moduleName}
-                data-module-id={this.props.moduleId}>
+            <div className={`J_moduleWrap ${isFocus === true ? 'focus' : ''}`}
+                onClick={() => { this.focus() }}>
                 {this.props.children}
             </div>
         )

@@ -9,6 +9,7 @@ import '../../db/createStore';
 import ConfigDialog from '@component/ConfigDialog';
 import Canvas from '@component/Canvas';
 import DBInit from '@db/dataInitial';
+import CanvasWarp from "@component/CanvasWrap";
 
 window.Messager = window._eldInstanceMessager;
 const Messager = window.Messager;
@@ -70,5 +71,8 @@ window.addEventListener('load', () => {
         el,
         sDom.querySelector('#Container')
     )
-
+    ReactDOM.render(
+        <CanvasWarp />,
+        document.querySelector('.J_canvasWrap'),
+    )
 })

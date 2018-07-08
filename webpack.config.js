@@ -67,6 +67,8 @@ module.exports = {
             '@common': path.resolve(__dirname, 'src/common/'),
             '@component': path.resolve(__dirname, 'src/component/'),
             '@db': path.resolve(__dirname, 'src/db/'),
+            '@reducers': path.resolve(__dirname, 'src/reducers'),
+            '@actions': path.resolve(__dirname, 'src/actions'),
         },
         extensions: ['.js', '.json', '.jsx'],
     },

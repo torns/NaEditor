@@ -2,7 +2,11 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import localforage from 'localforage';
 import idb from 'idb';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
+import reducer from '../../reducers';
 import '@component/Messager';
 import Action from '@common/script/action';
 import '../../db/createStore';
@@ -16,6 +20,8 @@ const Messager = window.Messager;
 const DP = window._eldInstanceDataPersistence;
 const sWin = document.querySelector('.J_canvas').contentWindow;
 const sDom = sWin.document;
+
+const store = createStore(reducer, composeWithDevTools());
 
 DP.addAction({
     removeModule: async (moduleId) => {
@@ -34,6 +40,10 @@ Messager.on('refreshModules', (req, res) => {
     console.log(res);
 })
 
+
+const App = () => {
+
+}
 
 ReactDOM.render(< ConfigDialog />, document.querySelector('.J_configDialog'));
 
@@ -66,13 +76,17 @@ document.querySelector('.J_refresh').onclick = () => {
 
 
 window.addEventListener('load', () => {
-    const el = < Canvas />
+    const el = (
+        <Provider store={store}>
+            < Canvas />
+        </Provider>
+    )
     ReactDOM.render(
         el,
         sDom.querySelector('#Container')
     )
-    ReactDOM.render(
-        <CanvasWarp />,
+    ReactDOM.render(<
+        CanvasWarp />,
         document.querySelector('.J_canvasWrap'),
     )
 })

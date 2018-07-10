@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --mode development",
-    "dev": "webpack --mode development",
+    "dev": "webpack --mode development -w",
     "build": "webpack --mode production"
   },
   "repository": {
@@ -38,6 +38,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
+    "react-thunk": "^1.0.0",
     "redux": "^4.0.0",
     "redux-devtools": "^3.4.1",
     "redux-devtools-extension": "^2.13.5",

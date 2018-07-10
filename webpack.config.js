@@ -19,11 +19,18 @@ entryList.forEach(function(file) {
 console.log(entrys)
 
 
-const HtmlWebpackPlugins = new HtmlWebpackPlugin({
-    filename: '/page/decorate.html',
-    template: './src/page/decorate/index.html',
-    chunks: ['page/decorate']
-})
+const HtmlWebpackPlugins = [
+    new HtmlWebpackPlugin({
+        filename: '/page/decorate.html',
+        template: './src/page/decorate/index.html',
+        chunks: ['page/decorate']
+    }),
+    new HtmlWebpackPlugin({
+        filename: '/page/learn.html',
+        template: './src/page/learn/index.html',
+        chunks: ['page/learn']
+    })
+]
 
 
 module.exports = {
@@ -72,5 +79,7 @@ module.exports = {
         },
         extensions: ['.js', '.json', '.jsx'],
     },
-    plugins: [HtmlWebpackPlugins],
+    plugins: [
+
+    ].concat(HtmlWebpackPlugins),
 };

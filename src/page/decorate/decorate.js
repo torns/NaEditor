@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import localforage from 'localforage';
-import idb from 'idb';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunkMiddleware from 'react-thunk';
 
 import reducer from '../../reducers';
+import * as Actions from '../../actions';
 import '@component/Messager';
 import Action from '@common/script/action';
 import '../../db/createStore';
@@ -21,7 +22,7 @@ const DP = window._eldInstanceDataPersistence;
 const sWin = document.querySelector('.J_canvas').contentWindow;
 const sDom = sWin.document;
 
-const store = createStore(reducer, composeWithDevTools());
+const store = createStore(reducer);
 
 DP.addAction({
     removeModule: async (moduleId) => {
@@ -36,8 +37,11 @@ DP.addAction({
 })
 
 
+
+
 Messager.on('refreshModules', (req, res) => {
     console.log(res);
+
 })
 
 
@@ -71,6 +75,7 @@ document.querySelector('.J_dbInitial').addEventListener('click', (e) => {
 
 document.querySelector('.J_refresh').onclick = () => {
     Messager.trigger('refreshModules')
+    store.dispatch(Actions.addModule)
 }
 
 
@@ -78,15 +83,40 @@ document.querySelector('.J_refresh').onclick = () => {
 window.addEventListener('load', () => {
     const el = (
         <Provider store={store}>
-            < Canvas />
+            < Canvas store={store} />
         </Provider>
     )
     ReactDOM.render(
         el,
         sDom.querySelector('#Container')
     )
-    ReactDOM.render(<
-        CanvasWarp />,
+    ReactDOM.render(<CanvasWarp />,
         document.querySelector('.J_canvasWrap'),
     )
+
+    class Counter extends React.Component {
+        render() {
+            return (
+                <div>
+                    <span>{this.props.value}</span>
+                    <button onClick={this.props.onIncrement}>+</button>
+                    <button onClick={this.props.onDecrement}>-</button>
+                </div>
+            )
+        }
+    }
+
+    const render = () => ReactDOM.render(
+        <Counter
+            value={store.getState()}
+            onIncrement={() => store.dispatch({ type: 'INCREMENT' })}
+            onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
+        />,
+        document.querySelector('#count')
+    )
+
+    render();
+    store.subscribe(render);
+    window.store = store;
 })
+

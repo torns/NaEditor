@@ -41975,6 +41975,10 @@ const sDom = sWin.document;
 
 const store = Object(redux__WEBPACK_IMPORTED_MODULE_4__["createStore"])(_reducers__WEBPACK_IMPORTED_MODULE_7__["default"]);
 
+store.subscribe(function (data) {
+    console.log(store.getState());
+});
+
 DP.addAction({
     removeModule: (() => {
         var _ref = _asyncToGenerator(function* (moduleId) {
@@ -42034,7 +42038,7 @@ document.querySelector('.J_dbInitial').addEventListener('click', e => {
 
 document.querySelector('.J_refresh').onclick = () => {
     Messager.trigger('refreshModules');
-    store.dispatch(_actions__WEBPACK_IMPORTED_MODULE_8__["addModule"]);
+    store.dispatch(_actions__WEBPACK_IMPORTED_MODULE_8__["addModule"](1));
 };
 
 window.addEventListener('load', () => {
@@ -42146,10 +42150,9 @@ __webpack_require__.r(__webpack_exports__);
 
     switch (action.type) {
         case _actions__WEBPACK_IMPORTED_MODULE_0__["ADD_MODULE"]:
-            return state;
+            return ++state;
             break;
         case 'INCREMENT':
-            console.log(state);
             return state + 1;
         case 'DECREMENT':
             return state - 1;

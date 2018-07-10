@@ -24,6 +24,11 @@ const sDom = sWin.document;
 
 const store = createStore(reducer);
 
+store.subscribe(function (data) {
+    console.log(store.getState());
+})
+
+
 DP.addAction({
     removeModule: async (moduleId) => {
         return await Action.removeModule(moduleId);
@@ -75,7 +80,7 @@ document.querySelector('.J_dbInitial').addEventListener('click', (e) => {
 
 document.querySelector('.J_refresh').onclick = () => {
     Messager.trigger('refreshModules')
-    store.dispatch(Actions.addModule)
+    store.dispatch(Actions.addModule(1));
 }
 
 

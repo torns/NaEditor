@@ -5,10 +5,9 @@ export default (state = 0, action) => {
 
     switch (action.type) {
         case ADD_MODULE:
-            return state;
+            return ++state;
             break;
         case 'INCREMENT':
-            console.log(state)
             return state + 1;
         case 'DECREMENT':
             return state - 1;

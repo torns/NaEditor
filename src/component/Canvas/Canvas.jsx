@@ -78,16 +78,18 @@ export default class Canvas extends React.Component {
 
 
     render() {
+        const state = this.props.store.getState();
 
-        if (!this.state) {
+        if (!state) {
             return null;
         }
-        const moduleData = this.state.moduleData;
-
-        function getModuleList(moduleData) {
+        const moduleData = state.module.moduleData;
+       
+        function getModuleList(moduleData) {        
             if (!moduleData) {
                 return <div></div>
             }
+            console.log(moduleData)
             return moduleData.map((v, i) => {
                 const { moduleId, moduleTypeId } = v;
                 switch (moduleTypeId) {

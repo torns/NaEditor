@@ -4,7 +4,8 @@ import localforage from 'localforage';
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import thunkMiddleware from 'react-thunk';
+import thunk from 'redux-thunk';
+import { createLogger } from 'redux-logger'
 
 import reducer from '../../reducers';
 import * as Actions from '../../actions';
@@ -22,12 +23,15 @@ const DP = window._eldInstanceDataPersistence;
 const sWin = document.querySelector('.J_canvas').contentWindow;
 const sDom = sWin.document;
 
-const store = createStore(reducer);
+const middleware = [thunk]
 
-store.subscribe(function (data) {
-    console.log(store.getState());
-})
-
+const store = createStore(
+    reducer,
+    applyMiddleware(...middleware)
+)
+if (process.env.NODE_ENV !== 'production') {
+    middleware.push(createLogger())
+}
 
 DP.addAction({
     removeModule: async (moduleId) => {
@@ -50,9 +54,6 @@ Messager.on('refreshModules', (req, res) => {
 })
 
 
-const App = () => {
-
-}
 
 ReactDOM.render(< ConfigDialog />, document.querySelector('.J_configDialog'));
 
@@ -80,48 +81,25 @@ document.querySelector('.J_dbInitial').addEventListener('click', (e) => {
 
 document.querySelector('.J_refresh').onclick = () => {
     Messager.trigger('refreshModules')
-    store.dispatch(Actions.addModule(1));
+    store.dispatch(Actions.fetchModuleList(window.BASE_DATA.pageId));
 }
 
 
 
 window.addEventListener('load', () => {
     const el = (
-        <Provider store={store}>
-            < Canvas store={store} />
+        <Provider store={store} >
+            <Canvas store={store} />
         </Provider>
     )
     ReactDOM.render(
         el,
         sDom.querySelector('#Container')
     )
-    ReactDOM.render(<CanvasWarp />,
+    ReactDOM.render(< CanvasWarp />,
         document.querySelector('.J_canvasWrap'),
     )
 
-    class Counter extends React.Component {
-        render() {
-            return (
-                <div>
-                    <span>{this.props.value}</span>
-                    <button onClick={this.props.onIncrement}>+</button>
-                    <button onClick={this.props.onDecrement}>-</button>
-                </div>
-            )
-        }
-    }
 
-    const render = () => ReactDOM.render(
-        <Counter
-            value={store.getState()}
-            onIncrement={() => store.dispatch({ type: 'INCREMENT' })}
-            onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
-        />,
-        document.querySelector('#count')
-    )
 
-    render();
-    store.subscribe(render);
-    window.store = store;
 })
-

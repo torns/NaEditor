@@ -2,12 +2,7 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import localforage from 'localforage';
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware, compose } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
-import { createLogger } from 'redux-logger'
 
-import reducer from '../../reducers';
 import * as Actions from '../../actions';
 import '@component/Messager';
 import Action from '@common/script/action';
@@ -16,6 +11,7 @@ import ConfigDialog from '@component/ConfigDialog';
 import Canvas from '@component/Canvas';
 import DBInit from '@db/dataInitial';
 import CanvasWarp from "@component/CanvasWrap";
+import store from '@store';
 
 window.Messager = window._eldInstanceMessager;
 const Messager = window.Messager;
@@ -23,15 +19,6 @@ const DP = window._eldInstanceDataPersistence;
 const sWin = document.querySelector('.J_canvas').contentWindow;
 const sDom = sWin.document;
 
-const middleware = [thunk]
-
-const store = createStore(
-    reducer,
-    applyMiddleware(...middleware)
-)
-if (process.env.NODE_ENV !== 'production') {
-    middleware.push(createLogger())
-}
 
 DP.addAction({
     removeModule: async (moduleId) => {
@@ -49,8 +36,9 @@ DP.addAction({
 
 
 Messager.on('refreshModules', (req, res) => {
-    console.log(res);
-
+    store.dispatch(Actions.fetchModuleList({
+        pageId: Number.parseInt(BASE_DATA.pageId),
+    }));
 })
 
 
@@ -68,10 +56,15 @@ document.querySelector('.J_removeModule').addEventListener('click', (e) => {
 document.querySelector('.J_addModule').addEventListener('click', (e) => {
     let moduleTypeId = document.querySelector('.J_addModuleInput').value;
     moduleTypeId = Number.parseInt(moduleTypeId.trim());
-    Messager.trigger('addModule', {
+    // Messager.trigger('addModule', {
+    //     moduleTypeId,
+    //     pageId: Number.parseInt(BASE_DATA.pageId),
+    // });
+
+    store.dispatch(Actions.addModuleRequest({
         moduleTypeId,
         pageId: Number.parseInt(BASE_DATA.pageId),
-    });
+    }));
 })
 
 document.querySelector('.J_dbInitial').addEventListener('click', (e) => {
@@ -87,6 +80,10 @@ document.querySelector('.J_refresh').onclick = () => {
 
 
 window.addEventListener('load', () => {
+
+
+
+
     const el = (
         <Provider store={store} >
             <Canvas store={store} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import localforage from 'localforage';
+import { connect } from 'react-redux';
 
 import Messager from '@component/Messager';
 import Action from '@common/script/action';
@@ -35,8 +36,7 @@ import ImageHotspot from '@component/ImageHotspot';
 // });
 
 
-
-export default class Canvas extends React.Component {
+class Canvas extends React.Component {
     constructor() {
         super();
         this.bindGlobalEvent();
@@ -79,18 +79,18 @@ export default class Canvas extends React.Component {
 
     render() {
         const state = this.props.store.getState();
-
+        
         if (!state) {
             return null;
         }
-        const moduleData = state.module.moduleData;
-       
-        function getModuleList(moduleData) {        
-            if (!moduleData) {
+        const moduleList = state.module.moduleList;
+        
+        function getModuleList(moduleList) {
+           
+            if (!moduleList) {
                 return <div></div>
             }
-            console.log(moduleData)
-            return moduleData.map((v, i) => {
+            return moduleList.map((v, i) => {
                 const { moduleId, moduleTypeId } = v;
                 switch (moduleTypeId) {
                     case 1:
@@ -109,10 +109,18 @@ export default class Canvas extends React.Component {
 
         return (
             <div>
-                {getModuleList(moduleData)}
+                {getModuleList(moduleList)}
             </div>
         )
     }
 }
+
+
+function mapStateToProps(state) {
+    return { module: state.module }
+}
+
+
+export default connect(mapStateToProps)(Canvas)
 
 window.Canvas = Canvas;

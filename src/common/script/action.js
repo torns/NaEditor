@@ -42,7 +42,7 @@ const Action = {
             await moduleStore.delete(moduleId);
 
             resolve({
-                result:true,
+                result: true,
             })
 
         })
@@ -51,13 +51,11 @@ const Action = {
      * 添加模块
      * @param {Object} args 入参，模块类型，位置等
      */
-    async addModule(args = { preModuleId: 1, moduleTypeId: 1, data: {}, pageId: 1 }) {
+    async addModule(args = { preModuleId: undefined, moduleTypeId: 1, data: {}, pageId: 1 }) {
 
         let { preModuleId, moduleTypeId, data, pageId } = args;
         let dbModuleData = await localforage.getItem('moduleData');
 
-        //没有前一个模块的Id则默认添加到页面最后
-        preModuleId === undefined && (preModuleId = dbModuleData[length - 1].moduleId);
 
         // 没有模块数据默认为空对象
         data === undefined && (data = {});
@@ -85,11 +83,22 @@ const Action = {
             // 在该page中插入模块id
             let page = await pageStore.get(pageId);
             page.moduleList === undefined && (page.moduleList = []);
-            page.moduleList.push(moduleId);
+
+            //没有前一个模块的Id则默认添加到页面最后
+            if (preModuleId === undefined) {
+                preModuleId = page.moduleList[page.moduleList.length - 1] || undefined;
+            }
+            const index = page.moduleList.indexOf(preModuleId);
+
+            page.moduleList.splice(index + 1, 0, moduleId);
+
             // 更新page
             pageStore.put(page);
 
-            resolve(await moduleStore.get(moduleId));
+            resolve({
+                moduleData: await moduleStore.get(moduleId),
+                preModuleId,
+            });
         })
     },
     /**

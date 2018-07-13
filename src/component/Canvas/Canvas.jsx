@@ -10,32 +10,6 @@ import UserDefine from '@component/UserDefine';
 import ImageHotspot from '@component/ImageHotspot';
 
 
-
-// const moduleData = [
-//     {
-//         moduleTypeId: 1,
-//         moduleName: '自定321义代码模块',
-//         moduleId: 10000,
-//         data: {
-//             code: `<style>div{color:red;}</style>
-//             <div class="a">dsf</div>`
-//         }
-//     }, {
-//         moduleTypeId: 2,
-//         moduleName: '图片热区模块',
-//         moduleId: 10003,
-//         data: {
-//             imgSrc: `https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2141015511,3653211916&fm=58&bpow=400&bpoh=400`
-//         }
-//     }
-// ]
-
-
-// Action.updateModule(moduleData[0]).then(data => {
-//     console.log(data);
-// });
-
-
 class Canvas extends React.Component {
     constructor() {
         super();
@@ -43,7 +17,7 @@ class Canvas extends React.Component {
     }
 
     componentWillMount() {
-        Messager.trigger('refreshModules');
+        
 
     }
 
@@ -79,17 +53,17 @@ class Canvas extends React.Component {
 
     render() {
         const state = this.props.store.getState();
-        
         if (!state) {
             return null;
         }
         const moduleList = state.module.moduleList;
-        
+
         function getModuleList(moduleList) {
-           
+
             if (!moduleList) {
                 return <div></div>
             }
+
             return moduleList.map((v, i) => {
                 const { moduleId, moduleTypeId } = v;
                 switch (moduleTypeId) {

@@ -22,18 +22,18 @@ const Action = {
     },
     /**
      * 根据模块Id删除模块  
-     * @param {Number} moduleId 模块Id
+     * @param {Object}  入参 带moduleId和pageId
      */
-    async removeModule(moduleId) {
+    async removeModule({ moduleId, pageId }) {
         return new Promise(async(resolve, reject) => {
             const db = await idb.open(DB.Name);
             const tx = db.transaction(['page', 'module'], 'readwrite');
             const pageStore = tx.objectStore('page');
             const moduleStore = tx.objectStore('module');
+            console.log(moduleId, pageId)
 
             // 删除页面引用
-            const belongToPageId = (await moduleStore.get(moduleId)).pageId;
-            let page = await pageStore.get(belongToPageId);
+            let page = await pageStore.get(pageId);
             page.moduleList = page.moduleList.filter(v => v !== moduleId);
             // 回填到页面
             await pageStore.put(page);
@@ -43,6 +43,7 @@ const Action = {
 
             resolve({
                 result: true,
+                moduleId,
             })
 
         })
@@ -102,12 +103,19 @@ const Action = {
         })
     },
     /**
-     * 获得模块列表
+     * 获得页面所有模块数据
+     * @param {Object} args 入参 页面Id等
      */
-    async getModulesList() {
+    async getModuleList(pageId) {
+        pageId = Number.parseInt(pageId);
         const db = await idb.open(DB.Name);
-        const result = await db.transaction('module').objectStore('module').getAll();
-        return result;
+        const tx = db.transaction(['module', 'page'], 'readonly');
+        const moduleInfos = await tx.objectStore('module').getAll();
+        const pageInfo = await tx.objectStore('page').get(pageId);
+        // 筛选出当前页面的模块
+        return moduleInfos.filter((v) => {
+            return pageInfo.moduleList.includes(v.moduleId);
+        })
     },
     /**
      * 根据moduleTypeId获取模块名称

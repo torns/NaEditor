@@ -20,6 +20,8 @@ const sWin = document.querySelector('.J_canvas').contentWindow;
 const sDom = sWin.document;
 
 
+const pageId = Number.parseInt(BASE_DATA.pageId);
+
 DP.addAction({
     removeModule: async (moduleId) => {
         return await Action.removeModule(moduleId);
@@ -28,19 +30,15 @@ DP.addAction({
         return await Action.addModule(moduleId);
     },
     refreshModules: async () => {
-        return await Action.getModulesList();
+        return await Action.getModuleList();
     }
 })
 
 
 
-
-Messager.on('refreshModules', (req, res) => {
-    store.dispatch(Actions.fetchModuleList({
-        pageId: Number.parseInt(BASE_DATA.pageId),
-    }));
+document.addEventListener('DOMContentLoaded', () => {
+    store.dispatch(Actions.fetchModuleList(pageId));
 })
-
 
 
 ReactDOM.render(< ConfigDialog />, document.querySelector('.J_configDialog'));
@@ -49,21 +47,20 @@ ReactDOM.render(< ConfigDialog />, document.querySelector('.J_configDialog'));
 document.querySelector('.J_removeModule').addEventListener('click', (e) => {
     let moduleId = document.querySelector('.J_removeModuleInput').value;
     moduleId = Number.parseInt(moduleId.trim());
-    Messager.trigger('removeModule', moduleId);
+    store.dispatch(Actions.removeModuleRequest({
+        moduleId,
+        pageId,
+    }))
 })
 
 
 document.querySelector('.J_addModule').addEventListener('click', (e) => {
     let moduleTypeId = document.querySelector('.J_addModuleInput').value;
     moduleTypeId = Number.parseInt(moduleTypeId.trim());
-    // Messager.trigger('addModule', {
-    //     moduleTypeId,
-    //     pageId: Number.parseInt(BASE_DATA.pageId),
-    // });
 
     store.dispatch(Actions.addModuleRequest({
         moduleTypeId,
-        pageId: Number.parseInt(BASE_DATA.pageId),
+        pageId,
     }));
 })
 
@@ -73,16 +70,13 @@ document.querySelector('.J_dbInitial').addEventListener('click', (e) => {
 
 
 document.querySelector('.J_refresh').onclick = () => {
-    Messager.trigger('refreshModules')
+    // Messager.trigger('refreshModules')
     store.dispatch(Actions.fetchModuleList(window.BASE_DATA.pageId));
 }
 
 
 
 window.addEventListener('load', () => {
-
-
-
 
     const el = (
         <Provider store={store} >

@@ -47,8 +47,6 @@ export const removeModule = (moduleId) => ({
     moduleId,
 })
 
-
-
 /**
  * 删除模块请求
  * @param {Object} args 入参 包含moduleId与pageId
@@ -59,6 +57,24 @@ export const removeModuleRequest = (args) => async(dispatch) => {
         dispatch(removeModule(data.moduleId));
     }
 }
+
+// 打开配置框
+export const SHOW_CONFIG = 'SHOW_CONFIG';
+export const showConfig = (moduleData) => {
+    return {
+        type: SHOW_CONFIG,
+        moduleData
+    }
+}
+
+// 关闭配置框
+export const HIDE_CONFIG = 'HIDE_CONFIG';
+export const hideConfig = (hideConfig) => {
+    return {
+        type: HIDE_CONFIG,
+    }
+}
+
 
 export const FETCH_MODULE_LIST = 'FETCH_MODULE_LIST';
 export const fetchModuleList = (pageId) => {

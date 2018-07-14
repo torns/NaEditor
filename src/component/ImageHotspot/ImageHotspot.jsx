@@ -17,7 +17,7 @@ export default class ImageHotspot extends React.Component {
     }
 
     componentWillUnmount() {
-        
+
     }
 
     /**
@@ -25,9 +25,9 @@ export default class ImageHotspot extends React.Component {
      */
     render() {
         return (
-            <Module>
+            <Module moduleData={this.props.moduleData}>
                 <img src={this.state.imgSrc} />
-            </Module>
+            </ Module>
 
         )
     }

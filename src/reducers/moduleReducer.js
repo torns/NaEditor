@@ -7,7 +7,6 @@ export default (state = { moduleList: [] }, action) => {
             {
                 // 这里需要数组深拷贝，暂时不知道用啥办法
                 const result = JSON.parse(JSON.stringify(state));
-                console.log(result)
                 const { preModuleId, moduleData } = action;
                 // TODO 暂时先统统丢到最后面
                 // if (preModuleId === undefined) {
@@ -17,9 +16,9 @@ export default (state = { moduleList: [] }, action) => {
                 break;
             }
 
-        case REFRESH_MODULE:
-            const { moduleData } = action;
-            return moduleData;
+        // case REFRESH_MODULE:
+        //     const { moduleData } = action;
+        //     return moduleData;
 
         case REFRESH_MODULE_LIST: //刷新整页
             const { moduleList } = action;

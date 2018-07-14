@@ -16,9 +16,6 @@ entryList.forEach(function(file) {
     entrys[name] = './' + file;
 });
 
-console.log(entrys)
-
-
 const HtmlWebpackPlugins = [
     new HtmlWebpackPlugin({
         filename: '/page/decorate.html',

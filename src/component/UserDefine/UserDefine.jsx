@@ -4,8 +4,10 @@ import Module from '@component/Module';
 
 
 export default class UserDefine extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
+
+
     }
 
     /**
@@ -15,10 +17,6 @@ export default class UserDefine extends React.Component {
         const { code } = this.props.moduleData.data;
         const el = this.refs.module;
         $(el).append(code);
-
-        // console.log(code);
-        // const { code } = this.props;
-        // eval(code);
     }
 
     componentDidMount() {
@@ -31,7 +29,7 @@ export default class UserDefine extends React.Component {
 
     render() {
         return (
-            <Module>
+            <Module moduleData={this.props.moduleData}>
                 <div ref="module"></div>
             </Module>
         )

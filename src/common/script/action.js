@@ -30,7 +30,6 @@ const Action = {
             const tx = db.transaction(['page', 'module'], 'readwrite');
             const pageStore = tx.objectStore('page');
             const moduleStore = tx.objectStore('module');
-            console.log(moduleId, pageId)
 
             // 删除页面引用
             let page = await pageStore.get(pageId);
@@ -104,7 +103,7 @@ const Action = {
     },
     /**
      * 获得页面所有模块数据
-     * @param {Object} args 入参 页面Id等
+     * @param {String} pageId 页面Id
      */
     async getModuleList(pageId) {
         pageId = Number.parseInt(pageId);

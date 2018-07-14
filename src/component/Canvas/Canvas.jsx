@@ -8,17 +8,20 @@ import Action from '@common/script/action';
 import Module from '@component/Module';
 import UserDefine from '@component/UserDefine';
 import ImageHotspot from '@component/ImageHotspot';
+import { fetchModuleList } from '@actions';
+
+const { BASE_DATA } = window.top
 
 
 class Canvas extends React.Component {
-    constructor() {
+    constructor(props, context) {
         super();
         this.bindGlobalEvent();
     }
 
     componentWillMount() {
-        
-
+        // 初始化模块
+        this.props.fetchModuleList(BASE_DATA.pageId);
     }
 
     /**
@@ -52,12 +55,12 @@ class Canvas extends React.Component {
 
 
     render() {
-        const state = this.props.store.getState();
-        if (!state) {
+
+        const moduleList = this.props.moduleList;
+        if (!moduleList) {
             return null;
         }
-        const moduleList = state.module.moduleList;
-
+        
         function getModuleList(moduleList) {
 
             if (!moduleList) {
@@ -82,19 +85,18 @@ class Canvas extends React.Component {
 
 
         return (
-            <div>
+            <React.Fragment>
                 {getModuleList(moduleList)}
-            </div>
+            </React.Fragment>
         )
     }
 }
 
 
-function mapStateToProps(state) {
-    return { module: state.module }
+
+const mapStateToProps = (state) => {
+    return { moduleList: state.module.moduleList }
 }
 
 
-export default connect(mapStateToProps)(Canvas)
-
-window.Canvas = Canvas;
+export default connect(mapStateToProps, { fetchModuleList })(Canvas)

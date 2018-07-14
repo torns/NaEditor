@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import localforage from 'localforage';
 import { Provider } from 'react-redux'
 
+import App from '@component/App';
 import * as Actions from '../../actions';
 import '@component/Messager';
 import Action from '@common/script/action';
@@ -16,8 +17,6 @@ import store from '@store';
 window.Messager = window._eldInstanceMessager;
 const Messager = window.Messager;
 const DP = window._eldInstanceDataPersistence;
-const sWin = document.querySelector('.J_canvas').contentWindow;
-const sDom = sWin.document;
 
 
 const pageId = Number.parseInt(BASE_DATA.pageId);
@@ -36,60 +35,65 @@ DP.addAction({
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    store.dispatch(Actions.fetchModuleList(pageId));
-})
-
-
-ReactDOM.render(< ConfigDialog />, document.querySelector('.J_configDialog'));
-
-
-document.querySelector('.J_removeModule').addEventListener('click', (e) => {
-    let moduleId = document.querySelector('.J_removeModuleInput').value;
-    moduleId = Number.parseInt(moduleId.trim());
-    store.dispatch(Actions.removeModuleRequest({
-        moduleId,
-        pageId,
-    }))
-})
-
-
-document.querySelector('.J_addModule').addEventListener('click', (e) => {
-    let moduleTypeId = document.querySelector('.J_addModuleInput').value;
-    moduleTypeId = Number.parseInt(moduleTypeId.trim());
-
-    store.dispatch(Actions.addModuleRequest({
-        moduleTypeId,
-        pageId,
-    }));
-})
-
-document.querySelector('.J_dbInitial').addEventListener('click', (e) => {
-    DBInit();
-})
-
-
-document.querySelector('.J_refresh').onclick = () => {
-    // Messager.trigger('refreshModules')
-    store.dispatch(Actions.fetchModuleList(window.BASE_DATA.pageId));
-}
-
 
 
 window.addEventListener('load', () => {
 
-    const el = (
-        <Provider store={store} >
-            <Canvas store={store} />
-        </Provider>
-    )
     ReactDOM.render(
-        el,
-        sDom.querySelector('#Container')
+        (<Provider store={store} >
+            <Canvas />
+        </Provider>),
+        document.querySelector('.J_canvas').contentDocument.querySelector('#Container'));
+
+
+    ReactDOM.render(
+        (
+            <ConfigDialog store={store} />
+        ),
+        document.querySelector('.J_configDialog')
     )
-    ReactDOM.render(< CanvasWarp />,
-        document.querySelector('.J_canvasWrap'),
-    )
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        store.dispatch(Actions.fetchModuleList(pageId));
+    })
+
+
+
+
+
+    document.querySelector('.J_removeModule').addEventListener('click', (e) => {
+        let moduleId = document.querySelector('.J_removeModuleInput').value;
+        moduleId = Number.parseInt(moduleId.trim());
+        store.dispatch(Actions.removeModuleRequest({
+            moduleId,
+            pageId,
+        }))
+    })
+
+
+    document.querySelector('.J_addModule').addEventListener('click', (e) => {
+        let moduleTypeId = document.querySelector('.J_addModuleInput').value;
+        moduleTypeId = Number.parseInt(moduleTypeId.trim());
+
+        store.dispatch(Actions.addModuleRequest({
+            moduleTypeId,
+            pageId,
+        }));
+    })
+
+    document.querySelector('.J_dbInitial').addEventListener('click', (e) => {
+        DBInit();
+    })
+
+
+    document.querySelector('.J_refresh').onclick = () => {
+        // Messager.trigger('refreshModules')
+        store.dispatch(Actions.fetchModuleList(window.BASE_DATA.pageId));
+    }
 
 
 

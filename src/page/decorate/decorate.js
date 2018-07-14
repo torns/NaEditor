@@ -48,7 +48,9 @@ window.addEventListener('load', () => {
 
     ReactDOM.render(
         (
-            <ConfigDialog store={store} />
+            <Provider store={store}>
+                <ConfigDialog store={store} />
+            </Provider >
         ),
         document.querySelector('.J_configDialog')
     )

@@ -1,7 +1,7 @@
-import { SHOW_CONFIG, HIDE_CONFIG } from "../actions";
+import { SHOW_CONFIG, HIDE_CONFIG, SAVE_CONFIG } from "../actions";
 
 
-export default (state = { isVisiable: false }, action) => {
+export default (state = { isVisiable: false, configData: {} }, action) => {
     switch (action.type) {
         case SHOW_CONFIG:
             {
@@ -17,6 +17,11 @@ export default (state = { isVisiable: false }, action) => {
         case HIDE_CONFIG:
 
             return Object.assign({ isVisiable: false, })
+        case SAVE_CONFIG:
+            const { configData } = action;
+            return Object.assign({}, state, {
+                configData,
+            })
         default:
             return state;
     }

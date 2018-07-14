@@ -75,6 +75,15 @@ export const hideConfig = (hideConfig) => {
     }
 }
 
+// 保存配置
+export const SAVE_CONFIG = 'SAVE_CONFIG';
+export const saveConfig = (configData = {}) => {
+    return {
+        type: SAVE_CONFIG,
+        configData,
+    }
+}
+
 
 export const FETCH_MODULE_LIST = 'FETCH_MODULE_LIST';
 export const fetchModuleList = (pageId) => {

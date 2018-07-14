@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Input } from 'antd';
+const { TextArea } = Input;
 
-
-export default class UserDefineConfig extends React.Component {
+class UserDefineConfig extends React.Component {
 
     constructor() {
         super();
@@ -12,8 +14,11 @@ export default class UserDefineConfig extends React.Component {
         return (
             <div>
                 <div className="cd-title">{this.props.title}</div>
-                <Input placeholder="Basic usage" />
+                <TextArea placeholder="Basic usage" />
             </div>
         )
     }
 }
+
+
+export default UserDefineConfig;

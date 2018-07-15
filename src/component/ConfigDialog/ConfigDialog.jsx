@@ -27,7 +27,7 @@ class ConfigDialog extends React.Component {
     render() {
         const { moduleConfig, hideConfig, saveConfigRequest } = this.props;
         const { store } = this.context;
-
+        console.log(moduleConfig)
 
         function renderDialog(moduleConfig) {
             const { moduleData } = moduleConfig;

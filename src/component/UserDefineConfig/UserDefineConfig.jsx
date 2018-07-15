@@ -8,9 +8,29 @@ class UserDefineConfig extends React.Component {
 
     constructor(props) {
         super();
-        this.state = {
-            code: props.moduleData.configData.code,
+        let code;
+        if (props.moduleData.configData) {
+            code = props.moduleData.configData.code;
+        } else {
+            code = '';
         }
+        this.state = {
+            code,
+        }
+    }
+
+
+    componentWillReceiveProps(nextProps) {
+        let newCode;
+        if (nextProps.moduleData.configData) {
+            newCode = nextProps.moduleData.configData.code;
+        } else {
+            newCode = '';
+        }
+        this.setState({
+            code: newCode
+        })
+
     }
 
     getConfigData() {

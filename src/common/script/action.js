@@ -5,22 +5,6 @@ import DB from '@db/dbConfig';
 
 const Action = {
     /**
-     * 更新模块
-     * @param {Array} moduleData 模块数据列表
-     */
-    async updateModule(moduleData) {
-        const { moduleId } = moduleData;
-        let dbModuleData = await localforage.getItem('moduleData');
-        dbModuleData.forEach((v, i) => {
-            let _moduleData = dbModuleData[i];
-            if (_moduleData.moduleId === moduleId) {
-                dbModuleData[i] = moduleData;
-            }
-        })
-
-        return localforage.setItem('moduleData', dbModuleData);
-    },
-    /**
      * 根据模块Id删除模块  
      * @param {Object}  入参 带moduleId和pageId
      */
@@ -104,7 +88,8 @@ const Action = {
     /**
      * 更新模块
      */
-    async updateModule({ configData, moduleData }) {
+    async updateModule(moduleData) {
+        console.log(moduleData)
         const db = await idb.open(DB.Name);
         const tx = db.transaction(['module'], 'readwrite');
         const moduleId = await tx.objectStore('module').put(moduleData);

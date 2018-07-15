@@ -28,10 +28,11 @@ class Module extends React.Component {
 
     render() {
         const { showConfig } = this.props;
-        const { moduleData, configData } = this.state;
+        const { moduleData } = this.state;
+        const { configData } = moduleData;
         return (
             <div className={`J_module`}
-                onClick={() => { showConfig(moduleData, configData) }}
+                onClick={() => { showConfig(moduleData) }}
             >
                 {this.state.isEmpty ? <div className="d-placeholder">请配置模块数据</div> : this.props.children}
             </div>

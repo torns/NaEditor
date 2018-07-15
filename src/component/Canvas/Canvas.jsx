@@ -60,7 +60,7 @@ class Canvas extends React.Component {
         if (!moduleList) {
             return null;
         }
-        
+
         function getModuleList(moduleList) {
 
             if (!moduleList) {

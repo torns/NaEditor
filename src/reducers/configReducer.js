@@ -5,12 +5,12 @@ export default (state = { isVisiable: false, configData: {} }, action) => {
     switch (action.type) {
         case SHOW_CONFIG:
             {
+                
                 const { moduleData } = action;
                 const moduleConfig = {
                     isVisiable: true,
                     moduleData,
                 }
-
                 return Object.assign({}, state, moduleConfig);
             }
             break;

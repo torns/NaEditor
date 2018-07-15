@@ -9,7 +9,7 @@ class UserDefineConfig extends React.Component {
     constructor(props) {
         super();
         this.state = {
-            code: '',
+            code: props.moduleData.configData.code,
         }
     }
 

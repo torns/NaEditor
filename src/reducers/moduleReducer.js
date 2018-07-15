@@ -38,6 +38,7 @@ export default (state = { moduleList: [] }, action) => {
             }
         case UPDATE_MODULE: //更新模块
             const { moduleData } = action;
+            console.log(action)
             if (moduleData) {
                 const { moduleId } = moduleData;
                 const result = Object.assign({}, state, {

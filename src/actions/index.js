@@ -2,9 +2,6 @@ import Action from '@common/script/action';
 
 
 
-
-
-
 export const REFRESH_MODULE = 'REFRESH_MODULE';
 export const refreshModule = (moduleData) => {
     return {
@@ -81,6 +78,7 @@ export const hideConfig = (hideConfig) => {
 // 更新模块
 export const UPDATE_MODULE = 'UPDATE_MODULE';
 export const updateModule = (moduleData) => {
+    console.log(moduleData)
     return {
         type: UPDATE_MODULE,
         moduleData,
@@ -89,9 +87,9 @@ export const updateModule = (moduleData) => {
 
 // 保存模块配置
 export const SAVE_CONFIG_REQUEST = 'SAVE_CONFIG_REQUEST';
-export const saveConfigRequest = (args) => {
+export const saveConfigRequest = (moduleData) => {
     return async(dispatch) => {
-        dispatch(updateModule(await Action.updateModule(args)));
+        dispatch(updateModule(await Action.updateModule(moduleData)));
     }
 }
 

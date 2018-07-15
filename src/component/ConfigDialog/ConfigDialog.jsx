@@ -12,7 +12,6 @@ class ConfigDialog extends React.Component {
     constructor() {
         super();
         this.state = {
-            configData: {},
         }
     }
 
@@ -20,11 +19,9 @@ class ConfigDialog extends React.Component {
         const { form } = this.refs;
         const { saveConfigRequest } = this.props;
         const configData = form.getConfigData();
-        const moduleData = form.toModuleData(configData);
-        saveConfigRequest({
-            configData,
-            moduleData,
-        });
+        let moduleData = form.toModuleData(configData);
+        moduleData.configData = configData;
+        saveConfigRequest(moduleData);
     }
 
     render() {
@@ -40,7 +37,7 @@ class ConfigDialog extends React.Component {
                     return <UserDefineConfig
                         title="自定义代码配置"
                         ref='form'
-                        getConfig={() => { }} />
+                        moduleData={moduleData} />
                 default:
                     return <div>没有找到该模块的配置项</div>
             }

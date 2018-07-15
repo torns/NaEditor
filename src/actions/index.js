@@ -75,14 +75,26 @@ export const hideConfig = (hideConfig) => {
     }
 }
 
-// 保存配置
-export const SAVE_CONFIG = 'SAVE_CONFIG';
-export const saveConfig = (configData = {}) => {
+
+
+
+// 更新模块
+export const UPDATE_MODULE = 'UPDATE_MODULE';
+export const updateModule = (moduleData) => {
     return {
-        type: SAVE_CONFIG,
-        configData,
+        type: UPDATE_MODULE,
+        moduleData,
     }
 }
+
+// 保存模块配置
+export const SAVE_CONFIG_REQUEST = 'SAVE_CONFIG_REQUEST';
+export const saveConfigRequest = (args) => {
+    return async(dispatch) => {
+        dispatch(updateModule(await Action.updateModule(args)));
+    }
+}
+
 
 
 export const FETCH_MODULE_LIST = 'FETCH_MODULE_LIST';

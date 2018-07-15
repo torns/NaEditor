@@ -1,4 +1,4 @@
-import { ADD_MODULE, REFRESH_MODULE, REFRESH_MODULE_LIST, REMOVE_MODULE } from "../actions";
+import { ADD_MODULE, REFRESH_MODULE, REFRESH_MODULE_LIST, REMOVE_MODULE, UPDATE_MODULE } from "../actions";
 
 
 export default (state = { moduleList: [] }, action) => {
@@ -16,9 +16,9 @@ export default (state = { moduleList: [] }, action) => {
                 break;
             }
 
-        // case REFRESH_MODULE:
-        //     const { moduleData } = action;
-        //     return moduleData;
+            // case REFRESH_MODULE:
+            //     const { moduleData } = action;
+            //     return moduleData;
 
         case REFRESH_MODULE_LIST: //刷新整页
             const { moduleList } = action;
@@ -35,6 +35,21 @@ export default (state = { moduleList: [] }, action) => {
                 });
             } else {
                 return state;
+            }
+        case UPDATE_MODULE: //更新模块
+            const { moduleData } = action;
+            if (moduleData) {
+                const { moduleId } = moduleData;
+                const result = Object.assign({}, state, {
+                    moduleList: state.moduleList.map((v) => {
+                        if (v.moduleId === moduleId) {
+                            return moduleData;
+                        } else {
+                            return v;
+                        }
+                    })
+                });
+                return result;
             }
 
 

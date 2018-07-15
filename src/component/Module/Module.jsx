@@ -9,15 +9,15 @@ class Module extends React.Component {
     constructor(props) {
         super();
         let isEmpty;    //是否为空模块（无配置数据）
-        if (props.moduleData) {
-            if (props.moduleData.data && Object.keys(props.moduleData.data).length === 0) {
-                isEmpty = true;
-            } else {
-                isEmpty = false;
-            }
-        }
+        // if (props.moduleData) {
+        //     if (props.moduleData.data && Object.keys(props.moduleData.data).length === 0) {
+        //         isEmpty = true;
+        //     } else {
+        //         isEmpty = false;
+        //     }
+        // }
         this.state = {
-            isEmpty,
+            // isEmpty,
             moduleData: props.moduleData,
             configData: {
 
@@ -30,7 +30,7 @@ class Module extends React.Component {
         const { showConfig } = this.props;
         const { moduleData, configData } = this.state;
         return (
-            <div className={`${this.state.isEmpty ? 'd-empty' : ''} J_module`}
+            <div className={`J_module`}
                 onClick={() => { showConfig(moduleData, configData) }}
             >
                 {this.state.isEmpty ? <div className="d-placeholder">请配置模块数据</div> : this.props.children}

@@ -102,6 +102,16 @@ const Action = {
         })
     },
     /**
+     * 更新模块
+     */
+    async updateModule({ configData, moduleData }) {
+        const db = await idb.open(DB.Name);
+        const tx = db.transaction(['module'], 'readwrite');
+        const moduleId = await tx.objectStore('module').put(moduleData);
+        const result = await tx.objectStore('module').get(moduleId);
+        return result;
+    },
+    /**
      * 获得页面所有模块数据
      * @param {String} pageId 页面Id
      */

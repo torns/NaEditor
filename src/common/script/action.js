@@ -89,7 +89,6 @@ const Action = {
      * 更新模块
      */
     async updateModule(moduleData) {
-        console.log(moduleData)
         const db = await idb.open(DB.Name);
         const tx = db.transaction(['module'], 'readwrite');
         const moduleId = await tx.objectStore('module').put(moduleData);

@@ -78,7 +78,6 @@ export const hideConfig = (hideConfig) => {
 // 更新模块
 export const UPDATE_MODULE = 'UPDATE_MODULE';
 export const updateModule = (moduleData) => {
-    console.log(moduleData)
     return {
         type: UPDATE_MODULE,
         moduleData,

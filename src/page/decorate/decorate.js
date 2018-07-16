@@ -18,7 +18,6 @@ window.Messager = window._eldInstanceMessager;
 const Messager = window.Messager;
 const DP = window._eldInstanceDataPersistence;
 
-
 const pageId = Number.parseInt(BASE_DATA.pageId);
 
 DP.addAction({

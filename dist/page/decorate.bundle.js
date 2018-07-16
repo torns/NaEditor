@@ -41056,7 +41056,7 @@ module.exports = g;
 /*!******************************!*\
   !*** ./src/actions/index.js ***!
   \******************************/
-/*! exports provided: REFRESH_MODULE, refreshModule, REFRESH_MODULE_LIST, refreshModuleList, ADD_MODULE, addModule, ADD_MODULE_REQUEST, addModuleRequest, REMOVE_MODULE, removeModule, removeModuleRequest, SHOW_CONFIG, showConfig, HIDE_CONFIG, hideConfig, FETCH_MODULE_LIST, fetchModuleList */
+/*! exports provided: REFRESH_MODULE, refreshModule, REFRESH_MODULE_LIST, refreshModuleList, ADD_MODULE, addModule, ADD_MODULE_REQUEST, addModuleRequest, REMOVE_MODULE, removeModule, removeModuleRequest, SHOW_CONFIG, showConfig, HIDE_CONFIG, hideConfig, UPDATE_MODULE, updateModule, SAVE_CONFIG_REQUEST, saveConfigRequest, FETCH_MODULE_LIST, fetchModuleList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -41076,6 +41076,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showConfig", function() { return showConfig; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HIDE_CONFIG", function() { return HIDE_CONFIG; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hideConfig", function() { return hideConfig; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_MODULE", function() { return UPDATE_MODULE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateModule", function() { return updateModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SAVE_CONFIG_REQUEST", function() { return SAVE_CONFIG_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveConfigRequest", function() { return saveConfigRequest; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_MODULE_LIST", function() { return FETCH_MODULE_LIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchModuleList", function() { return fetchModuleList; });
 /* harmony import */ var _common_script_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @common/script/action */ "./src/common/script/action.js");
@@ -41162,15 +41166,38 @@ const hideConfig = hideConfig => {
     };
 };
 
-const FETCH_MODULE_LIST = 'FETCH_MODULE_LIST';
-const fetchModuleList = pageId => {
+// 更新模块
+const UPDATE_MODULE = 'UPDATE_MODULE';
+const updateModule = moduleData => {
+    return {
+        type: UPDATE_MODULE,
+        moduleData
+    };
+};
+
+// 保存模块配置
+const SAVE_CONFIG_REQUEST = 'SAVE_CONFIG_REQUEST';
+const saveConfigRequest = moduleData => {
     return (() => {
         var _ref3 = _asyncToGenerator(function* (dispatch) {
-            dispatch(refreshModuleList((yield _common_script_action__WEBPACK_IMPORTED_MODULE_0__["default"].getModuleList(pageId))));
+            dispatch(updateModule((yield _common_script_action__WEBPACK_IMPORTED_MODULE_0__["default"].updateModule(moduleData))));
         });
 
         return function (_x3) {
             return _ref3.apply(this, arguments);
+        };
+    })();
+};
+
+const FETCH_MODULE_LIST = 'FETCH_MODULE_LIST';
+const fetchModuleList = pageId => {
+    return (() => {
+        var _ref4 = _asyncToGenerator(function* (dispatch) {
+            dispatch(refreshModuleList((yield _common_script_action__WEBPACK_IMPORTED_MODULE_0__["default"].getModuleList(pageId))));
+        });
+
+        return function (_x4) {
+            return _ref4.apply(this, arguments);
         };
     })();
 };
@@ -41198,24 +41225,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 const Action = {
-    /**
-     * 更新模块
-     * @param {Array} moduleData 模块数据列表
-     */
-    updateModule(moduleData) {
-        return _asyncToGenerator(function* () {
-            const { moduleId } = moduleData;
-            let dbModuleData = yield localforage__WEBPACK_IMPORTED_MODULE_0___default.a.getItem('moduleData');
-            dbModuleData.forEach(function (v, i) {
-                let _moduleData = dbModuleData[i];
-                if (_moduleData.moduleId === moduleId) {
-                    dbModuleData[i] = moduleData;
-                }
-            });
-
-            return localforage__WEBPACK_IMPORTED_MODULE_0___default.a.setItem('moduleData', dbModuleData);
-        })();
-    },
     /**
      * 根据模块Id删除模块  
      * @param {Object}  入参 带moduleId和pageId
@@ -41310,6 +41319,18 @@ const Action = {
                     return _ref2.apply(this, arguments);
                 };
             })());
+        })();
+    },
+    /**
+     * 更新模块
+     */
+    updateModule(moduleData) {
+        return _asyncToGenerator(function* () {
+            const db = yield idb__WEBPACK_IMPORTED_MODULE_1___default.a.open(_db_dbConfig__WEBPACK_IMPORTED_MODULE_2__["default"].Name);
+            const tx = db.transaction(['module'], 'readwrite');
+            const moduleId = yield tx.objectStore('module').put(moduleData);
+            const result = yield tx.objectStore('module').get(moduleId);
+            return result;
         })();
     },
     /**
@@ -41536,7 +41557,6 @@ const mapStateToProp = state => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App */ "./src/component/App/App.jsx");
 
-
 /* harmony default export */ __webpack_exports__["default"] = (_App__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
@@ -41739,15 +41759,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var antd_lib_icon__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/lib/icon */ "./node_modules/antd/lib/icon/index.js");
-/* harmony import */ var antd_lib_icon__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(antd_lib_icon__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var antd_dist_antd_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd/dist/antd.css */ "./node_modules/antd/dist/antd.css");
-/* harmony import */ var antd_dist_antd_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(antd_dist_antd_css__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _component_UserDefineConfig__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @component/UserDefineConfig */ "./src/component/UserDefineConfig/index.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @actions */ "./src/actions/index.js");
+/* harmony import */ var antd_lib_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/lib/button */ "./node_modules/antd/lib/button/index.js");
+/* harmony import */ var antd_lib_button__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(antd_lib_button__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd_lib_icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd/lib/icon */ "./node_modules/antd/lib/icon/index.js");
+/* harmony import */ var antd_lib_icon__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd_lib_icon__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var antd_dist_antd_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd/dist/antd.css */ "./node_modules/antd/dist/antd.css");
+/* harmony import */ var antd_dist_antd_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(antd_dist_antd_css__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _component_UserDefineConfig__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @component/UserDefineConfig */ "./src/component/UserDefineConfig/index.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @actions */ "./src/actions/index.js");
+/* harmony import */ var _component_ImageHotspotConfig__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @component/ImageHotspotConfig */ "./src/component/ImageHotspotConfig/index.js");
 
 
 
@@ -41757,20 +41782,73 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class ConfigDialog extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
+
+
+
+class ConfigDialog extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
+
     constructor() {
         super();
+        this.state = {};
+    }
+
+    handleSubmit() {
+        const { form } = this.refs;
+        const { saveConfigRequest } = this.props;
+        const configData = form.getConfigData();
+        let moduleData = form.toModuleData(configData);
+        moduleData.configData = configData;
+        saveConfigRequest(moduleData);
     }
 
     render() {
-        const { moduleConfig, hideConfig } = this.props;
+        const { moduleConfig, hideConfig, saveConfigRequest } = this.props;
+        const { store } = this.context;
+
+        function renderDialog(moduleConfig) {
+            const { moduleData } = moduleConfig;
+            const { moduleTypeId } = moduleData;
+            switch (moduleTypeId) {
+                case 1:
+                    //自定义代码
+                    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_component_UserDefineConfig__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                        title: '\u81EA\u5B9A\u4E49\u4EE3\u7801\u914D\u7F6E',
+                        ref: 'form',
+                        moduleData: moduleData });
+                case 2:
+                    //图片热区
+                    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_component_ImageHotspotConfig__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                        title: '\u56FE\u7247\u70ED\u533A\u914D\u7F6E',
+                        ref: 'form',
+                        moduleData: moduleData });
+                default:
+                    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(
+                        'div',
+                        null,
+                        '\u6CA1\u6709\u627E\u5230\u8BE5\u6A21\u5757\u7684\u914D\u7F6E\u9879'
+                    );
+            }
+        }
 
         if (moduleConfig.isVisiable) {
-            return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(
+            return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(
                 'div',
                 { className: 'cd-config-dialog' },
-                react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd_lib_icon__WEBPACK_IMPORTED_MODULE_0___default.a, { type: 'close', onClick: () => hideConfig() }),
-                react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_component_UserDefineConfig__WEBPACK_IMPORTED_MODULE_4__["default"], { title: '\u81EA\u5B9A\u4E49\u4EE3\u7801\u914D\u7F6E' })
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd_lib_icon__WEBPACK_IMPORTED_MODULE_1___default.a, { type: 'close', onClick: () => hideConfig() }),
+                renderDialog(moduleConfig),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(
+                    antd_lib_button__WEBPACK_IMPORTED_MODULE_0___default.a,
+                    { onClick: () => hideConfig() },
+                    '\u53D6\u6D88'
+                ),
+                react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(
+                    antd_lib_button__WEBPACK_IMPORTED_MODULE_0___default.a,
+                    { type: 'primary',
+                        onClick: () => {
+                            this.handleSubmit();
+                        } },
+                    '\u786E\u5B9A'
+                )
             );
         } else {
             return null;
@@ -41778,11 +41856,13 @@ class ConfigDialog extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Componen
     }
 }
 
+ConfigDialog.contextTypes = { store: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object };
+
 const mapStateToProps = state => {
     return { moduleConfig: state.moduleConfig };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, { hideConfig: _actions__WEBPACK_IMPORTED_MODULE_5__["hideConfig"] })(ConfigDialog));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, { hideConfig: _actions__WEBPACK_IMPORTED_MODULE_7__["hideConfig"], saveConfigRequest: _actions__WEBPACK_IMPORTED_MODULE_7__["saveConfigRequest"] })(ConfigDialog));
 
 /***/ }),
 
@@ -41860,13 +41940,18 @@ class ImageHotspot extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
     }
 
     componentWillMount() {
-        const { imgSrc } = this.props.moduleData.data;
+        const { imageUrl } = this.props.moduleData.data;
         this.setState({
-            imgSrc
+            imageUrl
         });
     }
 
-    componentWillUnmount() {}
+    componentWillReceiveProps(nextProps) {
+        const { imageUrl } = nextProps.moduleData.data;
+        this.setState({
+            imageUrl
+        });
+    }
 
     /**
      * 
@@ -41875,7 +41960,7 @@ class ImageHotspot extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             _component_Module__WEBPACK_IMPORTED_MODULE_2__["default"],
             { moduleData: this.props.moduleData },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('img', { src: this.state.imgSrc })
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('img', { src: this.state.imageUrl })
         );
     }
 
@@ -41896,6 +41981,116 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (_ImageHotspot__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "./src/component/ImageHotspotConfig/ImageHotspotConfig.jsx":
+/*!*****************************************************************!*\
+  !*** ./src/component/ImageHotspotConfig/ImageHotspotConfig.jsx ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var antd_lib_input__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/lib/input */ "./node_modules/antd/lib/input/index.js");
+/* harmony import */ var antd_lib_input__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(antd_lib_input__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+
+
+const { TextArea } = antd_lib_input__WEBPACK_IMPORTED_MODULE_0___default.a;
+
+class ImageHotspotConfig extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
+
+    constructor(props) {
+        super();
+        let imageUrl;
+        if (props.moduleData.configData) {
+            imageUrl = props.moduleData.configData.imageUrl;
+        } else {
+            imageUrl = '';
+        }
+        this.state = {
+            imageUrl
+        };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let newImageUrl;
+        if (nextProps.moduleData.configData) {
+            newImageUrl = nextProps.moduleData.configData.imageUrl;
+        } else {
+            newImageUrl = '';
+        }
+        this.setState({
+            imageUrl: newImageUrl
+        });
+    }
+
+    getConfigData() {
+        return {
+            imageUrl: this.state.imageUrl
+        };
+    }
+
+    toModuleData(configData) {
+        const { store } = this.context;
+        const state = store.getState();
+        const result = Object.assign({}, state.moduleConfig.moduleData, {
+            data: configData
+        });
+        return result;
+    }
+
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(
+            'div',
+            null,
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(
+                'div',
+                { className: 'cd-title' },
+                this.props.title
+            ),
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(
+                'span',
+                null,
+                '\u56FE\u7247\u5730\u5740'
+            ),
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd_lib_input__WEBPACK_IMPORTED_MODULE_0___default.a, { placeholder: '\u8BF7\u8F93\u5165\u56FE\u7247\u5730\u5740',
+                value: this.state.imageUrl,
+                onChange: e => {
+                    this.setState({ imageUrl: e.target.value });
+                }
+            })
+        );
+    }
+}
+
+ImageHotspotConfig.contextTypes = { store: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object };
+
+/* harmony default export */ __webpack_exports__["default"] = (ImageHotspotConfig);
+
+/***/ }),
+
+/***/ "./src/component/ImageHotspotConfig/index.js":
+/*!***************************************************!*\
+  !*** ./src/component/ImageHotspotConfig/index.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ImageHotspotConfig__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ImageHotspotConfig */ "./src/component/ImageHotspotConfig/ImageHotspotConfig.jsx");
+
+/* harmony default export */ __webpack_exports__["default"] = (_ImageHotspotConfig__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -42102,15 +42297,15 @@ class Module extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
         super();
         let isEmpty; //是否为空模块（无配置数据）
-        if (props.moduleData) {
-            if (props.moduleData.data && Object.keys(props.moduleData.data).length === 0) {
-                isEmpty = true;
-            } else {
-                isEmpty = false;
-            }
-        }
+        // if (props.moduleData) {
+        //     if (props.moduleData.data && Object.keys(props.moduleData.data).length === 0) {
+        //         isEmpty = true;
+        //     } else {
+        //         isEmpty = false;
+        //     }
+        // }
         this.state = {
-            isEmpty,
+            // isEmpty,
             moduleData: props.moduleData,
             configData: {}
         };
@@ -42118,12 +42313,13 @@ class Module extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 
     render() {
         const { showConfig } = this.props;
-        const { moduleData, configData } = this.state;
+        const { moduleData } = this.state;
+        const { configData } = moduleData;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             'div',
-            { className: `${this.state.isEmpty ? 'd-empty' : ''} J_module`,
+            { className: `J_module`,
                 onClick: () => {
-                    showConfig(moduleData, configData);
+                    showConfig(moduleData);
                 }
             },
             this.state.isEmpty ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -42238,18 +42434,41 @@ __webpack_require__.r(__webpack_exports__);
 class UserDefine extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
         super();
+        this.state = {
+            code: props.moduleData.data.code
+        };
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.state.code === nextProps.moduleData.data.code) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            code: nextProps.moduleData.data.code
+        });
     }
 
     /**
      * 执行用户代码片段
      */
     excuteCode() {
-        const { code } = this.props.moduleData.data;
+        const { code } = this.state;
         const el = this.refs.module;
-        jquery__WEBPACK_IMPORTED_MODULE_1___default()(el).append(code);
+        let renderCode = code;
+        !code && (renderCode = `请在右边配置数据`);
+        jquery__WEBPACK_IMPORTED_MODULE_1___default()(el).html(renderCode);
     }
 
     componentDidMount() {
+        this.excuteCode();
+    }
+
+    componentDidUpdate() {
         this.excuteCode();
     }
 
@@ -42258,6 +42477,7 @@ class UserDefine extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
      */
 
     render() {
+        const { code } = this.state;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             _component_Module__WEBPACK_IMPORTED_MODULE_2__["default"],
             { moduleData: this.props.moduleData },
@@ -42295,19 +42515,60 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UserDefineConfig; });
 /* harmony import */ var antd_lib_input__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/lib/input */ "./node_modules/antd/lib/input/index.js");
 /* harmony import */ var antd_lib_input__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(antd_lib_input__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
 
 
+
+
+const { TextArea } = antd_lib_input__WEBPACK_IMPORTED_MODULE_0___default.a;
 
 class UserDefineConfig extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
 
-    constructor() {
+    constructor(props) {
         super();
+        let code;
+        if (props.moduleData.configData) {
+            code = props.moduleData.configData.code;
+        } else {
+            code = '';
+        }
+        this.state = {
+            code
+        };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let newCode;
+        if (nextProps.moduleData.configData) {
+            newCode = nextProps.moduleData.configData.code;
+        } else {
+            newCode = '';
+        }
+        this.setState({
+            code: newCode
+        });
+    }
+
+    getConfigData() {
+        return {
+            code: this.state.code
+        };
+    }
+
+    toModuleData(configData) {
+        const { store } = this.context;
+        const state = store.getState();
+        const result = Object.assign({}, state.moduleConfig.moduleData, {
+            data: configData
+        });
+        return result;
     }
 
     render() {
@@ -42319,10 +42580,18 @@ class UserDefineConfig extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Comp
                 { className: 'cd-title' },
                 this.props.title
             ),
-            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd_lib_input__WEBPACK_IMPORTED_MODULE_0___default.a, { placeholder: 'Basic usage' })
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TextArea, { placeholder: '\u5728\u6B64\u8F93\u5165\u4EE3\u7801',
+                value: this.state.code,
+                onChange: e => {
+                    this.setState({ code: e.target.value });
+                } })
         );
     }
 }
+
+UserDefineConfig.contextTypes = { store: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object };
+
+/* harmony default export */ __webpack_exports__["default"] = (UserDefineConfig);
 
 /***/ }),
 
@@ -42634,7 +42903,11 @@ window.addEventListener('load', () => {
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_Canvas__WEBPACK_IMPORTED_MODULE_10__["default"], null)
     ), document.querySelector('.J_canvas').contentDocument.querySelector('#Container'));
 
-    react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_ConfigDialog__WEBPACK_IMPORTED_MODULE_9__["default"], { store: _store__WEBPACK_IMPORTED_MODULE_13__["default"] }), document.querySelector('.J_configDialog'));
+    react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        react_redux__WEBPACK_IMPORTED_MODULE_3__["Provider"],
+        { store: _store__WEBPACK_IMPORTED_MODULE_13__["default"] },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_ConfigDialog__WEBPACK_IMPORTED_MODULE_9__["default"], { store: _store__WEBPACK_IMPORTED_MODULE_13__["default"] })
+    ), document.querySelector('.J_configDialog'));
 
     document.addEventListener('DOMContentLoaded', () => {
         _store__WEBPACK_IMPORTED_MODULE_13__["default"].dispatch(_actions__WEBPACK_IMPORTED_MODULE_5__["fetchModuleList"](pageId));
@@ -42730,22 +43003,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./src/actions/index.js");
 
 
-/* harmony default export */ __webpack_exports__["default"] = ((state = { isVisiable: false }, action) => {
+/* harmony default export */ __webpack_exports__["default"] = ((state = { isVisiable: false, configData: {} }, action) => {
     switch (action.type) {
         case _actions__WEBPACK_IMPORTED_MODULE_0__["SHOW_CONFIG"]:
             {
+
                 const { moduleData } = action;
                 const moduleConfig = {
                     isVisiable: true,
                     moduleData
                 };
-
                 return Object.assign({}, state, moduleConfig);
             }
             break;
         case _actions__WEBPACK_IMPORTED_MODULE_0__["HIDE_CONFIG"]:
 
             return Object.assign({ isVisiable: false });
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["SAVE_CONFIG_REQUEST"]:
+            const { configData } = action;
+            return Object.assign({}, state, {
+                configData
+            });
         default:
             return state;
     }
@@ -42825,6 +43103,23 @@ __webpack_require__.r(__webpack_exports__);
                 });
             } else {
                 return state;
+            }
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_MODULE"]:
+            //更新模块
+            const { moduleData } = action;
+            console.log(action);
+            if (moduleData) {
+                const { moduleId } = moduleData;
+                const result = Object.assign({}, state, {
+                    moduleList: state.moduleList.map(v => {
+                        if (v.moduleId === moduleId) {
+                            return moduleData;
+                        } else {
+                            return v;
+                        }
+                    })
+                });
+                return result;
             }
 
         default:

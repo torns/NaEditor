@@ -6,6 +6,7 @@ import 'antd/dist/antd.css';
 
 import UserDefineConfig from '@component/UserDefineConfig';
 import { hideConfig, saveConfigRequest } from '@actions';
+import ImageHotspotConfig from '@component/ImageHotspotConfig';
 
 class ConfigDialog extends React.Component {
 
@@ -27,7 +28,6 @@ class ConfigDialog extends React.Component {
     render() {
         const { moduleConfig, hideConfig, saveConfigRequest } = this.props;
         const { store } = this.context;
-        console.log(moduleConfig)
 
         function renderDialog(moduleConfig) {
             const { moduleData } = moduleConfig;
@@ -36,6 +36,11 @@ class ConfigDialog extends React.Component {
                 case 1: //自定义代码
                     return <UserDefineConfig
                         title="自定义代码配置"
+                        ref='form'
+                        moduleData={moduleData} />
+                case 2: //图片热区
+                    return <ImageHotspotConfig
+                        title="图片热区配置"
                         ref='form'
                         moduleData={moduleData} />
                 default:

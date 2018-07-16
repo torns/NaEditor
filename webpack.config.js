@@ -23,6 +23,11 @@ const HtmlWebpackPlugins = [
         chunks: ['page/decorate']
     }),
     new HtmlWebpackPlugin({
+        filename: '/page/canvas.html',
+        template: './src/page/canvas/index.html',
+        chunks: ['page/canvas'],
+    }),
+    new HtmlWebpackPlugin({
         filename: '/page/learn.html',
         template: './src/page/learn/index.html',
         chunks: ['page/learn']

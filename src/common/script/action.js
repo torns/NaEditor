@@ -38,6 +38,7 @@ const Action = {
     async addModule(args = { preModuleId: undefined, moduleTypeId: 1, data: {}, pageId: 1 }) {
 
         let { preModuleId, moduleTypeId, data, pageId } = args;
+        pageId = Number.parseInt(pageId);
         let dbModuleData = await localforage.getItem('moduleData');
 
 

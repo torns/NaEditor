@@ -9,6 +9,7 @@ import '@component/Messager';
 import Action from '@common/script/action';
 import '../../db/createStore';
 import ConfigDialog from '@component/ConfigDialog';
+import ModuleList from '@component/ModuleList';
 import Canvas from '@component/Canvas';
 import DBInit from '@db/dataInitial';
 import CanvasWarp from "@component/CanvasWrap";
@@ -55,6 +56,12 @@ window.addEventListener('load', () => {
     )
 
 
+    ReactDOM.render(
+        <Provider store={store}>
+            <ModuleList />
+        </Provider >,
+        document.querySelector('.J_moduleList')
+    )
 
 
 

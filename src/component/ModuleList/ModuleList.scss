@@ -1,0 +1,30 @@
+.d-module-list {
+    width: 250px;
+    border-right: solid 1px #e6e6e6;
+    background: #fff;
+    position: fixed;
+    top: 60px;
+    overflow-y: scroll;
+    z-index: 11;
+    bottom: 0;
+    .d-module-name {
+        overflow: hidden;
+        border-top: 1px solid transparent;
+        height: 40px;
+        line-height: 39px;
+        font-size: 12px;
+        color: #666666;
+        cursor: pointer;
+        position: relative;
+    }
+    .d-module-item {
+        cursor: move;
+        width: 92px;
+        height: 112px;
+        text-align: center;
+    }
+    .d-module-icon {
+        width: 60px;
+        height: 60px;
+    }
+}

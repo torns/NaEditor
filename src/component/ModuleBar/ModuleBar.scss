@@ -1,0 +1,19 @@
+.d-module-bar {
+    position: fixed;
+    width: 28px;
+    left: calc(50vw + 203px);
+    top: 300px;
+    background: #fff;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, .15);
+    border-radius: 2px;
+    transition: top .2s ease-out;
+    text-align: center;
+    i {
+        padding: 5px 0;
+        cursor: pointer;
+        &:hover,
+        .active {
+            color: #3089DC;
+        }
+    }
+}

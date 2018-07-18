@@ -1,5 +1,4 @@
 @import '../../common/style/common.scss';
-
 .cd-main-area {
     position: fixed;
     top: 0;
@@ -18,6 +17,7 @@
         position: relative;
         width: calc(100% - 340px);
         height: 100%;
+        z-index: -1;
         /* left: 81px; */
         /* right: 340px; */
         /* top: 0; */

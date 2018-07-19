@@ -91,6 +91,7 @@ const Action = {
      */
     async updateModule(moduleData) {
         const db = await idb.open(DB.Name);
+        delete moduleData.tempData; //  临时属性不存到库里
         const tx = db.transaction(['module'], 'readwrite');
         const moduleId = await tx.objectStore('module').put(moduleData);
         const result = await tx.objectStore('module').get(moduleId);

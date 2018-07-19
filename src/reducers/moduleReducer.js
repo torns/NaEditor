@@ -1,4 +1,5 @@
-import { ADD_MODULE, REFRESH_MODULE, REFRESH_MODULE_LIST, REMOVE_MODULE, UPDATE_MODULE } from "../actions";
+import { ADD_MODULE, REFRESH_MODULE, REFRESH_MODULE_LIST, REMOVE_MODULE, UPDATE_MODULE, FOCUS_MODULE } from "../actions";
+
 
 
 export default (state = { moduleList: [] }, action) => {
@@ -38,7 +39,6 @@ export default (state = { moduleList: [] }, action) => {
             }
         case UPDATE_MODULE: //更新模块
             const { moduleData } = action;
-            console.log(action)
             if (moduleData) {
                 const { moduleId } = moduleData;
                 const result = Object.assign({}, state, {
@@ -52,8 +52,19 @@ export default (state = { moduleList: [] }, action) => {
                 });
                 return result;
             }
-
-
+        case FOCUS_MODULE: //聚焦模块
+            {
+                const { moduleId } = action;
+                const result = Object.assign({}, state, {
+                    moduleList: state.moduleList.map(v => {
+                        v.moduleId === moduleId ?
+                            v.tempData = Object.assign({}, v.tempData, { isActive: true }) :
+                            v.tempData = Object.assign({}, v.tempData, { isActive: false })
+                        return v;
+                    })
+                })
+                return result;
+            }
         default:
             return state;
     }

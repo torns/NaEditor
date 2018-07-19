@@ -8,7 +8,7 @@ import Action from '@common/script/action';
 import Module from '@component/Module';
 import UserDefine from '@component/UserDefine';
 import ImageHotspot from '@component/ImageHotspot';
-import { fetchModuleList } from '@actions';
+import { fetchModuleList, focusModule } from '@actions';
 
 const { BASE_DATA } = window.top
 
@@ -22,6 +22,11 @@ class Canvas extends React.Component {
     componentWillMount() {
         // 初始化模块
         this.props.fetchModuleList(BASE_DATA.pageId);
+    }
+
+
+    componentDidMount() {
+        
     }
 
     /**
@@ -99,4 +104,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { fetchModuleList })(Canvas)
+export default connect(mapStateToProps, { fetchModuleList, focusModule })(Canvas)

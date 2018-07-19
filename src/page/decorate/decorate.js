@@ -34,7 +34,6 @@ DP.addAction({
     }
 })
 
-
 window.resizeIframe = function () {
     let height = document.querySelector('.J_canvas').contentWindow.document.body.scrollHeight + 'px';
     document.querySelector('iframe.J_canvas').style.height = height;

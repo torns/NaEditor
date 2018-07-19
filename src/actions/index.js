@@ -58,6 +58,7 @@ export const removeModuleRequest = (args) => async(dispatch) => {
 // 打开配置框
 export const SHOW_CONFIG = 'SHOW_CONFIG';
 export const showConfig = (moduleData) => {
+
     return {
         type: SHOW_CONFIG,
         moduleData
@@ -69,6 +70,16 @@ export const HIDE_CONFIG = 'HIDE_CONFIG';
 export const hideConfig = (hideConfig) => {
     return {
         type: HIDE_CONFIG,
+    }
+}
+
+
+// 聚焦模块
+export const FOCUS_MODULE = 'FOCUS_MODULE';
+export const focusModule = (moduleId) => {
+    return {
+        type: FOCUS_MODULE,
+        moduleId,
     }
 }
 

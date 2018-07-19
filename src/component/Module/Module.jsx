@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { render } from 'react-dom';
 import store from '@store';
-import { showConfig } from '@actions';
 
+
+import ModuleWrap from '@component/ModuleWrap';
 
 class Module extends React.Component {
     constructor(props) {
@@ -19,22 +20,16 @@ class Module extends React.Component {
         this.state = {
             // isEmpty,
             moduleData: props.moduleData,
-            configData: {
-
-            }
         }
     }
-
 
     render() {
         const { showConfig } = this.props;
         const { moduleData } = this.state;
-        const { configData } = moduleData;
         return (
-            <div className={`J_module`}
-                onClick={() => { showConfig(moduleData) }}
-            >
+            <div className={`J_module d-module`}  >
                 {this.state.isEmpty ? <div className="d-placeholder">请配置模块数据</div> : this.props.children}
+                <ModuleWrap moduleData={moduleData} />
             </div>
         )
     }
@@ -46,4 +41,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { showConfig })(Module)
+export default connect(mapStateToProps, {})(Module)

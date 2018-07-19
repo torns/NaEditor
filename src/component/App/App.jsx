@@ -5,6 +5,8 @@ import React from 'react';
 import Canvas from '@component/Canvas';
 import store from '@store';
 
+window.store = store;
+
 class App extends React.Component {
     constructor() {
         super();
@@ -15,7 +17,7 @@ class App extends React.Component {
         let sWin = this.refs.iframe.contentWindow;
         let sDom = sWin.document;
         sWin.addEventListener('load', () => {
-           
+
             // 重新赋值一次
             sWin = this.refs.iframe.contentWindow;
             sDom = sWin.document;
@@ -24,9 +26,6 @@ class App extends React.Component {
                 sDom.querySelector('#Container')
             )
         })
-
-
-
     }
 
     render() {

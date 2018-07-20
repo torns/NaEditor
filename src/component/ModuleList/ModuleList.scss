@@ -18,6 +18,7 @@
         position: relative;
     }
     .d-module-item {
+        justify-content: space-around;
         cursor: move;
         width: 92px;
         height: 112px;
@@ -26,5 +27,8 @@
     .d-module-icon {
         width: 60px;
         height: 60px;
+    }
+    .d-sub-list {
+        display: flex;
     }
 }

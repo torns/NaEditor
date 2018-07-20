@@ -7,6 +7,7 @@ import 'antd/dist/antd.css';
 import UserDefineConfig from '@component/UserDefineConfig';
 import { hideConfig, saveConfigRequest } from '@actions';
 import ImageHotspotConfig from '@component/ImageHotspotConfig';
+import TextConfig from '@component/TextConfig';
 
 class ConfigDialog extends React.Component {
 
@@ -22,6 +23,7 @@ class ConfigDialog extends React.Component {
         const configData = form.getConfigData();
         let moduleData = form.toModuleData(configData);
         moduleData.configData = configData;
+
         saveConfigRequest(moduleData);
     }
 
@@ -41,6 +43,11 @@ class ConfigDialog extends React.Component {
                 case 2: //图片热区
                     return <ImageHotspotConfig
                         title="图片热区配置"
+                        ref='form'
+                        moduleData={moduleData} />
+                case 3: //文字
+                    return <TextConfig
+                        title="文字模块设置"
                         ref='form'
                         moduleData={moduleData} />
                 default:

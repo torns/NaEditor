@@ -56,7 +56,7 @@ const Action = {
             data,
             pageId,
         }
-
+        
         return new Promise(async(resolve, reject) => {
             const db = await idb.open(DB.Name);
             const tx = db.transaction(['module', 'page'], 'readwrite');

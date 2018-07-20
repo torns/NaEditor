@@ -12,6 +12,9 @@ async function initModuleName() {
     }, {
         moduleTypeId: 2,
         moduleName: '图片热区',
+    }, {
+        moduleTypeId: 3,
+        moduleName: '文字',
     }];
 
     const StoreName = `moduleName`;
@@ -23,6 +26,7 @@ async function initModuleName() {
         Store.add(v);
     })
 }
+window.initModuleName = initModuleName;
 
 
 /**
@@ -55,5 +59,7 @@ function init() {
         }
     })
 }
+
+
 
 export default init;

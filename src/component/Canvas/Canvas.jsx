@@ -8,6 +8,7 @@ import Action from '@common/script/action';
 import Module from '@component/Module';
 import UserDefine from '@component/UserDefine';
 import ImageHotspot from '@component/ImageHotspot';
+import Text from '@component/Text';
 import { fetchModuleList, focusModule } from '@actions';
 
 const { BASE_DATA } = window.top
@@ -26,7 +27,7 @@ class Canvas extends React.Component {
 
 
     componentDidMount() {
-        
+
     }
 
     /**
@@ -80,6 +81,9 @@ class Canvas extends React.Component {
                         break;
                     case 2:
                         return <ImageHotspot key={i} moduleData={v} />
+                        break;
+                    case 3:
+                        return <Text key={i} moduleData={v} />
                         break;
                     default:
                         return <div key={i} />

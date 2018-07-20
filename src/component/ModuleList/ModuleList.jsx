@@ -21,6 +21,10 @@ class ModuleList extends Component {
                             name: '图片热区',
                             typeId: 2,
                             iconUrl: ''
+                        }, {
+                            name: '文字',
+                            typeId: 3,
+                            iconUrl: '',
                         }
                     ]
                 }, {

@@ -1,4 +1,4 @@
 export default {
     Name: 'NaEditor',
-    Version: 2
+    Version: 3
 }

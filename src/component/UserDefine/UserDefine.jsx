@@ -8,20 +8,19 @@ export default class UserDefine extends React.Component {
         super();
         this.state = {
             code: props.moduleData.data.code,
-            isActive: props.moduleData.isActive,
+            isActive: props.moduleData.tempData && props.moduleData.tempData.isActive,
         }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return true
-        // const { isActive } = nextProps.moduleData;
-        // if (this.state.code === nextProps.moduleData.data.code ||
-        //     isActive === this.state.isActive
-        // ) {
-        //     return false;
-        // } else {
-        //     return true;
-        // }
+        const isActive = nextProps.moduleData.tempData && nextProps.moduleData.tempData.isActive;
+        if (this.state.code === nextProps.moduleData.data.code &&
+            isActive === this.state.isActive
+        ) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     componentWillReceiveProps(nextProps) {

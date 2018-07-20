@@ -11,15 +11,20 @@ class ModuleWrap extends React.Component {
         this.state = {
             moduleData: props.moduleData,
             configData: {
-            }
+            },
+            isActive: props.moduleData.tempData && props.moduleData.tempData.isActive,
         }
     }
 
     render() {
         const { moduleData, showConfig, focusModule, } = this.props;
-        const { moduleId, tempData } = moduleData;
+        const { tempData, moduleId } = moduleData;
+        let isActive;
+        if (tempData) {
+            isActive = tempData.isActive;
+        }
         return (
-            <div className={`J_moduleWrap d-module-wrap ${tempData && tempData.isActive ? 'active' : ''}`}
+            <div className={`J_moduleWrap d-module-wrap ${isActive ? 'active' : ''}`}
                 onClick={(e) => { showConfig(moduleData); focusModule(moduleId) }}>
             </div>
         )

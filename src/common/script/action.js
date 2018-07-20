@@ -9,6 +9,7 @@ const Action = {
      * @param {Object}  入参 带moduleId和pageId
      */
     async removeModule({ moduleId, pageId }) {
+        pageId = Number.parseInt(pageId);
         return new Promise(async(resolve, reject) => {
             const db = await idb.open(DB.Name);
             const tx = db.transaction(['page', 'module'], 'readwrite');

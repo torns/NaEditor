@@ -44,6 +44,7 @@ export default (state = { moduleList: [] }, action) => {
                 const result = Object.assign({}, state, {
                     moduleList: state.moduleList.map((v) => {
                         if (v.moduleId === moduleId) {
+                            moduleData.tempData = v.tempData;    //带上临时数据
                             return moduleData;
                         } else {
                             return v;

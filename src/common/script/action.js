@@ -114,7 +114,6 @@ const Action = {
             const preIndex = page.moduleList.indexOf(preModuleId);
             page.moduleList.splice(preIndex + 1, 0, moduleId); //在preModule后添加模块
         }
-        console.log(page.moduleList);
         const result = await tx.objectStore('page').put(page);
         if (result) {
             return {

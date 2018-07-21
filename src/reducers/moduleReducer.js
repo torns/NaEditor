@@ -77,6 +77,7 @@ export default (state = { moduleList: [] }, action) => {
         case POSITION_MODULE: //移动模块
             {
                 const { moduleId, preModuleId } = action;
+                console.log(moduleId, preModuleId)
                 let { newModuleList, module } = state.moduleList.reduce((acc, v) => {
                     if (v.moduleId === moduleId) {
                         acc.module = v;
@@ -93,7 +94,7 @@ export default (state = { moduleList: [] }, action) => {
                     newModuleList = [module].concat(newModuleList);
                 } else {
                     const preModuleIndex = newModuleList.findIndex(v => v.moduleId === preModuleId);
-                    newModuleList.splice(preModuleIndex, 0, module);
+                    newModuleList.splice(preModuleIndex + 1, 0, module);
                 }
                 const result = Object.assign({}, state, {
                     moduleList: newModuleList,

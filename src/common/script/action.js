@@ -56,7 +56,7 @@ const Action = {
             data,
             pageId,
         }
-        
+
         return new Promise(async(resolve, reject) => {
             const db = await idb.open(DB.Name);
             const tx = db.transaction(['module', 'page'], 'readwrite');
@@ -99,6 +99,36 @@ const Action = {
         return result;
     },
     /**
+     * 移动模块
+     */
+    async positionModule({ moduleId, preModuleId, pageId }) {
+        pageId = Number.parseInt(pageId);
+        const db = await idb.open(DB.Name);
+        const tx = db.transaction(['page'], 'readwrite');
+        let page = await tx.objectStore('page').get(pageId);
+        page.moduleList = page.moduleList.filter(v => v !== moduleId); //先移除模块
+        // 如果没有设置preModuleId，则说明移到第一个模块
+        if (preModuleId === undefined) {
+            page.moduleList = [moduleId].concat(page.moduleList)
+        } else {
+            const preIndex = page.moduleList.indexOf(preModuleId);
+            page.moduleList.splice(preIndex + 1, 0, moduleId); //在preModule后添加模块
+        }
+        console.log(page.moduleList);
+        const result = await tx.objectStore('page').put(page);
+        if (result) {
+            return {
+                success: true,
+                moduleId,
+                preModuleId,
+            }
+        } else {
+            return {
+                success: false,
+            }
+        }
+    },
+    /**
      * 获得页面所有模块数据
      * @param {String} pageId 页面Id
      */
@@ -108,10 +138,12 @@ const Action = {
         const tx = db.transaction(['module', 'page'], 'readonly');
         const moduleInfos = await tx.objectStore('module').getAll();
         const pageInfo = await tx.objectStore('page').get(pageId);
-        // 筛选出当前页面的模块
-        return moduleInfos.filter((v) => {
-            return pageInfo.moduleList.includes(v.moduleId);
-        })
+        let promiseArr = [];
+        for (let moduleId of pageInfo.moduleList) {
+            promiseArr.push(tx.objectStore('module').get(moduleId))
+        }
+        const result = await Promise.all(promiseArr);
+        return result;
     },
     /**
      * 根据moduleTypeId获取模块名称

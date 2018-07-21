@@ -103,6 +103,28 @@ export const saveConfigRequest = (moduleData) => {
     }
 }
 
+// 移动模块
+export const POSITION_MODULE = 'POSITION_MODULE';
+export const positionModule = ({ success, moduleId, preModuleId }) => {
+    if (success) {
+        return {
+            type: POSITION_MODULE,
+            moduleId,
+            preModuleId,
+        }
+    }
+}
+
+// 移动模块请求
+export const POSITION_MODULE_REQUEST = 'POSITION_MODULE_QUEST';
+export const positionModuleRequest = (args) => {
+    return async(dispatch) => {
+        dispatch(positionModule(await Action.positionModule(args)));
+    }
+}
+
+
+
 
 
 export const FETCH_MODULE_LIST = 'FETCH_MODULE_LIST';

@@ -27,8 +27,18 @@ class Canvas extends React.Component {
 
 
     componentDidMount() {
-
+        setTimeout(() => {
+            window.resizeIframe();
+        }, 1000);
     }
+
+    /**
+     * 画布更新
+     */
+    componentDidUpdate() {
+        window.resizeIframe();
+    }
+
 
     /**
      * 绑定全局事件

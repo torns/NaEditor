@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import localforage from 'localforage';
 import { Provider } from 'react-redux'
+import _ from 'lodash';
 
 import App from '@component/App';
 import * as Actions from '../../actions';
@@ -16,28 +17,12 @@ import DBInit from '@db/dataInitial';
 import CanvasWarp from "@component/CanvasWrap";
 import store from '@store';
 
-window.Messager = window._eldInstanceMessager;
-const Messager = window.Messager;
-const DP = window._eldInstanceDataPersistence;
 
-const pageId = Number.parseInt(BASE_DATA.pageId);
-
-DP.addAction({
-    removeModule: async (moduleId) => {
-        return await Action.removeModule(moduleId);
-    },
-    addModule: async (moduleId) => {
-        return await Action.addModule(moduleId);
-    },
-    refreshModules: async () => {
-        return await Action.getModuleList();
-    }
-})
-
-window.resizeIframe = function () {
+window.resizeIframe = _.debounce(() => {
     let height = document.querySelector('.J_canvas').contentWindow.document.body.scrollHeight + 'px';
+    console.log(height)
     document.querySelector('iframe.J_canvas').style.height = height;
-}
+}, 50);
 
 
 window.addEventListener('load', () => {

@@ -23,6 +23,13 @@ class Module extends React.Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { moduleData } = nextProps;
+        this.setState({
+            moduleData,
+        })
+    }
+
     render() {
         const { showConfig } = this.props;
         const { moduleData } = this.state;

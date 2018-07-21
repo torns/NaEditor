@@ -133,13 +133,17 @@ const Action = {
      */
     async getModuleList(pageId) {
         pageId = Number.parseInt(pageId);
+
         const db = await idb.open(DB.Name);
         const tx = db.transaction(['module', 'page'], 'readonly');
         const moduleInfos = await tx.objectStore('module').getAll();
+
         const pageInfo = await tx.objectStore('page').get(pageId);
         let promiseArr = [];
         for (let moduleId of pageInfo.moduleList) {
-            promiseArr.push(tx.objectStore('module').get(moduleId))
+            if (moduleId !== undefined) {
+                promiseArr.push(tx.objectStore('module').get(moduleId))
+            }
         }
         const result = await Promise.all(promiseArr);
         return result;

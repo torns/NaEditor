@@ -77,7 +77,6 @@ export default (state = { moduleList: [] }, action) => {
         case POSITION_MODULE: //移动模块
             {
                 const { moduleId, preModuleId } = action;
-                console.log(moduleId, preModuleId)
                 let { newModuleList, module } = state.moduleList.reduce((acc, v) => {
                     if (v.moduleId === moduleId) {
                         acc.module = v;

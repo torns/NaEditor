@@ -12,7 +12,6 @@ class ModuleWrap extends React.Component {
             moduleData: props.moduleData,
             configData: {
             },
-            isActive: props.moduleData.tempData && props.moduleData.tempData.isActive,
         }
     }
 

@@ -75,7 +75,6 @@ const Action = {
                 preModuleId = page.moduleList[page.moduleList.length - 1] || undefined;
             }
             const index = page.moduleList.indexOf(preModuleId);
-
             page.moduleList.splice(index + 1, 0, moduleId);
 
             // 更新page
@@ -153,6 +152,7 @@ const Action = {
      * @param {Number} moduleTypeId 模块类型Id
      */
     async getModuleName(moduleTypeId) {
+        moduleTypeId = Number.parseInt(moduleTypeId);
         const db = await idb.open(DB.Name);
         const result = await db.transaction('moduleName').objectStore('moduleName').get(moduleTypeId);
         return result.moduleName;

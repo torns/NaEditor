@@ -52,6 +52,10 @@ class ModuleList extends Component {
         store.dispatch(Actions.addModuleRequest(args))
     }
 
+    moduleDragStart = (moduleTypeId, e) => {
+        e.dataTransfer.setData('moduleTypeId', moduleTypeId);
+    }
+
 
     render() {
 
@@ -71,6 +75,7 @@ class ModuleList extends Component {
                                     data-type-id={module.typeId}
                                     draggable="true"
                                     onDoubleClick={(e) => { this.addModule(module.typeId) }}
+                                    onDragStart={this.moduleDragStart.bind(this, module.typeId)}
                                 >
                                     <div className="d-module-icon" style={{ backgroundImage: module.iconUrl }} />
                                     <span className="d-module-name">{module.name}</span>

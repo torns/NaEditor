@@ -9,3 +9,21 @@
         border: solid #3089DC 3px;
     }
 }
+
+.d-next-placeholder {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    height: 0;
+    background: rgba(34, 153, 255, .1);
+    border: 1px dashed #29f;
+    color: #29f;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 38px;
+    pointer-events: none;
+    height: 40px;
+    animation: extendHeight .2s ease-out;
+    animation-fill-mode: forwards;
+    font-size: 14px;
+}

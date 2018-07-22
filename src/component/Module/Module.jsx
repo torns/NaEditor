@@ -20,6 +20,7 @@ class Module extends React.Component {
         this.state = {
             // isEmpty,
             moduleData: props.moduleData,
+            moduleRef: undefined,
         }
     }
 
@@ -30,13 +31,22 @@ class Module extends React.Component {
         })
     }
 
+    componentDidMount() {
+        this.setState({
+            moduleRef: this.moduleRef,
+        })
+    }
+
     render() {
         const { showConfig } = this.props;
         const { moduleData } = this.state;
+
         return (
-            <div className={`J_module d-module`}  >
+            <div className={`J_module d-module`}
+                ref={ref => this.moduleRef = ref}>
                 {this.state.isEmpty ? <div className="d-placeholder">请配置模块数据</div> : this.props.children}
-                <ModuleWrap moduleData={moduleData} />
+                <ModuleWrap moduleData={moduleData}
+                    moduleRef={this.state.moduleRef} />
             </div>
         )
     }

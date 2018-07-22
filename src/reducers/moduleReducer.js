@@ -6,7 +6,8 @@ import {
     UPDATE_MODULE,
     FOCUS_MODULE,
     POSITION_MODULE,
-    MODULE_TOP_CHANGE
+    MODULE_TOP_CHANGE,
+    MODULE_HEIGHT_CHANGE,
 } from "../actions";
 
 
@@ -122,6 +123,22 @@ export default (state = { moduleList: [] }, action) => {
                 })
                 return result;
             }
+            break;
+        case MODULE_HEIGHT_CHANGE: // 模块height值变化
+            {
+                const { moduleId, height } = action;
+                const newModuleList = state.moduleList.map(v => {
+                    if (v.moduleId === moduleId) {
+                        v.tempData = Object.assign({}, v.tempData, { height });
+                    }
+                    return v;
+                })
+                const result = Object.assign({}, state, {
+                    moduleList: newModuleList,
+                })
+                return result;
+            }
+            break;
         default:
             return state;
     }

@@ -133,6 +133,16 @@ export const moduleTopChange = (moduleId, top) => {
     }
 }
 
+// 模块height值变动
+export const MODULE_HEIGHT_CHANGE = 'MODULE_HEIGHT_CHANGE';
+export const moduleHeightChange = (moduleId, height) => {
+    return {
+        type: MODULE_HEIGHT_CHANGE,
+        moduleId,
+        height,
+    }
+}
+
 
 
 export const FETCH_MODULE_LIST = 'FETCH_MODULE_LIST';

@@ -11,14 +11,15 @@ class ModuleTag extends React.Component {
 
     render() {
         const { moduleData } = this.props;
-        let top, isActive;
+        let top, isActive, height;
         if (moduleData.tempData) {
             top = moduleData.tempData.top;
+            height = moduleData.tempData.height;
             isActive = moduleData.tempData.isActive;
         }
         return (
             <div className={`d-module-tag ${isActive ? 'active' : ''}`}
-                style={{ top }}
+                style={{ top, maxHeight: isActive ? '' : height }}
             >{moduleData.moduleName}</div>
         )
     }

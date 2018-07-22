@@ -87,16 +87,16 @@ class Canvas extends React.Component {
                 const { moduleId, moduleTypeId } = v;
                 switch (moduleTypeId) {
                     case 1:
-                        return <UserDefine key={i} moduleData={v} />
+                        return <UserDefine key={v.moduleId} moduleData={v} />
                         break;
                     case 2:
-                        return <ImageHotspot key={i} moduleData={v} />
+                        return <ImageHotspot key={v.moduleId} moduleData={v} />
                         break;
                     case 3:
-                        return <Text key={i} moduleData={v} />
+                        return <Text key={v.moduleId} moduleData={v} />
                         break;
                     default:
-                        return <div key={i} />
+                        return null;
                         break;
                 }
             })

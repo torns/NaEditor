@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { render } from 'react-dom';
 import store from '@store';
 
-import { moduleTopChange } from '@actions';
+import { moduleTopChange, moduleHeightChange } from '@actions';
 import ModuleWrap from '@component/ModuleWrap';
 
 class Module extends React.Component {
@@ -34,9 +34,8 @@ class Module extends React.Component {
     componentDidMount() {
         this.setState({
             moduleRef: this.moduleRef,
-        }, () => {
-            this.reatChange();
         })
+        this.reatChange();
 
 
     }
@@ -46,12 +45,15 @@ class Module extends React.Component {
     }
 
     reatChange() {
-        const { moduleTopChange } = this.props;
+        const { moduleTopChange, moduleHeightChange } = this.props;
         const { moduleData } = this.state;
         const clientRect = this.moduleRef.getBoundingClientRect();
         const { height, top } = clientRect;
         if (!moduleData.tempData || top !== moduleData.tempData.top) {
             moduleTopChange(moduleData.moduleId, top);
+        }
+        if (!moduleData.tempData || height !== moduleData.tempData.height) {
+            moduleHeightChange(moduleData.moduleId, height);
         }
     }
 
@@ -76,4 +78,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { moduleTopChange })(Module)
+export default connect(mapStateToProps, { moduleTopChange, moduleHeightChange })(Module)

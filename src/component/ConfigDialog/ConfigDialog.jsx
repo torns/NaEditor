@@ -29,6 +29,8 @@ class ConfigDialog extends React.Component {
 
     render() {
         const { moduleConfig, module, hideConfig, saveConfigRequest } = this.props;
+        let activeModule = module.moduleList.filter(v => v.tempData.isActive);
+        activeModule = activeModule && activeModule[0];
 
         function renderDialog(moduleConfig) {
             const { moduleData } = moduleConfig;
@@ -55,13 +57,11 @@ class ConfigDialog extends React.Component {
         }
 
 
-        if (moduleConfig.isVisiable) {
+        if (moduleConfig.isVisiable && activeModule !== undefined) {
+
             let top = 20;
-            try {
-                top += module.moduleList.filter(v => v.tempData.isActive)[0].tempData.top;
-            } catch (e) {
-                console.log(e);
-            }
+            top += activeModule.tempData.top;
+
             const { moduleData } = moduleConfig;
             const { moduleName } = moduleData;
             return (

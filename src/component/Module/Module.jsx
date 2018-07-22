@@ -37,6 +37,9 @@ class Module extends React.Component {
             moduleRef: this.moduleRef,
         })
         this.reatChange();
+        setTimeout(() => {
+            this.reatChange();
+        }, 1000);
     }
 
     componentDidUpdate() {
@@ -58,12 +61,8 @@ class Module extends React.Component {
             moduleHeightChange(moduleData.moduleId, height);
         }
     }
-    // let container = $('.J_editorInstanceArea');
-    // let scrollTop = req.scrollTop;
-    // const Distance = GlobalConfig.SlideTopDistance;
-    // container.animate({
-    //     scrollTop: scrollTop < Distance ? 0 : scrollTop - Distance
-    // }, 'normal', 'swing', function() {});
+
+
     scrollIntoView() {
         const clientRect = this.moduleRef.getBoundingClientRect();
         const { top } = clientRect;

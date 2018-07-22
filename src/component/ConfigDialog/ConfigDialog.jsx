@@ -28,8 +28,7 @@ class ConfigDialog extends React.Component {
     }
 
     render() {
-        const { moduleConfig, hideConfig, saveConfigRequest } = this.props;
-        const { store } = this.context;
+        const { moduleConfig, module, hideConfig, saveConfigRequest } = this.props;
 
         function renderDialog(moduleConfig) {
             const { moduleData } = moduleConfig;
@@ -57,13 +56,32 @@ class ConfigDialog extends React.Component {
 
 
         if (moduleConfig.isVisiable) {
+            let top = 20;
+            try {
+                top += module.moduleList.filter(v => v.tempData.isActive)[0].tempData.top;
+            } catch (e) {
+                console.log(e);
+            }
+            const { moduleData } = moduleConfig;
+            const { moduleName } = moduleData;
             return (
-                <div className="cd-config-dialog">
-                    <Icon type="close" onClick={() => hideConfig()} />
-                    {renderDialog(moduleConfig)}
-                    <Button onClick={() => hideConfig()}>取消</Button>
-                    <Button type="primary"
-                        onClick={() => { this.handleSubmit() }}>确定</Button>
+                <div className="d-config-dialog"
+                    style={{ top }}>
+                    <div className='d-header'>
+                        <p className='d-module-name'>{moduleName}</p>
+                        <span>
+                            <Icon className='d-close' type="close" onClick={() => hideConfig()} />
+                            <Icon type="question-circle-o" />
+                        </span>
+                    </div>
+                    <div className='d-content'>
+                        {renderDialog(moduleConfig)}
+                    </div>
+                    <div className='d-footer'>
+                        <Button onClick={() => hideConfig()}>取消</Button>
+                        <Button type="primary"
+                            onClick={() => { this.handleSubmit() }}>确定</Button>
+                    </div>
                 </div>
             )
         } else {
@@ -77,7 +95,10 @@ class ConfigDialog extends React.Component {
 ConfigDialog.contextTypes = { store: PropTypes.object };
 
 const mapStateToProps = (state) => {
-    return { moduleConfig: state.moduleConfig }
+    return {
+        moduleConfig: state.moduleConfig,
+        module: state.module
+    }
 }
 
 

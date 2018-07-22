@@ -86,14 +86,14 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../node_modules/lodash/_Symbol.js":
-/*!*****************************************!*\
-  !*** ../node_modules/lodash/_Symbol.js ***!
-  \*****************************************/
+/***/ "./node_modules/lodash/_Symbol.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/_Symbol.js ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var root = __webpack_require__(/*! ./_root */ "../node_modules/lodash/_root.js");
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
 
 /** Built-in value references. */
 var Symbol = root.Symbol;
@@ -103,16 +103,16 @@ module.exports = Symbol;
 
 /***/ }),
 
-/***/ "../node_modules/lodash/_baseGetTag.js":
-/*!*********************************************!*\
-  !*** ../node_modules/lodash/_baseGetTag.js ***!
-  \*********************************************/
+/***/ "./node_modules/lodash/_baseGetTag.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseGetTag.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(/*! ./_Symbol */ "../node_modules/lodash/_Symbol.js"),
-    getRawTag = __webpack_require__(/*! ./_getRawTag */ "../node_modules/lodash/_getRawTag.js"),
-    objectToString = __webpack_require__(/*! ./_objectToString */ "../node_modules/lodash/_objectToString.js");
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
+    getRawTag = __webpack_require__(/*! ./_getRawTag */ "./node_modules/lodash/_getRawTag.js"),
+    objectToString = __webpack_require__(/*! ./_objectToString */ "./node_modules/lodash/_objectToString.js");
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -142,10 +142,10 @@ module.exports = baseGetTag;
 
 /***/ }),
 
-/***/ "../node_modules/lodash/_freeGlobal.js":
-/*!*********************************************!*\
-  !*** ../node_modules/lodash/_freeGlobal.js ***!
-  \*********************************************/
+/***/ "./node_modules/lodash/_freeGlobal.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_freeGlobal.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -154,18 +154,18 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 
 module.exports = freeGlobal;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../NaEditor/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
-/***/ "../node_modules/lodash/_getPrototype.js":
-/*!***********************************************!*\
-  !*** ../node_modules/lodash/_getPrototype.js ***!
-  \***********************************************/
+/***/ "./node_modules/lodash/_getPrototype.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_getPrototype.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var overArg = __webpack_require__(/*! ./_overArg */ "../node_modules/lodash/_overArg.js");
+var overArg = __webpack_require__(/*! ./_overArg */ "./node_modules/lodash/_overArg.js");
 
 /** Built-in value references. */
 var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -175,14 +175,14 @@ module.exports = getPrototype;
 
 /***/ }),
 
-/***/ "../node_modules/lodash/_getRawTag.js":
-/*!********************************************!*\
-  !*** ../node_modules/lodash/_getRawTag.js ***!
-  \********************************************/
+/***/ "./node_modules/lodash/_getRawTag.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_getRawTag.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(/*! ./_Symbol */ "../node_modules/lodash/_Symbol.js");
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js");
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -232,10 +232,10 @@ module.exports = getRawTag;
 
 /***/ }),
 
-/***/ "../node_modules/lodash/_objectToString.js":
-/*!*************************************************!*\
-  !*** ../node_modules/lodash/_objectToString.js ***!
-  \*************************************************/
+/***/ "./node_modules/lodash/_objectToString.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_objectToString.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -265,10 +265,10 @@ module.exports = objectToString;
 
 /***/ }),
 
-/***/ "../node_modules/lodash/_overArg.js":
-/*!******************************************!*\
-  !*** ../node_modules/lodash/_overArg.js ***!
-  \******************************************/
+/***/ "./node_modules/lodash/_overArg.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_overArg.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -291,14 +291,14 @@ module.exports = overArg;
 
 /***/ }),
 
-/***/ "../node_modules/lodash/_root.js":
-/*!***************************************!*\
-  !*** ../node_modules/lodash/_root.js ***!
-  \***************************************/
+/***/ "./node_modules/lodash/_root.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/_root.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "../node_modules/lodash/_freeGlobal.js");
+var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js");
 
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -311,10 +311,10 @@ module.exports = root;
 
 /***/ }),
 
-/***/ "../node_modules/lodash/isObjectLike.js":
-/*!**********************************************!*\
-  !*** ../node_modules/lodash/isObjectLike.js ***!
-  \**********************************************/
+/***/ "./node_modules/lodash/isObjectLike.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/isObjectLike.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -351,16 +351,16 @@ module.exports = isObjectLike;
 
 /***/ }),
 
-/***/ "../node_modules/lodash/isPlainObject.js":
-/*!***********************************************!*\
-  !*** ../node_modules/lodash/isPlainObject.js ***!
-  \***********************************************/
+/***/ "./node_modules/lodash/isPlainObject.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/isPlainObject.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "../node_modules/lodash/_baseGetTag.js"),
-    getPrototype = __webpack_require__(/*! ./_getPrototype */ "../node_modules/lodash/_getPrototype.js"),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "../node_modules/lodash/isObjectLike.js");
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    getPrototype = __webpack_require__(/*! ./_getPrototype */ "./node_modules/lodash/_getPrototype.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
 
 /** `Object#toString` result references. */
 var objectTag = '[object Object]';
@@ -570,7 +570,7 @@ exports["default"] = combineReducers;
 
 var _createStore = __webpack_require__(/*! ./createStore */ "./node_modules/redux/lib/createStore.js");
 
-var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ "../node_modules/lodash/isPlainObject.js");
+var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ "./node_modules/lodash/isPlainObject.js");
 
 var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
@@ -758,7 +758,7 @@ exports.__esModule = true;
 exports.ActionTypes = undefined;
 exports["default"] = createStore;
 
-var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ "../node_modules/lodash/isPlainObject.js");
+var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ "./node_modules/lodash/isPlainObject.js");
 
 var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 

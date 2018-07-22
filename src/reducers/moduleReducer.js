@@ -33,17 +33,21 @@ export default (state = { moduleList: [] }, action) => {
                 return result;
                 break;
             }
-
-            // case REFRESH_MODULE:
-            //     const { moduleData } = action;
-            //     return moduleData;
-
         case REFRESH_MODULE_LIST: //刷新整页
-            const { moduleList } = action;
-            return {
-                moduleList,
-            };
-
+            {
+                const { moduleList } = action;
+                return {
+                    moduleList: moduleList.map(v => {
+                        return Object.assign({}, v, {
+                            tempData: {
+                                isActive: false,
+                                top: 0,
+                                height: 0,
+                            }
+                        });
+                    }),
+                };
+            }
 
         case REMOVE_MODULE: // 删除模块
             {

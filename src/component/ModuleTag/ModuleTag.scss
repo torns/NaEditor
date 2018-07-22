@@ -22,7 +22,7 @@
     cursor: pointer;
     &.active {
         transition: background .3s linear;
-        background: hsla(0, 0%, 43%, .85);
+        background: rgba(48, 137, 220, .85);
         color: #fff;
         z-index: 1;
         max-height: none;

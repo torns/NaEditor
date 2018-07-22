@@ -69,11 +69,16 @@ class ModuleBar extends React.Component {
         const configVisiable = moduleConfig.isVisiable;
         const activeModuleData = activeModule && activeModule[0];
         const activeModuleId = activeModuleData && activeModuleData.moduleId;
+        let top = 20;
+        if (activeModuleData && activeModuleData.tempData) {
+            top = activeModuleData.tempData.top + 20;
+        }
+        if (activeModuleData === undefined) return null;
         return (
-            <div className="d-module-bar">
+            <div className="d-module-bar"
+                style={{ top }}>
                 <Tooltip title='模块配置' placement="right">
                     <Icon type="setting"
-
                         onClick={() => { configVisiable ? hideConfig() : showConfig(activeModuleData) }}
                         style={{
                             fontSize: '20px',

@@ -22505,7 +22505,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".d-module-bar {\n  position: fixed;\n  width: 28px;\n  left: calc(50vw + 203px);\n  top: 300px;\n  background: #fff;\n  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.15);\n  border-radius: 2px;\n  transition: top .2s ease-out;\n  text-align: center; }\n  .d-module-bar i {\n    padding: 5px 0;\n    cursor: pointer; }\n    .d-module-bar i:hover,\n    .d-module-bar i .active {\n      color: #3089DC; }\n", ""]);
+exports.push([module.i, ".d-module-bar {\n  position: absolute;\n  width: 28px;\n  left: calc(50vw + 203px);\n  top: 300px;\n  background: #fff;\n  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.15);\n  border-radius: 2px;\n  transition: top .2s ease-out;\n  text-align: center; }\n  .d-module-bar i {\n    padding: 5px 0;\n    cursor: pointer; }\n    .d-module-bar i:hover,\n    .d-module-bar i .active {\n      color: #3089DC; }\n", ""]);
 
 // exports
 
@@ -64517,7 +64517,7 @@ module.exports = function(module) {
 /*!******************************!*\
   !*** ./src/actions/index.js ***!
   \******************************/
-/*! exports provided: REFRESH_MODULE, refreshModule, REFRESH_MODULE_LIST, refreshModuleList, ADD_MODULE, addModule, ADD_MODULE_REQUEST, addModuleRequest, REMOVE_MODULE, removeModule, removeModuleRequest, SHOW_CONFIG, showConfig, HIDE_CONFIG, hideConfig, FOCUS_MODULE, focusModule, UPDATE_MODULE, updateModule, SAVE_CONFIG_REQUEST, saveConfigRequest, POSITION_MODULE, positionModule, POSITION_MODULE_REQUEST, positionModuleRequest, MODULE_TOP_CHANGE, moduleTopChange, FETCH_MODULE_LIST, fetchModuleList */
+/*! exports provided: REFRESH_MODULE, refreshModule, REFRESH_MODULE_LIST, refreshModuleList, ADD_MODULE, addModule, ADD_MODULE_REQUEST, addModuleRequest, REMOVE_MODULE, removeModule, removeModuleRequest, SHOW_CONFIG, showConfig, HIDE_CONFIG, hideConfig, FOCUS_MODULE, focusModule, UPDATE_MODULE, updateModule, SAVE_CONFIG_REQUEST, saveConfigRequest, POSITION_MODULE, positionModule, POSITION_MODULE_REQUEST, positionModuleRequest, MODULE_TOP_CHANGE, moduleTopChange, MODULE_HEIGHT_CHANGE, moduleHeightChange, FETCH_MODULE_LIST, fetchModuleList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64549,6 +64549,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "positionModuleRequest", function() { return positionModuleRequest; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MODULE_TOP_CHANGE", function() { return MODULE_TOP_CHANGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "moduleTopChange", function() { return moduleTopChange; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MODULE_HEIGHT_CHANGE", function() { return MODULE_HEIGHT_CHANGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "moduleHeightChange", function() { return moduleHeightChange; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_MODULE_LIST", function() { return FETCH_MODULE_LIST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchModuleList", function() { return fetchModuleList; });
 /* harmony import */ var _common_script_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @common/script/action */ "./src/common/script/action.js");
@@ -64701,6 +64703,16 @@ const moduleTopChange = (moduleId, top) => {
         type: MODULE_TOP_CHANGE,
         moduleId,
         top
+    };
+};
+
+// 模块height值变动
+const MODULE_HEIGHT_CHANGE = 'MODULE_HEIGHT_CHANGE';
+const moduleHeightChange = (moduleId, height) => {
+    return {
+        type: MODULE_HEIGHT_CHANGE,
+        moduleId,
+        height
     };
 };
 
@@ -65227,16 +65239,16 @@ class Canvas extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
                 const { moduleId, moduleTypeId } = v;
                 switch (moduleTypeId) {
                     case 1:
-                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_UserDefine__WEBPACK_IMPORTED_MODULE_7__["default"], { key: i, moduleData: v });
+                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_UserDefine__WEBPACK_IMPORTED_MODULE_7__["default"], { key: v.moduleId, moduleData: v });
                         break;
                     case 2:
-                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_ImageHotspot__WEBPACK_IMPORTED_MODULE_8__["default"], { key: i, moduleData: v });
+                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_ImageHotspot__WEBPACK_IMPORTED_MODULE_8__["default"], { key: v.moduleId, moduleData: v });
                         break;
                     case 3:
-                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_Text__WEBPACK_IMPORTED_MODULE_9__["default"], { key: i, moduleData: v });
+                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_Text__WEBPACK_IMPORTED_MODULE_9__["default"], { key: v.moduleId, moduleData: v });
                         break;
                     default:
-                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('div', { key: i });
+                        return null;
                         break;
                 }
             });
@@ -65907,9 +65919,8 @@ class Module extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     componentDidMount() {
         this.setState({
             moduleRef: this.moduleRef
-        }, () => {
-            this.reatChange();
         });
+        this.reatChange();
     }
 
     componentDidUpdate() {
@@ -65917,12 +65928,15 @@ class Module extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }
 
     reatChange() {
-        const { moduleTopChange } = this.props;
+        const { moduleTopChange, moduleHeightChange } = this.props;
         const { moduleData } = this.state;
         const clientRect = this.moduleRef.getBoundingClientRect();
         const { height, top } = clientRect;
         if (!moduleData.tempData || top !== moduleData.tempData.top) {
             moduleTopChange(moduleData.moduleId, top);
+        }
+        if (!moduleData.tempData || height !== moduleData.tempData.height) {
+            moduleHeightChange(moduleData.moduleId, height);
         }
     }
 
@@ -65949,7 +65963,7 @@ const mapStateToProps = state => {
     return { module: state.module };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, { moduleTopChange: _actions__WEBPACK_IMPORTED_MODULE_4__["moduleTopChange"] })(Module));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, { moduleTopChange: _actions__WEBPACK_IMPORTED_MODULE_4__["moduleTopChange"], moduleHeightChange: _actions__WEBPACK_IMPORTED_MODULE_4__["moduleHeightChange"] })(Module));
 
 /***/ }),
 
@@ -66063,14 +66077,18 @@ class ModuleBar extends react__WEBPACK_IMPORTED_MODULE_3___default.a.Component {
         const configVisiable = moduleConfig.isVisiable;
         const activeModuleData = activeModule && activeModule[0];
         const activeModuleId = activeModuleData && activeModuleData.moduleId;
+        let top = 20;
+        if (activeModuleData && activeModuleData.tempData) {
+            top = activeModuleData.tempData.top + 20;
+        }
         return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(
             "div",
-            { className: "d-module-bar" },
+            { className: "d-module-bar",
+                style: { top } },
             react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(
                 antd_lib_tooltip__WEBPACK_IMPORTED_MODULE_0___default.a,
                 { title: "\u6A21\u5757\u914D\u7F6E", placement: "right" },
                 react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(antd_lib_icon__WEBPACK_IMPORTED_MODULE_1___default.a, { type: "setting",
-
                     onClick: () => {
                         configVisiable ? hideConfig() : showConfig(activeModuleData);
                     },
@@ -66348,35 +66366,58 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd_lib_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/lib/tooltip */ "./node_modules/antd/lib/tooltip/index.js");
+/* harmony import */ var antd_lib_tooltip__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(antd_lib_tooltip__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @actions */ "./src/actions/index.js");
 
 
-class ModuleTag extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+
+
+
+
+
+class ModuleTag extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
 
     constructor(props) {
         super();
     }
 
     render() {
-        const { moduleData } = this.props;
-        let top, isActive;
+        const { moduleData, focusModule } = this.props;
+        let top, isActive, height;
         if (moduleData.tempData) {
             top = moduleData.tempData.top;
+            height = moduleData.tempData.height;
             isActive = moduleData.tempData.isActive;
         }
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            'div',
-            { className: `d-module-tag ${isActive ? 'active' : ''}`,
-                style: { top }
-            },
-            moduleData.moduleName
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(
+            antd_lib_tooltip__WEBPACK_IMPORTED_MODULE_0___default.a,
+            { title: moduleData.moduleName, placement: 'left' },
+            react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(
+                'div',
+                { className: `d-module-tag ${isActive ? 'active' : ''}`,
+                    style: { top, maxHeight: isActive ? '' : height },
+                    onClick: () => {
+                        focusModule(moduleData.moduleId);
+                    }
+                },
+                moduleData.moduleName
+            )
         );
     }
 
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (ModuleTag);
+const mapStateToProps = state => {
+    return {
+        module: state.module
+    };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, { focusModule: _actions__WEBPACK_IMPORTED_MODULE_3__["focusModule"] })(ModuleTag));
 
 /***/ }),
 
@@ -67509,7 +67550,7 @@ __webpack_require__.r(__webpack_exports__);
             const { moduleId } = action;
             if (state.moduleList) {
                 return Object.assign({}, state, {
-                    moduleList: state.moduleList.filter(v => v.moduleId !== moduleId)
+                    moduleList: state.moduleList.reduce(v => v.moduleId !== moduleId)
                 });
             } else {
                 return state;
@@ -67585,6 +67626,23 @@ __webpack_require__.r(__webpack_exports__);
                 });
                 return result;
             }
+            break;
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["MODULE_HEIGHT_CHANGE"]:
+            // 模块height值变化
+            {
+                const { moduleId, height } = action;
+                const newModuleList = state.moduleList.map(v => {
+                    if (v.moduleId === moduleId) {
+                        v.tempData = Object.assign({}, v.tempData, { height });
+                    }
+                    return v;
+                });
+                const result = Object.assign({}, state, {
+                    moduleList: newModuleList
+                });
+                return result;
+            }
+            break;
         default:
             return state;
     }

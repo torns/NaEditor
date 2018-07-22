@@ -46,14 +46,18 @@ export default (state = { moduleList: [] }, action) => {
 
 
         case REMOVE_MODULE: // 删除模块
-            const { moduleId } = action;
-            if (state.moduleList) {
-                return Object.assign({}, state, {
-                    moduleList: state.moduleList.filter(v => v.moduleId !== moduleId)
-                });
-            } else {
-                return state;
+            {
+                const { moduleId } = action;
+                let result;
+                if (state.moduleList) {
+                    return Object.assign({}, state, {
+                        moduleList: state.moduleList.filter(v => v.moduleId !== moduleId)
+                    });
+                } else {
+                    return state;
+                }
             }
+            break;
         case UPDATE_MODULE: //更新模块
             const { moduleData } = action;
             if (moduleData) {

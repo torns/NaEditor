@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Tooltip } from 'antd';
+
+import { focusModule } from '@actions';
 
 class ModuleTag extends React.Component {
 
@@ -10,7 +14,8 @@ class ModuleTag extends React.Component {
 
 
     render() {
-        const { moduleData } = this.props;
+        const { moduleData, focusModule } = this.props;
+        const { moduleName } = moduleData;
         let top, isActive, height;
         if (moduleData.tempData) {
             top = moduleData.tempData.top;
@@ -18,12 +23,22 @@ class ModuleTag extends React.Component {
             isActive = moduleData.tempData.isActive;
         }
         return (
-            <div className={`d-module-tag ${isActive ? 'active' : ''}`}
-                style={{ top, maxHeight: isActive ? '' : height }}
-            >{moduleData.moduleName}</div>
+            <Tooltip title={moduleName} placement="left">
+                <div className={`d-module-tag ${isActive ? 'active' : ''}`}
+                    style={{ top, maxHeight: isActive ? '' : height }}
+                    onClick={() => { focusModule(moduleData.moduleId) }}
+                >{moduleName}</div>
+            </Tooltip>
         )
     }
 
 }
 
-export default ModuleTag;
+const mapStateToProps = (state) => {
+    return {
+        module: state.module,
+    }
+}
+
+
+export default connect(mapStateToProps, { focusModule })(ModuleTag);

@@ -27,6 +27,7 @@ class ModuleWrap extends React.Component {
                 nextPlaceholder: placeholder,
             }, () => {
                 insertAfter(placeholder, moduleRef);
+                window.resizeIframe();
             })
 
 
@@ -52,6 +53,7 @@ class ModuleWrap extends React.Component {
      */
     clearNextPlaceholder = () => {
         this.state.nextPlaceholder.remove();
+        window.resizeIframe();
         this.setState({
             nextPlaceholder: undefined,
         })

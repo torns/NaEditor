@@ -123,7 +123,15 @@ export const positionModuleRequest = (args) => {
     }
 }
 
-
+// 模块top值变动
+export const MODULE_TOP_CHANGE = 'MODULE_TOP_CHANGE';
+export const moduleTopChange = (moduleId, top) => {
+    return {
+        type: MODULE_TOP_CHANGE,
+        moduleId,
+        top,
+    }
+}
 
 
 

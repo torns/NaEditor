@@ -6,6 +6,7 @@ import {
     UPDATE_MODULE,
     FOCUS_MODULE,
     POSITION_MODULE,
+    MODULE_TOP_CHANGE
 } from "../actions";
 
 
@@ -14,13 +15,20 @@ export default (state = { moduleList: [] }, action) => {
     switch (action.type) {
         case ADD_MODULE:
             {
-                // 这里需要数组深拷贝，暂时不知道用啥办法
-                const result = JSON.parse(JSON.stringify(state));
                 const { preModuleId, moduleData } = action;
-                // TODO 暂时先统统丢到最后面
-                // if (preModuleId === undefined) {
-                result.moduleList.push(moduleData)
-                // } 
+                let newModuleList;
+                if (preModuleId === undefined) {
+                    newModuleList = [moduleData].concat(state.moduleList);
+                } else {
+                    newModuleList = state.moduleList.reduce((acc, v, i, array) => {
+                        acc.push(v);
+                        if (v.moduleId === preModuleId) {
+                            acc.push(moduleData);
+                        }
+                        return acc;
+                    }, []);
+                }
+                const result = Object.assign({}, state, { moduleList: newModuleList })
                 return result;
                 break;
             }
@@ -95,6 +103,20 @@ export default (state = { moduleList: [] }, action) => {
                     const preModuleIndex = newModuleList.findIndex(v => v.moduleId === preModuleId);
                     newModuleList.splice(preModuleIndex + 1, 0, module);
                 }
+                const result = Object.assign({}, state, {
+                    moduleList: newModuleList,
+                })
+                return result;
+            }
+        case MODULE_TOP_CHANGE: // 模块top值变化
+            {
+                const { moduleId, top } = action;
+                const newModuleList = state.moduleList.map(v => {
+                    if (v.moduleId === moduleId) {
+                        v.tempData = Object.assign({}, v.tempData, { top });
+                    }
+                    return v;
+                })
                 const result = Object.assign({}, state, {
                     moduleList: newModuleList,
                 })

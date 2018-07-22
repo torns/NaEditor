@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { render } from 'react-dom';
 import store from '@store';
 
-
+import { moduleTopChange } from '@actions';
 import ModuleWrap from '@component/ModuleWrap';
 
 class Module extends React.Component {
@@ -34,7 +34,25 @@ class Module extends React.Component {
     componentDidMount() {
         this.setState({
             moduleRef: this.moduleRef,
+        }, () => {
+            this.reatChange();
         })
+
+
+    }
+
+    componentDidUpdate() {
+        this.reatChange();
+    }
+
+    reatChange() {
+        const { moduleTopChange } = this.props;
+        const { moduleData } = this.state;
+        const clientRect = this.moduleRef.getBoundingClientRect();
+        const { height, top } = clientRect;
+        if (!moduleData.tempData || top !== moduleData.tempData.top) {
+            moduleTopChange(moduleData.moduleId, top);
+        }
     }
 
     render() {
@@ -58,4 +76,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {})(Module)
+export default connect(mapStateToProps, { moduleTopChange })(Module)

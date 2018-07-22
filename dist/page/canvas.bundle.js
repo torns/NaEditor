@@ -117,7 +117,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".d-module {\n  position: relative;\n  min-height: 20px; }\n", ""]);
+exports.push([module.i, ".d-module {\n  position: relative;\n  min-height: 50px; }\n", ""]);
 
 // exports
 
@@ -136,7 +136,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".d-module-wrap {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  z-index: 1; }\n  .d-module-wrap.active {\n    border: solid #3089DC 3px; }\n", ""]);
+exports.push([module.i, ".d-module-wrap {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  z-index: 1; }\n  .d-module-wrap.active {\n    border: solid #3089DC 3px; }\n\n.d-next-placeholder {\n  display: block;\n  width: 100%;\n  box-sizing: border-box;\n  height: 0;\n  background: rgba(34, 153, 255, 0.1);\n  border: 1px dashed #29f;\n  color: #29f;\n  letter-spacing: 0;\n  text-align: center;\n  line-height: 38px;\n  pointer-events: none;\n  height: 40px;\n  animation: extendHeight .2s ease-out;\n  animation-fill-mode: forwards;\n  font-size: 14px; }\n", ""]);
 
 // exports
 

@@ -12,6 +12,7 @@ import '../../db/createStore';
 import ConfigDialog from '@component/ConfigDialog';
 import ModuleList from '@component/ModuleList';
 import ModuleBar from '@component/ModuleBar';
+import ModuleTagList from '@component/ModuleTagList';
 import Canvas from '@component/Canvas';
 import DBInit from '@db/dataInitial';
 import CanvasWarp from "@component/CanvasWrap";
@@ -20,7 +21,6 @@ import store from '@store';
 
 window.resizeIframe = _.debounce(() => {
     let height = document.querySelector('.J_canvas').contentWindow.document.body.scrollHeight + 'px';
-    console.log(height)
     document.querySelector('iframe.J_canvas').style.height = height;
 }, 50);
 
@@ -57,6 +57,15 @@ window.addEventListener('load', () => {
         </Provider>,
         document.querySelector('.J_ModuleBar')
     )
+
+    ReactDOM.render(
+        <Provider store={store}>
+            <ModuleTagList />
+        </Provider>,
+        document.querySelector('.J_moduleTagList')
+    )
+
+
 
 
 

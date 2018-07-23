@@ -10,6 +10,7 @@ import UserDefine from '@component/UserDefine';
 import ImageHotspot from '@component/ImageHotspot';
 import Text from '@component/Text';
 import { fetchModuleList, focusModule } from '@actions';
+import Carousel from '../Carousel';
 
 const { BASE_DATA } = window.top
 
@@ -95,6 +96,8 @@ class Canvas extends React.Component {
                     case 3:
                         return <Text key={v.moduleId} moduleData={v} />
                         break;
+                    case 4:
+                        return <Carousel key={v.moduleId} moduleData={v} />
                     default:
                         return null;
                         break;

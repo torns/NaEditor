@@ -25,7 +25,11 @@ class ModuleList extends Component {
                             name: '文字',
                             typeId: 3,
                             iconUrl: '',
-                        }
+                        }, {
+                            name: '图片轮播',
+                            typeId: 4,
+                            iconUrl: ''
+                        },
                     ]
                 }, {
                     cataName: '自定义类',

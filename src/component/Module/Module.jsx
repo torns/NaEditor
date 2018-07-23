@@ -97,7 +97,8 @@ class Module extends React.Component {
                 ref={ref => this.moduleRef = ref}>
                 {this.state.isEmpty ? <div className="d-placeholder">请配置模块数据</div> : this.props.children}
                 <ModuleWrap moduleData={moduleData}
-                    moduleRef={this.state.moduleRef} />
+                    moduleRef={this.state.moduleRef}
+                    dragable='false' />
             </div>
         )
     }

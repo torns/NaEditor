@@ -51,7 +51,6 @@ class ImageHotspotConfig extends React.Component {
     render() {
         return (
             <div>
-                <div className="cd-title">{this.props.title}</div>
                 <span>图片地址</span>
                 <Input placeholder="请输入图片地址"
                     value={this.state.imageUrl}

@@ -19,6 +19,8 @@
     }
     .d-module-item {
         justify-content: space-around;
+        margin: 10px;
+        border: 1px solid #333;
         cursor: move;
         width: 92px;
         height: 112px;
@@ -30,5 +32,7 @@
     }
     .d-sub-list {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
     }
 }

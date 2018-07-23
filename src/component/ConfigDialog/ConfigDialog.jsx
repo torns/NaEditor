@@ -8,6 +8,7 @@ import UserDefineConfig from '@component/UserDefineConfig';
 import { hideConfig, saveConfigRequest } from '@actions';
 import ImageHotspotConfig from '@component/ImageHotspotConfig';
 import TextConfig from '@component/TextConfig';
+import CarouselConfig from '@component/CarouselConfig';
 
 class ConfigDialog extends React.Component {
 
@@ -49,6 +50,11 @@ class ConfigDialog extends React.Component {
                 case 3: //文字
                     return <TextConfig
                         title="文字模块设置"
+                        ref='form'
+                        moduleData={moduleData} />
+                case 4: //图片轮播
+                    return <CarouselConfig
+                        title="图片轮播设置"
                         ref='form'
                         moduleData={moduleData} />
                 default:

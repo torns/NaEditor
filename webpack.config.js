@@ -16,6 +16,8 @@ entryList.forEach(function(file) {
     entrys[name] = './' + file;
 });
 
+const sourcePath = path.join(__dirname, '/src');
+
 const HtmlWebpackPlugins = [
     new HtmlWebpackPlugin({
         filename: '/page/decorate.html',
@@ -33,6 +35,8 @@ const HtmlWebpackPlugins = [
         chunks: ['page/learn']
     })
 ]
+
+let imageLoaderConfig = 'file-loader?hash=sha512&digest=hex&name=images/[name].[ext]';
 
 
 module.exports = {
@@ -67,6 +71,20 @@ module.exports = {
                 test: /\.css/,
                 // exclude: /node_modules/,
                 use: ['style-loader', 'css-loader']
+            }, {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                use: [
+                    'file-loader',
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            disable: true, // webpack@2.x and newer
+                        },
+                    },
+                ],
+            }, {
+                test: /\.(woff|woff2|ttf|eot)$/,
+                use: 'file-loader'
             },
         ],
     },

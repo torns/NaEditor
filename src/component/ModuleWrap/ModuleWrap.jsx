@@ -28,6 +28,7 @@ class ModuleWrap extends React.Component {
             }, () => {
                 insertAfter(placeholder, moduleRef);
                 window.resizeIframe();
+
             })
 
 
@@ -84,6 +85,7 @@ class ModuleWrap extends React.Component {
                 onDragOver={this.dragOver}
                 onDragLeave={this.dragLeave}
                 onDrop={this.drop}
+                dragable='false'
             >
             </div>
         )

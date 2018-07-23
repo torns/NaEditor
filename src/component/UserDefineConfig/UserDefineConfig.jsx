@@ -51,7 +51,6 @@ class UserDefineConfig extends React.Component {
     render() {
         return (
             <div>
-                <div className="cd-title">{this.props.title}</div>
                 <TextArea placeholder="在此输入代码"
                     value={this.state.code}
                     onChange={(e) => { this.setState({ code: e.target.value }); }} />

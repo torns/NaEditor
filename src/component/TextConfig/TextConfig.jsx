@@ -51,8 +51,7 @@ class TextConfig extends React.Component {
     render() {
         return (
             <div>
-                <div className="cd-title">{this.props.title}</div>
-                <span>文本内容</span>
+                <p className='d-text-content'>文本内容</p>
                 <Input placeholder="请输入文本内容"
                     value={this.state.text}
                     onChange={(e) => { this.setState({ text: e.target.value }); }}

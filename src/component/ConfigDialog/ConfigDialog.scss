@@ -1,13 +1,13 @@
 $headerHeight:45px;
 $footerHeight:50px;
 $outerPadding:15px;
+$contentMinHeight:100px;
 .d-config-dialog {
     position: absolute;
     left: calc(50vw + 253px);
     box-sizing: border-box;
     width: 340px;
     padding: 0 $outerPadding;
-    height: 700px;
     background: #fff;
     z-index: 10;
     transition: top .2s ease-out;
@@ -43,8 +43,11 @@ $outerPadding:15px;
         }
     }
     .d-content {
-        position: absolute;
-        top: $headerHeight;
+        min-height: 100px;
+        max-height: 700px - $headerHeight - $footerHeight;
+        overflow: auto;
+        margin-top: $headerHeight;
+        margin-bottom: $footerHeight;
     }
     .d-footer {
         position: absolute;

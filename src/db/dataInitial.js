@@ -15,6 +15,9 @@ async function initModuleName() {
     }, {
         moduleTypeId: 3,
         moduleName: '文字',
+    }, {
+        moduleTypeId: 4,
+        moduleName: '图片轮播',
     }];
 
     const StoreName = `moduleName`;

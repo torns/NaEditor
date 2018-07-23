@@ -21,7 +21,9 @@ export default class Carousel extends React.Component {
             infinite: true,
             speed: 500,
             slidesToShow: 1,
-            slidesToScroll: 1
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 800,
         };
         return (
             <Module moduleData={moduleData}>

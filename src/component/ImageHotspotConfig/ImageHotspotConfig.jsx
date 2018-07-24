@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Input } from 'antd';
+import { Input, Modal } from 'antd';
+import SourceManage from '../SourceManage';
 const { TextArea } = Input;
 
 class ImageHotspotConfig extends React.Component {
@@ -56,6 +57,7 @@ class ImageHotspotConfig extends React.Component {
                     value={this.state.imageUrl}
                     onChange={(e) => { this.setState({ imageUrl: e.target.value }); }}
                 />
+                <SourceManage />
             </div>
         )
     }

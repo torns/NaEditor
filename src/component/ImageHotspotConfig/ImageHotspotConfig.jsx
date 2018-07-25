@@ -49,6 +49,12 @@ class ImageHotspotConfig extends React.Component {
         return result;
     }
 
+    imageChange = (imageUrl) => {
+        this.setState({
+            imageUrl,
+        })
+    }
+
     render() {
         return (
             <div>
@@ -57,7 +63,7 @@ class ImageHotspotConfig extends React.Component {
                     value={this.state.imageUrl}
                     onChange={(e) => { this.setState({ imageUrl: e.target.value }); }}
                 />
-                <SourceManage />
+                <SourceManage onChange={this.imageChange} />
             </div>
         )
     }

@@ -1,6 +1,19 @@
 import React, { Component, Fragment } from 'react';
-import { Row, Col, Upload, Input, Button, Icon, Modal } from 'antd';
+import { Row, Col, Upload, Input, Button, Icon, Modal, Card } from 'antd';
 const Search = Input.Search;
+
+import INTERFACE from '@common/script/INTERFACE';
+
+const uploadProps = {
+    name: 'file',
+    action: INTERFACE.uploadImage,
+    headers: {
+        authorization: 'authorization-text',
+    },
+    onChange(info) {
+        console.log(info);
+    }
+}
 
 
 class Content extends Component {
@@ -8,15 +21,45 @@ class Content extends Component {
         super();
         this.state = {
             imgList: [
-                {
-                    src: 'https://sfault-avatar.b0.upaiyun.com/278/772/2787724954-5695bc46c1306_big64',
-                    alt: '1',
-                }, {
-                    src: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
-                    alt: '1',
-                }
             ]
         }
+    }
+
+
+    // 选择某图片
+    selectImg = (index) => {
+        const { imgList: oldImgList } = this.state;
+        const imgList = oldImgList.map((v, i) => {
+            if (i === index) {
+                v.isActive = true;
+            } else {
+                v.isActive = false;
+            }
+            return v;
+        })
+        this.setState({
+            imgList,
+        })
+        this.props.selectedImgChange(imgList.filter(v => v.isActive));
+    }
+
+    componentDidMount() {
+        fetch(INTERFACE.getImageList, {
+            headers: new Headers({
+                'Accept': 'application/json' // 通过头指定，获取的数据类型是JSON
+            })
+        })
+            .then((res) => {
+                return res.json()
+            })
+            .then((res) => {
+                if (res.success) {
+                    this.setState({
+                        imgList: res.list,
+                    })
+                }
+            })
+
     }
 
     render() {
@@ -30,7 +73,7 @@ class Content extends Component {
                         />
                     </Col >
                     <Col span={2} offset={18}>
-                        <Upload>
+                        <Upload {...uploadProps}>
                             <Button className='d-upload-img'
                                 type='primary'>
                                 上传图片
@@ -40,7 +83,16 @@ class Content extends Component {
                 </Row>
                 <Row>
                     {imgList.map((v, i) => (
-                        <img key={i} src={v.src} />
+                        <Col span={3} key={i}>
+                            <div className={`d-img-container ${v.isActive ? 'active' : null}`}
+                                onClick={() => { this.selectImg(i) }}>
+                                <div className='d-image'
+                                    style={{ backgroundImage: "url(" + v.url + ")" }}
+                                >
+                                </div>
+                                <div className='d-img-mask'></div>
+                            </div>
+                        </Col>
                     ))}
                 </Row>
             </div>
@@ -55,12 +107,15 @@ class SourceManage extends Component {
     constructor(props) {
         super();
         this.state = {
-            isVisiable: false
+            isVisiable: false,
+            selectedImg: '',
         }
     }
 
     handleOk = (e) => {
-        console.log(e)
+        const { onChange } = this.props;
+        onChange(this.state.selectedImg)
+        this.close();
     }
 
     open = () => {
@@ -72,6 +127,13 @@ class SourceManage extends Component {
     close = () => {
         this.setState({
             isVisiable: false,
+        })
+    }
+
+    selectedImgChange = (imageList) => {
+        const [{ url }] = imageList;
+        this.setState({
+            selectedImg: url,
         })
     }
 
@@ -97,7 +159,7 @@ class SourceManage extends Component {
                     onOk={this.handleOk}
                     onCancel={this.close}
                 >
-                    <Content />
+                    <Content selectedImgChange={this.selectedImgChange} />
                 </Modal>
             </Fragment>
 

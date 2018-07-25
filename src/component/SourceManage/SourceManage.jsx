@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { Row, Col, Upload, Input, Button, Icon, Modal, Card } from 'antd';
+import { Row, Col, Upload, Input, Button, Icon, Modal, Card, I } from 'antd';
 const Search = Input.Search;
+const InputGroup = Input.Group;
+
 
 import INTERFACE from '@common/script/INTERFACE';
 
@@ -11,7 +13,7 @@ const uploadProps = {
         authorization: 'authorization-text',
     },
     onChange(info) {
-        console.log(info);
+
     }
 }
 
@@ -85,6 +87,7 @@ class Content extends Component {
                     {imgList.map((v, i) => (
                         <Col span={3} key={i}>
                             <div className={`d-img-container ${v.isActive ? 'active' : null}`}
+                                onDoubleClick={this.props.onOk}
                                 onClick={() => { this.selectImg(i) }}>
                                 <div className='d-image'
                                     style={{ backgroundImage: "url(" + v.url + ")" }}
@@ -108,7 +111,7 @@ class SourceManage extends Component {
         super();
         this.state = {
             isVisiable: false,
-            selectedImg: '',
+            selectedImg: props.defaultValue,
         }
     }
 
@@ -135,6 +138,7 @@ class SourceManage extends Component {
         this.setState({
             selectedImg: url,
         })
+        this.props.onChange(url);
     }
 
     render() {
@@ -146,21 +150,30 @@ class SourceManage extends Component {
             </Fragment>
         )
 
+        const { defaultValue } = this.props;
         const { isVisiable: visible } = this.state;
 
         return (
             <Fragment>
-                <Button onClick={this.open}>打开图片管理</Button>
-                <Modal
-                    className='d-source-manage'
-                    visible={visible}
-                    title={Title}
-                    width={1100}
-                    onOk={this.handleOk}
-                    onCancel={this.close}
-                >
-                    <Content selectedImgChange={this.selectedImgChange} />
-                </Modal>
+                <InputGroup compact>
+                    <Input value={this.state.selectedImg}
+                        defaultValue={defaultValue}
+                        style={{ width: '70%' }}
+                        onChange={(e) => { this.selectedImgChange([{ url: e.target.value }]) }} />
+                    <Button onClick={this.open} style={{ width: '30%' }}>图片库</Button>
+                    <Modal
+                        className='d-source-manage'
+                        visible={visible}
+                        title={Title}
+                        width={1100}
+                        onOk={this.handleOk}
+                        onCancel={this.close}
+                    >
+                        <Content selectedImgChange={this.selectedImgChange}
+                            onOk={this.handleOk}
+                        />
+                    </Modal>
+                </InputGroup>
             </Fragment>
 
         )

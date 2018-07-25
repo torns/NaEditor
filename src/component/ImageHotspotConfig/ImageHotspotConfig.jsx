@@ -50,20 +50,28 @@ class ImageHotspotConfig extends React.Component {
     }
 
     imageChange = (imageUrl) => {
+        console.log(imageUrl)
         this.setState({
             imageUrl,
         })
     }
 
     render() {
+        const defaultValue = (() => {
+            let result;
+            try {
+                result = this.props.moduleData.configData.imageUrl
+            } catch (error) {
+                result = '';
+            }
+            return result;
+        })();
+
         return (
             <div>
                 <span>图片地址</span>
-                <Input placeholder="请输入图片地址"
-                    value={this.state.imageUrl}
-                    onChange={(e) => { this.setState({ imageUrl: e.target.value }); }}
-                />
-                <SourceManage onChange={this.imageChange} />
+                <SourceManage onChange={this.imageChange}
+                    defaultValue={defaultValue} />
             </div>
         )
     }

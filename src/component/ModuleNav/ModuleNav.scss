@@ -1,0 +1,113 @@
+.d-module-nav {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    .d-btn {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: right .3s ease-out;
+        background-color: #fff;
+        padding: 16px 16px 14px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2);
+        border-radius: 2px;
+        opacity: .8;
+        cursor: pointer;
+        .d-icon {
+            font-size: 28px;
+        }
+        &:hover {
+            color: #3089DC;
+        }
+    }
+    &.active {
+        .d-module-nav-list {
+            display: block;
+        }
+        .d-icon {
+            color: #3089DC;
+        }
+    }
+}
+
+$layerWidth:280px;
+.d-module-nav-list {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: -$layerWidth - 10px;
+    width: $layerWidth;
+    height: 630px;
+    background: white;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    ul {
+        position: absolute;
+        top: 50px;
+        bottom: 20px;
+        left: 15px;
+        right: 15px;
+        padding: 0 10px 0 0;
+        overflow: auto;
+        color: #333;
+        font-size: 12px;
+    }
+    .d-header {
+        height: 60px;
+    }
+    .d-title {
+        float: left;
+        line-height: 50px;
+        font-size: 14px;
+        color: #333;
+        font-weight: 700;
+    }
+    .d-close-icon {
+        float: right;
+        margin-top: 13px;
+        font-size: 22px;
+        color: #999;
+        &:hover {
+            cursor: pointer;
+            color: #3089DC;
+        }
+    }
+    .d-module-nav-item {
+        position: relative;
+        box-sizing: content-box;
+        height: 20px;
+        margin: 5px 0;
+        padding: 4px 0;
+        text-indent: 10px;
+        line-height: 20px;
+        background: #f5f5f5;
+        border-radius: 2px;
+        opacity: 1;
+        cursor: pointer;
+        cursor: -webkit-grab;
+        transition: all .3s;
+        &:hover,
+        &.active {
+            color: #3089DC;
+            background: #efefef;
+            .d-module-operate {
+                display: block;
+            }
+        }
+    }
+    .d-module-operate {
+        display: none;
+        float: right;
+        font-size: 16px;
+        margin-right: 10px;
+        color: #666;
+        .d-operate-icon {
+            cursor: pointer;
+            &:hover {
+                color: #3089DC;
+            }
+        }
+    }
+}

@@ -16,6 +16,7 @@ import ModuleTagList from '@component/ModuleTagList';
 import Canvas from '@component/Canvas';
 import DBInit from '@db/dataInitial';
 import CanvasWarp from "@component/CanvasWrap";
+import ModuleNav from '@component/ModuleNav';
 import store from '@store';
 
 
@@ -65,6 +66,13 @@ window.addEventListener('load', () => {
         document.querySelector('.J_moduleTagList')
     )
 
+
+    ReactDOM.render(
+        <Provider store={store}>
+            <ModuleNav />
+        </Provider>,
+        document.querySelector('.J_moduleNav')
+    )
 
 
 

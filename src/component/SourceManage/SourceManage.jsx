@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Row, Col, Upload, Input, Button, Icon, Modal, Card, I } from 'antd';
+import PropTypes from 'prop-types';
 const Search = Input.Search;
 const InputGroup = Input.Group;
 
@@ -45,7 +46,10 @@ class Content extends Component {
         this.props.selectedImgChange(imgList.filter(v => v.isActive));
     }
 
+
+
     componentDidMount() {
+        const { defaultValue } = this.props;
         fetch(INTERFACE.getImageList, {
             headers: new Headers({
                 'Accept': 'application/json' // 通过头指定，获取的数据类型是JSON
@@ -55,9 +59,17 @@ class Content extends Component {
                 return res.json()
             })
             .then((res) => {
+
                 if (res.success) {
+                    const { list } = res;
+                    const imgList = list.map(v => {
+                        if (v.url === defaultValue) {
+                            v.isActive = true;
+                        }
+                        return v;
+                    })
                     this.setState({
-                        imgList: res.list,
+                        imgList,
                     })
                 }
             })
@@ -103,9 +115,6 @@ class Content extends Component {
     }
 }
 
-
-
-
 class SourceManage extends Component {
     constructor(props) {
         super();
@@ -118,6 +127,7 @@ class SourceManage extends Component {
     handleOk = (e) => {
         const { onChange } = this.props;
         onChange(this.state.selectedImg)
+        console.log(this.state.selectedImg)
         this.close();
     }
 
@@ -133,8 +143,16 @@ class SourceManage extends Component {
         })
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { defaultValue: selectedImg } = nextProps;
+        this.setState({
+            selectedImg,
+        })
+    }
+
     selectedImgChange = (imageList) => {
         const [{ url }] = imageList;
+        console.log(111,url)
         this.setState({
             selectedImg: url,
         })
@@ -153,32 +171,38 @@ class SourceManage extends Component {
         const { defaultValue } = this.props;
         const { isVisiable: visible } = this.state;
 
+        console.log(this.state.selectedImg)
         return (
-            <Fragment>
-                <InputGroup compact>
-                    <Input value={this.state.selectedImg}
+            <InputGroup compact>
+                <Input value={this.state.selectedImg}
+                    defaultValue={defaultValue}
+                    style={{ width: '70%' }}
+                    onChange={(e) => { this.selectedImgChange([{ url: e.target.value }]) }} />
+                <Button onClick={this.open} style={{ width: '30%' }}>图片库</Button>
+                {visible ? <Modal
+                    className='d-source-manage'
+                    visible={visible}
+                    title={Title}
+                    width={1100}
+                    onOk={this.handleOk}
+                    onCancel={this.close}
+                >
+                    <Content selectedImgChange={this.selectedImgChange}
                         defaultValue={defaultValue}
-                        style={{ width: '70%' }}
-                        onChange={(e) => { this.selectedImgChange([{ url: e.target.value }]) }} />
-                    <Button onClick={this.open} style={{ width: '30%' }}>图片库</Button>
-                    <Modal
-                        className='d-source-manage'
-                        visible={visible}
-                        title={Title}
-                        width={1100}
                         onOk={this.handleOk}
-                        onCancel={this.close}
-                    >
-                        <Content selectedImgChange={this.selectedImgChange}
-                            onOk={this.handleOk}
-                        />
-                    </Modal>
-                </InputGroup>
-            </Fragment>
+                    />
+                </Modal> : null}
+
+            </InputGroup>
 
         )
     }
 
 }
+
+SourceManage.propTypes = {
+    defaultValue: PropTypes.string,
+}
+
 
 export default SourceManage;

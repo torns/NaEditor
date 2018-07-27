@@ -50,7 +50,6 @@ class ImageHotspotConfig extends React.Component {
     }
 
     imageChange = (imageUrl) => {
-        console.log(imageUrl)
         this.setState({
             imageUrl,
         })

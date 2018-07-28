@@ -6,7 +6,6 @@
         position: relative;
         width: 100%;
         height: 100%;
-        transition: right .3s ease-out;
         background-color: #fff;
         padding: 16px 16px 14px;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2);
@@ -23,6 +22,8 @@
     &.active {
         .d-module-nav-list {
             display: block;
+            opacity: 1;
+            transform: scale(1);
         }
         .d-icon {
             color: #3089DC;
@@ -32,7 +33,8 @@
 
 $layerWidth:280px;
 .d-module-nav-list {
-    display: none;
+    transform: scale(0);
+    opacity: 0;
     position: absolute;
     top: 0;
     left: -$layerWidth - 10px;
@@ -43,6 +45,8 @@ $layerWidth:280px;
     border-radius: 2px;
     padding: 0 15px;
     box-sizing: border-box;
+    transform-origin: right top;
+    transition: all .2s ease-out;
     ul {
         position: absolute;
         top: 50px;
@@ -105,7 +109,8 @@ $layerWidth:280px;
         color: #666;
         .d-operate-icon {
             cursor: pointer;
-            &:hover {
+            &:hover,
+            &.active {
                 color: #3089DC;
             }
         }

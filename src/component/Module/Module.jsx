@@ -10,18 +10,9 @@ import ModuleWrap from '@component/ModuleWrap';
 class Module extends React.Component {
     constructor(props) {
         super();
-        let isEmpty;    //是否为空模块（无配置数据）
-        // if (props.moduleData) {
-        //     if (props.moduleData.data && Object.keys(props.moduleData.data).length === 0) {
-        //         isEmpty = true;
-        //     } else {
-        //         isEmpty = false;
-        //     }
-        // }
+        this.moduleRef = React.createRef();
         this.state = {
-            // isEmpty,
             moduleData: props.moduleData,
-            moduleRef: undefined,
         }
     }
 
@@ -30,12 +21,13 @@ class Module extends React.Component {
         this.setState({
             moduleData,
         })
+        // 模块聚焦后需要滚动到视窗内
+        if (moduleData.tempData.isActive === true) {
+            this.scrollIntoView();
+        }
     }
 
     componentDidMount() {
-        this.setState({
-            moduleRef: this.moduleRef,
-        })
         this.reatChange();
         setTimeout(() => {
             this.reatChange();
@@ -61,7 +53,6 @@ class Module extends React.Component {
             moduleHeightChange(moduleData.moduleId, height);
         }
     }
-
 
     scrollIntoView() {
         const clientRect = this.moduleRef.getBoundingClientRect();
@@ -97,7 +88,7 @@ class Module extends React.Component {
                 ref={ref => this.moduleRef = ref}>
                 {this.state.isEmpty ? <div className="d-placeholder">请配置模块数据</div> : this.props.children}
                 <ModuleWrap moduleData={moduleData}
-                    moduleRef={this.state.moduleRef}
+                    moduleRef={this.moduleRef}
                     dragable='false' />
             </div>
         )

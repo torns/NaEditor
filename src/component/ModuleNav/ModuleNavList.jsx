@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 
 import { showConfig, focusModule, removeModuleRequest } from '@actions';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ module, moduleConfig }) => {
     return {
-        module: state.module,
+        module,
+        moduleConfig,
     }
 }
 
@@ -24,6 +25,9 @@ class ModuleNavItem extends Component {
 
         const {
             moduleData,
+            moduleConfig: {
+                isVisiable: isConfigVisiable,
+            },
             moduleData: {
                 moduleName,
                 moduleId,
@@ -37,7 +41,7 @@ class ModuleNavItem extends Component {
 
         return (
             <li className={`d-module-nav-item ${isActive ? 'active' : ''}`}
-                onClick={(e) => { focusModule(moduleId); }}>
+                onClick={(e) => { focusModule(moduleId); isConfigVisiable && showConfig(moduleData); }}>
                 <span className="d-module-name">{moduleName}</span>
                 <span className="d-module-operate">
                     <Icon className="d-operate-icon"

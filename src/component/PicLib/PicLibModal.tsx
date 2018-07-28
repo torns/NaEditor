@@ -7,8 +7,9 @@ import INTERFACE from '../../common/script/INTERFACE';
 
 export interface ContentProps {
     defaultValue?: string;
-    visible?: boolean;
     onOk: (url: string) => void;
+    onCancel: () => void;
+    isModalVisible?: boolean;
 }
 
 const uploadProps = {
@@ -27,21 +28,15 @@ interface ImageInfo {
 
 class PicLibModal extends React.Component<ContentProps, any> {
 
-    static defaultProps = {
-        visible: true,
-    };
-
     constructor(props: ContentProps) {
         super(props);
         this.state = {
             imgList: [],
-            visible: this.props.visible,
         };
     }
 
     componentDidMount() {
         const { defaultValue } = this.props;
-        console.log(defaultValue);
         fetch(INTERFACE.getImageList, {
             headers: new Headers({
                 'Accept': 'application/json', // 通过头指定，获取的数据类型是JSON
@@ -64,13 +59,6 @@ class PicLibModal extends React.Component<ContentProps, any> {
                     });
                 }
             });
-    }
-
-    componentWillReceiveProps(nextProps: any) {
-        const { visible } = nextProps;
-        this.setState({
-            visible,
-        });
     }
 
     renderTitle = () => (
@@ -98,6 +86,7 @@ class PicLibModal extends React.Component<ContentProps, any> {
         this.setState({
             visible: false,
         });
+        this.props.onCancel();
     }
 
     selectImg = (url: string) => {
@@ -134,7 +123,7 @@ class PicLibModal extends React.Component<ContentProps, any> {
     }
 
     render() {
-        const { visible } = this.state;
+        const { isModalVisible: visible } = this.props;
         return (
             <Modal
                 className="d-source-manage"

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Input, Button } from 'antd';
+import { Input, Button, Icon } from 'antd';
 const InputGroup = Input.Group;
 
 import PicLibModal from './PicLibModal';
@@ -42,12 +42,20 @@ class PicLib extends React.Component<PicLibProps, any> {
         this.props.onChange(url);
     }
 
+    closeModal = () => {
+        this.setState({
+            isModalVisible: false,
+        });
+    }
+
     renderModal = (isModalVisible: boolean) => {
         const { value: defaultValue } = this.state;
         return (isModalVisible ?
             <PicLibModal
                 defaultValue={defaultValue}
+                isModalVisible={isModalVisible}
                 onOk={(url: string) => { this.handleChange(url); }}
+                onCancel={this.closeModal}
             /> : null);
     }
 
@@ -68,6 +76,7 @@ class PicLib extends React.Component<PicLibProps, any> {
                     onClick={this.open}
                     style={{ width: '30%' }}
                 >
+                    <Icon type="picture" />
                     图片库
                 </Button>
                 {this.renderModal(isModalVisible)}

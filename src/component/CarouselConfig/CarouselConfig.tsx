@@ -53,16 +53,16 @@ class CarouselConfig extends React.Component<CarouselConfigProps, any> {
         return (
             <div>
                 <span>第一张图</span>
-                <Input
-                    placeholder="请输入图片地址"
+                <PicLib
+                    defaultValue={imageList[0] || ''}
                     value={imageList[0] || ''}
-                    onChange={(e) => { this.imageChange(0, e.target.value); }}
+                    onChange={(url) => { this.imageChange(0, url); }}
                 />
                 <span>第二张图</span>
-                <Input
-                    placeholder="请输入图片地址"
+                <PicLib
+                    defaultValue={imageList[1] || ''}
                     value={imageList[1] || ''}
-                    onChange={(e) => { this.imageChange(1, e.target.value); }}
+                    onChange={(url) => { this.imageChange(1, url); }}
                 />
             </div>
         );

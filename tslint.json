@@ -16,7 +16,7 @@
         ],
         "curly": true,
         "object-curly-spacing": true,
-        "eofline": true,
+        "eofline": false,
         "forin": true,
         "indent": [
             true,

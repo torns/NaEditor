@@ -4,11 +4,11 @@ import { Row, Col, Button, Upload, Input, Modal } from 'antd';
 const Search = Input.Search;
 
 import INTERFACE from '../../common/script/INTERFACE';
-import { PickerProps } from '../../../node_modules/antd/lib/date-picker/interface';
 
 export interface ContentProps {
     defaultValue?: string;
     visible?: boolean;
+    onOk: (url: string) => void;
 }
 
 const uploadProps = {
@@ -28,7 +28,7 @@ interface ImageInfo {
 class PicLibModal extends React.Component<ContentProps, any> {
 
     static defaultProps = {
-        visible: false,
+        visible: true,
     };
 
     constructor(props: ContentProps) {
@@ -41,6 +41,7 @@ class PicLibModal extends React.Component<ContentProps, any> {
 
     componentDidMount() {
         const { defaultValue } = this.props;
+        console.log(defaultValue);
         fetch(INTERFACE.getImageList, {
             headers: new Headers({
                 'Accept': 'application/json', // 通过头指定，获取的数据类型是JSON
@@ -80,7 +81,17 @@ class PicLibModal extends React.Component<ContentProps, any> {
     )
 
     handleOk = () => {
-
+        const activeList = this.state.imgList.filter((v: ImageInfo) => {
+            return v.isActive;
+        });
+        let result = '';
+        if (activeList && activeList[0]) {
+            result = activeList[0].url;
+        }
+        this.props.onOk(result);
+        this.setState({
+            visible: false,
+        });
     }
 
     handleCancel = () => {
@@ -108,7 +119,7 @@ class PicLibModal extends React.Component<ContentProps, any> {
         return imgList.map((v: ImageInfo, i: number) => (
             <Col span={3} key={i}>
                 <div
-                    className={`d-img-container ${v.isActive ? 'active' : null}`}
+                    className={`d-img-container ${v.isActive ? 'active' : ''}`}
                     onDoubleClick={this.handleOk}
                     onClick={() => { this.selectImg(v.url); }}
                 >

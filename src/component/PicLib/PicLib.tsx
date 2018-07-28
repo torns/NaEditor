@@ -11,6 +11,7 @@ export interface PicLibProps {
 }
 
 class PicLib extends React.Component<PicLibProps, any> {
+
     constructor(props: PicLibProps) {
         super(props);
         const { defaultValue: value } = props;
@@ -20,38 +21,48 @@ class PicLib extends React.Component<PicLibProps, any> {
         };
     }
 
+    componentWillReceiveProps(nextProps: PicLibProps) {
+        const { value } = nextProps;
+        this.setState({
+            value,
+        });
+    }
+
     open = () => {
         this.setState({
             isModalVisible: true,
         });
     }
 
-    close = () => {
+    handleChange = (url: string) => {
         this.setState({
+            value: url,
             isModalVisible: false,
         });
+        this.props.onChange(url);
     }
 
-    handleOk = () => {
-
-    }
-
-    selectedImgChange = () => {
-
+    renderModal = (isModalVisible: boolean) => {
+        const { value: defaultValue } = this.state;
+        return (isModalVisible ?
+            <PicLibModal
+                defaultValue={defaultValue}
+                onOk={(url: string) => { this.handleChange(url); }}
+            /> : null);
     }
 
     render() {
 
         const { defaultValue } = this.props;
-        const { isModalVisible } = this.state;
+        const { isModalVisible, value } = this.state;
 
         return (
             <InputGroup compact>
                 <Input
-                    value={this.state.selectedImg}
+                    value={value}
+                    onChange={(e) => { this.handleChange(e.target.value); }}
                     defaultValue={defaultValue}
                     style={{ width: '70%' }}
-                // onChange={(e) => { this.selectedImgChange([{ url: e.target.value }]) }}
                 />
                 <Button
                     onClick={this.open}
@@ -59,8 +70,7 @@ class PicLib extends React.Component<PicLibProps, any> {
                 >
                     图片库
                 </Button>
-                <PicLibModal visible={isModalVisible} />
-
+                {this.renderModal(isModalVisible)}
             </InputGroup >
         );
 

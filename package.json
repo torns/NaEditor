@@ -22,6 +22,8 @@
   "dependencies": {
     "@types/react": "^16.4.7",
     "@types/react-dom": "^16.0.6",
+    "@types/react-redux": "^6.0.5",
+    "@types/redux": "^3.6.0",
     "antd": "^3.7.2",
     "babel": "^6.23.0",
     "babel-core": "^6.26.3",

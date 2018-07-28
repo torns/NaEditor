@@ -71,41 +71,4 @@ window.addEventListener('load', () => {
 		</Provider>,
 		document.querySelector('.J_moduleNav')
 	);
-
-
-
-
-
-	document.querySelector('.J_removeModule').addEventListener('click', () => {
-		let moduleId = document.querySelector('.J_removeModuleInput').value;
-		moduleId = Number.parseInt(moduleId.trim());
-		store.dispatch(Actions.removeModuleRequest({
-			moduleId,
-			pageId,
-		}));
-	});
-
-
-	document.querySelector('.J_addModule').addEventListener('click', () => {
-		let moduleTypeId = document.querySelector('.J_addModuleInput').value;
-		moduleTypeId = Number.parseInt(moduleTypeId.trim());
-
-		store.dispatch(Actions.addModuleRequest({
-			moduleTypeId,
-			pageId,
-		}));
-	});
-
-	document.querySelector('.J_dbInitial').addEventListener('click', () => {
-		DBInit();
-	});
-
-
-	document.querySelector('.J_refresh').onclick = () => {
-		// Messager.trigger('refreshModules')
-		store.dispatch(Actions.fetchModuleList(window.BASE_DATA.pageId));
-	};
-
-
-
 });

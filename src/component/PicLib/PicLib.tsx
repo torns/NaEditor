@@ -1,28 +1,35 @@
 import * as React from 'react';
-import { Fragment } from 'react';
-import { Input, Button, Modal } from 'antd';
+import { Input, Button } from 'antd';
 const InputGroup = Input.Group;
 
-import Content from './Contend';
+import PicLibModal from './PicLibModal';
 
 export interface PicLibProps {
     defaultValue?: string;
+    value?: string;
+    onChange?: (url: string) => void;
 }
 
 class PicLib extends React.Component<PicLibProps, any> {
     constructor(props: PicLibProps) {
         super(props);
+        const { defaultValue: value } = props;
         this.state = {
-            isVisiable: false,
+            isModalVisible: false,
+            value,
         };
     }
 
     open = () => {
-
+        this.setState({
+            isModalVisible: true,
+        });
     }
 
     close = () => {
-
+        this.setState({
+            isModalVisible: false,
+        });
     }
 
     handleOk = () => {
@@ -34,39 +41,9 @@ class PicLib extends React.Component<PicLibProps, any> {
     }
 
     render() {
-        const Title = (
-            <Fragment>
-                <span className="d-title">图片选择器</span>
-                <span className="d-desc">(支持格式为xxx)</span>
-            </Fragment>
-        );
 
         const { defaultValue } = this.props;
-        const { isVisiable } = this.state;
-
-        const MyModal = () => {
-            if (isVisiable === true) {
-                return (
-                    <Modal
-                        className="d-source-manage"
-                        visible={isVisiable}
-                        title={Title}
-                        width={1100}
-                        onOk={this.handleOk}
-                        onCancel={this.close}
-                    >
-                        <Content
-                            selectedImgChange={this.selectedImgChange}
-                            defaultValue={defaultValue}
-                        // onOk={this.handleOk}
-                        />
-                    </Modal >
-                );
-            } else {
-                return null;
-            }
-
-        };
+        const { isModalVisible } = this.state;
 
         return (
             <InputGroup compact>
@@ -82,9 +59,9 @@ class PicLib extends React.Component<PicLibProps, any> {
                 >
                     图片库
                 </Button>
-                <MyModal />
-            </InputGroup >
+                <PicLibModal visible={isModalVisible} />
 
+            </InputGroup >
         );
 
     }

@@ -64,7 +64,11 @@ class CarouselConfig extends React.Component {
                         });
                     }}
                 />
-                <PicLib />
+                <PicLib
+                    defaultValue={'111'}
+                    value={'111'}
+                    onChange={(imgInfo) => { console.log(imgInfo) }}
+                />
             </div>
         )
     }

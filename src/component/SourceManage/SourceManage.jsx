@@ -152,7 +152,6 @@ class SourceManage extends Component {
 
     selectedImgChange = (imageList) => {
         const [{ url }] = imageList;
-        console.log(111, url)
         this.setState({
             selectedImg: url,
         })

@@ -40,18 +40,18 @@
         "no-bitwise": true,
         "no-conditional-assignment": true,
         "no-consecutive-blank-lines": true,
-        "no-console": [
-            true,
-            "debug",
-            "info",
-            "log",
-            "time",
-            "timeEnd",
-            "trace"
-        ],
+        // "no-console": [
+        //     true,
+        //     "debug",
+        //     "info",
+        //     "log",
+        //     "time",
+        //     "timeEnd",
+        //     "trace"
+        // ],
         "no-construct": true,
         "no-constructor-vars": false,
-        "no-debugger": true,
+        // "no-debugger": true,
         "no-duplicate-variable": true,
         "no-empty": false,
         "no-eval": true,

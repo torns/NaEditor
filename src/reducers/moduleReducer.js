@@ -89,7 +89,6 @@ export default (state = { moduleList: [] }, action) => {
                         return v;
                     })
                 })
-                console.log(result);
                 return result;
             }
         case POSITION_MODULE: //移动模块

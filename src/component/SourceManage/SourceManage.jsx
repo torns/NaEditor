@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Row, Col, Upload, Input, Button, Icon, Modal, Card, I } from 'antd';
+import { Row, Col, Upload, Input, Button, Icon, Modal, Card } from 'antd';
 import PropTypes from 'prop-types';
 const Search = Input.Search;
 const InputGroup = Input.Group;
@@ -13,7 +13,7 @@ const uploadProps = {
     headers: {
         authorization: 'authorization-text',
     },
-    onChange(info) {
+    onChange() {
 
     }
 }
@@ -152,7 +152,7 @@ class SourceManage extends Component {
 
     selectedImgChange = (imageList) => {
         const [{ url }] = imageList;
-        console.log(111,url)
+        console.log(111, url)
         this.setState({
             selectedImg: url,
         })

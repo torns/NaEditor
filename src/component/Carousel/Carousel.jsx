@@ -1,7 +1,9 @@
 import React from 'react';
+import Slider from "react-slick";
 
 import Module from '@component/Module';
-import Slider from "react-slick";
+
+
 
 export default class Carousel extends React.Component {
     constructor() {

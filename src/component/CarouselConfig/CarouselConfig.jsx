@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Input } from 'antd';
 const { TextArea } = Input;
 
+import PicLib from '../PicLib';
+
 class CarouselConfig extends React.Component {
 
     constructor(props) {
@@ -62,6 +64,7 @@ class CarouselConfig extends React.Component {
                         });
                     }}
                 />
+                <PicLib />
             </div>
         )
     }

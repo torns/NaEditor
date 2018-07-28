@@ -53,10 +53,15 @@ module.exports = {
     },
     module: {
         rules: [{
+                test: /\.tsx?$/,
+                loader: "awesome-typescript-loader"
+            },
+            {
                 test: /\.jsx?/,
                 exclude: /node_modules/,
                 use: 'babel-loader'
             },
+
             // {
             //     test: /\.html/,
             //     exclude: /node_modules/,
@@ -98,7 +103,7 @@ module.exports = {
             '@actions': path.resolve(__dirname, 'src/actions'),
             '@store': path.resolve(__dirname, './src/store'),
         },
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
     },
     plugins: [
 

@@ -14,7 +14,7 @@ export interface IModuleData {
     pageId: number;
     moduleId: number;
     data: any;
-    configData: ImageHotspotConfData;
+    configData: ImageHotspotConfData | undefined;
     tempData: ITempData;
 }
 

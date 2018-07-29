@@ -16,16 +16,26 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
 
     constructor(props: ImageHotspotConfigProps) {
         super(props);
-        const imgs = props.moduleData.configData.imgs;
-
+        let imgs: ImgaeInfo[];
+        if (props.moduleData.configData === undefined || props.moduleData.configData.imgs === undefined) {
+            imgs = [];
+        } else {
+            imgs = props.moduleData.configData.imgs;
+        }
         this.state = {
             imgs,
         };
     }
 
     componentWillReceiveProps(nextProps: ImageHotspotConfigProps) {
+        let imgs: ImgaeInfo[];
+        if (nextProps.moduleData.configData === undefined || nextProps.moduleData.configData.imgs === undefined) {
+            imgs = [];
+        } else {
+            imgs = nextProps.moduleData.configData.imgs;
+        }
         this.setState({
-            imgs: nextProps.moduleConfig.moduleData.configData.imgs,
+            imgs,
         });
     }
 
@@ -44,18 +54,17 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
     }
 
     imageChange = (index: number, url: string) => {
-        let imgs = [];
-        if (this.state.imgs !== undefined) {
-            imgs = this.state.imgs.map((v, i) => {
+        let imgs: ImgaeInfo[] = [];
+        const { imgs: currentImgs } = this.state;
+        if (currentImgs !== undefined && index < currentImgs.length) {
+            imgs = currentImgs.map((v, i) => {
                 if (index === i) {
                     v.url = url;
                 }
                 return v;
-            });
-        } else {
-            imgs = [{
-                url,
-            }];
+            }).filter(v => v.url !== '');
+        } else {// 新增项
+            imgs = (currentImgs || []).concat([{ url }]);
         }
         this.setState({
             imgs,
@@ -65,14 +74,12 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
     renderImgs = (imgs: ImgaeInfo[]): JSX.Element => {
 
         const imgItem = (index: number, imgInfo: ImgaeInfo) => (
-            <React.Fragment key={index}>
-                <span>图片地址</span>
-                <PicLib
-                    // defaultValue={defaultValue}
-                    value={imgInfo.url}
-                    onChange={(url) => { this.imageChange(index, url); }}
-                />
-            </React.Fragment>
+            <PicLib
+                key={index}
+                defaultValue={imgInfo.url}
+                value={imgInfo.url}
+                onChange={(url) => { this.imageChange(index, url); }}
+            />
         );
 
         return (

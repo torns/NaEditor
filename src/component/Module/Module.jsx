@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { render } from 'react-dom';
-import store from '@store';
+import _ from 'lodash';
 import $ from 'jquery';
 
 import { moduleTopChange, moduleHeightChange } from '@actions';
@@ -55,28 +54,29 @@ class Module extends React.Component {
     }
 
     scrollIntoView() {
-        const clientRect = this.moduleRef.getBoundingClientRect();
-        const { top } = clientRect;
-        const container = document.querySelector('.J_editorInstanceArea');
+        _.debounce(() => {
+            const clientRect = this.moduleRef.getBoundingClientRect();
+            const { top } = clientRect;
+            const container = document.querySelector('.J_editorInstanceArea');
 
-        // 判断是否在当前屏幕内
-        const intersectionObserver = new IntersectionObserver((entries) => {
-            const ratio = entries[0].intersectionRatio;
-            if (ratio < 1) {
-                // jq动画，待优化
-                $(container).animate(
-                    {
-                        scrollTop: top - 50,
-                    }, {
-                        easing: 'swing'
-                    }
-                )
-            }
-            intersectionObserver.unobserve(this.moduleRef);
+            // 判断是否在当前屏幕内
+            const intersectionObserver = new IntersectionObserver((entries) => {
+                const ratio = entries[0].intersectionRatio;
+                if (ratio < 1) {
+                    // jq动画，待优化
+                    $(container).animate(
+                        {
+                            scrollTop: top - 50,
+                        }, {
+                            easing: 'swing'
+                        }
+                    )
+                }
+                intersectionObserver.unobserve(this.moduleRef);
 
-        });
-        intersectionObserver.observe(this.moduleRef);
-
+            });
+            intersectionObserver.observe(this.moduleRef);
+        }, 0)();
     }
 
     render() {

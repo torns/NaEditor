@@ -73,15 +73,24 @@ class ModuleWrap extends React.Component {
     }
 
     render() {
-        const { moduleData, showConfig, focusModule, } = this.props;
-        const { tempData, moduleId } = moduleData;
+        const {
+            moduleData,
+            moduleData: {
+                tempData,
+                moduleId,
+            },
+            moduleConfig: {
+                isVisiable: isConfigVisible,
+            },
+            showConfig,
+            focusModule, } = this.props;
         let isActive;
         if (tempData) {
             isActive = tempData.isActive;
         }
         return (
             <div className={`J_moduleWrap d-module-wrap ${isActive ? 'active' : ''}`}
-                onClick={(e) => { showConfig(moduleData); focusModule(moduleId) }}
+                onClick={(e) => { !isConfigVisible && showConfig(moduleData); !isActive && focusModule(moduleId) }}
                 onDragOver={this.dragOver}
                 onDragLeave={this.dragLeave}
                 onDrop={this.drop}
@@ -95,7 +104,10 @@ class ModuleWrap extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    return { module: state.module }
+    return {
+        module: state.module,
+        moduleConfig: state.moduleConfig,
+    }
 }
 
 export default connect(mapStateToProps, {

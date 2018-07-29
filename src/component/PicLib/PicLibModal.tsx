@@ -77,15 +77,9 @@ class PicLibModal extends React.Component<ContentProps, any> {
             result = activeList[0].url;
         }
         this.props.onOk(result);
-        this.setState({
-            visible: false,
-        });
     }
 
     handleCancel = () => {
-        this.setState({
-            visible: false,
-        });
         this.props.onCancel();
     }
 
@@ -152,7 +146,6 @@ class PicLibModal extends React.Component<ContentProps, any> {
                         {this.renderImgList()}
                     </Row>
                 </div>
-                );
             </Modal>
         );
     }

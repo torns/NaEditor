@@ -12,6 +12,7 @@
         "jsx": "react",
         "allowJs": true,
         "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true, //允许默认导出
     },
     "exclude": [
         "node_modules"

@@ -2,31 +2,23 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Input } from 'antd';
 
-import PicLib from '../PicLib';
+import ImageGroup from '../ImageGroup';
+import { ImageInfo } from '../interface';
+import { CarouselConfigProps, CarouselConfigState } from './interface';
 
-interface CarouselConfigProps {
-    moduleData: any;
-    moduleConfig: any;
-}
-
-class CarouselConfig extends React.Component<CarouselConfigProps, any> {
+class CarouselConfig extends React.Component<CarouselConfigProps, CarouselConfigState> {
 
     constructor(props: CarouselConfigProps) {
         super(props);
-        let imageList;
-        if (props.moduleData.configData) {
-            imageList = props.moduleData.configData.imageList;
-        } else {
-            imageList = ['', ''];
-        }
+        const imgs: ImageInfo[] = this.props.moduleConfig.moduleData.data.imgs;
         this.state = {
-            imageList,
+            imgs,
         };
     }
 
     getConfigData() {
         return {
-            imageList: this.state.imageList,
+            imgs: this.state.imgs,
         };
     }
 
@@ -38,31 +30,22 @@ class CarouselConfig extends React.Component<CarouselConfigProps, any> {
         return result;
     }
 
-    imageChange = (index: number, url: string) => {
-        const { imageList } = this.state;
+    imageChange = (imgs: ImageInfo[]) => {
         this.setState({
-            imageList: imageList.map((v: any, i: number) => {
-                return i === index ? url : v;
-            }),
+            imgs,
         });
     }
 
     render() {
-        let { imageList } = this.state;
-        imageList = imageList || ['', ''];
+        let { imgs } = this.state;
+        if (imgs === undefined) {
+            imgs = [];
+        }
         return (
             <div>
-                <span>第一张图</span>
-                <PicLib
-                    defaultValue={imageList[0] || ''}
-                    value={imageList[0] || ''}
-                    onChange={(url) => { this.imageChange(0, url); }}
-                />
-                <span>第二张图</span>
-                <PicLib
-                    defaultValue={imageList[1] || ''}
-                    value={imageList[1] || ''}
-                    onChange={(url) => { this.imageChange(1, url); }}
+                <ImageGroup
+                    imgs={imgs}
+                    onChange={(imgs) => { this.imageChange(imgs); }}
                 />
             </div>
         );

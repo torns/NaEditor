@@ -8,9 +8,6 @@ input[type="text"]::-webkit-input-placeholder {
     .d-item {
         height: 100%;
         padding: 0 5px;
-        input::-webkit-input-placeholder {
-            font-size: 12px;
-        }
         &.d-position {
             position: relative;
             border-top-left-radius: 4px;

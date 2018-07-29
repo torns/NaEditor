@@ -1,11 +1,7 @@
 import React from 'react';
-import { render } from 'react-dom';
-import localforage from 'localforage';
 import { connect } from 'react-redux';
 
 import Messager from '@component/Messager';
-import Action from '@common/script/action';
-import Module from '@component/Module';
 import UserDefine from '@component/UserDefine';
 import ImageHotspot from '@component/ImageHotspot';
 import Text from '@component/Text';

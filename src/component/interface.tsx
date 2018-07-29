@@ -1,4 +1,10 @@
 import { ImageHotspotConfData } from './ImageHotspotConfig/interface';
+import { CarouselConfData } from './CarouselConfig/interface';
+
+export interface ImageInfo {
+    url: string;
+    name?: string;
+}
 
 // tempData定义
 export interface ITempData {
@@ -14,7 +20,7 @@ export interface IModuleData {
     pageId: number;
     moduleId: number;
     data: any;
-    configData: ImageHotspotConfData | undefined;
+    configData: ImageHotspotConfData | CarouselConfData | undefined;
     tempData: ITempData;
 }
 

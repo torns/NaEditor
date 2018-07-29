@@ -2,14 +2,14 @@ import React from 'react';
 
 import Module from '../Module';
 import { IModuleData } from '../interface';
-import { ImgaeInfo } from '../ImageHotspotConfig/interface';
+import { ImageInfo } from '../ImageHotspotConfig/interface';
 
 interface ImageHotspotProps {
     moduleData: IModuleData;
 }
 
 interface ImageHotspotState {
-    imgs: ImgaeInfo[];
+    imgs: ImageInfo[];
 }
 
 export default class ImageHotspot extends React.Component<ImageHotspotProps, ImageHotspotState> {
@@ -21,7 +21,7 @@ export default class ImageHotspot extends React.Component<ImageHotspotProps, Ima
         };
     }
 
-    renderImgs = (imgs: ImgaeInfo[]) => {
+    renderImgs = (imgs: ImageInfo[]) => {
         return (
             imgs.map((v, i) => (<img key={i} src={v.url} />))
         );

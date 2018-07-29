@@ -120,7 +120,7 @@ class PicLibModal extends React.Component<ContentProps, any> {
         const { isModalVisible: visible } = this.props;
         return (
             <Modal
-                className="d-source-manage"
+                className="d-pic-lib-modal"
                 visible={visible}
                 title={this.renderTitle()}
                 width={1100}

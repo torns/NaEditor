@@ -3,8 +3,9 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import PicLib from '../PicLib';
-import { ImageHotspotConfData, ImgaeInfo, ImageHotspotConfigProps, ImageHotspotConfigState } from './interface';
+import { ImageHotspotConfData, ImageInfo, ImageHotspotConfigProps, ImageHotspotConfigState } from './interface';
 import { IState } from '../interface';
+import ImageGroup from '../ImageGroup';
 
 const mapStateToProps = (state: IState) => {
     return {
@@ -16,7 +17,7 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
 
     constructor(props: ImageHotspotConfigProps) {
         super(props);
-        let imgs: ImgaeInfo[];
+        let imgs: ImageInfo[];
         if (props.moduleData.configData === undefined || props.moduleData.configData.imgs === undefined) {
             imgs = [];
         } else {
@@ -28,7 +29,7 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
     }
 
     componentWillReceiveProps(nextProps: ImageHotspotConfigProps) {
-        let imgs: ImgaeInfo[];
+        let imgs: ImageInfo[];
         if (nextProps.moduleData.configData === undefined || nextProps.moduleData.configData.imgs === undefined) {
             imgs = [];
         } else {
@@ -53,58 +54,10 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
         return result;
     }
 
-    imageChange = (index: number, url: string) => {
-        let imgs: ImgaeInfo[] = [];
-        const { imgs: currentImgs } = this.state;
-        if (currentImgs !== undefined && index < currentImgs.length) {
-            imgs = currentImgs.map((v, i) => {
-                if (index === i) {
-                    v.url = url;
-                }
-                return v;
-            }).filter(v => v.url !== '');
-        } else {// 新增项
-            imgs = (currentImgs || []).concat([{ url }]);
-        }
+    imageChange = (imgs: ImageInfo[]) => {
         this.setState({
             imgs,
         });
-    }
-
-    renderImgs = (imgs: ImgaeInfo[]): JSX.Element => {
-
-        const imgItem = (index: number, imgInfo: ImgaeInfo) => (
-            <PicLib
-                key={index}
-                defaultValue={imgInfo.url}
-                value={imgInfo.url}
-                onChange={(url) => { this.imageChange(index, url); }}
-            />
-        );
-
-        return (
-            <div>
-                {imgs.map((v, i) => imgItem(i, v))}
-                {imgItem(imgs.length, { url: '' })}
-            </div>
-        );
-    }
-
-    renderPlaceholderImg = (imgs: ImgaeInfo[] | undefined) => {
-        let index = 0;
-        if (imgs !== undefined) {
-            index = imgs.length;
-        }
-        return (
-            <React.Fragment>
-                <span>图片地址</span>
-                <PicLib
-                    // defaultValue={defaultValue}
-                    value={''}
-                    onChange={(url) => { this.imageChange(index, url); }}
-                />
-            </React.Fragment>
-        );
     }
 
     render() {
@@ -114,7 +67,10 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
         }
         return (
             <div>
-                {this.renderImgs(imgs)}
+                <ImageGroup
+                    imgs={imgs}
+                    onChange={(imgs: ImageInfo[]) => { this.imageChange(imgs); }}
+                />
             </div>
         );
     }

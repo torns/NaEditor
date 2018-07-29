@@ -1,12 +1,12 @@
 import { IModuleData, IModuleConfig } from '../interface';
 
-export interface ImgaeInfo {
+export interface ImageInfo {
     name?: string;
     url: string;
 }
 
 export interface ImageHotspotConfData {
-    imgs: ImgaeInfo[] | undefined;
+    imgs: ImageInfo[] | undefined;
 }
 
 // 配置组件props
@@ -17,5 +17,5 @@ export interface ImageHotspotConfigProps {
 
 // 配置组件state
 export interface ImageHotspotConfigState {
-    imgs: ImgaeInfo[] | undefined;
+    imgs: ImageInfo[] | undefined;
 }

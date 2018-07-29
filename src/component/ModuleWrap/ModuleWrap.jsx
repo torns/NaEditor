@@ -90,7 +90,7 @@ class ModuleWrap extends React.Component {
         }
         return (
             <div className={`J_moduleWrap d-module-wrap ${isActive ? 'active' : ''}`}
-                onClick={(e) => { !isConfigVisible && showConfig(moduleData); !isActive && focusModule(moduleId) }}
+                onClick={(e) => { showConfig(moduleData); !isActive && focusModule(moduleId) }}
                 onDragOver={this.dragOver}
                 onDragLeave={this.dragLeave}
                 onDrop={this.drop}

@@ -13,6 +13,7 @@
         "allowJs": true,
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true, //允许默认导出
+        "strict": true,
     },
     "exclude": [
         "node_modules"

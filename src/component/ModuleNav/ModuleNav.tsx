@@ -3,10 +3,14 @@ import { Icon } from 'antd';
 
 import ModuleNavList from './ModuleNavList';
 
-// interface ModuleNavProps { }
+interface ModuleNavProps { }
 
-class ModuleNav extends React.Component {
-    constructor(props) {
+interface ModuleNavState {
+    isActive: boolean;
+}
+
+class ModuleNav extends React.Component<ModuleNavProps, ModuleNavState> {
+    constructor(props: ModuleNavProps) {
         super(props);
         this.state = {
             isActive: false,

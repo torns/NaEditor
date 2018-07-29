@@ -3,48 +3,35 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import PicLib from '../PicLib';
+import { ImageHotspotConfData, ImgaeInfo, ImageHotspotConfigProps, ImageHotspotConfigState } from './interface';
+import { IState } from '../interface';
 
-interface ImageHotspotConfigProps {
-    moduleData: any;    // TODO 转换为interface
-    moduleConfig: any;
-}
-
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: IState) => {
     return {
         moduleConfig: state.moduleConfig,
     };
 };
 
-class ImageHotspotConfig extends Component<ImageHotspotConfigProps, any> {
+class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspotConfigState> {
 
     constructor(props: ImageHotspotConfigProps) {
         super(props);
-        let imageUrl;
-        if (props.moduleData.configData) {
-            imageUrl = props.moduleData.configData.imageUrl;
-        } else {
-            imageUrl = '';
-        }
+        const imgs = props.moduleData.configData.imgs;
+
         this.state = {
-            imageUrl,
+            imgs,
         };
     }
 
     componentWillReceiveProps(nextProps: ImageHotspotConfigProps) {
-        let newImageUrl;
-        if (nextProps.moduleData.configData) {
-            newImageUrl = nextProps.moduleData.configData.imageUrl;
-        } else {
-            newImageUrl = '';
-        }
         this.setState({
-            imageUrl: newImageUrl,
+            imgs: nextProps.moduleConfig.moduleData.configData.imgs,
         });
     }
 
     getConfigData() {
         return {
-            imageUrl: this.state.imageUrl,
+            imgs: this.state.imgs,
         };
     }
 
@@ -56,33 +43,71 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, any> {
         return result;
     }
 
-    imageChange = (imageUrl: string) => {
+    imageChange = (index: number, url: string) => {
+        let imgs = [];
+        if (this.state.imgs !== undefined) {
+            imgs = this.state.imgs.map((v, i) => {
+                if (index === i) {
+                    v.url = url;
+                }
+                return v;
+            });
+        } else {
+            imgs = [{
+                url,
+            }];
+        }
         this.setState({
-            imageUrl,
+            imgs,
         });
     }
 
-    render() {
-        const defaultValue = (() => {
-            let result;
-            try {
-                result = this.props.moduleData.configData.imageUrl;
-            } catch (error) {
-                result = '';
-            }
-            return result;
-        })();
+    renderImgs = (imgs: ImgaeInfo[]): JSX.Element => {
 
-        const { imageUrl } = this.state;
+        const imgItem = (index: number, imgInfo: ImgaeInfo) => (
+            <React.Fragment key={index}>
+                <span>图片地址</span>
+                <PicLib
+                    // defaultValue={defaultValue}
+                    value={imgInfo.url}
+                    onChange={(url) => { this.imageChange(index, url); }}
+                />
+            </React.Fragment>
+        );
 
         return (
             <div>
+                {imgs.map((v, i) => imgItem(i, v))}
+                {imgItem(imgs.length, { url: '' })}
+            </div>
+        );
+    }
+
+    renderPlaceholderImg = (imgs: ImgaeInfo[] | undefined) => {
+        let index = 0;
+        if (imgs !== undefined) {
+            index = imgs.length;
+        }
+        return (
+            <React.Fragment>
                 <span>图片地址</span>
                 <PicLib
-                    defaultValue={defaultValue}
-                    value={imageUrl}
-                    onChange={(url) => { this.imageChange(url); }}
+                    // defaultValue={defaultValue}
+                    value={''}
+                    onChange={(url) => { this.imageChange(index, url); }}
                 />
+            </React.Fragment>
+        );
+    }
+
+    render() {
+        let { imgs } = this.state;
+        if (imgs === undefined) {
+            imgs = [];
+        }
+        return (
+            <div>
+                {this.renderImgs(imgs)}
             </div>
         );
     }

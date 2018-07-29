@@ -4,24 +4,21 @@ import { connect } from 'react-redux';
 
 import ModuleNavItem from './ModuleNavItem';
 import { showConfig, focusModule, removeModuleRequest } from '../../actions';
+import { IState, IModuleData } from '../interface';
 
-const mapStateToProps = (state) => {
-    return {
-        module: state.module,
-        moduleConfig: state.moduleConfig,
-    };
-};
+interface ModuleNavListProps {
+    onClose: () => void;
+    module: any;
+}
 
-// interface ModuleNavListProps {
-//     onClose: () => void;
-//     module: any;
-// }
+interface ModuleNavListState {
 
-class ModuleNavList extends React.Component {
+}
 
-    constructor(props) {
+class ModuleNavList extends React.Component<ModuleNavListProps, ModuleNavListState> {
+
+    constructor(props: ModuleNavListProps) {
         super(props);
-
     }
 
     render() {
@@ -35,12 +32,19 @@ class ModuleNavList extends React.Component {
                     <Icon className="d-close-icon" type="close" onClick={onClose} />
                 </div>
                 <ul>
-                    {moduleList.map((v) => <ModuleNavItem key={v.moduleId} moduleData={v} />)}
+                    {moduleList.map((v: IModuleData) => <ModuleNavItem key={v.moduleId} moduleData={v} />)}
                 </ul>
             </div>
         );
     }
 }
+
+const mapStateToProps = (state: IState) => {
+    return {
+        module: state.module,
+        moduleConfig: state.moduleConfig,
+    };
+};
 
 export default connect(mapStateToProps, {
     showConfig,

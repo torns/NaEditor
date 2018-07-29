@@ -2,17 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Icon } from 'antd';
 import { showConfig, focusModule, removeModuleRequest } from '../../actions';
+import { IState } from '../interface';
 
-// export interface ModuleNavItemProps {
-//     showConfig?: any;
-//     moduleData?: any;
-//     moduleConfig?: any;
-//     focusModule?: (moduleId: number) => void;
-//     removeModuleRequest?: (args: any) => void;
-// }
+interface ModuleNavItemProps {
+    showConfig?: any;
+    moduleData?: any;
+    moduleConfig?: any;
+    focusModule: (moduleId: number) => void;
+    removeModuleRequest: (args: any) => void;
+}
 
-class ModuleNavItem extends React.Component {
-    constructor(props) {
+interface ModuleNavItemState {
+
+}
+
+class ModuleNavItem extends React.Component<ModuleNavItemProps, ModuleNavItemState> {
+    constructor(props: ModuleNavItemProps) {
         super(props);
     }
 
@@ -35,7 +40,7 @@ class ModuleNavItem extends React.Component {
             removeModuleRequest,
         } = this.props;
 
-        const pageId = Number.parseInt((window).BASE_DATA.pageId, 10);
+        const pageId = Number.parseInt((window as any).BASE_DATA.pageId, 10);
 
         return (
             <li
@@ -60,7 +65,7 @@ class ModuleNavItem extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: IState) => {
     return {
         module: state.module,
         moduleConfig: state.moduleConfig,

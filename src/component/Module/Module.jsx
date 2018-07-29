@@ -80,7 +80,6 @@ class Module extends React.Component {
     }
 
     render() {
-        const { showConfig } = this.props;
         const { moduleData } = this.state;
 
         return (
@@ -100,5 +99,11 @@ const mapStateToProps = (state) => {
     return { module: state.module }
 }
 
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+    return Object.assign({}, stateProps, dispatchProps, ownProps);
+}
 
-export default connect(mapStateToProps, { moduleTopChange, moduleHeightChange })(Module)
+export default connect(mapStateToProps, {
+    moduleTopChange,
+    moduleHeightChange
+}, mergeProps)(Module);

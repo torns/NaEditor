@@ -39,7 +39,10 @@ class PicLib extends React.Component<PicLibProps, any> {
             value: url,
             isModalVisible: false,
         });
-        this.props.onChange(url);
+        if (this.props.onChange !== undefined) {
+            this.props.onChange(url);
+        }
+
     }
 
     closeModal = () => {

@@ -7,10 +7,10 @@ export interface ImageInfo {
 }
 
 export interface AreaInfo {
-    x: number;
-    y: number;
-    w: number;
-    h: number;
+    x?: number;
+    y?: number;
+    w?: number;
+    h?: number;
 }
 
 // 热区定义

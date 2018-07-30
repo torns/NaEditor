@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { Modal, Row, Col } from 'antd';
 
-import { ImageInfo, HotspotInfo } from '../interface';
+import { ImageInfo, HotspotInfo, AreaInfo } from '../interface';
 import HotspotLink from './HotspotLink';
+import Area from './Area';
 
 interface HotspotModalProps {
     imgs: ImageInfo[];
@@ -14,24 +15,64 @@ interface HotspotModalProps {
 
 interface HotspotModalState {
     hotspots: HotspotInfo[];
+    areas: AreaInfo[];
 }
 
 class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState> {
+
+    imgContainer: any;
+
     constructor(props: HotspotModalProps) {
         super(props);
         let { hotspots } = this.props;
         if (!hotspots) {
             hotspots = [];
         }
-        this.setState({
+        this.state = {
             hotspots,
+            areas: this.hotspotsToAreas(hotspots),
+        };
+    }
+
+    handleStartDraw = (e: React.MouseEvent) => {
+        const { areas: currentAreas } = this.state;
+        let areas = currentAreas.slice(0);
+        const {
+            nativeEvent: {
+                offsetX: x,
+                offsetY: y,
+            },
+        } = e;
+        areas.push({
+            x,
+            y,
+            w: 0,
+            h: 0,
+        });
+        this.setState({
+            areas,
         });
     }
 
+    hotspotsToAreas = (hotspots: HotspotInfo[]): AreaInfo[] => {
+        return hotspots.map(v => v.area || {});
+    }
+
     renderImgs = (imgs: ImageInfo[]) => {
+
+        const renderImg = (v: ImageInfo, i: number) => {
+            return (
+                <img
+                    onMouseDown={this.handleStartDraw}
+                    key={i}
+                    src={v.url}
+                    draggable={false}
+                />
+            );
+        };
         return (
             <React.Fragment>
-                {imgs.map((v) => (<img src={v.url} />))}
+                {imgs.map(renderImg)}
             </React.Fragment>
         );
     }
@@ -91,11 +132,10 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         const renderItem = (v: HotspotInfo, i: number) => {
             return (
                 <HotspotLink
+                    key={i}
                     value={v.url}
                     onChange={(value) => { this.linkChange(i, value); }}
                     onRemove={() => { this.linkRemove(i); }}
-                    onUp={() => { this.linkUp(i); }}
-                    onDown={() => { this.linkDown(i); }}
                 />
             );
         };
@@ -103,6 +143,31 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         return (
             <React.Fragment>
                 {hotspots.map(renderItem)}
+            </React.Fragment>
+        );
+    }
+
+    renderAreas = (areas: AreaInfo[]) => {
+
+        const renderArea = (v: AreaInfo, i: number) => {
+            const {
+                x, y, w, h,
+            } = v;
+            return (
+                <Area
+                    key={i}
+                    index={i}
+                    x={x}
+                    y={y}
+                    w={w}
+                    h={h}
+                />
+            );
+        };
+
+        return (
+            <React.Fragment>
+                {areas.map(renderArea)}
             </React.Fragment>
         );
     }
@@ -122,20 +187,24 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
             hotspots,
         } = this.props;
         hotspots = hotspots || [];
+        const { areas } = this.state;
         return (
             <Modal
                 className="d-hotspot-modal"
                 visible={visible}
                 title="图片热区"
-                width={1100}
+                width="70%"
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
             >
                 <div className="d-content">
                     <div className="d-imgs-container">
                         {this.renderImgs(imgs)}
+                        <ul className="d-areas">
+                            {this.renderAreas(areas)}
+                        </ul>
                     </div>
-                    <div className="d-links-container">
+                    <div className="d-hotspots-container">
                         {this.renderHotspots(hotspots)}
                     </div>
                 </div>

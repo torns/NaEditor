@@ -1,5 +1,24 @@
 .d-hotspot-modal {
     .d-content {
-        
+        display: flex;
+        height: 70vh;
+    }
+    .d-imgs-container {
+        width: 80%;
+        height: 100%;
+        overflow: auto;
+        img {
+            user-select: none;
+            display: block;
+        }
+    }
+    .d-hotspots-container {
+        width: 20%;
+        height: 100%;
+        overflow: auto;
+        padding-left: 20px;
+        .d-delete {
+            padding: 0;
+        }
     }
 }

@@ -6,8 +6,6 @@ interface HotspotLinkProps {
     value: string;
     onChange: (value: string) => void;
     onRemove: () => void;
-    onUp: () => void;
-    onDown: () => void;
 }
 
 interface HotspotLinkState {
@@ -29,27 +27,18 @@ class HotspotLink extends React.Component<HotspotLinkProps, HotspotLinkState> {
             value,
             onChange,
             onRemove,
-            onUp,
-            onDown,
         } = this.props;
         return (
             <InputGroup
                 compact
                 className="d-hotspot-link"
             >
-                <div
-                    style={{ width: '10%' }}
-                    className="d-item d-position"
-                >
-                    <Icon className="d-icon-up" type="caret-up" onClick={onUp} />
-                    <Icon className="d-icon-down" type="caret-down" onClick={onDown} />
-                </div>
                 <Input
                     className="d-item"
                     placeholder="输入热区的链接地址"
                     value={value}
                     onChange={(e: ChangeEvent) => { this.handleChange(e.target.nodeValue || ''); }}
-                    style={{ width: '80%', fontSize: '13px' }}
+                    style={{ width: '90%', fontSize: '13px' }}
                 />
                 <Button
                     className="d-item d-delete"

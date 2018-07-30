@@ -6,6 +6,19 @@ export interface ImageInfo {
     name?: string;
 }
 
+export interface AreaInfo {
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+}
+
+// 热区定义
+export interface HotspotInfo {
+    url: string;
+    area?: AreaInfo;
+}
+
 // tempData定义
 export interface ITempData {
     isActive: boolean;

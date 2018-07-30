@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 
 import PicLib from '../PicLib';
 import { ImageHotspotConfData, ImageInfo, ImageHotspotConfigProps, ImageHotspotConfigState } from './interface';
-import { IState } from '../interface';
+import { IState, HotspotInfo } from '../interface';
 import ImageGroup from '../ImageGroup';
+import Hotspot from '../Hotspot';
 
 const mapStateToProps = (state: IState) => {
     return {
@@ -67,9 +68,14 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
         }
         return (
             <div>
+                <p>图片选择</p>
                 <ImageGroup
                     imgs={imgs}
                     onChange={(imgs: ImageInfo[]) => { this.imageChange(imgs); }}
+                />
+                <Hotspot
+                    imgs={imgs}
+                    onChange={(hotspots: HotspotInfo[]) => { console.log(hotspots); }}
                 />
             </div>
         );

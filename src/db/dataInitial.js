@@ -51,6 +51,8 @@ async function initPage() {
     })
 }
 
+window.initPage = initPage;
+
 
 function init() {
     const initFuns = [initModuleName, initPage];

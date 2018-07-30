@@ -13,6 +13,7 @@
         }
     }
     .d-hotspots-container {
+        position: relative;
         width: 20%;
         height: 100%;
         overflow: auto;
@@ -20,5 +21,10 @@
         .d-delete {
             padding: 0;
         }
+    }
+    .d-imgs-wrap {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
     }
 }

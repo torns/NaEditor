@@ -26,8 +26,12 @@ class Area extends React.Component<AreaProps, AreaState> {
     }
 
     render() {
+        const { x, y, w, h } = this.props;
         return (
-            <div>111</div>
+            <div
+                className="d-area"
+                style={{ left: `${x}px`, top: `${y}px`, width: `${w}px`, height: `${h}px` }}
+            />
         );
     }
 }

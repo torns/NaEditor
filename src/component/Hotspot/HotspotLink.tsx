@@ -18,8 +18,8 @@ class HotspotLink extends React.Component<HotspotLinkProps, HotspotLinkState> {
 
     }
 
-    handleChange = (value: string) => {
-        this.props.onChange(value);
+    handleChange = (e: any) => {
+        this.props.onChange(e.target.value);
     }
 
     render() {
@@ -37,7 +37,7 @@ class HotspotLink extends React.Component<HotspotLinkProps, HotspotLinkState> {
                     className="d-item"
                     placeholder="输入热区的链接地址"
                     value={value}
-                    onChange={(e: ChangeEvent) => { this.handleChange(e.target.nodeValue || ''); }}
+                    onChange={this.handleChange}
                     style={{ width: '90%', fontSize: '13px' }}
                 />
                 <Button

@@ -16,6 +16,7 @@ interface HotspotModalProps {
 interface HotspotModalState {
     hotspots: HotspotInfo[];
     areas: AreaInfo[];
+    currentAreaIndex: number;
 }
 
 class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState> {
@@ -31,6 +32,7 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         this.state = {
             hotspots,
             areas: this.hotspotsToAreas(hotspots),
+            currentAreaIndex: -1,    // -1表示当前没有被拖动的热区
         };
     }
 
@@ -51,6 +53,62 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         });
         this.setState({
             areas,
+            currentAreaIndex: areas.length - 1,
+        });
+    }
+
+    handleEndDraw = () => {
+        const {
+            hotspots: currentHotspots,
+            areas,
+        } = this.state;
+        const hotspots = areas.map((v, i) => {
+            let result: HotspotInfo;
+            if (currentHotspots[i]) {
+                result = currentHotspots[i];
+                result.area = v;
+            } else {  // 新热区
+                result = {
+                    area: v,
+                    url: '',
+                };
+            }
+            return result;
+        });
+        this.setState({
+            currentAreaIndex: -1,
+            hotspots,
+        });
+    }
+
+    handleDrag = (e: React.MouseEvent) => {
+        const {
+            currentAreaIndex,
+            areas: currentAreas,
+        } = this.state;
+
+        if (currentAreaIndex === -1) { return; }    // 鼠标没有按下
+        const {
+            nativeEvent: {
+                offsetX,
+                offsetY,
+            },
+        } = e;
+        const areas = currentAreas.slice(0);
+        let area = areas[currentAreaIndex];
+        let {
+            x: originX,
+            y: originY,
+        } = area;
+        originX = originX || 0;
+        originY = originY || 0;
+        area = Object.assign({}, area, {
+            w: offsetX - originX,
+            h: offsetY - originY,
+        });
+        areas[currentAreaIndex] = area;
+        this.setState({
+            areas,
         });
     }
 
@@ -63,7 +121,6 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         const renderImg = (v: ImageInfo, i: number) => {
             return (
                 <img
-                    onMouseDown={this.handleStartDraw}
                     key={i}
                     src={v.url}
                     draggable={false}
@@ -184,10 +241,8 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         let {
             isModalVisible: visible,
             imgs,
-            hotspots,
         } = this.props;
-        hotspots = hotspots || [];
-        const { areas } = this.state;
+        const { areas, hotspots } = this.state;
         return (
             <Modal
                 className="d-hotspot-modal"
@@ -198,11 +253,16 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
                 onCancel={this.handleCancel}
             >
                 <div className="d-content">
-                    <div className="d-imgs-container">
-                        {this.renderImgs(imgs)}
-                        <ul className="d-areas">
+                    <div className="d-imgs-container" >
+                        <div
+                            className="d-imgs-wrap"
+                            onMouseMove={this.handleDrag}
+                            onMouseDown={this.handleStartDraw}
+                            onMouseUp={this.handleEndDraw}
+                        >
+                            {this.renderImgs(imgs)}
                             {this.renderAreas(areas)}
-                        </ul>
+                        </div>
                     </div>
                     <div className="d-hotspots-container">
                         {this.renderHotspots(hotspots)}

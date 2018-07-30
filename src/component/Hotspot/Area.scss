@@ -1,0 +1,9 @@
+.d-hotspot-modal {
+    .d-area {
+        position: absolute;
+        border: 1px solid transparent;
+        background-color: rgba(19, 153, 114, .5);
+        transition: transform, border, opacity .2s ease-in;
+        box-sizing: border-box;
+    }
+}

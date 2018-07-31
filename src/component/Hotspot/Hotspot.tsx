@@ -29,7 +29,8 @@ class Hotspot extends React.Component<HotspotProps, HotspotState> {
     }
 
     renderModal = (isModalVisible: boolean) => {
-        const { imgs, hotspots, onChange } = this.props;
+        let { imgs, hotspots, onChange } = this.props;
+        hotspots = hotspots || [];
         return (isModalVisible ?
             <HotspotModal
                 imgs={imgs}

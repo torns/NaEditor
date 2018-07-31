@@ -1,4 +1,4 @@
-import { IModuleData, IModuleConfig } from '../interface';
+import { IModuleData, IModuleConfig, HotspotInfo } from '../interface';
 
 export interface ImageInfo {
     name?: string;
@@ -6,7 +6,8 @@ export interface ImageInfo {
 }
 
 export interface ImageHotspotConfData {
-    imgs: ImageInfo[] | undefined;
+    imgs?: ImageInfo[];
+    hotspots?: HotspotInfo[];
 }
 
 // 配置组件props
@@ -17,5 +18,6 @@ export interface ImageHotspotConfigProps {
 
 // 配置组件state
 export interface ImageHotspotConfigState {
-    imgs: ImageInfo[] | undefined;
+    imgs?: ImageInfo[];
+    hotspots?: HotspotInfo[];
 }

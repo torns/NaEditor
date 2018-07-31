@@ -2,8 +2,37 @@
     .d-area {
         position: absolute;
         border: 1px solid transparent;
-        background-color: rgba(19, 153, 114, .5);
-        transition: transform, border, opacity .2s ease-in;
+        background-color: rgba(19, 153, 114, .6);
+        transition: border .2s ease-in;
+        transition: opacity .2s ease-in;
         box-sizing: border-box;
+        cursor: -webkit-grab;
+        &:hover {
+            border: 1px solid #ffd947;
+        }
+        .d-name {
+            padding: 4px 0 0 5px;
+            line-height: 1.4;
+            color: #fff;
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            font-weight: bold;
+            user-select: none;
+            pointer-events: none;
+        }
+        .d-icon-delete {
+            position: absolute;
+            right: 6px;
+            top: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #eeeeee;
+            transition: all .2s;
+            &:hover {
+                color: #ffffff;
+                transform: scale(1.3);
+            }
+        }
     }
 }

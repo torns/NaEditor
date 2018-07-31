@@ -3,6 +3,7 @@ import { Icon, Input, Button } from 'antd';
 const InputGroup = Input.Group;
 
 interface HotspotLinkProps {
+    index: number;
     value: string;
     onChange: (value: string) => void;
     onRemove: () => void;
@@ -25,7 +26,7 @@ class HotspotLink extends React.Component<HotspotLinkProps, HotspotLinkState> {
     render() {
         const {
             value,
-            onChange,
+            index,
             onRemove,
         } = this.props;
         return (
@@ -35,7 +36,7 @@ class HotspotLink extends React.Component<HotspotLinkProps, HotspotLinkState> {
             >
                 <Input
                     className="d-item"
-                    placeholder="输入热区的链接地址"
+                    placeholder={`输入热区${index + 1}的链接地址`}
                     value={value}
                     onChange={this.handleChange}
                     style={{ width: '90%', fontSize: '13px' }}

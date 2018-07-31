@@ -33,7 +33,7 @@ export interface IModuleData {
     pageId: number;
     moduleId: number;
     data: any;
-    configData: ImageHotspotConfData | CarouselConfData | undefined;
+    configData: any;
     tempData: ITempData;
 }
 

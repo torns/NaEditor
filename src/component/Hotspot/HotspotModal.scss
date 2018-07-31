@@ -17,14 +17,19 @@
         width: 20%;
         height: 100%;
         overflow: auto;
-        padding-left: 20px;
+        padding: 0 20px;
+        margin-left: 20px;
+        border-left: 1px solid #e1e1e1;
         .d-delete {
             padding: 0;
         }
     }
     .d-imgs-wrap {
+        width: max-content;
         position: relative;
-        width: 100%;
-        overflow: hidden;
+        overflow: auto;
+    }
+    .d-hotspot-link {
+        margin-top: 20px;
     }
 }

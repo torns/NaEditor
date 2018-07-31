@@ -1,5 +1,7 @@
-import React, { MouseEventHandler } from 'react';
-import { Modal, Row, Col } from 'antd';
+import React, { MouseEventHandler, RefObject } from 'react';
+import { Modal, message } from 'antd';
+/// <reference path="../OuterComponent.d.ts" />
+import addEventListener from 'rc-util/lib/Dom/addEventListener';
 
 import { ImageInfo, HotspotInfo, AreaInfo } from '../interface';
 import HotspotLink from './HotspotLink';
@@ -17,11 +19,15 @@ interface HotspotModalState {
     hotspots: HotspotInfo[];
     areas: AreaInfo[];
     currentAreaIndex: number;
+    // containerOffsetX: number;
+    // containerOffsetY: number;
 }
 
 class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState> {
 
-    imgContainer: any;
+    dragEvent: any;
+    dropEvent: any;
+    private imgContainer: RefObject<HTMLDivElement> = React.createRef();
 
     constructor(props: HotspotModalProps) {
         super(props);
@@ -29,25 +35,41 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         if (!hotspots) {
             hotspots = [];
         }
+        // const {
+        //     offsetLeft: offsetX,
+        //     offsetTop: offsetY,
+        // } = this.imgContainer;
         this.state = {
             hotspots,
             areas: this.hotspotsToAreas(hotspots),
             currentAreaIndex: -1,    // -1表示当前没有被拖动的热区
+
         };
+        this.dragEvent = addEventListener(document, 'mousemove', this.handleDrag);
+        this.dropEvent = addEventListener(document, 'mouseup', this.handleEndDraw);
+    }
+
+    componentWillUnmount() {
+        this.dragEvent.remove();
+        this.dropEvent.remove();
     }
 
     handleStartDraw = (e: React.MouseEvent) => {
         const { areas: currentAreas } = this.state;
         let areas = currentAreas.slice(0);
-        const {
+        const target: HTMLElement = e.target as HTMLElement;
+        const { offsetTop, offsetLeft } = target;
+        let {
             nativeEvent: {
-                offsetX: x,
-                offsetY: y,
+                offsetX,
+                offsetY,
             },
         } = e;
+        offsetX += offsetLeft;
+        offsetY += offsetTop;
         areas.push({
-            x,
-            y,
+            x: offsetX,
+            y: offsetY,
             w: 0,
             h: 0,
         });
@@ -62,22 +84,27 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
             hotspots: currentHotspots,
             areas,
         } = this.state;
-        const hotspots = areas.map((v, i) => {
-            let result: HotspotInfo;
+        const hotspots: HotspotInfo[] = areas.map((v, i) => {
+            let result: any;
             if (currentHotspots[i]) {
                 result = currentHotspots[i];
                 result.area = v;
             } else {  // 新热区
-                result = {
-                    area: v,
-                    url: '',
-                };
+                if (this.isAreaLegal(v)) {
+                    result = {
+                        area: v,
+                        url: '',
+                    };
+                } else {
+                    result = null;
+                }
             }
             return result;
-        });
+        }).filter(v => v);
         this.setState({
             currentAreaIndex: -1,
             hotspots,
+            areas: this.hotspotsToAreas(hotspots),
         });
     }
 
@@ -88,25 +115,41 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         } = this.state;
 
         if (currentAreaIndex === -1) { return; }    // 鼠标没有按下
-        const {
+        const target: HTMLElement = e.target as HTMLElement;
+        // if (target.tagName.toLocaleLowerCase() !== 'img' && !target.className.includes('d-area')) { return; }
+        const { offsetTop, offsetLeft } = target;
+        let {
             nativeEvent: {
                 offsetX,
                 offsetY,
             },
         } = e;
-        const areas = currentAreas.slice(0);
-        let area = areas[currentAreaIndex];
+        offsetX += offsetLeft;
+        offsetY += offsetTop;
+        let area = currentAreas[currentAreaIndex];
         let {
             x: originX,
             y: originY,
         } = area;
         originX = originX || 0;
         originY = originY || 0;
-        area = Object.assign({}, area, {
+        this.hotSpotChange(currentAreaIndex, Object.assign({}, area, {
             w: offsetX - originX,
             h: offsetY - originY,
-        });
-        areas[currentAreaIndex] = area;
+        }));
+    }
+
+    /**
+     * 热区变更处理
+     * @param index 热区序号
+     * @param area 热区参数变更信息
+     */
+    hotSpotChange = (index: number, area: AreaInfo) => {
+        const {
+            areas: currentAreas,
+        } = this.state;
+        const areas = currentAreas.slice(0);
+        areas[index] = area;
         this.setState({
             areas,
         });
@@ -124,6 +167,8 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
                     key={i}
                     src={v.url}
                     draggable={false}
+                    onMouseDown={this.handleStartDraw}
+                    onDragStart={(e) => { e.stopPropagation(); }}
                 />
             );
         };
@@ -143,7 +188,7 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
                     v.url = url;
                 }
                 return v;
-            }).filter(v => v.url !== '');
+            });
         } else {// 新增项
             hotspots = (currentHotspots || []).concat([{ url }]);
         }
@@ -157,6 +202,7 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         const hotspots = currentHotspots.filter((v, i) => i !== index);
         this.setState({
             hotspots,
+            areas: this.hotspotsToAreas(hotspots),
         });
     }
 
@@ -184,12 +230,22 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         });
     }
 
+    isAreaLegal(area: AreaInfo) {
+        const { x, y, w, h } = area;
+        if (w === undefined || w < 50 || h === undefined || h < 50) {
+            message.error('热区大小必须大于50*50px');
+            return false;
+        }
+        return true;
+    }
+
     renderHotspots = (hotspots: HotspotInfo[]) => {
 
         const renderItem = (v: HotspotInfo, i: number) => {
             return (
                 <HotspotLink
                     key={i}
+                    index={i}
                     value={v.url}
                     onChange={(value) => { this.linkChange(i, value); }}
                     onRemove={() => { this.linkRemove(i); }}
@@ -207,13 +263,15 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
     renderAreas = (areas: AreaInfo[]) => {
 
         const renderArea = (v: AreaInfo, i: number) => {
-            const {
-                x, y, w, h,
+            let {
+                x = 0, y = 0, w = 0, h = 0,
             } = v;
             return (
                 <Area
                     key={i}
                     index={i}
+                    onRemove={this.linkRemove}
+                    onChange={this.hotSpotChange}
                     x={x}
                     y={y}
                     w={w}
@@ -229,8 +287,28 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         );
     }
 
+    isHotspotsLegal = (hotspots: HotspotInfo[]): boolean => {
+        const result = hotspots.reduce((acc: any, v, i) => {
+            if (acc !== undefined) {
+                return acc;
+            }
+            if (v.url === '') {
+                return i;
+            }
+        }, undefined);
+        if (result === undefined) {
+            return true;
+        } else {
+            message.error(`您还没有配置热区${result + 1}的链接`);
+            return false;
+        }
+    }
+
     handleOk = () => {
-        this.props.onOk(this.state.hotspots);
+        const { hotspots } = this.state;
+        if (this.isHotspotsLegal(hotspots)) {
+            this.props.onOk(hotspots);
+        }
     }
 
     handleCancel = () => {
@@ -253,12 +331,14 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
                 onCancel={this.handleCancel}
             >
                 <div className="d-content">
-                    <div className="d-imgs-container" >
+                    <div
+                        className="d-imgs-container"
+                        draggable={false}
+                    >
                         <div
                             className="d-imgs-wrap"
-                            onMouseMove={this.handleDrag}
-                            onMouseDown={this.handleStartDraw}
-                            onMouseUp={this.handleEndDraw}
+                            draggable={false}
+                            ref={this.imgContainer}
                         >
                             {this.renderImgs(imgs)}
                             {this.renderAreas(areas)}

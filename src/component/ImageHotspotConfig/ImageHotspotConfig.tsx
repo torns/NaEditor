@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
-import PicLib from '../PicLib';
 import { ImageHotspotConfData, ImageInfo, ImageHotspotConfigProps, ImageHotspotConfigState } from './interface';
 import { IState, HotspotInfo } from '../interface';
 import ImageGroup from '../ImageGroup';
@@ -18,32 +17,42 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
 
     constructor(props: ImageHotspotConfigProps) {
         super(props);
-        let imgs: ImageInfo[];
-        if (props.moduleData.configData === undefined || props.moduleData.configData.imgs === undefined) {
-            imgs = [];
-        } else {
-            imgs = props.moduleData.configData.imgs;
-        }
+        const { imgs, hotspots } = this.getDataFromProps(props);
         this.state = {
             imgs,
+            hotspots,
+        };
+    }
+
+    getDataFromProps(props: ImageHotspotConfigProps) {
+        let imgs: ImageInfo[];
+        let hotspots: HotspotInfo[];
+        if (props.moduleData.configData === undefined) {
+            hotspots = [];
+            imgs = [];
+        } else {
+            const configData: ImageHotspotConfData = props.moduleData.configData;
+            imgs = configData ? configData.imgs || [] : [];
+            hotspots = configData ? configData.hotspots || [] : [];
+        }
+        return {
+            imgs,
+            hotspots,
         };
     }
 
     componentWillReceiveProps(nextProps: ImageHotspotConfigProps) {
-        let imgs: ImageInfo[];
-        if (nextProps.moduleData.configData === undefined || nextProps.moduleData.configData.imgs === undefined) {
-            imgs = [];
-        } else {
-            imgs = nextProps.moduleData.configData.imgs;
-        }
-        this.setState({
+        const { imgs, hotspots } = this.getDataFromProps(nextProps);
+        this.state = {
             imgs,
-        });
+            hotspots,
+        };
     }
 
     getConfigData() {
         return {
             imgs: this.state.imgs,
+            hotspots: this.state.hotspots,
         };
     }
 
@@ -61,8 +70,14 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
         });
     }
 
+    hotspotsChange = (hotspots: HotspotInfo[]) => {
+        this.setState({
+            hotspots,
+        });
+    }
+
     render() {
-        let { imgs } = this.state;
+        let { imgs, hotspots } = this.state;
         if (imgs === undefined) {
             imgs = [];
         }
@@ -75,7 +90,8 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
                 />
                 <Hotspot
                     imgs={imgs}
-                    onChange={(hotspots: HotspotInfo[]) => { console.log(hotspots); }}
+                    hotspots={hotspots}
+                    onChange={this.hotspotsChange}
                 />
             </div>
         );

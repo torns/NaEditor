@@ -23,6 +23,23 @@ window.resizeIframe = _.debounce(() => {
 	document.querySelector('iframe.J_canvas').style.height = height;
 }, 50);
 
+document.querySelector('.J_preview').addEventListener('click', function () {
+	document.querySelector('.J_previewWrap').classList.add('active');
+	document.querySelector('.J_previewContainer').innerHTML = `
+		<iframe class="cd-canvas J_canvas" src="/page/preview.html">                
+		</iframe>
+	`
+});
+
+document.querySelector('.J_previewWrap .J_closeBtn').addEventListener('click', () => {
+	document.querySelector('.J_previewWrap').classList.remove('active');
+	document.querySelector('.J_previewContainer').innerHTML = '';
+})
+
+window.onload = () => {
+	document.querySelector('.J_previewWrap').style.display = 'block';
+}
+
 
 window.addEventListener('load', () => {
 

@@ -1,30 +1,26 @@
 @import '../../common/style/common.scss';
+.J_preview {
+    position: fixed;
+}
+
 .cd-main-area {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
-    width: calc(100% + 340px);
+    width: 100%;
     overflow: visible;
     background: #F2F2F2;
-    &.cd-config {
-        .d-editor-instance-area {
-            width: calc(100% - 680px);
-        }
-    }
+    z-index: 1;
     .d-editor-instance-area {
         float: left;
         position: relative;
-        width: calc(100% - 340px);
+        width: 100%;
         height: 100%;
         z-index: -1;
-        /* left: 81px; */
-        /* right: 340px; */
-        /* top: 0; */
-        /* bottom: 0; */
         overflow-y: auto;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-        transition: width .3s ease-out;
+        transition: filter .5s ease-out;
         .cd-iframe-outer-warp {
             position: absolute;
             left: calc(50vw - 187px);
@@ -125,5 +121,74 @@
             font-weight: bold;
         }
     }
+    .d-preview-wrap {
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        opacity: 0;
+        background-color: rgba(0, 0, 0, .5);
+        transition: opacity .5s ease-out;
+        pointer-events: none;
+        &.active {
+            pointer-events: all;
+            opacity: 1;
+            &+.d-editor-instance-area {
+                filter: blur(5px);
+            }
+        }
+        .d-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+    }
+    .d-canvas-filter {
+        position: absolute;
+        left: 300px;
+        right: 100px;
+        top: 0;
+        bottom: 0;
+        filter: blur(10);
+        // background: #a9a9a9;
+    }
+    .d-phone {
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        top: 50px;
+        width: 420px;
+        height: 750px;
+        display: block;
+        background: #FFF;
+        transform: translateX(-50%);
+        box-sizing: content-box;
+        border-top: 40px solid #FFF;
+        border-left: 10px solid #FFF;
+        border-right: 10px solid #FFF;
+        border-bottom: 60px solid #FFF;
+        border-radius: 20px;
+        transform-origin: 100% 0;
+    }
+    .d-preview-container {
+        position: absolute;
+        box-sizing: content-box;
+        width: 375px;
+        height: 700px;
+        border: 1px solid #ccc;
+        top: 10px;
+        left: 23px;
+        iframe {
+            width: 100%;
+            height: 100%;
+        }
+    }
 }
-

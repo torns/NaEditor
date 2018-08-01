@@ -33,6 +33,11 @@ const HtmlWebpackPlugins = [
         filename: '/page/learn.html',
         template: './src/page/learn/index.html',
         chunks: ['page/learn']
+    }),
+    new HtmlWebpackPlugin({
+        filename: '/page/preview.html',
+        template: './src/page/preview/index.html',
+        chunks: ['page/preview']
     })
 ]
 

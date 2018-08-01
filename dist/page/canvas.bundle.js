@@ -194,7 +194,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\r\n\r\nhtml{\r\n    overflow: hidden;\r\n}", ""]);
+exports.push([module.i, "\n\nhtml{\n    overflow: hidden;\n}", ""]);
 
 // exports
 

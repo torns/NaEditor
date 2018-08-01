@@ -56,7 +56,7 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
         };
     }
 
-    toModuleData(configData: any) {
+    toModuleData(configData: ImageHotspotConfData) {
         const { moduleConfig } = this.props;
         const result = Object.assign({}, moduleConfig.moduleData, {
             data: configData,

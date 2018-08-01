@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { IModuleData, IState } from '../../component/interface';
+import { IModuleData, IState } from '../interface';
 import UserDefine from '../UserDefine';
 import ImageHotspot from '../ImageHotspot';
 import Text from '../Text';

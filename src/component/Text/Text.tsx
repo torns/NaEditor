@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import Module from '@component/Module';
+import Module from '../Module';
 
+import { IModuleData } from '../interface';
 
-class Text extends Component {
-    constructor(props) {
-        super();
+interface TextProps {
+    moduleData: IModuleData;
+}
+
+class Text extends Component<TextProps, {}> {
+    constructor(props: TextProps) {
+        super(props);
     }
-
 
     render() {
 
@@ -16,8 +20,7 @@ class Text extends Component {
             <Module moduleData={moduleData}>
                 <p>{text}</p>
             </ Module>
-
-        )
+        );
     }
 }
 

@@ -1,2 +1,2 @@
-import './preview.scss';
+import './index.scss';
 import './preview';

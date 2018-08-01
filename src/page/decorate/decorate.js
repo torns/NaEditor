@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import _ from 'lodash';
 
-import * as Actions from '../../actions';
 import '@component/Messager';
 import '../../db/createStore';
 import ConfigDialog from '@component/ConfigDialog';
@@ -11,12 +10,14 @@ import ModuleList from '@component/ModuleList';
 import ModuleBar from '@component/ModuleBar';
 import ModuleTagList from '@component/ModuleTagList';
 import Canvas from '@component/Canvas';
-import DBInit from '@db/dataInitial';
 import ModuleNav from '@component/ModuleNav';
 import store from '@store';
 
-const pageId = window.BASE_DATA.pageId;
-
+const {
+	BASE_DATA: {
+		pageId,
+	}
+} = window;
 
 window.resizeIframe = _.debounce(() => {
 	let height = document.querySelector('.J_canvas').contentWindow.document.body.scrollHeight + 'px';
@@ -26,7 +27,7 @@ window.resizeIframe = _.debounce(() => {
 document.querySelector('.J_preview').addEventListener('click', function () {
 	document.querySelector('.J_previewWrap').classList.add('active');
 	document.querySelector('.J_previewContainer').innerHTML = `
-		<iframe class="cd-canvas J_canvas" src="/page/preview.html">                
+		<iframe class="cd-canvas J_canvas" src="/page/preview.html?pageId=${pageId}&type=1">                
 		</iframe>
 	`
 });

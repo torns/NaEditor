@@ -28,12 +28,12 @@ export interface ITempData {
 
 // moduleData接口定义
 export interface IModuleData {
-    modueleTypeId: number;
+    moduleTypeId: number;
     moduleName: number;
     pageId: number;
     moduleId: number;
     data: any;
-    configData: any;
+    configData: ImageHotspotConfData | CarouselConfData;
     tempData: ITempData;
 }
 

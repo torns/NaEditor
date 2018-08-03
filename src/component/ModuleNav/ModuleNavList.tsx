@@ -12,18 +12,31 @@ interface ModuleNavListProps {
 }
 
 interface ModuleNavListState {
-
+    currentDrag?: number;
 }
 
 class ModuleNavList extends React.Component<ModuleNavListProps, ModuleNavListState> {
 
     constructor(props: ModuleNavListProps) {
         super(props);
+        this.state = {
+            currentDrag: undefined,
+        }
+    }
+
+    /**
+     * 当前被拖动的元素发生改变
+     */
+    onDragedChange = (moduleId: number | undefined) => {
+        this.setState({
+            currentDrag: moduleId,
+        });
     }
 
     render() {
 
         const { onClose, module: { moduleList } } = this.props;
+        const { currentDrag } = this.state;
 
         return (
             <div className="d-module-nav-list">
@@ -32,7 +45,14 @@ class ModuleNavList extends React.Component<ModuleNavListProps, ModuleNavListSta
                     <Icon className="d-close-icon" type="close" onClick={onClose} />
                 </div>
                 <ul>
-                    {moduleList.map((v: IModuleData) => <ModuleNavItem key={v.moduleId} moduleData={v} />)}
+                    {moduleList.map((v: IModuleData) => (
+                        <ModuleNavItem
+                            key={v.moduleId}
+                            moduleData={v}
+                            onDragedChange={this.onDragedChange}
+                            currentDrag={currentDrag}
+                        />
+                    ))}
                 </ul>
             </div>
         );

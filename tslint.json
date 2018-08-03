@@ -141,7 +141,6 @@
         "jsx-no-string-ref": false,
         "jsx-boolean-value": [
             true,
-            "never"
         ],
         "jsx-wrap-multiline": false
     }

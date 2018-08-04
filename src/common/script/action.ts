@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { IModuleData, IModule } from './../../component/interface';
 import localforage from "localforage";
 import idb from 'idb';
@@ -207,7 +208,81 @@ const DBAction = {
         } else {
             return [];
         }
-    }
+    },
+    /**
+    * 添加模块
+    * @param {Object} args 入参，模块类型，位置等
+    */
+    async addModule(args: { preModuleId?: number, moduleTypeId: number, data?: any, pageId: number }) {
+        const { data } = (await axios(INTERFACE.addModule, {
+            params: args,
+        }));
+        if (data.success === true) {
+            return data.data;
+        } else {
+            message.error(data.message);
+            return {};
+        }
+    },
+    /**
+     * 根据模块Id删除模块  
+     * @param {Object}  入参 带moduleId和pageId
+     */
+    async removeModule({ moduleId, pageId }: { moduleId: number, pageId: number }) {
+        const result = (await axios(INTERFACE.removeModule, {
+            params: {
+                moduleId,
+                pageId
+            }
+        })).data;
+        if (result.success === true) {
+            return {
+                result: true,
+                moduleId,
+            }
+        } else {
+            return {
+                result: false,
+            }
+        }
+    },
+    /**
+     * 移动模块
+     */
+    async positionModule({ moduleId, preModuleId, pageId }: { moduleId: number, preModuleId?: number, pageId: number }) {
+
+        const result = (await axios(INTERFACE.positionModule, {
+            params: { moduleId, preModuleId, pageId }
+        })).data;
+
+        if (result.success === true) {
+            return {
+                success: true,
+                moduleId,
+                preModuleId,
+            }
+        } else {
+            return {
+                success: false,
+            }
+        }
+    },
+    /**
+     * 更新模块
+     */
+    async updateModule(moduleData: IModuleData) {
+        delete moduleData.tempData; // 删除临时数据
+        const result = (await axios(INTERFACE.updateModule, {
+            params: {
+                moduleData,
+            },
+        })).data;
+        if (result.success === true) {
+            return result.data;
+        } else {
+            return {};
+        };
+    },
 }
 
 if ((window as any).BASE_DATA.dbSource === '1') {

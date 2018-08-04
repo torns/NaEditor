@@ -32,7 +32,11 @@ export const addModule = ({ moduleData, preModuleId }) => ({
 export const ADD_MODULE_REQUEST = 'ADD_MODULE_REQUEST';
 export const addModuleRequest = (args) => {
     return async(dispatch) => {
-        dispatch(addModule(await Action.addModule(args)))
+        const moduleData = await Action.addModule(args);
+        dispatch(addModule({
+            moduleData,
+            preModuleId: args.preModuleId,
+        }))
     }
 }
 

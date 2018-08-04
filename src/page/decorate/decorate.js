@@ -16,6 +16,7 @@ import store from '@store';
 const {
 	BASE_DATA: {
 		pageId,
+		dbSource,
 	}
 } = window;
 
@@ -27,7 +28,7 @@ window.resizeIframe = _.debounce(() => {
 document.querySelector('.J_preview').addEventListener('click', function () {
 	document.querySelector('.J_previewWrap').classList.add('active');
 	document.querySelector('.J_previewContainer').innerHTML = `
-		<iframe class="cd-canvas J_canvas" src="/page/preview.html?pageId=${pageId}&type=1">                
+		<iframe class="cd-canvas J_canvas" src="/page/preview.html?pageId=${pageId}&type=1&dbSource=${dbSource}">                
 		</iframe>
 	`
 });

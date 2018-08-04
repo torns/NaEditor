@@ -1,16 +1,17 @@
+import { IModuleData, IModule } from './../../component/interface';
 import localforage from "localforage";
 import idb from 'idb';
-import DB from '@db/dbConfig';
+import DB from '../../db/dbConfig';
+import INTERFACE from './INTERFACE';
+import axios from 'axios';
 
-
-const Action = {
+let Action: any = {
     /**
      * 根据模块Id删除模块  
      * @param {Object}  入参 带moduleId和pageId
      */
-    async removeModule({ moduleId, pageId }) {
-        pageId = Number.parseInt(pageId);
-        return new Promise(async(resolve, reject) => {
+    async removeModule({ moduleId, pageId }: { moduleId: number, pageId: number }) {
+        return new Promise(async (resolve, reject) => {
             const db = await idb.open(DB.Name);
             const tx = db.transaction(['page', 'module'], 'readwrite');
             const pageStore = tx.objectStore('page');
@@ -18,7 +19,7 @@ const Action = {
 
             // 删除页面引用
             let page = await pageStore.get(pageId);
-            page.moduleList = page.moduleList.filter(v => v !== moduleId);
+            page.moduleList = page.moduleList.filter((v: number) => v !== moduleId);
             // 回填到页面
             await pageStore.put(page);
 
@@ -39,7 +40,7 @@ const Action = {
     async addModule(args = { preModuleId: undefined, moduleTypeId: 1, data: {}, pageId: 1 }) {
 
         let { preModuleId, moduleTypeId, data, pageId } = args;
-        pageId = Number.parseInt(pageId);
+
         let dbModuleData = await localforage.getItem('moduleData');
 
 
@@ -57,7 +58,7 @@ const Action = {
             pageId,
         }
 
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const db = await idb.open(DB.Name);
             const tx = db.transaction(['module', 'page'], 'readwrite');
 
@@ -89,7 +90,7 @@ const Action = {
     /**
      * 更新模块
      */
-    async updateModule(moduleData) {
+    async updateModule(moduleData: IModuleData) {
         const db = await idb.open(DB.Name);
         delete moduleData.tempData; //  临时属性不存到库里
         const tx = db.transaction(['module'], 'readwrite');
@@ -100,12 +101,11 @@ const Action = {
     /**
      * 移动模块
      */
-    async positionModule({ moduleId, preModuleId, pageId }) {
-        pageId = Number.parseInt(pageId);
+    async positionModule({ moduleId, preModuleId, pageId }: { moduleId: number, preModuleId?: number, pageId: number }) {
         const db = await idb.open(DB.Name);
         const tx = db.transaction(['page'], 'readwrite');
         let page = await tx.objectStore('page').get(pageId);
-        page.moduleList = page.moduleList.filter(v => v !== moduleId); //先移除模块
+        page.moduleList = page.moduleList.filter((v: number) => v !== moduleId); //先移除模块
         // 如果没有设置preModuleId，则说明移到第一个模块
         if (preModuleId === undefined) {
             page.moduleList = [moduleId].concat(page.moduleList)
@@ -130,8 +130,7 @@ const Action = {
      * 获得页面所有模块数据
      * @param {String} pageId 页面Id
      */
-    async getModuleList(pageId) {
-        pageId = Number.parseInt(pageId);
+    async getModuleList(pageId: number) {
 
         const db = await idb.open(DB.Name);
         const tx = db.transaction(['module', 'page'], 'readonly');
@@ -151,8 +150,7 @@ const Action = {
      * 根据moduleTypeId获取模块名称
      * @param {Number} moduleTypeId 模块类型Id
      */
-    async getModuleName(moduleTypeId) {
-        moduleTypeId = Number.parseInt(moduleTypeId);
+    async getModuleName(moduleTypeId: number) {
         const db = await idb.open(DB.Name);
         const result = await db.transaction('moduleName').objectStore('moduleName').get(moduleTypeId);
         return result.moduleName;
@@ -166,10 +164,10 @@ const Action = {
         const moduleResult = await db.transaction('module').objectStore('module').getAll();
         const moduleIds = moduleResult.map(v => v.moduleId);
 
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             Promise.all(moduleIds.map((moduleId) => new Promise((resolve, reject) => {
                 const tx = db.transaction('module', 'readwrite').objectStore('module');
-                const result = tx.delete(moduleId).request;
+                const result = (tx.delete(moduleId) as any).request;
 
                 result.onsuccess = () => {
                     resolve({ result: true });
@@ -197,6 +195,25 @@ const Action = {
 
 }
 
-window.Action = Action;
+const DBAction = {
+    async getModuleList(pageId: number) {
+        const { data } = (await axios(INTERFACE.getModuleList, {
+            params: {
+                pageId,
+            }
+        }));
+        if (data.success === true) {
+            return data.data;
+        } else {
+            return [];
+        }
+    }
+}
+
+if ((window as any).BASE_DATA.dbSource === '1') {
+    Action = DBAction;
+}
+
+(window as any).Action = Action;
 
 export default Action;

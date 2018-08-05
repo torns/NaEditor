@@ -1,8 +1,5 @@
 @import '../../common/style/common.scss';
-.J_preview {
-    position: fixed;
-}
-
+$canvasOffsetTop:90px;
 .cd-main-area {
     position: fixed;
     top: 0;
@@ -23,8 +20,9 @@
         transition: filter .5s ease-out;
         .cd-iframe-outer-warp {
             position: absolute;
+            top: $canvasOffsetTop;
             left: calc(50vw - 187px);
-            margin: 20px auto 40px;
+            margin: 0 auto 40px;
             border-radius: 2px 2px 0 0;
             .cd-iframe-warp {
                 box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
@@ -165,7 +163,7 @@
         z-index: 1;
         left: 50%;
         top: 50px;
-        bottom:100px;
+        bottom: 100px;
         width: 420px;
         display: block;
         background: #FFF;

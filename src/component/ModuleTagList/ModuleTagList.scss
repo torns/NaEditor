@@ -1,6 +1,7 @@
+@import '../../page/decorate/index.scss';
 .d-module-tag-list {
     position: absolute;
     left: calc(50vw - 190px);
     width: 28px;
-    top: 20px;
+    top: $canvasOffsetTop;
 }

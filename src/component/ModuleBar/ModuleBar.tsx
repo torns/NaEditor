@@ -83,9 +83,9 @@ class ModuleBar extends React.Component<ModuleBarProps, ModuleBarState> {
         const configVisiable = moduleConfig.isVisible;
         const activeModuleData = activeModule && activeModule[0];
         const activeModuleId = activeModuleData && activeModuleData.moduleId;
-        let top = 20;
+        let top = 90;
         if (activeModuleData && activeModuleData.tempData) {
-            top = activeModuleData.tempData.top + 20;
+            top += activeModuleData.tempData.top;
         }
         if (activeModuleData === undefined) { return null; }
 

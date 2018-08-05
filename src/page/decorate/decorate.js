@@ -12,6 +12,7 @@ import ModuleTagList from '@component/ModuleTagList';
 import Canvas from '@component/Canvas';
 import ModuleNav from '@component/ModuleNav';
 import store from '@store';
+import Topbar from '../../component/TopBar';
 
 const {
 	BASE_DATA: {
@@ -25,13 +26,6 @@ window.resizeIframe = _.debounce(() => {
 	document.querySelector('iframe.J_canvas').style.height = height;
 }, 50);
 
-document.querySelector('.J_preview').addEventListener('click', function () {
-	document.querySelector('.J_previewWrap').classList.add('active');
-	document.querySelector('.J_previewContainer').innerHTML = `
-		<iframe class="cd-canvas J_canvas" src="/page/preview.html?pageId=${pageId}&type=1&dbSource=${dbSource}">                
-		</iframe>
-	`
-});
 
 document.querySelector('.J_previewWrap .J_closeBtn').addEventListener('click', () => {
 	document.querySelector('.J_previewWrap').classList.remove('active');
@@ -44,6 +38,11 @@ window.onload = () => {
 
 
 window.addEventListener('load', () => {
+
+	ReactDOM.render(
+		<Topbar />,
+		document.querySelector('.J_topBar'),
+	)
 
 	ReactDOM.render(
 		(<Provider store={store} >

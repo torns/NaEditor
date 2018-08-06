@@ -19,20 +19,34 @@
     }
     .d-module-item {
         justify-content: space-around;
-        margin: 10px;
-        border: 1px solid #333;
         cursor: move;
-        width: 92px;
+        width: 50%;
         height: 112px;
         text-align: center;
+        transition: all .2s ease;
+        &:hover {
+            background-color: #f4faff;
+            .d-module-icon span {
+                background-position: 0 0;
+            }
+        }
     }
     .d-module-icon {
-        width: 60px;
-        height: 60px;
+        width: 100%;
+        height: 53px;
+        padding-top: 17px;
+        text-align: center;
+        span {
+            display: inline-block;
+            background-position: -36px 0;
+            width: 36px;
+            height: 36px;
+        }
     }
     .d-sub-list {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
+        padding: 20px;
     }
 }

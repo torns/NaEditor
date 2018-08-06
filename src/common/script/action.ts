@@ -131,7 +131,7 @@ let Action: any = {
      * 获得页面所有模块数据
      * @param {String} pageId 页面Id
      */
-    async getModuleList(pageId: number) {
+    async getAllModule(pageId: number) {
 
         const db = await idb.open(DB.Name);
         const tx = db.transaction(['module', 'page'], 'readonly');
@@ -197,8 +197,8 @@ let Action: any = {
 }
 
 const DBAction = {
-    async getModuleList(pageId: number) {
-        const { data } = (await axios(INTERFACE.getModuleList, {
+    async getAllModule(pageId: number) {
+        const { data } = (await axios(INTERFACE.getAllModule, {
             params: {
                 pageId,
             }

@@ -43,10 +43,10 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
 
     componentWillReceiveProps(nextProps: ImageHotspotConfigProps) {
         const { imgs, hotspots } = this.getDataFromProps(nextProps);
-        this.state = {
+        this.setState({
             imgs,
             hotspots,
-        };
+        });
     }
 
     getConfigData() {

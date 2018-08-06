@@ -152,7 +152,7 @@ export const moduleHeightChange = (moduleId, height) => {
 export const FETCH_MODULE_LIST = 'FETCH_MODULE_LIST';
 export const fetchModuleList = (pageId) => {
     return async(dispatch) => {
-        dispatch(refreshModuleList(await Action.getModuleList(pageId)))
+        dispatch(refreshModuleList(await Action.getAllModule(pageId)))
     }
 
 }

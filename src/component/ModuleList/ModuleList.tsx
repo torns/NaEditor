@@ -20,45 +20,13 @@ class ModuleList extends Component<ModuleListProps, ModuleListState> {
         super(props);
         this.addModule = this.addModule.bind(this);
         this.state = {
-            list: [
-                {
-                    cataName: '图文类',
-                    cateId: 1,
-                    isActive: true,
-                    list: [
-                        {
-                            name: '图片热区',
-                            typeId: 2,
-                            iconUrl: ''
-                        }, {
-                            name: '文字',
-                            typeId: 3,
-                            iconUrl: '',
-                        }, {
-                            name: '图片轮播',
-                            typeId: 4,
-                            iconUrl: ''
-                        },
-                    ]
-                }, {
-                    cataName: '自定义类',
-                    cateId: 2,
-                    isActive: false,
-                    list: [
-                        {
-                            name: '自定义代码',
-                            typeId: 1,
-                            iconUrl: '',
-                        }
-                    ]
-                }
-            ]
+            list: [],
         }
     }
 
     async componentDidMount() {
-        const result = await axios(INTERFACE.getModuleList);
-        if (result.data.success === true) {
+        const result = (await axios(INTERFACE.getModuleList)).data;
+        if (result.success === true) {
             this.setState({
                 list: result.data,
             });
@@ -82,33 +50,38 @@ class ModuleList extends Component<ModuleListProps, ModuleListState> {
     render() {
 
         const { list } = this.state;
-
-        return (
-            <div className="d-module-list" >
-                {list.map((moduleCate: any, i: number) =>
-                    <React.Fragment key={i}>
-                        <div className="d-module-cate">
-                            <span className="d-cate-name">{moduleCate.cataName}</span>
-                        </div>
-                        <div className="d-sub-list">
-                            {moduleCate.list.map((module: any) =>
-                                <div
-                                    key={module.typeId}
-                                    className="d-module-item"
-                                    data-type-id={module.typeId}
-                                    draggable={true}
-                                    onDoubleClick={(e) => { this.addModule(module.typeId) }}
-                                    onDragStart={this.moduleDragStart.bind(this, module.typeId)}
-                                >
-                                    <div className="d-module-icon" style={{ backgroundImage: module.iconUrl }} />
-                                    <span className="d-module-name">{module.name}</span>
-                                </div>
-                            )}
-                        </div>
-                    </React.Fragment>
-                )}
-            </div>
-        )
+        if (list.length > 0) {
+            return (
+                <div className="d-module-list" >
+                    {list.map((moduleCate: any, i: number) =>
+                        <React.Fragment key={i}>
+                            <div className="d-module-cate">
+                                <span className="d-cate-name">{moduleCate.name}</span>
+                            </div>
+                            <div className="d-sub-list">
+                                {moduleCate.list.map((module: any, i: number) =>
+                                    <div
+                                        key={module.moduleTypeId}
+                                        className="d-module-item"
+                                        data-type-id={module.moduleTypeId}
+                                        draggable={true}
+                                        onDoubleClick={(e) => { this.addModule(module.moduleTypeId) }}
+                                        onDragStart={this.moduleDragStart.bind(this, module.moduleTypeId)}
+                                    >
+                                        <div className="d-module-icon">
+                                            <span style={{ backgroundImage: `url(${module.iconUrl})` }}></span>
+                                        </div>
+                                        <span className="d-module-name">{module.moduleName}</span>
+                                    </div>
+                                )}
+                            </div>
+                        </React.Fragment>
+                    )}
+                </div>
+            )
+        } else {
+            return null;
+        }
     }
 }
 

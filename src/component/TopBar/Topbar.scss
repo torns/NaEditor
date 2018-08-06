@@ -27,12 +27,18 @@
         font-weight: bold;
     }
     .d-right {
+        position: relative;
         float: right;
         display: flex;
         height: 100%;
         margin-right: 73px;
         justify-content: center;
         align-content: center;
+        .d-line {
+            height: 100%;
+            width: 1px;
+            background-color: #e6e6e6;
+        }
     }
     .d-preview,
     .d-publish {
@@ -42,7 +48,7 @@
         align-items: center;
         cursor: pointer;
         transition: all .2s ease;
-        width: 62px;
+        width: 90px;
         &:before {
             content: '';
             position: absolute;

@@ -4,6 +4,7 @@ import { Row, Col, Button, Upload, Input, Modal } from 'antd';
 const Search = Input.Search;
 
 import INTERFACE from '../../common/script/INTERFACE';
+import axios from 'axios';
 
 export interface ContentProps {
     defaultValue?: string;
@@ -36,29 +37,25 @@ class PicLibModal extends React.Component<ContentProps, any> {
     }
 
     componentDidMount() {
+        this.refreshImageList();
+    }
+
+    refreshImageList = async () => {
         const { defaultValue } = this.props;
-        fetch(INTERFACE.getImageList, {
-            headers: new Headers({
-                'Accept': 'application/json', // 通过头指定，获取的数据类型是JSON
-            }),
-        })
-            .then((res) => {
-                return res.json();
-            })
-            .then((res) => {
-                if (res.success) {
-                    const { list } = res;
-                    const imgList = list.map((v: ImageInfo) => {
-                        if (v.url === defaultValue) {
-                            v.isActive = true;
-                        }
-                        return v;
-                    });
-                    this.setState({
-                        imgList,
-                    });
+        const result = (await axios(INTERFACE.getImageList)).data;
+        if (result.success === true) {
+            const imgList = result.data.objects.map((v: any) => {
+                const { name, size, url, lastModified } = v;
+                let isActive = false;
+                if (url === defaultValue) {
+                    isActive = true;
                 }
+                return { name, size, url, lastModified, isActive };
             });
+            this.setState({
+                imgList,
+            });
+        }
     }
 
     renderTitle = () => (

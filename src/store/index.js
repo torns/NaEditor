@@ -7,7 +7,7 @@ import reducer from '@reducers';
 
 const middleware = [thunk]
 if (process.env.NODE_ENV !== 'production') {
-    middleware.push(createLogger())
+    // middleware.push(createLogger())
 }
 const composeEnhancers = composeWithDevTools({
     // Specify here name, actionsBlacklist, actionsCreators and other options

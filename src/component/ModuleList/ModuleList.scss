@@ -4,7 +4,7 @@
     background: #fff;
     position: fixed;
     top: 60px;
-    overflow-y: scroll;
+    overflow-y: auto;
     z-index: 10;
     bottom: 0;
     .d-module-name {
@@ -46,7 +46,41 @@
     .d-sub-list {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-around;
-        padding: 20px;
+        padding: 0 20px;
+        overflow: hidden;
+        height: 0;
+        opacity: 0;
+        transition: all .3s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .d-module-cate {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        border-top: 1px solid transparent;
+        height: 40px;
+        line-height: 39px;
+        font-size: 12px;
+        color: #666666;
+        cursor: pointer;
+        position: relative;
+        padding-left: 15px;
+        i {
+            margin-top: -1px;
+            color: #999;
+            transition: transform .3s;
+        }
+        &.active {
+            i {
+                transform: rotate(90deg) translate(-1px, 0);
+            }
+            &+.d-sub-list {
+                opacity: 1;
+                height: auto;
+                padding: 16px 20px;
+            }
+        }
+    }
+    .d-cate-name {
+        margin-left: 10px;
     }
 }

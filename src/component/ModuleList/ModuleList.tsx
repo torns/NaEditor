@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { addModuleRequest } from '../../actions';
 import { connect } from "react-redux";
 import axios from 'axios';
+import { Icon } from 'antd';
 
 import './ModuleList.scss';
 import { IState } from '../interface';
@@ -27,8 +28,12 @@ class ModuleList extends Component<ModuleListProps, ModuleListState> {
     async componentDidMount() {
         const result = (await axios(INTERFACE.getModuleList)).data;
         if (result.success === true) {
+            const list = result.data.map((v: any) => {
+                v.isActive = true;
+                return v;
+            })
             this.setState({
-                list: result.data,
+                list,
             });
         }
     }
@@ -46,6 +51,18 @@ class ModuleList extends Component<ModuleListProps, ModuleListState> {
         e.dataTransfer.setData('moduleTypeId', moduleTypeId);
     }
 
+    activeChange = (index: number) => {
+        const { list } = this.state;
+        const newList = list.map((v: any, i: number) => {
+            if (i === index) {
+                v.isActive = !v.isActive;
+            }
+            return v;
+        })
+        this.setState({
+            list: newList,
+        });
+    }
 
     render() {
 
@@ -55,7 +72,11 @@ class ModuleList extends Component<ModuleListProps, ModuleListState> {
                 <div className="d-module-list" >
                     {list.map((moduleCate: any, i: number) =>
                         <React.Fragment key={i}>
-                            <div className="d-module-cate">
+                            <div
+                                className={`d-module-cate ${moduleCate.isActive === true ? 'active' : ''}`}
+                                onClick={() => { this.activeChange(i) }}
+                            >
+                                <Icon type="caret-right" />
                                 <span className="d-cate-name">{moduleCate.name}</span>
                             </div>
                             <div className="d-sub-list">

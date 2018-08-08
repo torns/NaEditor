@@ -83,7 +83,7 @@ class PicLib extends React.Component<PicLibProps, any> {
                     <Icon className="d-icon-down" type="caret-down" onClick={onDown} />
                 </div>
                 <Button
-                    className="d-item"
+                    className="d-item d-piclib-text"
                     onClick={this.open}
                     style={{ width: '25%' }}
                 >

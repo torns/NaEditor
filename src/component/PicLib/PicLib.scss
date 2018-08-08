@@ -4,7 +4,7 @@ input[type="text"]::-webkit-input-placeholder {
 
 .d-pic-lib {
     height: 35px;
-    margin: 5px 0;
+    margin: 10px 0;
     .d-item {
         height: 100%;
         padding: 0 5px;
@@ -35,5 +35,9 @@ input[type="text"]::-webkit-input-placeholder {
                 bottom: 1px;
             }
         }
+    }
+    .d-piclib-text {
+        font-size: 12px;
+        font-weight: bold;
     }
 }

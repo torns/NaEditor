@@ -35,6 +35,8 @@ class ModuleList extends Component<ModuleListProps, ModuleListState> {
             this.setState({
                 list,
             });
+
+            // 将moduleList挂载到上，供其他地方调用
         }
     }
 

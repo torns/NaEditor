@@ -79,6 +79,7 @@ class Canvas extends React.Component<CanvasProps, {}> {
 
         return (
             <React.Fragment>
+                <div className="d-header"></div>
                 {getModuleList(moduleList)}
             </React.Fragment>
         );

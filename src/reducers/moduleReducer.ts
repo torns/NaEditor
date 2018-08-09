@@ -1,3 +1,4 @@
+import { IState, IModule, IModuleData } from '../component/interface';
 import {
     ADD_MODULE,
     REFRESH_MODULE,
@@ -10,9 +11,9 @@ import {
     MODULE_HEIGHT_CHANGE,
 } from "../actions";
 
+import '../component/interface';
 
-
-export default (state = { moduleList: [] }, action) => {
+export default (state: IModule = { moduleList: [] }, action: any) => {
     switch (action.type) {
         case ADD_MODULE:
             {
@@ -21,13 +22,14 @@ export default (state = { moduleList: [] }, action) => {
                 if (preModuleId === undefined) {
                     newModuleList = [moduleData].concat(state.moduleList);
                 } else {
-                    newModuleList = state.moduleList.reduce((acc, v, i, array) => {
+                    const init: IModuleData[] = [];
+                    newModuleList = state.moduleList.reduce((acc, v: IModuleData, i, array) => {
                         acc.push(v);
                         if (v.moduleId === preModuleId) {
                             acc.push(moduleData);
                         }
                         return acc;
-                    }, []);
+                    }, init);
                 }
                 const result = Object.assign({}, state, { moduleList: newModuleList })
                 return result;
@@ -37,7 +39,7 @@ export default (state = { moduleList: [] }, action) => {
             {
                 const { moduleList } = action;
                 return {
-                    moduleList: moduleList.map(v => {
+                    moduleList: moduleList.map((v: IModuleData) => {
                         return Object.assign({}, v, {
                             tempData: {
                                 isActive: false,
@@ -101,15 +103,15 @@ export default (state = { moduleList: [] }, action) => {
                         acc.newModuleList.push(v);
                     }
                     return acc;
-                }, {
+                }, ({
                     newModuleList: [],
                     module: undefined,
-                });
+                }) as any);
                 // 如果移到第一个位置
                 if (preModuleId === undefined) {
                     newModuleList = [module].concat(newModuleList);
                 } else {
-                    const preModuleIndex = newModuleList.findIndex(v => v.moduleId === preModuleId);
+                    const preModuleIndex = newModuleList.findIndex((v: IModuleData) => v.moduleId === preModuleId);
                     newModuleList.splice(preModuleIndex + 1, 0, module);
                 }
                 const result = Object.assign({}, state, {
@@ -131,7 +133,6 @@ export default (state = { moduleList: [] }, action) => {
                 })
                 return result;
             }
-            break;
         case MODULE_HEIGHT_CHANGE: // 模块height值变化
             {
                 const { moduleId, height } = action;
@@ -146,7 +147,6 @@ export default (state = { moduleList: [] }, action) => {
                 })
                 return result;
             }
-            break;
         default:
             return state;
     }

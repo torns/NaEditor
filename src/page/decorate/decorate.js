@@ -3,15 +3,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import _ from 'lodash';
 
-import '@component/Messager';
 import '../../db/createStore';
-import ConfigDialog from '@component/ConfigDialog';
-import ModuleList from '@component/ModuleList';
-import ModuleBar from '@component/ModuleBar';
-import ModuleTagList from '@component/ModuleTagList';
-import Canvas from '@component/Canvas';
-import ModuleNav from '@component/ModuleNav';
-import store from '@store';
+import ConfigDialog from '../../component/ConfigDialog';
+import ModuleList from '../../component/ModuleList';
+import ModuleBar from '../../component/ModuleBar';
+import ModuleTagList from '../../component/ModuleTagList';
+import Canvas from '../../component/Canvas';
+import ModuleNav from '../../component/ModuleNav';
+import store from '../../store';
 import Topbar from '../../component/TopBar';
 
 const {
@@ -53,7 +52,7 @@ window.addEventListener('load', () => {
 
 	ReactDOM.render(
 		(
-			<Provider store={store}>
+			<Provider store={store} >
 				<ConfigDialog store={store} />
 			</Provider >
 		),
@@ -62,31 +61,31 @@ window.addEventListener('load', () => {
 
 
 	ReactDOM.render(
-		<Provider store={store}>
+		<Provider store={store} >
 			<ModuleList />
 		</Provider >,
 		document.querySelector('.J_moduleList')
 	);
 
 	ReactDOM.render(
-		<Provider store={store}>
+		<Provider store={store} >
 			<ModuleBar />
-		</Provider>,
+		</Provider >,
 		document.querySelector('.J_ModuleBar')
 	);
 
 	ReactDOM.render(
-		<Provider store={store}>
+		<Provider store={store} >
 			<ModuleTagList />
-		</Provider>,
+		</Provider >,
 		document.querySelector('.J_moduleTagList')
 	);
 
 
 	ReactDOM.render(
-		<Provider store={store}>
+		<Provider store={store} >
 			<ModuleNav />
-		</Provider>,
+		</Provider >,
 		document.querySelector('.J_moduleNav')
 	);
 });

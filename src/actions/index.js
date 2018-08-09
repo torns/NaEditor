@@ -55,6 +55,7 @@ export const removeModule = (moduleId) => ({
 export const removeModuleRequest = (args) => async(dispatch) => {
     const data = await Action.removeModule(args);
     if (data.result === true) {
+        const { moduleId } = args;
         dispatch(removeModule(data.moduleId));
     }
 }
@@ -124,6 +125,7 @@ export const POSITION_MODULE_REQUEST = 'POSITION_MODULE_QUEST';
 export const positionModuleRequest = (args) => {
     return async(dispatch) => {
         dispatch(positionModule(await Action.positionModule(args)));
+        dispatch(focusModule(args.moduleId)); // 移动后要聚焦模块
     }
 }
 

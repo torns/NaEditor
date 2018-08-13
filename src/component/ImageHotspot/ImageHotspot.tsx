@@ -1,8 +1,9 @@
 import React from 'react';
 
 import Module from '../Module';
-import { IModuleData } from '../interface';
+import { IModuleData, HotspotInfo } from '../interface';
 import { ImageInfo } from '../ImageHotspotConfig/interface';
+import Hotspot from '../Hotspot';
 
 interface ImageHotspotProps {
     moduleData: IModuleData;
@@ -23,8 +24,18 @@ export default class ImageHotspot extends React.Component<ImageHotspotProps, Ima
 
     renderImgs = (imgs: ImageInfo[]) => {
         return (
-            imgs.map((v, i) => (<img key={i} src={v.url} />))
+            imgs.map((v, i) => (
+                <div key={i} className="d-img-wrap">
+                    <img src={v.url} />
+                </div>
+            ))
         );
+    }
+
+    renderHotspots = (Hotspot: HotspotInfo[]) => {
+        return (
+            <a href="baidu.com" />
+        )
     }
 
     render() {
@@ -33,15 +44,18 @@ export default class ImageHotspot extends React.Component<ImageHotspotProps, Ima
             moduleData: {
                 data: {
                     imgs,
+                    hotspots,
                 },
             },
         } = this.props;
+
         if (imgs === undefined) {
             imgs = [];
         }
         return (
             <Module moduleData={moduleData}>
                 {this.renderImgs(imgs)}
+                {this.renderHotspots(hotspots)}
             </ Module>
         );
     }

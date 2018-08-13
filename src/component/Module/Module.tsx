@@ -18,6 +18,8 @@ interface ModuleState {
     isEmpty?: boolean;
 }
 
+const pageType = (window as any).BASE_DATA.type;
+
 class Module extends React.Component<ModuleProps, ModuleState> {
 
     private moduleRef: any = React.createRef();
@@ -95,17 +97,20 @@ class Module extends React.Component<ModuleProps, ModuleState> {
 
     render() {
         const { moduleData } = this.state;
+        const { moduleTypeId } = moduleData;
 
         return (
             <div
                 className={`J_module d-module`}
+                data-module-type-id={moduleTypeId}
                 ref={ref => this.moduleRef = ref}
             >
                 {this.state.isEmpty ? <div className="d-placeholder">请配置模块数据</div> : this.props.children}
-                <ModuleWrap
+                {/* pageType为2为装修 */}
+                {pageType === '0' && <ModuleWrap
                     moduleData={moduleData}
                     moduleRef={this.moduleRef}
-                />
+                />}
             </div>
         );
     }

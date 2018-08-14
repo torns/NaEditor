@@ -13,6 +13,8 @@ interface ImageHotspotState {
     imgs: ImageInfo[];
 }
 
+const pageType = (window as any).BASE_DATA.type;
+
 export default class ImageHotspot extends React.Component<ImageHotspotProps, ImageHotspotState> {
     constructor(props: ImageHotspotProps) {
         super(props);
@@ -24,17 +26,36 @@ export default class ImageHotspot extends React.Component<ImageHotspotProps, Ima
 
     renderImgs = (imgs: ImageInfo[]) => {
         return (
-            imgs.map((v, i) => (
-                <div key={i} className="d-img-wrap">
-                    <img src={v.url} />
-                </div>
-            ))
+            <div className="d-img-wrap">
+                {imgs.map((v, i) => (
+                    <img key={i} src={v.url} />
+                ))}
+            </div>
         );
     }
 
     renderHotspots = (Hotspot: HotspotInfo[]) => {
+        const Rate = 1;
         return (
-            <a href="baidu.com" />
+            <div className="d-hotspot-wrap">
+                {Hotspot && Hotspot.map((v, i) => {
+                    const { area } = v;
+                    if (area === undefined) {
+                        return null;
+                    }
+                    const { x, y, w, h } = area;
+                    const top = `${(y || 0) * Rate}px`;
+                    const left = `${(x || 0) * Rate}px`;
+                    const width = `${(w || 0) * Rate}px`;
+                    const height = `${(h || 0) * Rate}px`;
+                    return (
+                        <a style={{ top, left, width, height }} key={i} href={v.url} >
+                            {pageType === '0' && <span>热区{i + 1}</span>}
+                        </a>
+                    )
+                })
+                }
+            </div>
         )
     }
 

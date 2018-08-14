@@ -78,7 +78,7 @@ class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
         });
     }
 
-    drop = (e: DragEvent) => {
+    drop = async (e: DragEvent) => {
         const moduleTypeId = Number.parseInt(e.dataTransfer.getData('moduleTypeId'), 10);
         const { addModuleRequest } = this.props;
         const preModuleId = this.state.moduleData.moduleId;

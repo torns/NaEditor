@@ -26,6 +26,14 @@ class Module extends React.Component<ModuleProps, ModuleState> {
 
     constructor(props: ModuleProps) {
         super(props);
+        const { moduleData } = props;
+        if (moduleData.tempData === undefined) {
+            moduleData.tempData = {
+                isActive: false,
+                top: 0,
+                height: 0,
+            }
+        }
         this.state = {
             moduleData: props.moduleData,
         };
@@ -96,12 +104,19 @@ class Module extends React.Component<ModuleProps, ModuleState> {
     }
 
     render() {
-        const { moduleData } = this.state;
-        const { moduleTypeId } = moduleData;
+        const {
+            moduleData,
+            moduleData: {
+                tempData: {
+                    isActive,
+                },
+                moduleTypeId,
+            }
+        } = this.state;
 
         return (
             <div
-                className={`J_module d-module`}
+                className={`J_module d-module ${isActive ? 'active' : ''}`}
                 data-module-type-id={moduleTypeId}
                 ref={ref => this.moduleRef = ref}
             >

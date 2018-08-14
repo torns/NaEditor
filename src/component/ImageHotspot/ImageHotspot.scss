@@ -1,9 +1,49 @@
 // 图片热区
 .d-module[data-module-type-id="2"] {
     .d-img-wrap {
-        text-align: center;
         img {
+            display: block;
+            margin: 0 auto;
             max-width: 100%;
+        }
+    }
+    .d-hotspot-wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        overflow: hidden;
+        a {
+            position: absolute;
+            span {
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                color: #fff;
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+// 只有在装修的时候才显示热区轮廓
+.d-canvas-container {
+    .d-module[data-module-type-id="2"] {
+        .d-hotspot-wrap {
+            a {
+                display: none;
+            }
+        }
+        &.active {
+            .d-hotspot-wrap {
+                a {
+                    display: block;
+                    background: rgba(48, 137, 220, .3);
+                    border: 1px dashed #fff;
+                }
+            }
         }
     }
 }

@@ -304,9 +304,29 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         }
     }
 
+    numberToPercent = (hotspots: HotspotInfo[]) => {
+        return hotspots.map(({ area = {}, url }) => {
+            const result = {
+                url,
+                area: {
+                    x: transform(area.x || 0),
+                    y: transform(area.y || 0),
+                    w: transform(area.w || 0),
+                    h: transform(area.h || 0),
+                }
+            };
+            return result;
+        });
+
+        function transform(px: number) {
+            return Number.parseFloat((px / 750).toFixed(3));
+        }
+    }
+
     handleOk = () => {
         const { hotspots } = this.state;
         if (this.isHotspotsLegal(hotspots)) {
+            // const result = this.numberToPercent(hotspots)
             this.props.onOk(hotspots);
         }
     }

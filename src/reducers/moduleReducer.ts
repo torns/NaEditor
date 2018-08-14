@@ -33,7 +33,6 @@ export default (state: IModule = { moduleList: [] }, action: any) => {
                 }
                 const result = Object.assign({}, state, { moduleList: newModuleList })
                 return result;
-                break;
             }
         case REFRESH_MODULE_LIST: //刷新整页
             {

@@ -6,10 +6,13 @@
     .d-imgs-container {
         width: 80%;
         height: 100%;
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
         img {
+            max-width: 100%;
             user-select: none;
             display: block;
+            margin: 0 auto;
         }
     }
     .d-hotspots-container {
@@ -25,9 +28,9 @@
         }
     }
     .d-imgs-wrap {
-        width: max-content;
+        margin: 0 auto;
+        width: 375px;
         position: relative;
-        overflow: auto;
     }
     .d-hotspot-link {
         margin-top: 20px;

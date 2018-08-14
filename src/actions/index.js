@@ -36,7 +36,8 @@ export const addModuleRequest = (args) => {
         dispatch(addModule({
             moduleData,
             preModuleId: args.preModuleId,
-        }))
+        }));
+        return moduleData;
     }
 }
 

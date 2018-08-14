@@ -105,6 +105,44 @@ exports.push([module.i, "html body {\n  font-family: 'tahoma, arial, \"Microsoft
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/component/Canvas/Canvas.scss":
+/*!*************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./src/component/Canvas/Canvas.scss ***!
+  \*************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".d-header {\n  width: 100%;\n  height: 20px;\n  background: url(//naeditor-image.oss-cn-shenzhen.aliyuncs.com/DASDA.jpg); }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/component/ImageHotspot/ImageHotspot.scss":
+/*!*************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./src/component/ImageHotspot/ImageHotspot.scss ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".d-module[data-module-type-id=\"2\"] .d-img-wrap img {\n  display: block;\n  margin: 0 auto;\n  max-width: 100%; }\n\n.d-module[data-module-type-id=\"2\"] .d-hotspot-wrap {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 1; }\n  .d-module[data-module-type-id=\"2\"] .d-hotspot-wrap a {\n    display: none;\n    position: absolute; }\n    .d-module[data-module-type-id=\"2\"] .d-hotspot-wrap a span {\n      position: absolute;\n      top: 3px;\n      left: 3px;\n      color: #fff;\n      font-size: 12px; }\n\n.d-module[data-module-type-id=\"2\"].active .d-hotspot-wrap a {\n  display: block;\n  background: rgba(48, 137, 220, 0.3);\n  border: 1px dashed #fff; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/component/Module/Module.scss":
 /*!*************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./src/component/Module/Module.scss ***!
@@ -194,7 +232,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\nhtml{\n    overflow: hidden;\n}", ""]);
+exports.push([module.i, "html {\n    overflow: hidden;\n}\n", ""]);
 
 // exports
 
@@ -921,6 +959,39 @@ module.exports = function (css) {
 
 /***/ }),
 
+/***/ "./src/common/script/moduleStyle.ts":
+/*!******************************************!*\
+  !*** ./src/common/script/moduleStyle.ts ***!
+  \******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component_Module_Module_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../component/Module/Module.scss */ "./src/component/Module/Module.scss");
+/* harmony import */ var _component_Module_Module_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_component_Module_Module_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _component_ModuleWrap_ModuleWrap_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../component/ModuleWrap/ModuleWrap.scss */ "./src/component/ModuleWrap/ModuleWrap.scss");
+/* harmony import */ var _component_ModuleWrap_ModuleWrap_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_component_ModuleWrap_ModuleWrap_scss__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _component_Canvas_Canvas_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../component/Canvas/Canvas.scss */ "./src/component/Canvas/Canvas.scss");
+/* harmony import */ var _component_Canvas_Canvas_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_component_Canvas_Canvas_scss__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _component_ImageHotspot_ImageHotspot_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../component/ImageHotspot/ImageHotspot.scss */ "./src/component/ImageHotspot/ImageHotspot.scss");
+/* harmony import */ var _component_ImageHotspot_ImageHotspot_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_component_ImageHotspot_ImageHotspot_scss__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! slick-carousel/slick/slick.css */ "./node_modules/slick-carousel/slick/slick.css");
+/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! slick-carousel/slick/slick-theme.css */ "./node_modules/slick-carousel/slick/slick-theme.css");
+/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_5__);
+// 需要引入的样式
+
+
+
+
+// 轮播样式
+
+
+
+
+/***/ }),
+
 /***/ "./src/common/style/common.scss":
 /*!**************************************!*\
   !*** ./src/common/style/common.scss ***!
@@ -930,6 +1001,66 @@ module.exports = function (css) {
 
 
 var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/sass-loader/lib/loader.js!./common.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/common/style/common.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/component/Canvas/Canvas.scss":
+/*!******************************************!*\
+  !*** ./src/component/Canvas/Canvas.scss ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/sass-loader/lib/loader.js!./Canvas.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/component/Canvas/Canvas.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/component/ImageHotspot/ImageHotspot.scss":
+/*!******************************************************!*\
+  !*** ./src/component/ImageHotspot/ImageHotspot.scss ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/sass-loader/lib/loader.js!./ImageHotspot.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/component/ImageHotspot/ImageHotspot.scss");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -1050,28 +1181,19 @@ if(false) {}
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _common_style_common_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @common/style/common.scss */ "./src/common/style/common.scss");
+/* harmony import */ var _common_style_common_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/style/common.scss */ "./src/common/style/common.scss");
 /* harmony import */ var _common_style_common_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_common_style_common_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.css */ "./src/page/canvas/index.css");
 /* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _component_Module_Module_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @component/Module/Module.scss */ "./src/component/Module/Module.scss");
-/* harmony import */ var _component_Module_Module_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_component_Module_Module_scss__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _component_ModuleWrap_ModuleWrap_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @component/ModuleWrap/ModuleWrap.scss */ "./src/component/ModuleWrap/ModuleWrap.scss");
-/* harmony import */ var _component_ModuleWrap_ModuleWrap_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_component_ModuleWrap_ModuleWrap_scss__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! slick-carousel/slick/slick.css */ "./node_modules/slick-carousel/slick/slick.css");
-/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! slick-carousel/slick/slick-theme.css */ "./node_modules/slick-carousel/slick/slick-theme.css");
-/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _common_script_moduleStyle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../common/script/moduleStyle */ "./src/common/script/moduleStyle.ts");
 
 
 
-// 需要引入的样式
+// 模块样式
 
 
-
-// 轮播样式
-
-
+// canvas里面把父window的BASE_DATA拿过来
+window.BASE_DATA = window.top.BASE_DATA;
 
 /***/ })
 

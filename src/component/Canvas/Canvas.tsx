@@ -7,6 +7,7 @@ import ImageHotspot from '../ImageHotspot';
 import Text from '../Text';
 import { fetchModuleList, focusModule } from '../../actions';
 import Carousel from '../Carousel';
+import Layer from '../Layer';
 
 let BASE_DATA: any;
 if ((window as any).BASE_DATA.type !== '1') {   // 非预览页
@@ -71,6 +72,8 @@ class Canvas extends React.Component<CanvasProps, {}> {
                         return <Text key={v.moduleId} moduleData={v} />;
                     case 4:
                         return <Carousel key={v.moduleId} moduleData={v} />;
+                    case 5:
+                        return <Layer key={v.moduleId} moduleData={v} />;
                     default:
                         return null;
                 }

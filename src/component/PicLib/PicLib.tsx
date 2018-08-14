@@ -8,9 +8,9 @@ export interface PicLibProps {
     defaultValue?: string;
     value?: string;
     onChange?: (url: string) => void;
-    onUp: any;
-    onDown: any;
-    onRemove: any;
+    onUp?: any;
+    onDown?: any;
+    onRemove?: any;
 }
 
 class PicLib extends React.Component<PicLibProps, any> {
@@ -69,19 +69,22 @@ class PicLib extends React.Component<PicLibProps, any> {
 
         const { defaultValue, onUp, onDown, onRemove } = this.props;
         const { isModalVisible, value } = this.state;
-
+        const shouldPosition = onUp && onDown;
+        const shouldRemove = !!onRemove;
         return (
             <InputGroup
                 compact
                 className="d-pic-lib"
             >
-                <div
-                    style={{ width: '8%' }}
-                    className="d-item d-position"
-                >
-                    <Icon className="d-icon-up" type="caret-up" onClick={onUp} />
-                    <Icon className="d-icon-down" type="caret-down" onClick={onDown} />
-                </div>
+                {shouldPosition &&
+                    <div
+                        style={{ width: '8%' }}
+                        className="d-item d-position"
+                    >
+                        <Icon className="d-icon-up" type="caret-up" onClick={onUp} />
+                        <Icon className="d-icon-down" type="caret-down" onClick={onDown} />
+                    </div>
+                }
                 <Button
                     className="d-item d-piclib-text"
                     onClick={this.open}
@@ -98,13 +101,15 @@ class PicLib extends React.Component<PicLibProps, any> {
                     defaultValue={defaultValue}
                     style={{ width: '58%', fontSize: '13px' }}
                 />
-                <Button
-                    className="d-item d-delete"
-                    style={{ width: '8%' }}
-                    onClick={onRemove}
-                >
-                    <Icon type="delete" />
-                </Button>
+                {shouldRemove &&
+                    <Button
+                        className="d-item d-delete"
+                        style={{ width: '8%' }}
+                        onClick={onRemove}
+                    >
+                        <Icon type="delete" />
+                    </Button>
+                }
                 {this.renderModal(isModalVisible)}
             </InputGroup >
         );

@@ -8,6 +8,7 @@ import { hideConfig, saveConfigRequest } from '../../actions';
 import ImageHotspotConfig from '../ImageHotspotConfig';
 import TextConfig from '../TextConfig';
 import CarouselConfig from '../CarouselConfig';
+import LayerConfig from '../LayerConfig';
 
 interface ConfigDialogProps {
     module?: any;
@@ -68,6 +69,11 @@ class ConfigDialog extends React.Component<ConfigDialogProps, any> {
                 />;
             case 4: // 图片轮播
                 return <CarouselConfig
+                    moduleData={moduleData}
+                    ref={this.subRef}
+                />;
+            case 5://浮层
+                return <LayerConfig
                     moduleData={moduleData}
                     ref={this.subRef}
                 />;

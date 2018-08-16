@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Icon } from 'antd';
 
 import Module from '../Module';
-import { IModuleData } from '../interface';
+import { IModuleData, HotspotInfo } from '../interface';
 
 
 interface LayerProps {
@@ -41,12 +41,28 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
         rootEl.remove();
     }
 
-    renderChild = (imgUrl: string) => {
+    renderChild = () => {
+
+        let {
+            moduleData: {
+                data: {
+                    imgUrl,
+                    hotspots,
+                },
+            },
+        } = this.props;
+
         return (
             <React.Fragment>
                 <div className="d-img">
                     <img src={imgUrl} />
                     <Icon type="close" />
+                    <div className="d-hotspots-wrap">
+                        {hotspots && hotspots.map((v: HotspotInfo) => {
+                            <a href={v.url}></a>
+                        })}
+                    </div>
+
                 </div>
                 <div className="d-mask" onClick={this.onClose}></div>
             </React.Fragment>
@@ -54,25 +70,18 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
     }
 
     render() {
-        let {
-            moduleData,
-            moduleData: {
-                data: {
-                    imgUrl,
-                },
-            },
-        } = this.props;
+        const { moduleData } = this.props;
 
         // 装修时的展示
         if (pageType === '0') {
             return (
                 <Module moduleData={moduleData}>
-                    <span>浮层模块效果请在预览页中查看</span>
+                    <span className="d-hint">浮层模块效果请在预览页中查看</span>
                 </Module>
             );
         } else {
             return ReactDOM.createPortal(
-                this.renderChild(imgUrl),
+                this.renderChild(),
                 rootEl,
             );
         }

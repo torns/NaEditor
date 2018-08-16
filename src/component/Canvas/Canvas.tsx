@@ -8,13 +8,15 @@ import Text from '../Text';
 import { fetchModuleList, focusModule } from '../../actions';
 import Carousel from '../Carousel';
 import Layer from '../Layer';
+import Fixed from '../Fixed';
 
-let BASE_DATA: any;
-if ((window as any).BASE_DATA.type !== '1') {   // 非预览页
-    BASE_DATA = (window as any).top.BASE_DATA;
-} else {
-    BASE_DATA = (window as any).BASE_DATA;
-}
+let { BASE_DATA }: any = (window as any);
+// if ((window as any).BASE_DATA.type !== '1') {   // 非预览页
+//     BASE_DATA = (window as any).top.BASE_DATA;
+// } else {
+//     BASE_DATA = (window as any).BASE_DATA;
+// }
+const pageType = (window as any).BASE_DATA.type;
 
 interface CanvasProps {
     fetchModuleList: (pageId: number) => void;
@@ -74,6 +76,8 @@ class Canvas extends React.Component<CanvasProps, {}> {
                         return <Carousel key={v.moduleId} moduleData={v} />;
                     case 5:
                         return <Layer key={v.moduleId} moduleData={v} />;
+                    case 6:
+                        return <Fixed key={v.moduleId} moduleData={v} />;
                     default:
                         return null;
                 }
@@ -82,7 +86,7 @@ class Canvas extends React.Component<CanvasProps, {}> {
 
         return (
             <React.Fragment>
-                <div className="d-header"></div>
+                {pageType === '0' && <div className="d-header"></div>}
                 {getModuleList(moduleList)}
             </React.Fragment>
         );

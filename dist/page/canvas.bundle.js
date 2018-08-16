@@ -136,7 +136,26 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".d-module[data-module-type-id=\"2\"] .d-img-wrap img {\n  display: block;\n  margin: 0 auto;\n  max-width: 100%; }\n\n.d-module[data-module-type-id=\"2\"] .d-hotspot-wrap {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 1; }\n  .d-module[data-module-type-id=\"2\"] .d-hotspot-wrap a {\n    display: none;\n    position: absolute; }\n    .d-module[data-module-type-id=\"2\"] .d-hotspot-wrap a span {\n      position: absolute;\n      top: 3px;\n      left: 3px;\n      color: #fff;\n      font-size: 12px; }\n\n.d-module[data-module-type-id=\"2\"].active .d-hotspot-wrap a {\n  display: block;\n  background: rgba(48, 137, 220, 0.3);\n  border: 1px dashed #fff; }\n", ""]);
+exports.push([module.i, ".d-module[data-module-type-id=\"2\"] .d-img-wrap img {\n  display: block;\n  margin: 0 auto;\n  max-width: 100%; }\n\n.d-module[data-module-type-id=\"2\"] .d-hotspot-wrap {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 1;\n  overflow: hidden; }\n  .d-module[data-module-type-id=\"2\"] .d-hotspot-wrap a {\n    position: absolute; }\n    .d-module[data-module-type-id=\"2\"] .d-hotspot-wrap a span {\n      position: absolute;\n      top: 3px;\n      left: 3px;\n      color: #fff;\n      font-size: 12px; }\n\n.d-canvas-container .d-module[data-module-type-id=\"2\"] .d-hotspot-wrap a {\n  display: none; }\n\n.d-canvas-container .d-module[data-module-type-id=\"2\"].active .d-hotspot-wrap a {\n  display: block;\n  background: rgba(48, 137, 220, 0.3);\n  border: 1px dashed #fff; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/component/Layer/Layer.scss":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./src/component/Layer/Layer.scss ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "body > .d-layer {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 1; }\n  body > .d-layer .d-mask {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.5); }\n  body > .d-layer .d-img {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    z-index: 1; }\n    body > .d-layer .d-img i {\n      position: absolute;\n      top: -10px;\n      right: -10px;\n      color: #fff; }\n", ""]);
 
 // exports
 
@@ -976,11 +995,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _component_Canvas_Canvas_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_component_Canvas_Canvas_scss__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _component_ImageHotspot_ImageHotspot_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../component/ImageHotspot/ImageHotspot.scss */ "./src/component/ImageHotspot/ImageHotspot.scss");
 /* harmony import */ var _component_ImageHotspot_ImageHotspot_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_component_ImageHotspot_ImageHotspot_scss__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! slick-carousel/slick/slick.css */ "./node_modules/slick-carousel/slick/slick.css");
-/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! slick-carousel/slick/slick-theme.css */ "./node_modules/slick-carousel/slick/slick-theme.css");
-/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _component_Layer_Layer_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../component/Layer/Layer.scss */ "./src/component/Layer/Layer.scss");
+/* harmony import */ var _component_Layer_Layer_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_component_Layer_Layer_scss__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! slick-carousel/slick/slick.css */ "./node_modules/slick-carousel/slick/slick.css");
+/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! slick-carousel/slick/slick-theme.css */ "./node_modules/slick-carousel/slick/slick-theme.css");
+/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_6__);
 // 需要引入的样式
+
 
 
 
@@ -1061,6 +1083,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/sass-loader/lib/loader.js!./ImageHotspot.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/component/ImageHotspot/ImageHotspot.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/component/Layer/Layer.scss":
+/*!****************************************!*\
+  !*** ./src/component/Layer/Layer.scss ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/sass-loader/lib/loader.js!./Layer.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/component/Layer/Layer.scss");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 

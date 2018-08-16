@@ -9,6 +9,7 @@ import ImageHotspotConfig from '../ImageHotspotConfig';
 import TextConfig from '../TextConfig';
 import CarouselConfig from '../CarouselConfig';
 import LayerConfig from '../LayerConfig';
+import FixedConfig from '../FixedConfig';
 
 interface ConfigDialogProps {
     module?: any;
@@ -74,6 +75,11 @@ class ConfigDialog extends React.Component<ConfigDialogProps, any> {
                 />;
             case 5://浮层
                 return <LayerConfig
+                    moduleData={moduleData}
+                    ref={this.subRef}
+                />;
+            case 6: // 定位
+                return <FixedConfig
                     moduleData={moduleData}
                     ref={this.subRef}
                 />;

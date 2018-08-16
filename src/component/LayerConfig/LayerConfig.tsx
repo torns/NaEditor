@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { IState, ImageInfo, IModuleData, IModuleConfig } from '../interface';
+import { IState, ImageInfo, IModuleData, IModuleConfig, HotspotInfo } from '../interface';
 import PicLib from '../PicLib';
+import Hotspot from '../Hotspot';
 
 const mapStateToProps = (state: IState) => {
     return {
@@ -18,6 +19,7 @@ interface LayerConfigProps {
 
 interface LayerConfigState {
     imgUrl: string;
+    hotspots: HotspotInfo[];
 }
 
 class LayerConfig extends Component<LayerConfigProps, LayerConfigState> {
@@ -28,17 +30,20 @@ class LayerConfig extends Component<LayerConfigProps, LayerConfigState> {
             moduleData: {
                 data: {
                     imgUrl,
+                    hotspots,
                 }
             }
         } = props;
         this.state = {
             imgUrl,
+            hotspots,
         }
     }
 
 
     getConfigData = () => ({
         imgUrl: this.state.imgUrl,
+        hotspots: this.state.hotspots,
     })
 
     toModuleData(configData: any) {
@@ -50,14 +55,20 @@ class LayerConfig extends Component<LayerConfigProps, LayerConfigState> {
     }
 
 
-    onChange = (imgUrl: string) => {
+    imgChange = (imgUrl: string) => {
         this.setState({
             imgUrl,
         });
     }
 
+    hotspotsChange = (hotspots: HotspotInfo[]) => {
+        this.setState({
+            hotspots,
+        });
+    }
+
     render() {
-        let { imgUrl } = this.state;
+        let { imgUrl, hotspots } = this.state;
 
         return (
             <div>
@@ -65,7 +76,13 @@ class LayerConfig extends Component<LayerConfigProps, LayerConfigState> {
                 <PicLib
                     defaultValue={imgUrl}
                     value={imgUrl}
-                    onChange={(imgUrl) => { this.onChange(imgUrl) }}
+                    onChange={(imgUrl) => { this.imgChange(imgUrl) }}
+                />
+                <p>热区设置</p>
+                <Hotspot
+                    imgs={[{ url: imgUrl }]}
+                    hotspots={hotspots}
+                    onChange={this.hotspotsChange}
                 />
             </div>
         );

@@ -18,7 +18,6 @@ const body = document.body;
 const pageType = (window as any).BASE_DATA.type;
 
 const rootEl = document.createElement('div');
-rootEl.classList.add('d-fixed')
 
 export default class Fixed extends React.Component<FixedProps, FixedState> {
 
@@ -48,12 +47,49 @@ export default class Fixed extends React.Component<FixedProps, FixedState> {
                 data: {
                     imgUrl,
                     hotspots,
+                    vertical,
+                    verticalDir,
+                    verticalUnit,
+                    horizontal,
+                    horizontalDir,
+                    horizontalUnit,
+                    width,
+                    widthUnit,
                 },
             },
         } = this.props;
 
+        verticalUnit === undefined && (verticalUnit = '%');
+        horizontalUnit === undefined && (horizontalUnit = '%');
+
+        let left, right, top, bottom;
+
+        if (verticalDir === 'top') {
+            top = `${vertical}${verticalUnit}`;
+        } else {
+            verticalDir = verticalDir;
+            verticalUnit = verticalUnit;
+            bottom = `${vertical}${verticalUnit}`;
+        }
+
+        if (horizontalDir === 'left') {
+            left = `${horizontal}${horizontalUnit}`;
+        } else {
+            horizontal = horizontal;
+            horizontalUnit = horizontalUnit;
+            right = `${horizontal}${horizontalUnit}`;
+        }
+
         return (
-            <React.Fragment>
+            <div className="d-fixed"
+                style={{
+                    left,
+                    right,
+                    top,
+                    bottom,
+                    width: `${width ? `${width}${widthUnit}` : 'auto'}`
+                }}
+            >
                 <div className="d-img">
                     <img src={imgUrl} />
                     <Icon type="close" />
@@ -65,7 +101,7 @@ export default class Fixed extends React.Component<FixedProps, FixedState> {
 
                 </div>
                 <div className="d-mask" onClick={this.onClose}></div>
-            </React.Fragment>
+            </div>
         )
     }
 

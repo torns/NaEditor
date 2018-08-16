@@ -173,7 +173,7 @@ class FixedConfig extends Component<FixedConfigProps, FixedConfigState> {
 
         return (
             <div>
-                <p className="d-title">定位图片选择</p>
+                <p className="d-title">图片选择</p>
                 <PicLib
                     defaultValue={imgUrl}
                     value={imgUrl}

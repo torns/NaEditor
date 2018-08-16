@@ -72,13 +72,13 @@ class LayerConfig extends Component<LayerConfigProps, LayerConfigState> {
 
         return (
             <div>
-                <p>浮层图片选择</p>
+                <p className="d-title">浮层图片选择</p>
                 <PicLib
                     defaultValue={imgUrl}
                     value={imgUrl}
                     onChange={(imgUrl) => { this.imgChange(imgUrl) }}
                 />
-                <p>热区设置</p>
+                <p className="d-title">热区设置</p>
                 <Hotspot
                     imgs={[{ url: imgUrl }]}
                     hotspots={hotspots}

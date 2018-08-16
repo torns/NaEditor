@@ -52,7 +52,7 @@ class Hotspot extends React.Component<HotspotProps, HotspotState> {
         const { isModalVisible } = this.state;
         return (
             <div>
-                <Button onClick={this.openModal}>图片热区</Button>
+                <Button className="d-btn" onClick={this.openModal}>图片热区</Button>
                 {this.renderModal(isModalVisible)}
             </div >
         );

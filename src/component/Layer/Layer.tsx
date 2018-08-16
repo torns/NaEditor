@@ -18,7 +18,7 @@ const body = document.body;
 const pageType = (window as any).BASE_DATA.type;
 
 const rootEl = document.createElement('div');
-rootEl.classList.add('d-layer')
+rootEl.classList.add('d-layer');
 
 export default class Layer extends React.Component<LayerProps, LayerState> {
 
@@ -30,15 +30,24 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
     componentDidMount() {
         if (pageType !== '0') {
             body.appendChild(rootEl);
+
+            // 阻止滚动穿透
+            (document as any).querySelector('html').style.overflow = 'hidden';
         }
     }
 
     componentWillUnmount() {
-        rootEl.remove();
+        this.closeModal();
     }
 
     onClose = () => {
+        this.closeModal();
+    }
+
+    closeModal = () => {
         rootEl.remove();
+        // 滚动穿透还原
+        (document as any).querySelector('html').style.overflow = 'initial';
     }
 
     renderChild = () => {

@@ -83,11 +83,12 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
         }
         return (
             <div>
-                <p>图片选择</p>
+                <p className="d-title">图片选择</p>
                 <ImageGroup
                     imgs={imgs}
                     onChange={(imgs: ImageInfo[]) => { this.imageChange(imgs); }}
                 />
+                <p className="d-title">热区配置</p>
                 <Hotspot
                     imgs={imgs}
                     hotspots={hotspots}

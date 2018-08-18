@@ -45,7 +45,8 @@ $contentMinHeight:100px;
     .d-content {
         min-height: 100px;
         max-height: 700px - $headerHeight - $footerHeight;
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
         margin-top: $headerHeight;
         margin-bottom: $footerHeight;
     }

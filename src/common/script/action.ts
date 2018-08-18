@@ -218,6 +218,7 @@ const DBAction = {
             params: args,
         }));
         if (data.success === true) {
+            message.success('添加成功', 1);
             return data.data;
         } else {
             message.error(data.message);
@@ -278,6 +279,7 @@ const DBAction = {
             },
         })).data;
         if (result.success === true) {
+            message.success('保存成功', 1);
             return result.data;
         } else {
             return {};

@@ -29,13 +29,21 @@ class ModuleNav extends React.Component<ModuleNavProps, ModuleNavState> {
         });
     }
 
+    toggle = () => {
+        if (this.state.isActive === true) {
+            this.onClose();
+        } else {
+            this.open();
+        }
+    }
+
     render() {
 
         const { isActive } = this.state;
 
         return (
             <div className={`d-module-nav ${isActive ? 'active' : ''}`}>
-                <div className="d-btn" onClick={this.open}>
+                <div className="d-btn" onClick={this.toggle}>
                     <Icon className="d-icon" type="bars" />
                 </div>
                 <ModuleNavList onClose={this.onClose} />

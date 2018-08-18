@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Input } from 'antd';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 const { TextArea } = Input;
 
 interface UserDefineConfigProps {

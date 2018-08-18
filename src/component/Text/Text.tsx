@@ -15,10 +15,10 @@ class Text extends Component<TextProps, {}> {
     render() {
 
         const { moduleData } = this.props;
-        const { text } = moduleData.data;
+        const { text, fontWeight, fontSize } = moduleData.data;
         return (
             <Module moduleData={moduleData}>
-                <p>{text}</p>
+                <p style={{ fontWeight, fontSize }}>{text}</p>
             </ Module>
         );
     }

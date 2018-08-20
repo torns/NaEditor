@@ -1,5 +1,5 @@
 const SLD = {
-    backend: '//localhost:3000',
+    backend: '//naeditor.com',
 }
 
 const prefix = '/api'

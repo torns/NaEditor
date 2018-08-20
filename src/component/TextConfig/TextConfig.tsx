@@ -32,12 +32,12 @@ class TextConfig extends React.Component<TextConfigProps, TextConfigState> {
 
     componentWillReceiveProps(nextProps: TextConfigProps) {
         let { text, fontSize, fontWeight, color } = nextProps.moduleData.configData;
-        this.state = {
+        this.setState({
             text,
             fontSize,
             fontWeight,
             color,
-        };
+        });
     }
 
     getConfigData = () => this.state

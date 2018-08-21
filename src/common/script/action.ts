@@ -287,9 +287,9 @@ const DBAction = {
     },
 }
 
-if ((window as any).BASE_DATA.dbSource === '1') {
-    Action = DBAction;
-}
+// if ((window as any).BASE_DATA.dbSource === '1') {
+Action = DBAction;
+// }
 
 (window as any).Action = Action;
 

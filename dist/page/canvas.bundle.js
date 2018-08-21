@@ -98,7 +98,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "html body {\n  font-family: 'tahoma, arial, \"Microsoft YaHei\", \"Hiragino Sans GB\", u5b8bu4f53, sans-serif';\n  font-style: normal;\n  font-variant-ligatures: normal;\n  font-variant-caps: normal;\n  font-variant-numeric: normal;\n  font-variant-east-asian: normal;\n  font-weight: normal;\n  font-stretch: normal;\n  -webkit-font-smoothing: antialiased; }\n\n* {\n  margin: 0;\n  padding: 0; }\n\n::-webkit-scrollbar {\n  width: 5px; }\n\n::-webkit-scrollbar-thumb {\n  background: #999;\n  border-radius: 2px; }\n\n::-webkit-scrollbar-track-piece {\n  background-color: #ececec; }\n\n::-webkit-scrollbar-track-piece {\n  background-color: rgba(237, 237, 237, 0.4); }\n", ""]);
+exports.push([module.i, "html body {\n  font-family: 'tahoma, arial, \"Microsoft YaHei\", \"Hiragino Sans GB\", u5b8bu4f53, sans-serif';\n  font-style: normal;\n  font-variant-ligatures: normal;\n  font-variant-caps: normal;\n  font-variant-numeric: normal;\n  font-variant-east-asian: normal;\n  font-weight: normal;\n  font-stretch: normal;\n  -webkit-font-smoothing: antialiased; }\n\n* {\n  margin: 0;\n  padding: 0; }\n\n::-webkit-scrollbar {\n  width: 5px; }\n\n::-webkit-scrollbar-thumb {\n  background: #999;\n  border-radius: 2px; }\n\n::-webkit-scrollbar-track-piece {\n  background-color: #ececec; }\n\n::-webkit-scrollbar-track-piece {\n  background-color: rgba(237, 237, 237, 0.4); }\n\n.d-title {\n  font-size: 12px;\n  margin: 10px 0;\n  font-weight: 700;\n  color: #333;\n  line-height: 1.4; }\n", ""]);
 
 // exports
 
@@ -118,6 +118,25 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, ".d-header {\n  width: 100%;\n  height: 20px;\n  background: url(//naeditor-image.oss-cn-shenzhen.aliyuncs.com/DASDA.jpg); }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/component/Fixed/Fixed.scss":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./src/component/Fixed/Fixed.scss ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".d-module[data-module-type-id=\"6\"] {\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n  .d-module[data-module-type-id=\"6\"] .d-hint {\n    font-size: 14px;\n    color: #333; }\n\n.d-fixed {\n  position: fixed;\n  z-index: 10; }\n  .d-fixed .d-img {\n    width: 100%; }\n    .d-fixed .d-img img {\n      width: 100%; }\n", ""]);
 
 // exports
 
@@ -155,7 +174,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "body > .d-layer {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 1; }\n  body > .d-layer .d-mask {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.5); }\n  body > .d-layer .d-img {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    z-index: 1; }\n    body > .d-layer .d-img i {\n      position: absolute;\n      top: -10px;\n      right: -10px;\n      color: #fff; }\n", ""]);
+exports.push([module.i, "body > .d-layer {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  width: 100%;\n  z-index: 20; }\n  body > .d-layer .d-mask {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(0, 0, 0, 0.5); }\n  body > .d-layer .d-img {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    max-width: 70%;\n    z-index: 1; }\n    body > .d-layer .d-img img {\n      max-width: 100%; }\n    body > .d-layer .d-img i {\n      position: absolute;\n      top: -10px;\n      right: -10px;\n      color: #fff; }\n\n.d-module[data-module-type-id=\"5\"] {\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n  .d-module[data-module-type-id=\"5\"] .d-hint {\n    font-size: 14px;\n    color: #333; }\n", ""]);
 
 // exports
 
@@ -997,11 +1016,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _component_ImageHotspot_ImageHotspot_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_component_ImageHotspot_ImageHotspot_scss__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _component_Layer_Layer_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../component/Layer/Layer.scss */ "./src/component/Layer/Layer.scss");
 /* harmony import */ var _component_Layer_Layer_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_component_Layer_Layer_scss__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! slick-carousel/slick/slick.css */ "./node_modules/slick-carousel/slick/slick.css");
-/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! slick-carousel/slick/slick-theme.css */ "./node_modules/slick-carousel/slick/slick-theme.css");
-/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _component_Fixed_Fixed_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../component/Fixed/Fixed.scss */ "./src/component/Fixed/Fixed.scss");
+/* harmony import */ var _component_Fixed_Fixed_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_component_Fixed_Fixed_scss__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! slick-carousel/slick/slick.css */ "./node_modules/slick-carousel/slick/slick.css");
+/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! slick-carousel/slick/slick-theme.css */ "./node_modules/slick-carousel/slick/slick-theme.css");
+/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_7__);
 // 需要引入的样式
+
 
 
 
@@ -1053,6 +1075,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/sass-loader/lib/loader.js!./Canvas.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/component/Canvas/Canvas.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/component/Fixed/Fixed.scss":
+/*!****************************************!*\
+  !*** ./src/component/Fixed/Fixed.scss ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/sass-loader/lib/loader.js!./Fixed.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./src/component/Fixed/Fixed.scss");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 

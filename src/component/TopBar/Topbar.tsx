@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '../../../node_modules/antd';
+import { Icon } from 'antd';
 import Cookies from 'js-cookie';
 
 interface TopbarProps {
@@ -9,7 +9,7 @@ interface TopbarState {
 }
 
 const { BASE_DATA } = (window as any);
-const { pageId, dbSource, username } = BASE_DATA;
+const { pageId, username } = BASE_DATA;
 
 class Topbar extends React.Component<TopbarProps, TopbarState> {
 
@@ -20,7 +20,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
     preview = () => {
         (document.querySelector('.J_previewWrap') as any).classList.add('active');
         (document.querySelector('.J_previewContainer') as any).innerHTML = `
-		<iframe class="cd-canvas J_canvas" src="/page/preview.html?pageId=${pageId}&type=1&dbSource=${dbSource}">                
+		<iframe class="cd-canvas J_canvas" src="/page/preview.html?pageId=${pageId}">                
 		</iframe>`;
     }
 

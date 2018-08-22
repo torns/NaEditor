@@ -13,6 +13,7 @@ const INTERFACE = {
     removeModule: `${SLD.backend}${prefix}/removeModule`,
     positionModule: `${SLD.backend}${prefix}/positionModule`,
     updateModule: `${SLD.backend}${prefix}/updateModule`,
+    getPageList: `${SLD.backend}${prefix}/getPageList`, // 获取页面列表
 }
 
 export default INTERFACE;

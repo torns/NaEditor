@@ -31,7 +31,7 @@
         float: right;
         display: flex;
         height: 100%;
-        margin-right: 73px;
+        margin-right: 27px;
         justify-content: center;
         align-content: center;
         .d-line {
@@ -63,6 +63,22 @@
             color: #1890ff;
             &:before {
                 opacity: 1;
+            }
+        }
+    }
+    .d-username {
+        display: flex;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        color: #333;
+        font-size: 12px;
+        margin-left: 20px;
+        i {
+            cursor: pointer;
+            margin-left: 10px;
+            &:hover {
+                color: #1890ff;
             }
         }
     }

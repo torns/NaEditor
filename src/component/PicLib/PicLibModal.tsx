@@ -19,6 +19,7 @@ const uploadProps = {
     headers: {
         authorization: 'authorization-text',
     },
+    showUploadList: false,
 };
 
 interface ImageInfo {
@@ -44,13 +45,13 @@ class PicLibModal extends React.Component<ContentProps, any> {
         const { defaultValue } = this.props;
         const result = (await axios(INTERFACE.getImageList)).data;
         if (result.success === true) {
-            const imgList = result.data.objects.map((v: any) => {
-                const { name, size, url, lastModified } = v;
+            const imgList = result.data.map((v: any) => {
+                const { name, url, } = v;
                 let isActive = false;
                 if (url === defaultValue) {
                     isActive = true;
                 }
-                return { name, size, url, lastModified, isActive };
+                return { name, url, isActive };
             });
             this.setState({
                 imgList,
@@ -107,10 +108,17 @@ class PicLibModal extends React.Component<ContentProps, any> {
                         className="d-image"
                         style={{ backgroundImage: `url(${v.url})` }}
                     />
+                    <p className="d-image-name" title={v.name}>{v.name}</p>
                     <div className="d-img-mask" />
                 </div>
             </Col>
         ));
+    }
+
+    uploadChange = (e: any) => {
+        if (e.event) {
+            this.refreshImageList();
+        }
     }
 
     render() {
@@ -132,14 +140,14 @@ class PicLibModal extends React.Component<ContentProps, any> {
                             />
                         </Col >
                         <Col span={2} offset={18}>
-                            <Upload {...uploadProps}>
+                            <Upload {...uploadProps} onChange={this.uploadChange}>
                                 <Button className="d-upload-img" type="primary">
                                     上传图片
                             </Button>
                             </Upload>
                         </Col >
                     </Row>
-                    <Row>
+                    <Row style={{ marginTop: '10px' }}>
                         {this.renderImgList()}
                     </Row>
                 </div>

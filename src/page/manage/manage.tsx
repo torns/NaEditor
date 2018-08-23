@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
-import { Table, Button, Col, Row, Modal } from 'antd';
+import { Table, Button, Col, Row, Popconfirm } from 'antd';
 import 'antd/dist/antd.css';
 
 import TopBar from '../../component/TopBar';
@@ -36,8 +36,22 @@ class ManagePage extends React.Component<any, any> {
         });
     }
 
-    createPage = async () => {
+    deletePage = async (pageId: number) => {
+        const result = (await Axios(INTERFACE.deletePage, {
+            params: {
+                pageId,
+            }
+        })).data;
+        if (result.success === true) {
+            this.refreshList();
+        }
+    }
 
+    onAddOk = () => {
+        this.refreshList();
+        this.setState({
+            isModalVisible: false,
+        });
     }
 
     renderModal = () => {
@@ -60,12 +74,21 @@ class ManagePage extends React.Component<any, any> {
             key: 'action',
             render: (item: IPage) => {
                 return (
-                    <a href={`/api/page/decorate?pageId=${item.id}`} target="_blank">
-                        <Button>
+                    <React.Fragment>
+                        <a href={`/api/page/decorate?pageId=${item.id}`} target="_blank">
                             去装修
-                        </Button>
-                    </a>
-                )
+                        </a>
+                        <Popconfirm
+                            onConfirm={() => this.deletePage(item.id)}
+                            title="确定删除该页面吗？"
+                            okText="确定"
+                            cancelText="取消">
+                            <a style={{ marginLeft: '10px' }}>
+                                删除
+                            </a>
+                        </Popconfirm>
+                    </React.Fragment>
+                );
             }
         }];
 
@@ -86,11 +109,7 @@ class ManagePage extends React.Component<any, any> {
                                 });
                             }}>创建页面</Button>
                             <CreatePageModal
-                                onOk={() => {
-                                    this.setState({
-                                        isModalVisible: false,
-                                    });
-                                }}
+                                onOk={this.onAddOk}
                                 onCancel={() => {
                                     this.setState({
                                         isModalVisible: false,

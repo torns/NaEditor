@@ -8,7 +8,7 @@ import axios from 'axios';
 
 export interface ContentProps {
     defaultValue?: string;
-    onOk: (url: string) => void;
+    onOk: () => void;
     onCancel: () => void;
     isModalVisible?: boolean;
 }
@@ -19,13 +19,23 @@ interface PageFormProps extends FormComponentProps {
 class PageForm extends React.Component<PageFormProps, any> {
 
     handleSubmit = () => {
+        return new Promise((resolve, reject) => {
+            this.props.form.validateFields(async (err, values) => {
+                if (!err) {
+                    const result = await axios(INTERFACE.addPage, {
+                        params: values,
+                    });
+                    resolve(result);
+                }
+            });
+        })
 
     }
 
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            <Form layout="inline" onSubmit={this.handleSubmit}>
+            <Form layout="inline">
                 <FormItem label="页面名称"
                 >
                     {getFieldDecorator('pageName', {
@@ -53,13 +63,11 @@ class CreateModalModal extends React.Component<ContentProps, any> {
 
     form: any = {};
 
-    handleSubmit = () => {
-        console.log(this.form);
-        this.form.validateFieldsAndScroll((err: any, values: any) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
-        });
+    handleSubmit = async () => {
+        const result = (await this.form.handleSubmit()).data;
+        if (result.success) {
+            this.props.onOk();
+        }
     }
 
     handleOk = () => {

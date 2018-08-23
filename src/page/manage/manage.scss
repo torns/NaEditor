@@ -1,4 +1,8 @@
 @import '../../common/style/common.scss';
+#app {
+    overflow: hidden;
+}
+
 .d-main {
     margin-top: 60px;
 }

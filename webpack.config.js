@@ -7,7 +7,7 @@
 const path = require('path');
 const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const webpack = require('webpack');
 const entrys = {};
 const entryList = glob.sync('src/page/*/index.js');
 
@@ -54,7 +54,7 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         compress: true,
-        port: 8080
+        port: 8080,
     },
     module: {
         rules: [{
@@ -111,6 +111,6 @@ module.exports = {
         extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
     },
     plugins: [
-
+        // new webpack.HotModuleReplacementPlugin(),
     ].concat(HtmlWebpackPlugins),
 };

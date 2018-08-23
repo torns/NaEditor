@@ -67,7 +67,7 @@ class ManagePage extends React.Component<any, any> {
             title: '页面名称',
             key: 'pageName',
             render: (item: IPage) => {
-                return <a href={`/api/page/view?pageId=${item.id}`} target="_blank">{item.pageName}</a>
+                return <a href={`/page/view?pageId=${item.id}`} target="_blank">{item.pageName}</a>
             }
         }, {
             title: '操作',
@@ -75,7 +75,7 @@ class ManagePage extends React.Component<any, any> {
             render: (item: IPage) => {
                 return (
                     <React.Fragment>
-                        <a href={`/api/page/decorate?pageId=${item.id}`} target="_blank">
+                        <a href={`/page/decorate?pageId=${item.id}`} target="_blank">
                             去装修
                         </a>
                         <Popconfirm

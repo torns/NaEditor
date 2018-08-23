@@ -57,7 +57,6 @@ class CreateModalModal extends React.Component<ContentProps, any> {
     constructor(props: ContentProps) {
         super(props);
         this.state = {
-            imgList: [],
         };
     }
 

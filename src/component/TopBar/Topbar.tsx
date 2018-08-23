@@ -27,13 +27,13 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
     preview = () => {
         (document.querySelector('.J_previewWrap') as any).classList.add('active');
         (document.querySelector('.J_previewContainer') as any).innerHTML = `
-		<iframe class="cd-canvas J_canvas" src="/page/preview.html?pageId=${pageId}">                
+		<iframe class="cd-canvas J_canvas" src="/page/preview?pageId=${pageId}">                
 		</iframe>`;
     }
 
     logout = () => {
         Cookies.remove('pin');
-        location.href = '/api/page/login';
+        location.href = '/page/login';
     }
 
     render() {

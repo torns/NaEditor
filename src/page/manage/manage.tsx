@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
 import { Table, Button, Col, Row, Popconfirm } from 'antd';
-import 'antd/dist/antd.css';
+require('antd/dist/antd.css');
 
 import TopBar from '../../component/TopBar';
 import CreatePageModal from './CreatePageModal';
@@ -13,7 +13,6 @@ interface IPage {
     pageName: string;
     moduleList: number[];
 }
-
 
 class ManagePage extends React.Component<any, any> {
 

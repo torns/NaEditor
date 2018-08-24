@@ -10,7 +10,7 @@ let cliEntry = process.env.npm_config_argv.match(/--entry=([\w]+)/);
 
 let entrys = {};
 entryList.forEach(function(file) {
-    const name = file.replace(/src\/(page\/.*)\/index.js/ig, '$1');
+    const name = file.replace(/src\/page\/(.*)\/index.js/ig, '$1');
     entrys[name] = './' + file;
 });
 if (cliEntry) {
@@ -34,27 +34,27 @@ const HtmlWebpackPlugins = [
     new HtmlWebpackPlugin({
         filename: '/page/decorate.html',
         template: './src/page/decorate/index.html',
-        chunks: ['page/decorate']
+        chunks: ['decorate']
     }),
     new HtmlWebpackPlugin({
         filename: '/page/canvas.html',
         template: './src/page/canvas/index.html',
-        chunks: ['page/canvas'],
+        chunks: ['canvas'],
     }),
     new HtmlWebpackPlugin({
         filename: '/page/learn.html',
         template: './src/page/learn/index.html',
-        chunks: ['page/learn']
+        chunks: ['learn']
     }),
     new HtmlWebpackPlugin({
         filename: '/page/preview.html',
         template: './src/page/preview/index.html',
-        chunks: ['page/preview']
+        chunks: ['preview']
     }),
     new HtmlWebpackPlugin({
         filename: '/page/manage.html',
         template: './src/page/manage/index.html',
-        chunks: ['page/manage']
+        chunks: ['manage']
     })
 ]
 
@@ -77,6 +77,26 @@ module.exports = {
         publicPath: '//staticnaeditor.com/naeditor/',
     },
     stats: 'minimal',
+    // optimization: {
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             // 注意: priority属性
+    //             // 其次: 打包业务中公共代码
+    //             common: {
+    //                 name: "common",
+    //                 chunks: "all",
+    //                 priority: 1
+    //             },
+    //             // 首先: 打包node_modules中的文件
+    //             vendor: {
+    //                 name: "vendor",
+    //                 test: /[\\/]node_modules[\\/]/,
+    //                 chunks: "all",
+    //                 priority: 10,
+    //             }
+    //         }
+    //     }
+    // },
     module: {
         rules: [{
                 test: /\.tsx?$/,

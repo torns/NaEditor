@@ -45,7 +45,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
                     <div className="d-logo">
                         <img src="//naeditor-image.oss-cn-shenzhen.aliyuncs.com/timg.jpg?x-oss-process=image/resize,w_30" />
                     </div>
-                    <h2>Na31321dsa3</h2>
+                    <h2>321321312</h2>
                 </div>
                 <div className="d-right">
 

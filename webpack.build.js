@@ -16,8 +16,8 @@ let result = merge(config, {
             use: [
                 MiniCssExtractPlugin.loader,
                 'css-loader',
-                // 'postcss-loader',
-                // 'thread-loader',
+                'postcss-loader',
+                'thread-loader',
             ]
         }, {
             test: /\.scss$/,
@@ -25,38 +25,17 @@ let result = merge(config, {
                 MiniCssExtractPlugin.loader,
                 'css-loader',
                 'sass-loader',
-                // 'postcss-loader',
-                // 'thread-loader',
+                'postcss-loader',
+                'thread-loader',
             ]
         }, ]
     },
-    optimization: {
-        splitChunks: {
-            maxInitialRequests: 5,
-            cacheGroups: {
-                // 注意: priority属性
-                // 其次: 打包业务中公共代码
-                common: {
-                    name: "common",
-                    chunks: "all",
-                    priority: 1
-                },
-                // 首先: 打包node_modules中的文件
-                vendor: {
-                    name: "vendor",
-                    test: /[\\/]node_modules[\\/]/,
-                    chunks: "all",
-                    priority: 10,
-                }
-            }
-        }
-    },
     plugins: [
-        // new LodashModuleReplacementPlugin(),
+        new LodashModuleReplacementPlugin(),
         new MiniCssExtractPlugin({
             filename: "[name].css",
         }),
-        new CleanWebpackPlugin(['dist/**.js', 'dist/**.json', 'dist/**.map', ]),
+        // new CleanWebpackPlugin(['dist/**.js', 'dist/**.json', 'dist/**.map', 'dist/**.css']),
     ],
 })
 

@@ -1,4 +1,4 @@
-import DB from '@db/dbConfig';
+import DB from '../db/dbConfig';
 import idb from 'idb';
 
 /**

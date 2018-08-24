@@ -1,4 +1,4 @@
-import Action from '@common/script/action';
+import Action from '../common/script/action';
 
 
 

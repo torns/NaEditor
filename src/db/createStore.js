@@ -1,5 +1,5 @@
 import idb from 'idb';
-import DB from '@db/dbConfig';
+import DB from '../db/dbConfig';
 import './dataInitial';
 
 const DB_VERSION = DB.Version;

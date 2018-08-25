@@ -12,6 +12,8 @@ import Canvas from '../../component/Canvas';
 import ModuleNav from '../../component/ModuleNav';
 import store from '../../store';
 import Topbar from '../../component/TopBar';
+import Axios from '../../../node_modules/axios';
+import INTERFACE from '../../common/script/INTERFACE';
 
 const {
 	BASE_DATA: {
@@ -36,7 +38,7 @@ window.onload = () => {
 }
 
 
-window.addEventListener('load', () => {
+function initComponents() {
 
 	ReactDOM.render(
 		<Topbar />,
@@ -88,4 +90,30 @@ window.addEventListener('load', () => {
 		</Provider >,
 		document.querySelector('.J_moduleNav')
 	);
-});
+};
+
+
+getInitData().then((BASE_DATA) => {
+	window.BASE_DATA = BASE_DATA;
+	document.querySelector('.cd-iframe-warp').innerHTML = ` <iframe class="cd-canvas J_canvas" src="/page/canvas.html"></iframe>`;
+
+	document.querySelector('.J_canvas').contentWindow.onload = () => {
+		console.log(window.BASE_DATA)
+		initComponents();
+	};
+
+})
+
+
+async function getInitData() {
+	const pageId = location.href.match(/pageId=([0-9]+)/)[1];
+	const result = (await Axios(INTERFACE.getInitData, {
+		params: {
+			pageId,
+		}
+	})).data;
+	if (result.success) {
+		result.data.type = "0";	//装修为0
+		return result.data;
+	}
+}

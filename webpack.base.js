@@ -30,33 +30,43 @@ const sourcePath = path.join(__dirname, '/src');
 
 let plugins = [];
 
-const HtmlWebpackPlugins = [
-    new HtmlWebpackPlugin({
-        filename: '/page/decorate.html',
-        template: './src/page/decorate/index.html',
-        chunks: ['decorate']
-    }),
-    new HtmlWebpackPlugin({
-        filename: '/page/canvas.html',
-        template: './src/page/canvas/index.html',
-        chunks: ['canvas'],
-    }),
-    new HtmlWebpackPlugin({
-        filename: '/page/learn.html',
-        template: './src/page/learn/index.html',
-        chunks: ['learn']
-    }),
-    new HtmlWebpackPlugin({
-        filename: '/page/preview.html',
-        template: './src/page/preview/index.html',
-        chunks: ['preview']
-    }),
-    new HtmlWebpackPlugin({
-        filename: '/page/manage.html',
-        template: './src/page/manage/index.html',
-        chunks: ['manage']
+const HtmlWebpackPlugins = glob.sync('src/page/*/index.html').map(v => {
+    const name = v.replace(/src\/page\/(.*)\/index.html/ig, '$1');
+    return new HtmlWebpackPlugin({
+        filename: `/page/${name}.html`,
+        template: v,
+        chunks: [name]
     })
-]
+});
+console.log(HtmlWebpackPlugins);
+
+// const HtmlWebpackPlugins = [
+//     new HtmlWebpackPlugin({
+//         filename: '/page/decorate.html',
+//         template: './src/page/decorate/index.html',
+//         chunks: ['decorate']
+//     }),
+//     new HtmlWebpackPlugin({
+//         filename: '/page/canvas.html',
+//         template: './src/page/canvas/index.html',
+//         chunks: ['canvas'],
+//     }),
+//     new HtmlWebpackPlugin({
+//         filename: '/page/learn.html',
+//         template: './src/page/learn/index.html',
+//         chunks: ['learn']
+//     }),
+//     new HtmlWebpackPlugin({
+//         filename: '/page/preview.html',
+//         template: './src/page/preview/index.html',
+//         chunks: ['preview']
+//     }),
+//     new HtmlWebpackPlugin({
+//         filename: '/page/manage.html',
+//         template: './src/page/manage/index.html',
+//         chunks: ['manage']
+//     })
+// ]
 
 plugins = plugins.concat(HtmlWebpackPlugins);
 

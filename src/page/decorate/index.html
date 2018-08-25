@@ -6,24 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
-        (() => {
-            function queryURL(url) {
-                var arr1 = url.split("?");
-                var params = arr1[1].split("&"); //进行分割成数组
-                var obj = {}; //声明对象
-                for (var i = 0; i < params.length; i++) {
-                    var param = params[i].split("="); //进行分割成数组
-                    obj[param[0]] = param[1]; //为对象赋值
-                }
-
-                return obj;
-            }
-
-            window.BASE_DATA = queryURL(location.href);
-
-        })();
-    </script>
 </head>
 
 <body>
@@ -45,9 +27,7 @@
             <div class="J_moduleNav"></div>
             <div class="cd-iframe-outer-warp">
                 <div class="cd-iframe-warp">
-                    <iframe class="cd-canvas J_canvas" src="/page/canvas.html">
-                                
-                        </iframe>
+
                 </div>
             </div>
         </div>

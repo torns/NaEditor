@@ -10,14 +10,6 @@ import Carousel from '../Carousel';
 import Layer from '../Layer';
 import Fixed from '../Fixed';
 
-let { BASE_DATA }: any = (window as any);
-// if ((window as any).BASE_DATA.type !== '1') {   // 非预览页
-//     BASE_DATA = (window as any).top.BASE_DATA;
-// } else {
-//     BASE_DATA = (window as any).BASE_DATA;
-// }
-const pageType = (window as any).BASE_DATA.type;
-
 interface CanvasProps {
     fetchModuleList: (pageId: number) => void;
     moduleList: IModuleData[];
@@ -28,13 +20,22 @@ class Canvas extends React.Component<CanvasProps, {}> {
         super(props);
     }
 
+    BASE_DATA: any;
+
     componentWillMount() {
+        this.BASE_DATA = (window.top as any).BASE_DATA;
+        // if ((window as any).BASE_DATA.type !== '1') {   // 非预览页
+        //     BASE_DATA = (window as any).top.BASE_DATA;
+        // } else {
+        //     BASE_DATA = (window as any).BASE_DATA;
+        // }
+
         // 初始化模块
-        this.props.fetchModuleList(BASE_DATA.pageId);
+        this.props.fetchModuleList(this.BASE_DATA.pageId);
     }
 
     componentDidMount() {
-        if (Number.parseInt(BASE_DATA.type, 10) === 0) { // type为0为装修
+        if (this.BASE_DATA.type === '0') { // type为0为装修
             setTimeout(() => {
                 (window as any).resizeIframe();
             }, 1000);
@@ -45,7 +46,7 @@ class Canvas extends React.Component<CanvasProps, {}> {
      * 画布更新
      */
     componentDidUpdate() {
-        if (Number.parseInt(BASE_DATA.type, 10) === 0) { // type为0为装修
+        if (this.BASE_DATA.type === '0') { // type为0为装修
             (window as any).resizeIframe();
         }
     }
@@ -86,7 +87,7 @@ class Canvas extends React.Component<CanvasProps, {}> {
 
         return (
             <React.Fragment>
-                {pageType === '0' && <div className="d-header"></div>}
+                {this.BASE_DATA.type === '0' && <div className="d-header"></div>}
                 {getModuleList(moduleList)}
             </React.Fragment>
         );

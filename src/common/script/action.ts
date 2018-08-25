@@ -285,6 +285,22 @@ const DBAction = {
             return {};
         };
     },
+    /**
+     * 获取页面初始化数据
+     * @param pageType 页面类型 0：装修 1：预览 2：浏览
+     */
+    async getInitData(pageType: number) {
+        const pageId = (window as any).location.href.match(/pageId=([0-9]+)/)[1];
+        const result = (await axios(INTERFACE.getInitData, {
+            params: {
+                pageId,
+            }
+        })).data;
+        if (result.success) {
+            result.data.pageType = pageType;
+            return result.data;
+        }
+    },
 }
 
 // if ((window as any).BASE_DATA.dbSource === '1') {

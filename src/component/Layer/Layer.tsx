@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Icon } from 'antd';
+import PropTypes from 'prop-types';
 
 import Module from '../Module';
-import { IModuleData, HotspotInfo } from '../interface';
+import { IModuleData, HotspotInfo, IContext } from '../interface';
 
 
 interface LayerProps {
@@ -13,9 +14,6 @@ interface LayerProps {
 interface LayerState {
 
 }
-
-const body = document.body;
-const pageType = (window as any).BASE_DATA.type;
 
 const rootEl = document.createElement('div');
 rootEl.classList.add('d-layer');
@@ -27,9 +25,13 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
         super(props);
     }
 
+    static contextTypes = {
+        BASE_DATA: PropTypes.object
+    }
+
     componentDidMount() {
-        if (pageType !== '0') {
-            body.appendChild(rootEl);
+        if (this.context.BASE_DATA.pageType === 0) {
+            document.body.appendChild(rootEl);
 
             // 阻止滚动穿透
             (document as any).querySelector('html').style.overflow = 'hidden';
@@ -80,9 +82,10 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
 
     render() {
         const { moduleData } = this.props;
+        const { pageType } = this.context.BASE_DATA;
 
         // 装修时的展示
-        if (pageType === '0') {
+        if (pageType === 0) {
             return (
                 <Module moduleData={moduleData}>
                     <span className="d-hint">浮层模块效果请在预览页中查看</span>

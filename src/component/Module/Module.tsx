@@ -2,6 +2,7 @@ import React, { RefObject } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import $ from 'jquery';
+import PropTypes from 'prop-types';
 
 import { moduleTopChange, moduleHeightChange } from '../../actions';
 import ModuleWrap from '../ModuleWrap';
@@ -18,11 +19,14 @@ interface ModuleState {
     isEmpty?: boolean;
 }
 
-const pageType = (window as any).BASE_DATA.type;
-
 class Module extends React.Component<ModuleProps, ModuleState> {
 
     private moduleRef: any = React.createRef();
+
+    static contextTypes = {
+        BASE_DATA: PropTypes.object
+    }
+
 
     constructor(props: ModuleProps) {
         super(props);
@@ -113,6 +117,7 @@ class Module extends React.Component<ModuleProps, ModuleState> {
                 moduleTypeId,
             }
         } = this.state;
+        const isDecorate = this.context.BASE_DATA.pageType === 0;
 
         return (
             <div
@@ -121,8 +126,7 @@ class Module extends React.Component<ModuleProps, ModuleState> {
                 ref={ref => this.moduleRef = ref}
             >
                 {this.state.isEmpty ? <div className="d-placeholder">请配置模块数据</div> : this.props.children}
-                {/* pageType为2为装修 */}
-                {pageType === '0' && <ModuleWrap
+                {isDecorate && <ModuleWrap
                     moduleData={moduleData}
                     moduleRef={this.moduleRef}
                 />}

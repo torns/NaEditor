@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import { Icon } from 'antd';
 
 import Module from '../Module';
-import { IModuleData, HotspotInfo } from '../interface';
+import { IModuleData, HotspotInfo, IContext } from '../interface';
 
 
 interface FixedProps {
@@ -15,19 +16,22 @@ interface FixedState {
 }
 
 const body = document.body;
-const pageType = (window as any).BASE_DATA.type;
 
 const rootEl = document.createElement('div');
 
 export default class Fixed extends React.Component<FixedProps, FixedState> {
 
 
+    static contextTypes = {
+        BASE_DATA: PropTypes.object
+    }
+
     constructor(props: FixedProps) {
         super(props);
     }
 
     componentDidMount() {
-        if (pageType !== '0') {
+        if (this.context.BASE_DATA.pageType !== 0) {
             body.appendChild(rootEl);
         }
     }
@@ -107,9 +111,10 @@ export default class Fixed extends React.Component<FixedProps, FixedState> {
 
     render() {
         const { moduleData } = this.props;
+        const isDecorate = this.context.BASE_DATA.pageType === 0;
 
         // 装修时的展示
-        if (pageType === '0') {
+        if (isDecorate) {
             return (
                 <Module moduleData={moduleData}>
                     <span className="d-hint">定位模块效果请在预览页中查看</span>

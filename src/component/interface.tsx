@@ -53,3 +53,16 @@ export interface IState {
     module: IModule;
     moduleConfig: IModuleConfig;
 }
+
+// BASE_DATA
+export interface IBASE_DATA {
+    pageId: string;
+    pageInfo: any;
+    pageType: number;
+    username: string;
+}
+
+// Context
+export interface IContext {
+    BASE_DATA: IBASE_DATA;
+}

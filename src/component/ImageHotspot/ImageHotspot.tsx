@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Module from '../Module';
 import { IModuleData, HotspotInfo } from '../interface';
@@ -13,9 +14,12 @@ interface ImageHotspotState {
     imgs: ImageInfo[];
 }
 
-const pageType = (window as any).BASE_DATA.type;
-
 export default class ImageHotspot extends React.Component<ImageHotspotProps, ImageHotspotState> {
+
+    static contextTypes = {
+        BASE_DATA: PropTypes.object
+    }
+
     constructor(props: ImageHotspotProps) {
         super(props);
         const { imgs } = props.moduleData.data;
@@ -36,6 +40,7 @@ export default class ImageHotspot extends React.Component<ImageHotspotProps, Ima
 
     renderHotspots = (Hotspot: HotspotInfo[]) => {
         const Rate = 1;
+        const isDecorate = this.context.BASE_DATA.pageType === 0;
         return (
             <div className="d-hotspot-wrap">
                 {Hotspot && Hotspot.map((v, i) => {
@@ -50,7 +55,7 @@ export default class ImageHotspot extends React.Component<ImageHotspotProps, Ima
                     const height = `${(h || 0) * Rate}px`;
                     return (
                         <a style={{ top, left, width, height }} key={i} href={v.url} >
-                            {pageType === '0' && <span>热区{i + 1}</span>}
+                            {isDecorate && <span>热区{i + 1}</span>}
                         </a>
                     )
                 })

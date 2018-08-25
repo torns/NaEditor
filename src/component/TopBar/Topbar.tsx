@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from 'antd';
 import Cookies from 'js-cookie';
+import PropTypes from 'prop-types';
 import { hot } from 'react-hot-loader'
 
 interface TopbarProps {
@@ -11,10 +12,11 @@ interface TopbarProps {
 interface TopbarState {
 }
 
-const { BASE_DATA } = (window as any);
-const { pageId, username } = BASE_DATA;
-
 class Topbar extends React.Component<TopbarProps, TopbarState> {
+
+    static contextTypes = {
+        BASE_DATA: PropTypes.object
+    }
 
     static defaultProps: TopbarProps = {
         hasPreview: true,
@@ -26,6 +28,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
     }
 
     preview = () => {
+        const { pageId } = this.context.BASE_DATA;
         (document.querySelector('.J_previewWrap') as any).classList.add('active');
         (document.querySelector('.J_previewContainer') as any).innerHTML = `
 		<iframe class="cd-canvas J_canvas" src="/page/preview?pageId=${pageId}">                
@@ -39,6 +42,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
 
     render() {
         const { hasPreview, hasPublish } = this.props;
+        const { username } = this.context.BASE_DATA;
         return (
             <div className="d-top-bar">
                 <div className="d-left">

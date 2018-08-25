@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { IModuleData, IState } from '../interface';
+import { IModuleData, IState, IBASE_DATA, IContext } from '../interface';
 import UserDefine from '../UserDefine';
 import ImageHotspot from '../ImageHotspot';
 import Text from '../Text';
@@ -20,22 +21,33 @@ class Canvas extends React.Component<CanvasProps, {}> {
         super(props);
     }
 
-    BASE_DATA: any;
+
+
+    // getChildContext() {
+    //     return {
+    //         BASE_DATA: (window.top as any).BASE_DATA,
+    //     }
+    // }
+
+    // static childContextTypes = {
+    //     BASE_DATA: PropTypes.object,
+    // };
+
+
+    static contextTypes = {
+        BASE_DATA: PropTypes.object
+    }
+
 
     componentWillMount() {
-        this.BASE_DATA = (window.top as any).BASE_DATA;
-        // if ((window as any).BASE_DATA.type !== '1') {   // 非预览页
-        //     BASE_DATA = (window as any).top.BASE_DATA;
-        // } else {
-        //     BASE_DATA = (window as any).BASE_DATA;
-        // }
 
         // 初始化模块
-        this.props.fetchModuleList(this.BASE_DATA.pageId);
+        this.props.fetchModuleList(this.context.BASE_DATA.pageId.toString());
     }
 
     componentDidMount() {
-        if (this.BASE_DATA.type === '0') { // type为0为装修
+
+        if (this.context.BASE_DATA.pageType === 0) { // type为0为装修
             setTimeout(() => {
                 (window as any).resizeIframe();
             }, 1000);
@@ -46,7 +58,7 @@ class Canvas extends React.Component<CanvasProps, {}> {
      * 画布更新
      */
     componentDidUpdate() {
-        if (this.BASE_DATA.type === '0') { // type为0为装修
+        if (this.context.BASE_DATA.pageType === 0) { // type为0为装修
             (window as any).resizeIframe();
         }
     }
@@ -87,7 +99,7 @@ class Canvas extends React.Component<CanvasProps, {}> {
 
         return (
             <React.Fragment>
-                {this.BASE_DATA.type === '0' && <div className="d-header"></div>}
+                {this.context.BASE_DATA.pageType === 0 && <div className="d-header"></div>}
                 {getModuleList(moduleList)}
             </React.Fragment>
         );

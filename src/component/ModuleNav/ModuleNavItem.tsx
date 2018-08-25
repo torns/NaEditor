@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Icon } from 'antd';
 
 import { showConfig, focusModule, removeModuleRequest, positionModuleRequest } from '../../actions';
@@ -21,9 +22,12 @@ interface ModuleNavItemState {
     isVisible: boolean;
 }
 
-const pageId = Number.parseInt((window as any).BASE_DATA.pageId, 10);
-
 class ModuleNavItem extends React.Component<ModuleNavItemProps, ModuleNavItemState> {
+
+    static contextTypes = {
+        BASE_DATA: PropTypes.object
+    }
+
     constructor(props: ModuleNavItemProps) {
         super(props);
         this.state = {
@@ -85,6 +89,7 @@ class ModuleNavItem extends React.Component<ModuleNavItemProps, ModuleNavItemSta
             positionModuleRequest,
             onDragedChange,
         } = this.props;
+        const { pageId } = this.context.BASE_DATA;
         // 移动自己不生效
         if (currentDrag === moduleId) { return; }
         positionModuleRequest({
@@ -115,6 +120,7 @@ class ModuleNavItem extends React.Component<ModuleNavItemProps, ModuleNavItemSta
         } = this.props;
 
         const { isDragOver, isVisible } = this.state;
+        const { pageId } = this.context.BASE_DATA;
         return (
             <React.Fragment>
                 <li

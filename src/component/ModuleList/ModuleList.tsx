@@ -42,9 +42,11 @@ class ModuleList extends Component<ModuleListProps, ModuleListState> {
 
     addModule(moduleTypeId: number) {
         const { addModuleRequest } = this.props;
+        const pageId = this.context.BASE_DATA.pageId;
+
         const args = {
             moduleTypeId,
-            pageId: (window as any).BASE_DATA.pageId,
+            pageId,
         }
         addModuleRequest(args);
     }

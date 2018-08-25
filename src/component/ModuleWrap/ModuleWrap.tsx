@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { showConfig, focusModule, addModuleRequest } from '../../actions';
 import { IModuleData, IModuleConfig, IState } from '../interface';
@@ -18,9 +19,11 @@ interface ModuleWrapState {
     nextPlaceholder?: HTMLDivElement;
 }
 
-const { BASE_DATA } = (window as any);
-
 class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
+
+    static contextTypes = {
+        BASE_DATA: PropTypes.object
+    }
 
     constructor(props: ModuleWrapProps) {
         super(props);
@@ -79,13 +82,14 @@ class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
     }
 
     drop = async (e: DragEvent) => {
+        const { pageId } = this.context.BASE_DATA;
         const moduleTypeId = Number.parseInt(e.dataTransfer.getData('moduleTypeId'), 10);
         const { addModuleRequest } = this.props;
         const preModuleId = this.state.moduleData.moduleId;
         addModuleRequest({
             preModuleId: preModuleId,
             moduleTypeId,
-            pageId: BASE_DATA.pageId,
+            pageId,
         });
         this.clearNextPlaceholder();
     }

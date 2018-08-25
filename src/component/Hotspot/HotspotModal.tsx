@@ -345,7 +345,7 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
             <Modal
                 className="d-hotspot-modal"
                 visible={visible}
-                title="图片热区"
+                title={<span className="d-title">图片热区</span>}
                 width="70%"
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}

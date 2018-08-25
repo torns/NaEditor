@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Icon, Tooltip, message } from 'antd';
 
 import { showConfig, hideConfig, removeModuleRequest, positionModuleRequest } from '../../actions';
@@ -18,9 +19,12 @@ interface ModuleBarState {
 
 }
 
-const { BASE_DATA } = (window as any);
-
 class ModuleBar extends React.Component<ModuleBarProps, ModuleBarState> {
+
+    static contextTypes = {
+        BASE_DATA: PropTypes.object
+    }
+
     constructor(props: ModuleBarProps) {
         super(props);
     }
@@ -29,6 +33,7 @@ class ModuleBar extends React.Component<ModuleBarProps, ModuleBarState> {
      * 上移模块
      */
     up = (moduleId: number) => {
+        const { pageId } = this.context.BASE_DATA;
         const preModuleId = this.props.module.moduleList.reduce((acc, v, i, array) => {
             if (v.moduleId === moduleId) {
                 // 如果这不是第一个模块
@@ -47,7 +52,7 @@ class ModuleBar extends React.Component<ModuleBarProps, ModuleBarState> {
             this.props.positionModuleRequest({
                 preModuleId,
                 moduleId,
-                pageId: BASE_DATA.pageId,
+                pageId,
             });
         }
     }
@@ -56,6 +61,7 @@ class ModuleBar extends React.Component<ModuleBarProps, ModuleBarState> {
      * 下移模块
      */
     down = (moduleId: number) => {
+        const { pageId } = this.context.BASE_DATA;
         const preModuleId = this.props.module.moduleList.reduce((acc, v, i, array) => {
             if (v.moduleId === moduleId) {
                 let nextModule = array[i + 1];
@@ -71,13 +77,14 @@ class ModuleBar extends React.Component<ModuleBarProps, ModuleBarState> {
             this.props.positionModuleRequest({
                 preModuleId,
                 moduleId,
-                pageId: BASE_DATA.pageId,
+                pageId,
             });
         }
 
     }
 
     render() {
+        const { pageId } = this.context.BASE_DATA;
         const { showConfig, module, moduleConfig, hideConfig, removeModuleRequest } = this.props;
         const activeModule = module.moduleList.filter((v) => v.tempData && v.tempData.isActive === true);
         const configVisiable = moduleConfig.isVisible;
@@ -85,13 +92,13 @@ class ModuleBar extends React.Component<ModuleBarProps, ModuleBarState> {
         const activeModuleId = activeModuleData && activeModuleData.moduleId;
         let top = 90;
         if (activeModuleData && activeModuleData.tempData) {
-            top += activeModuleData.tempData.top;
+            top += activeModuleData.tempData.top || 0;
         }
         if (activeModuleData === undefined) { return null; }
 
         const removeModule = (moduleId: number) => {
             removeModuleRequest({
-                pageId: BASE_DATA.pageId,
+                pageId,
                 moduleId: activeModuleId,
             });
         };

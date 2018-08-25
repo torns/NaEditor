@@ -3,6 +3,7 @@ import { addModuleRequest } from '../../actions';
 import { connect } from "react-redux";
 import axios from 'axios';
 import { Icon } from 'antd';
+import PropTypes from 'prop-types';
 
 import './ModuleList.scss';
 import { IState } from '../interface';
@@ -17,6 +18,11 @@ interface ModuleListState {
 }
 
 class ModuleList extends Component<ModuleListProps, ModuleListState> {
+
+    static contextTypes = {
+        BASE_DATA: PropTypes.object
+    }
+
     constructor(props: ModuleListProps) {
         super(props);
         this.addModule = this.addModule.bind(this);

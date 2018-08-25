@@ -41,7 +41,7 @@ class ModuleNavList extends React.Component<ModuleNavListProps, ModuleNavListSta
         return (
             <div className="d-module-nav-list">
                 <div className="d-header">
-                    <p className="d-title">模块导航</p>
+                    <p className="d-modal-title">模块导航</p>
                     <Icon className="d-close-icon" type="close" onClick={onClose} />
                 </div>
                 <ul>

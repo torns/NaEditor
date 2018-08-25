@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Axios from 'axios';
 import { Table, Button, Col, Row, Popconfirm } from 'antd';
 require('antd/dist/antd.css');
+import Cookies from 'js-cookie';
 
 import TopBar from '../../component/TopBar';
 import CreatePageModal from './CreatePageModal';
@@ -20,7 +21,8 @@ class ManagePage extends React.Component<any, any> {
         super(props);
         this.state = {
             pageList: [],
-        }
+            username: Cookies.get('pin'),
+        };
     }
 
     componentDidMount() {
@@ -91,13 +93,14 @@ class ManagePage extends React.Component<any, any> {
             }
         }];
 
-        const { pageList, isModalVisible } = this.state;
+        const { pageList, isModalVisible, username } = this.state;
 
         return (
             <div>
                 <TopBar
                     hasPreview={false}
                     hasPublish={false}
+                    username={username}
                 />
                 <div className="d-main">
                     <Row>

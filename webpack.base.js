@@ -1,6 +1,5 @@
 const path = require('path');
 const glob = require('glob');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const entryList = glob.sync('src/page/*/index.js');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -30,15 +29,6 @@ const sourcePath = path.join(__dirname, '/src');
 
 let plugins = [];
 
-const HtmlWebpackPlugins = glob.sync('src/page/*/index.html').map(v => {
-    const name = v.replace(/src\/page\/(.*)\/index.html/ig, '$1');
-    return new HtmlWebpackPlugin({
-        filename: `/page/${name}.html`,
-        template: v,
-        chunks: [name]
-    })
-});
-console.log(HtmlWebpackPlugins);
 
 // const HtmlWebpackPlugins = [
 //     new HtmlWebpackPlugin({
@@ -68,7 +58,7 @@ console.log(HtmlWebpackPlugins);
 //     })
 // ]
 
-plugins = plugins.concat(HtmlWebpackPlugins);
+// plugins = plugins.concat(HtmlWebpackPlugins);
 
 if (isAnalyze) {
     plugins.push(new BundleAnalyzerPlugin());

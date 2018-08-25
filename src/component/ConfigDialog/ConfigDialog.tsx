@@ -97,7 +97,7 @@ class ConfigDialog extends React.Component<ConfigDialogProps, any> {
         if (moduleConfig.isVisiable && activeModule !== undefined) {
 
             let top = 90;
-            top += activeModule.tempData.top;
+            top += activeModule.tempData.top || 0;
 
             const {
                 moduleData,

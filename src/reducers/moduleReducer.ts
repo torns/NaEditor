@@ -18,9 +18,13 @@ export default (state: IModule = { moduleList: [] }, action: any) => {
         case ADD_MODULE:
             {
                 const { preModuleId, moduleData } = action;
+                // 添加tempData
+                moduleData.tempData = {
+                    isActive: true,
+                };
                 let newModuleList;
                 if (preModuleId === undefined) {
-                    newModuleList = [moduleData].concat(state.moduleList);
+                    newModuleList = state.moduleList.concat([moduleData]);
                 } else {
                     const init: IModuleData[] = [];
                     newModuleList = state.moduleList.reduce((acc, v: IModuleData, i, array) => {
@@ -31,7 +35,15 @@ export default (state: IModule = { moduleList: [] }, action: any) => {
                         return acc;
                     }, init);
                 }
-                const result = Object.assign({}, state, { moduleList: newModuleList })
+                newModuleList = newModuleList.map(v => {
+                    if (v.moduleId === moduleData.moduleId) {
+                        v.tempData.isActive = true;
+                    } else {
+                        v.tempData.isActive = false;
+                    }
+                    return v;
+                });
+                const result = Object.assign({}, state, { moduleList: newModuleList });
                 return result;
             }
         case REFRESH_MODULE_LIST: //刷新整页

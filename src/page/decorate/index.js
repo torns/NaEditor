@@ -1,2 +1,21 @@
+import React from 'react';
+import ReactDom from 'react-dom';
+import { Provider } from 'react-redux';
+
+import Decorate from './Decorate';
+import store from '../../store';
+import ContextProvider from '../../component/ContextProvider';
+import Action from '../../common/script/action';
 import './index.scss';
-import './decorate';
+
+Action.getInitData(0).then((BASE_DATA) => {
+    ReactDom.render(
+        <Provider store={store} >
+            <ContextProvider BASE_DATA={BASE_DATA}>
+                <Decorate />
+            </ContextProvider>
+        </Provider>,
+        document.querySelector('#app')
+    );
+})
+

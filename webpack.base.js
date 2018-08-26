@@ -74,7 +74,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname + '/dist'),
         filename: '[name].bundle.js',
-        publicPath: '//staticnaeditor.com/naeditor/',
+        publicPath: 'http://47.107.69.189:8080/',
     },
     stats: 'minimal',
     // optimization: {

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { hot } from 'react-hot-loader'
+import { hot } from 'react-hot-loader';
 
 import '../../db/createStore';
 import store from '../../store';

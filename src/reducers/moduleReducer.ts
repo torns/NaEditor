@@ -9,6 +9,7 @@ import {
     POSITION_MODULE,
     MODULE_TOP_CHANGE,
     MODULE_HEIGHT_CHANGE,
+    ALL_MODULE_TOP_CHANGE,
 } from "../actions";
 
 import '../component/interface';
@@ -142,6 +143,26 @@ export default (state: IModule = { moduleList: [] }, action: any) => {
                 const result = Object.assign({}, state, {
                     moduleList: newModuleList,
                 })
+                return result;
+            }
+        case ALL_MODULE_TOP_CHANGE://  刷新某模块之后所有模块top值
+            {
+                const { afterModuleId, topChange } = action;
+                let shouldChange = false;
+                const newModuleList = state.moduleList.reduce((acc: IModuleData[], v: IModuleData) => {
+                    if (shouldChange === true) {
+                        v.tempData.top += topChange;
+                    }
+                    // 该模块之后的模块top值都要发生变化
+                    if (v.moduleId === afterModuleId) {
+                        shouldChange = true;
+                    }
+                    acc.push(v);
+                    return acc;
+                }, []);
+                const result = Object.assign({}, state, {
+                    moduleList: newModuleList,
+                });
                 return result;
             }
         case MODULE_HEIGHT_CHANGE: // 模块height值变化

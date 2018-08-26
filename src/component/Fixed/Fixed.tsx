@@ -96,7 +96,6 @@ export default class Fixed extends React.Component<FixedProps, FixedState> {
             >
                 <div className="d-img">
                     <img src={imgUrl} />
-                    <Icon type="close" />
                     <div className="d-hotspots-wrap">
                         {hotspots && hotspots.map((v: HotspotInfo) => {
                             <a href={v.url}></a>
@@ -104,7 +103,6 @@ export default class Fixed extends React.Component<FixedProps, FixedState> {
                     </div>
 
                 </div>
-                <div className="d-mask" onClick={this.onClose}></div>
             </div>
         )
     }

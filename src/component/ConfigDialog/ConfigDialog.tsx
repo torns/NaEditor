@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Icon, Button } from 'antd';
-import 'antd/dist/antd.css';
 
 import UserDefineConfig from '../UserDefineConfig';
 import { hideConfig, saveConfigRequest } from '../../actions';

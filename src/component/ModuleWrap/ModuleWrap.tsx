@@ -1,14 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
-import { showConfig, focusModule, addModuleRequest } from '../../actions';
+import { showConfig, focusModule, addModuleRequest, allModuleTopChange } from '../../actions';
 import { IModuleData, IModuleConfig, IState } from '../interface';
 
 interface ModuleWrapProps {
     moduleData: IModuleData;
     moduleRef: HTMLElement;
     addModuleRequest: any;
+    allModuleTopChange: any;
     moduleConfig: IModuleConfig;
     showConfig: any;
     focusModule: any;
@@ -34,8 +36,8 @@ class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
     }
 
     dragOver = (e: React.DragEvent) => {
-        const { nextPlaceholder } = this.state;
-        const { moduleRef } = this.props;
+        const { nextPlaceholder, moduleData } = this.state;
+        const { moduleRef, allModuleTopChange } = this.props;
         if (nextPlaceholder === undefined) {
             const placeholder = document.createElement('div');
             placeholder.className = 'd-next-placeholder';
@@ -45,6 +47,10 @@ class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
             }, () => {
                 insertAfter(placeholder, moduleRef);
                 (window as any).resizeIframe();
+
+                // 刷新本模块之后所有模块的top值 
+                // TODO 有性能问题，暂时屏蔽
+                // allModuleTopChange(moduleData.moduleId, placeholder.clientHeight);
             });
 
             function insertAfter(newEl: HTMLElement, targetEl: HTMLElement) {
@@ -60,11 +66,21 @@ class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
             }
         }
         e.preventDefault();
-
+        e.stopPropagation();
     }
 
-    dragLeave = () => {
+    dragLeave = (e: React.DragEvent) => {
+        const { moduleData, nextPlaceholder } = this.state;
+        const { allModuleTopChange } = this.props;
+        let topChange = 0;
+        if (nextPlaceholder !== undefined) {
+            topChange = -nextPlaceholder.clientHeight;
+        }
+        // 本模块之后所有模块的top值还原
+        // TODO 有性能问题，暂时屏蔽
+        // allModuleTopChange(moduleData.moduleId, topChange);
         this.clearNextPlaceholder();
+        e.stopPropagation();
     }
 
     /**
@@ -81,7 +97,7 @@ class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
         });
     }
 
-    drop = async (e: DragEvent) => {
+    drop = async (e: React.DragEvent) => {
         const { pageId } = this.context.BASE_DATA;
         const moduleTypeId = Number.parseInt(e.dataTransfer.getData('moduleTypeId'), 10);
         const { addModuleRequest } = this.props;
@@ -92,6 +108,7 @@ class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
             pageId,
         });
         this.clearNextPlaceholder();
+        e.stopPropagation();
     }
 
     render() {
@@ -116,7 +133,7 @@ class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
                 onClick={(e) => { showConfig(moduleData); if (!isActive) { focusModule(moduleId); } }}
                 onDragOver={this.dragOver}
                 onDragLeave={this.dragLeave}
-                onDrop={(e: any) => { this.drop(e); }}  // TODO any?
+                onDrop={this.drop}
                 draggable={false}
             />
         );
@@ -135,4 +152,5 @@ export default connect(mapStateToProps, {
     showConfig,
     focusModule,
     addModuleRequest,
+    allModuleTopChange,
 })(ModuleWrap);

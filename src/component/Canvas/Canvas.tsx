@@ -6,7 +6,7 @@ import { IModuleData, IState, IBASE_DATA, IContext } from '../interface';
 import UserDefine from '../UserDefine';
 import ImageHotspot from '../ImageHotspot';
 import Text from '../Text';
-import { fetchModuleList, focusModule } from '../../actions';
+import { fetchModuleList, focusModule, addModuleRequest } from '../../actions';
 import Carousel from '../Carousel';
 import Layer from '../Layer';
 import Fixed from '../Fixed';
@@ -14,25 +14,23 @@ import Fixed from '../Fixed';
 interface CanvasProps {
     fetchModuleList: (pageId: number) => void;
     moduleList: IModuleData[];
+    addModuleRequest: (args: any) => void;
 }
 
-class Canvas extends React.Component<CanvasProps, {}> {
+interface ICanvasState {
+    nextPlaceholder?: HTMLDivElement;
+}
+
+class Canvas extends React.Component<CanvasProps, ICanvasState> {
+
+    root?: HTMLDivElement;
+
     constructor(props: CanvasProps) {
         super(props);
+        this.state = {
+            nextPlaceholder: undefined,
+        }
     }
-
-
-
-    // getChildContext() {
-    //     return {
-    //         BASE_DATA: (window.top as any).BASE_DATA,
-    //     }
-    // }
-
-    // static childContextTypes = {
-    //     BASE_DATA: PropTypes.object,
-    // };
-
 
     static contextTypes = {
         BASE_DATA: PropTypes.object
@@ -62,6 +60,54 @@ class Canvas extends React.Component<CanvasProps, {}> {
             (window as any).resizeIframe();
         }
     }
+
+
+    dragOver = (e: React.DragEvent) => {
+        const { nextPlaceholder } = this.state;
+        if (nextPlaceholder === undefined) {
+            const placeholder = document.createElement('div');
+            placeholder.className = 'd-next-placeholder';
+            placeholder.innerHTML = `松开鼠标模块会被放置到这里`;
+            this.setState({
+                nextPlaceholder: placeholder,
+            }, () => {
+                this.root && this.root.appendChild(placeholder);
+                (window as any).resizeIframe();
+            });
+        }
+        e.preventDefault();
+
+    }
+
+    dragLeave = () => {
+        this.clearNextPlaceholder();
+    }
+
+    /**
+     * 清除dragover时生成的占位元素
+     */
+    clearNextPlaceholder = () => {
+        const { nextPlaceholder } = this.state;
+        if (nextPlaceholder) {
+            nextPlaceholder.remove();
+        }
+        (window as any).resizeIframe();
+        this.setState({
+            nextPlaceholder: undefined,
+        });
+    }
+
+    drop = async (e: DragEvent) => {
+        const { pageId } = this.context.BASE_DATA;
+        const moduleTypeId = Number.parseInt(e.dataTransfer.getData('moduleTypeId'), 10);
+        const { addModuleRequest } = this.props;
+        addModuleRequest({
+            moduleTypeId,
+            pageId,
+        });
+        this.clearNextPlaceholder();
+    }
+
 
     render() {
 
@@ -98,16 +144,31 @@ class Canvas extends React.Component<CanvasProps, {}> {
         }
 
         return (
-            <React.Fragment>
-                {this.context.BASE_DATA.pageType === 0 && <div className="d-header"></div>}
+            <div className="d-module-list"
+                onDragOver={this.dragOver}
+                onDragLeave={this.dragLeave}
+                onDrop={(e: any) => { this.drop(e); }}  // TODO any?
+                ref={(root: HTMLDivElement) => { this.root = root; }}
+            >
+                {this.context.BASE_DATA.pageType === 0
+                    && <div
+                        className="d-header"
+                        onDragOver={(e: React.DragEvent) => { e.stopPropagation(); }}
+                        onDragLeave={(e: React.DragEvent) => { e.stopPropagation(); }}
+                        onDrag={(e: React.DragEvent) => { e.stopPropagation(); }}
+                    ></div>}
                 {getModuleList(moduleList)}
-            </React.Fragment>
+            </ div>
         );
     }
 }
 
 const mapStateToProps = (state: IState) => {
-    return { moduleList: state.module.moduleList };
+    return { moduleList: state.module.moduleList, };
 };
 
-export default connect(mapStateToProps, { fetchModuleList, focusModule })(Canvas);
+export default connect(mapStateToProps, {
+    fetchModuleList,
+    focusModule,
+    addModuleRequest,
+})(Canvas);

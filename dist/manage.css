@@ -1,4 +1,9 @@
-html body {
+html,
+body {
+  width: 100%;
+  height: auto; }
+
+body {
   font-family: 'tahoma, arial, "Microsoft YaHei", "Hiragino Sans GB", u5b8bu4f53, sans-serif';
   font-style: normal;
   font-variant-ligatures: normal;

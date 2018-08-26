@@ -150,7 +150,15 @@ export const moduleHeightChange = (moduleId, height) => {
     }
 }
 
-
+// 刷新某模块之后所有模块的top值
+export const ALL_MODULE_TOP_CHANGE = 'ALL_MODULE_TOP_CHANGE';
+export const allModuleTopChange = (afterModuleId, topChange) => {
+    return {
+        type: ALL_MODULE_TOP_CHANGE,
+        afterModuleId,
+        topChange,
+    }
+}
 
 export const FETCH_MODULE_LIST = 'FETCH_MODULE_LIST';
 export const fetchModuleList = (pageId) => {

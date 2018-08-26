@@ -112,7 +112,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
                         <Icon type="logout" onClick={this.logout} />
                     </div>
                 </div>
-                {isMounted && ReactDOM.createPortal(
+                {hasPreview && isMounted && ReactDOM.createPortal(
                     this.renderPreview(),
                     (window as any).document.querySelector('.J_previewWrap'),
                 )}

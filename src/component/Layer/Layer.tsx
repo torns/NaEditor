@@ -30,7 +30,7 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
     }
 
     componentDidMount() {
-        if (this.context.BASE_DATA.pageType === 0) {
+        if (this.context.BASE_DATA.pageType !== 0) {
             document.body.appendChild(rootEl);
 
             // 阻止滚动穿透
@@ -62,7 +62,7 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
                 },
             },
         } = this.props;
-
+        console.log(rootEl);
         return (
             <React.Fragment>
                 <div className="d-img">

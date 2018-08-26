@@ -1,3 +1,4 @@
+require('antd/dist/antd.css');
 import './view.scss';
 import './view';
 

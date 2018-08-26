@@ -69,22 +69,14 @@ class Decorate extends React.Component<any, any> {
         return (
             <div className="cd-main-area J_mainArea">
                 <div className="J_topBar">
-                    <Topbar username={username} />
+                    <Topbar
+                        username={username}
+                    />
                 </div>
                 <div className="J_moduleList">
                     <ModuleList />
                 </div>
-                <div className='J_previewWrap d-preview-wrap'>
-                    <div className="d-phone">
-                        <div className="J_previewContainer d-preview-container">
-                        </div>
-                    </div>
-                    <div
-                        className="d-close-btn J_closeBtn"
-                        onClick={this.closePreview}
-                    ></div>
-                    <div className="d-canvas-filter"></div>
-                </div>
+
                 <div className="d-editor-instance-area J_editorInstanceArea">
                     <div className="J_moduleTagList">
                         <ModuleTagList />
@@ -108,6 +100,7 @@ class Decorate extends React.Component<any, any> {
                         </div>
                     </div>
                 </div>
+                <div className="J_previewWrap"></div>
             </div>
         );
     }

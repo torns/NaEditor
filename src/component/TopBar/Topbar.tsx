@@ -2,6 +2,7 @@ import React from 'react';
 import { Icon } from 'antd';
 import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom'
 
 interface TopbarProps {
     hasPreview?: boolean;
@@ -10,7 +11,10 @@ interface TopbarProps {
 }
 
 interface TopbarState {
+    isMounted: boolean;
+    isPreviewActive: boolean;
 }
+
 
 class Topbar extends React.Component<TopbarProps, TopbarState> {
 
@@ -25,11 +29,46 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
 
     constructor(props: TopbarProps) {
         super(props);
+        this.state = {
+            isMounted: false,
+            isPreviewActive: false,
+        }
+    }
+
+    componentDidMount() {
+        this.setState({
+            isMounted: true,
+        });
+    }
+
+    closePreview = () => {
+        this.setState({
+            isPreviewActive: false,
+        });
+    }
+
+    renderPreview = () => {
+
+        return (
+            <div className={`d-preview-wrap ${this.state.isPreviewActive ? 'active' : ''}`}>
+                <div className="d-phone">
+                    <div className="J_previewContainer d-preview-container">
+                    </div>
+                </div>
+                <div
+                    className="d-close-btn J_closeBtn"
+                    onClick={this.closePreview}
+                ></div>
+                <div className="d-canvas-filter"></div>
+            </div>
+        );
     }
 
     preview = () => {
         const { pageId } = this.context.BASE_DATA;
-        (document.querySelector('.J_previewWrap') as any).classList.add('active');
+        this.setState({
+            isPreviewActive: true,
+        });
         (document.querySelector('.J_previewContainer') as any).innerHTML = `
 		<iframe class="cd-canvas J_canvas" src="/page/preview?pageId=${pageId}">                
 		</iframe>`;
@@ -42,6 +81,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
 
     render() {
         const { hasPreview, hasPublish, username } = this.props;
+        const { isMounted } = this.state;
         return (
             <div className="d-top-bar">
                 <a className="d-left" href="/">
@@ -72,6 +112,10 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
                         <Icon type="logout" onClick={this.logout} />
                     </div>
                 </div>
+                {isMounted && ReactDOM.createPortal(
+                    this.renderPreview(),
+                    (window as any).document.querySelector('.J_previewWrap'),
+                )}
             </div>
         )
     }

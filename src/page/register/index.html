@@ -1,27 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
     <title>注册</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-    <form action="/api/register" method="post">
-        <div>
-            <label>用户名：</label>
-            <input name="username" type="text" />
+    <div class="warp">
+
+        <div id="wrapper" style="position:relative;">
+
+
+
+            <div class="registerbox" id="registerbox">
+                <div class="reg-title">
+                    <p style="color:#666666;font-family:Microsoft YaHei; font-size:18px; text-align:center; line-height:60px;">注册</p>
+                </div>
+                <div style="height: 30px;"></div>
+                <div class="regwrapper">
+                    <!--注册-->
+                    <div class="reg_main">
+                        <div>
+                            <form action="/api/register" method="post">
+                                <div class="list">
+                                    <span class="text">用&nbsp;&nbsp;户&nbsp;&nbsp;名</span>
+                                    <span id="usernameTipsSpan">
+                                        <input placeholder="请输入您的用户名"  class="listinp" type="text" name="username" style="color: #666666"/>     
+                                    </span>
+                                    <div class="tips" id="name_tips" style="top:217px; left:470px; position: absolute;">您的登录名,由汉字、字母、数字、下划线组成，不能是纯数字，长度为2-16位</div>
+                                    <span class="check" id="usernameTips" style="display:none;top:217px; left:470px; position: absolute;"></span>
+                                    <span class="correct" id="usernameTips1" style="display:none;top:237px; left:470px; position: absolute;"></span>
+
+                                </div>
+
+
+
+                                <div class="list">
+                                    <span class="text">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
+                                    <span id="passTipsSpan">
+                                        <input class="listinp" type="password" placeholder="请输入密码"  name="password" style="color: #666666"/>
+                                    </span>
+                                   
+                                </div>
+
+
+
+
+
+                                <div class="reg_sumit">
+                                    <a id="rptCommitSpan"><input name="rtpCommit" id="rtpCommit" type="submit" class="btn" value="立即注册" /></a>
+                                    <input type="button" name="rtpCommit" value="正在注册..." disabled="disabled" id="rptCommitHui" class="btn" style="color:#efebeb;display:none;">
+                                </div>
+                                <div class="log">
+                                    <a href="/page/login" class="logfree">已有账户，去登录</a>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label>密码：</label>
-            <input name="password" type="password">
-        </div>
-        <div>
-            <button type="submit">注册</button>
-        </div>
-    </form>
+    </div>
+
 </body>
 
 </html>

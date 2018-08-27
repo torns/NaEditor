@@ -1,5 +1,7 @@
+const { serverAddress } = require('../../../config');
+
 const SLD = {
-    backend: 'http://47.107.69.189:8080',
+    backend: serverAddress,
 }
 
 const prefix = '/api'

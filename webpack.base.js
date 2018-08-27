@@ -22,7 +22,6 @@ if (cliEntry) {
     }
     entrys = result;
 }
-console.log(entrys);
 
 
 const sourcePath = path.join(__dirname, '/src');
@@ -74,7 +73,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname + '/dist'),
         filename: '[name].bundle.js',
-        publicPath: 'http://47.107.69.189:8080/',
+        publicPath: require('./config').serverAddress,
     },
     stats: 'minimal',
     // optimization: {

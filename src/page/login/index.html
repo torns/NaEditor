@@ -9,19 +9,38 @@
 </head>
 
 <body>
-    <form action="/api/login" method="post">
-        <div>
-            <label>用户名：</label>
-            <input name="username" type="text" />
+    <section id="h1" class="jawbone-takeover-minimulti jawbone-hero">
+        <i class="jawbone-hero-image" data-hero-image-fixed="true" data-hero-image-fade="true" data-hero-min-opacity=".3" style="opacity: 1.05;"></i>
+        <div class="warp">
+            <div class="loginbox">
+                <div class="cd-user-modal-container">
+                    <ul class="cd-switcher">
+                        <li><a id="a_user" style="border-right: 1px solid #bdbdbd;color:#ffffff;">账号登录</a></li>
+                        <li><a id="a_qrcode">扫码登录</a></li>
+                    </ul>
+                    <div id="cd-login">
+                        <form action="/api/login" method="post">
+                            <div class="list">
+                                <input placeholder="用户名" class="listinp" name="username" type="text">
+                            </div>
+                            <div class="list">
+                                <input class="listinp" type="password" placeholder="密码" name="password" id="password">
+                            </div>
+                            <!-- <a href="https://center.kehu51.com/users/sendpass.aspx" class="forget">忘记密码？</a> -->
+                            <!-- <a class="remember"><input type="checkbox" class="rememberbox" style="vertical-align:-2px;" value="1" id="login-radio" name="rptAutoLogin" onclick="return rePassConfirm()">记住用户名</a> -->
+                            <div class="login">
+                                <input type="submit" class="btn" value="登&nbsp;&nbsp;&nbsp;&nbsp;录">
+                            </div>
+                    </div>
+                    </form>
+                </div>
+                <div class="register">
+                    没有账号?&nbsp;&nbsp;<a href="/page/register" class="registerfree">免费注册</a>
+                </div>
+
+            </div>
         </div>
-        <div>
-            <label>密码：</label>
-            <input name="password" type="password">
-        </div>
-        <div>
-            <button type="submit">登录</button>
-        </div>
-    </form>
+    </section>
 </body>
 
 </html>

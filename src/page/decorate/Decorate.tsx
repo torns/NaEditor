@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
 import { hot } from 'react-hot-loader';
 
@@ -28,7 +28,7 @@ class Decorate extends React.Component<any, any> {
     }
 
     componentWillMount() {
-        (window as any).resizeIframe = _.debounce(() => {
+        (window as any).resizeIframe = debounce(() => {
             const iframeWin = (window as any).document.querySelector('.J_canvas').contentWindow;
             let height = iframeWin.document.body.scrollHeight + 'px';
             (window as any).document.querySelector('iframe.J_canvas').style.height = height;

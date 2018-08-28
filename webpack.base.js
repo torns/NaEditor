@@ -4,12 +4,13 @@ const webpack = require('webpack');
 const entryList = glob.sync('src/page/*/index.js');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const isAnalyze = process.env.npm_config_argv.includes('analyze');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 let cliEntry = process.env.npm_config_argv.match(/--entry=([\w]+)/);
 
 let entrys = {};
 entryList.forEach(function(file) {
-    const name = file.replace(/src\/page\/(.*)\/index.js/ig, '$1');
+    const name = file.replace(/src\/(page\/.*)\/index.js/ig, '$1');
     entrys[name] = './' + file;
 });
 if (cliEntry) {
@@ -23,10 +24,12 @@ if (cliEntry) {
     entrys = result;
 }
 
-
+console.log(entrys);
 const sourcePath = path.join(__dirname, '/src');
 
-let plugins = [];
+let plugins = [
+    new LodashModuleReplacementPlugin(),
+];
 
 
 // const HtmlWebpackPlugins = [
@@ -76,36 +79,36 @@ module.exports = {
         publicPath: `${require('./config').serverAddress}/`,
     },
     stats: 'minimal',
-    // optimization: {
-    //     splitChunks: {
-    //         cacheGroups: {
-    //             // 注意: priority属性
-    //             // 其次: 打包业务中公共代码
-    //             common: {
-    //                 name: "common",
-    //                 chunks: "all",
-    //                 priority: 1
-    //             },
-    //             // 首先: 打包node_modules中的文件
-    //             vendor: {
-    //                 name: "vendor",
-    //                 test: /[\\/]node_modules[\\/]/,
-    //                 chunks: "all",
-    //                 priority: 10,
-    //             }
-    //         }
-    //     }
-    // },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                // 注意: priority属性
+                // 其次: 打包业务中公共代码
+                // common: {
+                //     name: "common",
+                //     chunks: "all",
+                //     priority: 1
+                // },
+                // 首先: 打包node_modules中的文件
+                vendor: {
+                    name: "vendor",
+                    test: /[\\/]node_modules[\\/]/,
+                    chunks: "all",
+                    priority: 10,
+                }
+            }
+        }
+    },
     module: {
         rules: [{
                 test: /\.tsx?$/,
                 include: path.resolve(__dirname, "src"),
-                loader: ['cache-loader', "awesome-typescript-loader", 'thread-loader', ]
+                loader: ["awesome-typescript-loader", ]
             },
             {
                 test: /\.jsx?/,
                 include: path.resolve(__dirname, "src"),
-                use: ['cache-loader', 'babel-loader', 'thread-loader', ]
+                use: ['babel-loader', ]
             },
 
             // {
@@ -130,6 +133,9 @@ module.exports = {
             },
         ],
     },
+    // externals: {
+    //     jquery: 'jQuery',
+    // },
     devtool: 'cheap-module-eval-source-map',
     resolve: {
         extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],

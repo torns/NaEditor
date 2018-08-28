@@ -1,6 +1,6 @@
 import React, { RefObject } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 
@@ -82,7 +82,7 @@ class Module extends React.Component<ModuleProps, ModuleState> {
     }
 
     scrollIntoView() {
-        _.debounce(() => {
+        debounce(() => {
             const clientRect = this.moduleRef.getBoundingClientRect();
             const { top } = clientRect;
             const container = document.querySelector('.J_editorInstanceArea');

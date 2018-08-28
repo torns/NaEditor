@@ -1,9 +1,9 @@
 const config = require('./webpack.base');
 const glob = require('glob');
 const merge = require('webpack-merge');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const smp = new SpeedMeasurePlugin();
@@ -15,7 +15,7 @@ const HtmlWebpackPlugins = glob.sync('src/page/*/index.html').map(v => {
     return new HtmlWebpackPlugin({
         filename: `/page/${name}.html`,
         template: v,
-        chunks: [name]
+        chunks: [`page/${name}`]
     })
 });
 

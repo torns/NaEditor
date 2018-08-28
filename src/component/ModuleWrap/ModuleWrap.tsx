@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 import { showConfig, focusModule, addModuleRequest, allModuleTopChange } from '../../actions';
 import { IModuleData, IModuleConfig, IState } from '../interface';

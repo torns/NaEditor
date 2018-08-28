@@ -1,3 +1,4 @@
+// dev
 module.exports = {
-    serverAddress: `//47.107.69.189:8080`,
+    serverAddress: `//h5editor.cn`,
 }

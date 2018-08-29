@@ -76,6 +76,7 @@ html {
     height: 100%;
     background-color: #F2F2F2;
     padding-top: 30px;
+    padding-bottom: 30px;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: end;
@@ -97,6 +98,24 @@ html {
       width: 100%;
       height: calc(100% - 20px);
       border: none; }
+
+.d-popover-wrap canvas {
+  display: block;
+  margin: 0 auto; }
+
+.d-popover-wrap .d-copy-link {
+  box-sizing: border-box;
+  margin: 10px 0;
+  max-width: 150px;
+  border: 1px solid #e1e1e1;
+  font-size: 12px;
+  line-height: 14px;
+  color: #000;
+  padding: 7px 10px;
+  min-height: 30px;
+  border-radius: 2px;
+  background-color: #fff;
+  word-wrap: break-word; }
 
 .d-top-bar {
   position: fixed;

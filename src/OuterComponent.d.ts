@@ -4,3 +4,4 @@ declare module 'react-slick';
 declare module 'redux-logger';
 declare module 'react-draft-wysiwyg';
 declare module 'rc-color-picker';
+declare module 'date-format';

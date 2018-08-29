@@ -7,6 +7,7 @@ import Canvas from '../../component/Canvas';
 import Action from '../../common/script/action';
 import ContextProvider from '../../component/ContextProvider';
 import { IBASE_DATA } from '../../component/interface';
+import '../../common/script/interceptor';
 
 Action.getInitData(1).then((BASE_DATA: IBASE_DATA) => {
 	ReactDOM.render(

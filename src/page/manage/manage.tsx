@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
-import { Table, Button, Col, Row, Popconfirm } from 'antd';
+import { Table, Button, Col, Row, Popover, Popconfirm } from 'antd';
 require('antd/dist/antd.css');
 import Cookies from 'js-cookie';
+import format from 'date-format';
+import QRCode from 'qrcode.react';
 
+import { serverAddress } from '../../../config';
+import '../../common/script/interceptor';
 import TopBar from '../../component/TopBar';
 import CreatePageModal from './CreatePageModal';
 import INTERFACE from '../../common/script/INTERFACE';
@@ -13,6 +17,7 @@ interface IPage {
     id: number;
     pageName: string;
     moduleList: number[];
+    created: string;
 }
 
 class ManagePage extends React.Component<any, any> {
@@ -22,6 +27,7 @@ class ManagePage extends React.Component<any, any> {
         this.state = {
             pageList: [],
             username: Cookies.get('pin'),
+            previewPageId: '',
         };
     }
 
@@ -55,6 +61,23 @@ class ManagePage extends React.Component<any, any> {
         });
     }
 
+    changePreview = (previewPageId: number) => {
+        this.setState({
+            previewPageId,
+        });
+    }
+
+    viewUrl = (url: string) => {
+        return (
+            <div className="d-popover-wrap">
+                <QRCode value={url} />
+                <div className="d-copy-link">
+                    {url}
+                </div>
+            </div>
+        );
+    }
+
     renderModal = () => {
 
         return (
@@ -71,6 +94,12 @@ class ManagePage extends React.Component<any, any> {
                 return <a href={`/page/view?pageId=${item.id}`} target="_blank">{item.pageName}</a>
             }
         }, {
+            title: '创建时间',
+            key: 'created',
+            render: (item: IPage) => {
+                return format.asString('yyyy-MM-dd hh:mm:ss', new Date(item.created));;
+            }
+        }, {
             title: '操作',
             key: 'action',
             render: (item: IPage) => {
@@ -79,6 +108,9 @@ class ManagePage extends React.Component<any, any> {
                         <a href={`/page/decorate?pageId=${item.id}`} target="_blank">
                             去装修
                         </a>
+                        <Popover content={this.viewUrl(`${serverAddress}/page/view?pageId=${item.id}`)} title="浏览地址" trigger="hover">
+                            <a style={{ marginLeft: '10px' }}>获取地址</a>
+                        </Popover>
                         <Popconfirm
                             onConfirm={() => this.deletePage(item.id)}
                             title="确定删除该页面吗？"
@@ -88,12 +120,12 @@ class ManagePage extends React.Component<any, any> {
                                 删除
                             </a>
                         </Popconfirm>
-                    </React.Fragment>
+                    </React.Fragment >
                 );
             }
         }];
 
-        const { pageList, isModalVisible, username } = this.state;
+        const { pageList, isModalVisible, username, previewPageId } = this.state;
 
         return (
             <div>
@@ -103,28 +135,55 @@ class ManagePage extends React.Component<any, any> {
                     username={username}
                 />
                 <div className="d-main">
-                    <Row>
-                        <Col>
-                            <Button onClick={() => {
-                                this.setState({
-                                    isModalVisible: true,
-                                });
-                            }}>创建页面</Button>
-                            <CreatePageModal
-                                onOk={this.onAddOk}
-                                onCancel={() => {
-                                    this.setState({
-                                        isModalVisible: false,
-                                    });
-                                }}
-                                isModalVisible={isModalVisible}
-                            />
-                        </Col>
-                    </Row>
-                    <Table
-                        columns={columns}
-                        dataSource={pageList}
-                        rowKey="id" />
+                    <div className="d-left">
+                        <Row className="d-first-row">
+                            <Col>
+                                <Button
+                                    className="d-create-page"
+                                    type="primary"
+                                    onClick={() => {
+                                        this.setState({
+                                            isModalVisible: true,
+                                        });
+                                    }}>
+                                    创建页面
+                                </Button>
+                                <CreatePageModal
+                                    onOk={this.onAddOk}
+                                    onCancel={() => {
+                                        this.setState({
+                                            isModalVisible: false,
+                                        });
+                                    }}
+                                    isModalVisible={isModalVisible}
+                                />
+                            </Col>
+                        </Row>
+                        <Table
+                            className="d-page-table"
+                            columns={columns}
+                            dataSource={pageList}
+                            rowKey="id"
+                            bordered
+                            onRow={(record: IPage) => {
+                                return {
+                                    onClick: () => {
+                                        this.changePreview(record.id);
+                                    },
+                                };
+                            }}
+                        />
+                    </div>
+                    <div className="d-right">
+                        <div className="d-preview-wrap">
+                            {previewPageId &&
+                                <React.Fragment>
+                                    <div className="d-header"></div>
+                                    <iframe src={`/page/preview?pageId=${previewPageId}`}></iframe>
+                                </React.Fragment>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
 

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { hot } from 'react-hot-loader';
 
 import '../../db/createStore';
+import '../../common/script/interceptor';
 import store from '../../store';
 import ConfigDialog from '../../component/ConfigDialog';
 import ModuleList from '../../component/ModuleList';

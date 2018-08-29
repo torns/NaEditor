@@ -3,6 +3,7 @@ import { Row, Col, Form, Modal, Input } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 const FormItem = Form.Item;
 
+import '../../common/script/interceptor';
 import INTERFACE from '../../common/script/INTERFACE';
 import axios from 'axios';
 

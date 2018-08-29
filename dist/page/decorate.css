@@ -65,7 +65,7 @@ input[type="text"]::-webkit-input-placeholder {
 
 .d-pic-lib {
   height: 35px;
-  margin: 10px 0; }
+  margin: 10px 0 !important; }
   .d-pic-lib .d-item {
     height: 100%;
     padding: 0 5px; }

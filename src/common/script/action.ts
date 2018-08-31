@@ -299,9 +299,7 @@ const DBAction = {
     },
 }
 
-// if ((window as any).BASE_DATA.dbSource === '1') {
 const Action = DBAction;
-// }
 
 (window as any).Action = Action;
 

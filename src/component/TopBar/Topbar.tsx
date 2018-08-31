@@ -2,7 +2,8 @@ import React from 'react';
 import { Icon } from 'antd';
 import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+import QRCode from 'qrcode.react';
 
 interface TopbarProps {
     hasPreview?: boolean;
@@ -48,17 +49,26 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
     }
 
     renderPreview = () => {
-
+        const { pageId, pageInfo: { pageName } } = this.context.BASE_DATA;
         return (
             <div className={`d-preview-wrap ${this.state.isPreviewActive ? 'active' : ''}`}>
                 <div className="d-phone">
                     <div className="J_previewContainer d-preview-container">
                     </div>
                 </div>
+                <div className="d-desc">
+                    <div className="d-qrcode">
+                        <QRCode value={`/page/preview?pageId=${pageId}`} />
+                    </div>
+                    <p>预览页有效期30分钟，发布后永久生效</p>
+                    <h2>{pageName}</h2>
+                </div>
                 <div
                     className="d-close-btn J_closeBtn"
                     onClick={this.closePreview}
-                ></div>
+                >
+                    <Icon type="close" />
+                </div>
                 <div className="d-canvas-filter"></div>
             </div>
         );

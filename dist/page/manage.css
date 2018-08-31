@@ -1,7 +1,11 @@
+@charset "UTF-8";
 html,
 body {
   width: 100%;
   height: auto; }
+
+a {
+  text-decoration: none; }
 
 body {
   font-family: 'tahoma, arial, "Microsoft YaHei", "Hiragino Sans GB", u5b8bu4f53, sans-serif';
@@ -98,6 +102,15 @@ html {
       width: 100%;
       height: calc(100% - 20px);
       border: none; }
+    .d-main .d-preview-wrap:empty:after {
+      content: '\5728\5DE6\4FA7\8868\683C\70B9\51FB\9875\9762\9879\4EE5\9884\89C8\8BE5\9875\9762\6548\679C';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      font-size: 25px;
+      color: #999; }
 
 .d-popover-wrap canvas {
   display: block;

@@ -1,6 +1,7 @@
 const config = require('./webpack.base');
 const glob = require('glob');
 const merge = require('webpack-merge');
+const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -15,7 +16,8 @@ const HtmlWebpackPlugins = glob.sync('src/page/*/index.html').map(v => {
     return new HtmlWebpackPlugin({
         filename: `/page/${name}.html`,
         template: v,
-        chunks: [`page/${name}`]
+        chunks: [`page/${name}`],
+        favicon: path.join(__dirname, '/src/assets/images/bitbug_favicon.ico'),
     })
 });
 

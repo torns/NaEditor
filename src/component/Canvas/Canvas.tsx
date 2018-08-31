@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ReactLoading from 'react-loading';
 
 import { IModuleData, IState, IBASE_DATA, IContext } from '../interface';
 import UserDefine from '../UserDefine';
@@ -11,7 +12,7 @@ import Carousel from '../Carousel';
 import Layer from '../Layer';
 import Fixed from '../Fixed';
 
-interface CanvasProps {
+interface ICanvasProps {
     fetchModuleList: (pageId: number) => void;
     moduleList: IModuleData[];
     addModuleRequest: (args: any) => void;
@@ -19,16 +20,18 @@ interface CanvasProps {
 
 interface ICanvasState {
     nextPlaceholder?: HTMLDivElement;
+    isLoading: boolean;
 }
 
-class Canvas extends React.Component<CanvasProps, ICanvasState> {
+class Canvas extends React.Component<ICanvasProps, ICanvasState> {
 
     root?: HTMLDivElement;
 
-    constructor(props: CanvasProps) {
+    constructor(props: ICanvasProps) {
         super(props);
         this.state = {
             nextPlaceholder: undefined,
+            isLoading: true,
         }
     }
 
@@ -44,12 +47,20 @@ class Canvas extends React.Component<CanvasProps, ICanvasState> {
     }
 
     componentDidMount() {
+        // 开启loading
 
         if (this.context.BASE_DATA.pageType === 0) { // type为0为装修
             setTimeout(() => {
                 (window as any).resizeIframe();
             }, 1000);
         }
+    }
+
+    componentWillReceiveProps(props: ICanvasProps) {
+        debugger
+        this.setState({
+            isLoading: false,
+        });
     }
 
     /**
@@ -112,9 +123,7 @@ class Canvas extends React.Component<CanvasProps, ICanvasState> {
     render() {
 
         const moduleList: IModuleData[] = this.props.moduleList;
-        if (!moduleList) {
-            return null;
-        }
+        const { isLoading } = this.state;
 
         function getModuleList(moduleList: IModuleData[]) {
 
@@ -157,6 +166,11 @@ class Canvas extends React.Component<CanvasProps, ICanvasState> {
                         onDragLeave={(e: React.DragEvent) => { e.stopPropagation(); }}
                         onDrag={(e: React.DragEvent) => { e.stopPropagation(); }}
                     ></div>}
+                {isLoading &&
+                    <div className="d-loading">
+                        <ReactLoading type="spinningBubbles" color={'#1890ff'} />
+                    </div>
+                }
                 {getModuleList(moduleList)}
             </ div>
         );

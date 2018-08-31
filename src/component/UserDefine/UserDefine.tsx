@@ -48,7 +48,7 @@ export default class UserDefine extends React.Component<UserDefineProps, UserDef
         const { code } = this.state;
         const el = this.refs.module;
         let renderCode = code;
-        !code && (renderCode = `请在右边配置数据`);
+        !code && (renderCode = ``);
         $(el).html(renderCode);
     }
 

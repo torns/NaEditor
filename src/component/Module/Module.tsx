@@ -100,7 +100,7 @@ class Module extends React.Component<ModuleProps, ModuleState> {
                         },
                     );
                 }
-                intersectionObserver.unobserve(this.moduleRef);
+                this.moduleRef && intersectionObserver.unobserve(this.moduleRef);
 
             });
             intersectionObserver.observe(this.moduleRef);

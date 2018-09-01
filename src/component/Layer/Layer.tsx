@@ -81,7 +81,7 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
                     </div>
 
                 </div>
-                <div className="d-mask" onClick={this.onClose}></div>
+                <div className="d-mask" onClick={this.onClose} onTouchMove={(e) => { e.stopPropagation() }}></div>
             </React.Fragment>
         )
     }

@@ -5,3 +5,8 @@ html {
 #Container {
     height: 100%;
 }
+
+::-webkit-scrollbar {
+    width: 0px;
+    display: none;
+}

@@ -1,14 +1,19 @@
-* {
-    margin: 0;
-    padding: 0;
+html {
+    overflow: hidden;
+}
+
+#Container {
+    height: 100%;
 }
 
 ::-webkit-scrollbar {
     width: 0px;
+    display: none;
 }
 
-html,
-body {
+ody {
     width: 100%;
     height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
 }

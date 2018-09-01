@@ -90,7 +90,7 @@ class ConfigDialog extends React.Component<ConfigDialogProps, any> {
     render() {
         const { module, hideConfig } = this.props;
         const { moduleConfig } = this.state;
-        let activeModule = module.moduleList.filter((v: any) => v.tempData.isActive);
+        let activeModule = module.moduleList.filter((v: any) => v.tempData && v.tempData.isActive);
         activeModule = activeModule && activeModule[0];
 
         if (moduleConfig.isVisiable && activeModule !== undefined) {

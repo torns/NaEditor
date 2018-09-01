@@ -40,6 +40,19 @@ class LayerConfig extends Component<LayerConfigProps, LayerConfigState> {
         }
     }
 
+    // TODO props:LayerConfigProps
+    componentWillReceiveProps(props: any) {
+        const {
+            moduleData: {
+                configData: {
+                    imgUrl,
+                }
+            }
+        } = props;
+        this.setState({
+            imgUrl,
+        });
+    }
 
     getConfigData = () => ({
         imgUrl: this.state.imgUrl,

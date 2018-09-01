@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Icon, Tooltip, message } from 'antd';
 
-import { showConfig, hideConfig, removeModuleRequest, positionModuleRequest } from '../../actions';
+import { showConfig, hideConfig, removeModuleRequest, positionModuleRequest, copyModuleRequest } from '../../actions';
 import { IModule, IState, IModuleConfig } from '../interface';
 
 interface ModuleBarProps {
@@ -13,6 +13,7 @@ interface ModuleBarProps {
     moduleConfig: IModuleConfig;
     hideConfig: any;
     removeModuleRequest: any;
+    copyModuleRequest: any;
 }
 
 interface ModuleBarState {
@@ -80,7 +81,18 @@ class ModuleBar extends React.Component<ModuleBarProps, ModuleBarState> {
                 pageId,
             });
         }
+    }
 
+    /**
+     * 复制模块
+     */
+    copy = (moduleId: number) => {
+        let { pageId } = this.context.BASE_DATA;
+        pageId = Number.parseInt(pageId, 10);
+        this.props.copyModuleRequest({
+            moduleId,
+            pageId,
+        });
     }
 
     render() {
@@ -129,6 +141,13 @@ class ModuleBar extends React.Component<ModuleBarProps, ModuleBarState> {
                         onClick={this.down.bind(this, activeModuleId)}
                     />
                 </Tooltip>
+                <Tooltip title="复制" placement="right">
+                    <Icon
+                        type="copy"
+                        style={{ fontSize: '20px' }}
+                        onClick={this.copy.bind(this, activeModuleId)}
+                    />
+                </Tooltip>
                 <Tooltip title="删除" placement="right">
                     <Icon
                         type="delete"
@@ -153,4 +172,5 @@ export default connect(mapStateToProps, {
     hideConfig,
     removeModuleRequest,
     positionModuleRequest,
+    copyModuleRequest,
 })(ModuleBar);

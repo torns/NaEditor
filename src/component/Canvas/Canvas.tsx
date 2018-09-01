@@ -57,7 +57,6 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
     }
 
     componentWillReceiveProps(props: ICanvasProps) {
-        debugger
         this.setState({
             isLoading: false,
         });

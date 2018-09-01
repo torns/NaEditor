@@ -118,7 +118,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
                     }
                     <div className="d-line"></div>
                     <div className="d-username">
-                        <span>{username}</span>
+                        <span>您好，{username}</span>
                         <Icon type="logout" onClick={this.logout} />
                     </div>
                 </div>

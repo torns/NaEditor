@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import QRCode from 'qrcode.react';
 import Action from '../../common/script/action';
-import serverAddress from '../../../config';
+import { serverAddress } from '../../../config';
 
 interface TopbarProps {
     hasPreview?: boolean;

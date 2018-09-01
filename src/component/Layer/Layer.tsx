@@ -52,6 +52,11 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
         (document as any).querySelector('html').style.overflow = 'initial';
     }
 
+    preventScroll = (e: React.TouchEvent) => {
+        e.preventDefault();
+        e.cancelable = true;
+    }
+
     renderChild = () => {
 
         let {
@@ -81,7 +86,7 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
                     </div>
 
                 </div>
-                <div className="d-mask" onClick={this.onClose} onTouchMove={(e) => { e.stopPropagation() }}></div>
+                <div className="d-mask" onClick={this.onClose} onTouchMove={this.preventScroll}></div>
             </React.Fragment>
         )
     }

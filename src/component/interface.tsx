@@ -1,5 +1,6 @@
 import { ImageHotspotConfData } from './ImageHotspotConfig/interface';
 import { CarouselConfData } from './CarouselConfig/interface';
+import { LayerConfData } from './LayerConfig/interface';
 
 export interface ImageInfo {
     url: string;

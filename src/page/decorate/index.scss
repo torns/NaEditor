@@ -43,6 +43,7 @@ $canvasOffsetTop:90px;
             background: #fff;
             border-radius: 0;
             border: none; // margin-bottom: calc( ( 100vh - 75px) / 2 - 100px);
+            user-select: none;
         }
         .cd-hint {
             display: none;

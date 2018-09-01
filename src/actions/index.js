@@ -130,6 +130,31 @@ export const positionModuleRequest = (args) => {
     }
 }
 
+
+// 复制模块
+export const COPY_MODULE = 'COPY_MODULE';
+export const copyModule = ({ prevModuleId, moduleData }) => {
+    return {
+        type: COPY_MODULE,
+        prevModuleId,
+        moduleData
+    }
+}
+
+// 复制模块请求
+export const COPY_MODULE_REQUEST = 'COPY_MODULE_REQUEST';
+export const copyModuleRequest = ({ moduleId, pageId }) => {
+    return async(dispatch) => {
+        const newModule = await Action.copyModule(moduleId, pageId)
+        dispatch(copyModule({
+            prevModuleId: moduleId,
+            moduleData: newModule,
+        }));
+        // 复制后聚焦
+        dispatch(focusModule(newModule.moduleId)); // 移动后要聚焦模块
+    }
+}
+
 // 模块top值变动
 export const MODULE_TOP_CHANGE = 'MODULE_TOP_CHANGE';
 export const moduleTopChange = (moduleId, top) => {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Icon } from 'antd';
-import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import QRCode from 'qrcode.react';
+import Action from '../../common/script/action';
 
 interface TopbarProps {
     hasPreview?: boolean;
@@ -84,8 +84,8 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
 		</iframe>`;
     }
 
-    logout = () => {
-        Cookies.remove('pin');
+    logout = async () => {
+        const result = await Action.logout();
         location.href = '/page/login';
     }
 
@@ -118,7 +118,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
                     }
                     <div className="d-line"></div>
                     <div className="d-username">
-                        <span>{username}</span>
+                        <span>您好，{username}</span>
                         <Icon type="logout" onClick={this.logout} />
                     </div>
                 </div>

@@ -126,6 +126,7 @@ class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
         if (tempData) {
             isActive = tempData.isActive;
         }
+
         return (
             <div
                 className={`J_moduleWrap d-module-wrap ${isActive ? 'active' : ''}`}

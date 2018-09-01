@@ -57,7 +57,6 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
     }
 
     componentWillReceiveProps(props: ICanvasProps) {
-        debugger
         this.setState({
             isLoading: false,
         });
@@ -119,16 +118,25 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
         this.clearNextPlaceholder();
     }
 
+    renderPlaceholder = () => {
+        return (
+            <div className="d-empty-placeholder">
+                <img src="//gw.alicdn.com/tfs/TB1Sm8ARXXXXXciaXXXXXXXXXXX-254-212.png_290x10000.jpg" />
+                <p>您还未添加任何模块</p>
+                <p>请将左侧模块拖动到这里</p>
+            </div>
+        )
+    }
 
     render() {
 
         const moduleList: IModuleData[] = this.props.moduleList;
+        const isDecorate = this.context.BASE_DATA.pageType === 0;
         const { isLoading } = this.state;
-
         function getModuleList(moduleList: IModuleData[]) {
 
             if (!moduleList) {
-                return <div />;
+                return null;
             }
 
             return moduleList.map((v, i) => {
@@ -171,6 +179,7 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
                         <ReactLoading type="spinningBubbles" color={'#1890ff'} />
                     </div>
                 }
+                {isDecorate && (!moduleList || moduleList.length === 0) && this.renderPlaceholder()}
                 {getModuleList(moduleList)}
             </ div>
         );

@@ -62,12 +62,18 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
                 },
             },
         } = this.props;
-        console.log(rootEl);
+        if (!imgUrl) {
+            return null;
+        }
         return (
             <React.Fragment>
                 <div className="d-img">
                     <img src={imgUrl} />
-                    <Icon type="close" />
+                    <div
+                        className="d-close"
+                        onClick={this.onClose} >
+                        <Icon type="close" />
+                    </div>
                     <div className="d-hotspots-wrap">
                         {hotspots && hotspots.map((v: HotspotInfo) => {
                             <a href={v.url}></a>

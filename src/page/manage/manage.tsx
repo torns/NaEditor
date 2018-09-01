@@ -78,11 +78,15 @@ class ManagePage extends React.Component<any, any> {
         );
     }
 
-    renderModal = () => {
-
-        return (
-            <div>321</div>
-        )
+    copyPage = async (pageId: number) => {
+        const result = (await Axios(INTERFACE.copyPage, {
+            params: {
+                pageId,
+            }
+        })).data;
+        if (result.success === true) {
+            this.refreshList();
+        }
     }
 
     render() {
@@ -111,8 +115,14 @@ class ManagePage extends React.Component<any, any> {
                         <Popover content={this.viewUrl(`${serverAddress}/page/view?pageId=${item.id}`)} title="浏览地址" trigger="hover">
                             <a style={{ marginLeft: '10px' }}>获取地址</a>
                         </Popover>
+                        <a
+                            onClick={(e) => { e.stopPropagation(); this.copyPage(item.id) }}
+                            style={{ marginLeft: '10px' }}
+                        >
+                            复制页面
+                        </a>
                         <Popconfirm
-                            onConfirm={() => this.deletePage(item.id)}
+                            onConfirm={(e) => { e.stopPropagation(); this.deletePage(item.id) }}
                             title="确定删除该页面吗？"
                             okText="确定"
                             cancelText="取消">

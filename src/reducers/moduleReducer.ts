@@ -10,9 +10,11 @@ import {
     MODULE_TOP_CHANGE,
     MODULE_HEIGHT_CHANGE,
     ALL_MODULE_TOP_CHANGE,
+    COPY_MODULE,
 } from "../actions";
 
 import '../component/interface';
+import { access } from 'fs';
 
 export default (state: IModule = { moduleList: [] }, action: any) => {
     switch (action.type) {
@@ -177,6 +179,25 @@ export default (state: IModule = { moduleList: [] }, action: any) => {
                 const result = Object.assign({}, state, {
                     moduleList: newModuleList,
                 })
+                return result;
+            }
+        case COPY_MODULE:
+            {
+                const { prevModuleId, moduleData } = action;
+                // 添加tempData
+                moduleData.tempData = {
+                    isActive: true,
+                };
+                const newModuleList = state.moduleList.reduce((acc: IModuleData[], v: IModuleData) => {
+                    acc.push(v);
+                    if (v.moduleId === prevModuleId) {
+                        acc.push(moduleData);
+                    }
+                    return acc;
+                }, []);
+                const result = Object.assign({}, state, {
+                    moduleList: newModuleList,
+                });
                 return result;
             }
         default:

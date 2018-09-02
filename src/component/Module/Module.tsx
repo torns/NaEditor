@@ -19,6 +19,12 @@ interface ModuleState {
     isEmpty?: boolean;
 }
 
+const Placeholder = {
+    2: 'http://naeditor-image.oss-cn-shenzhen.aliyuncs.com/rq.jpg',
+    // 4: 'http://naeditor-image.oss-cn-shenzhen.aliyuncs.com/lbt.jpg',
+}
+
+
 class Module extends React.Component<ModuleProps, ModuleState> {
 
     private moduleRef: any = React.createRef();
@@ -100,7 +106,7 @@ class Module extends React.Component<ModuleProps, ModuleState> {
                         },
                     );
                 }
-                intersectionObserver.unobserve(this.moduleRef);
+                this.moduleRef && intersectionObserver.unobserve(this.moduleRef);
 
             });
             intersectionObserver.observe(this.moduleRef);
@@ -115,17 +121,33 @@ class Module extends React.Component<ModuleProps, ModuleState> {
                     isActive,
                 },
                 moduleTypeId,
+                configData,
             }
         } = this.state;
         const isDecorate = this.context.BASE_DATA.pageType === 0;
+        let moduleStyle = {};
+        let isEmpty = false;
+        if (isDecorate) {
+            isEmpty = JSON.stringify(configData) === '{}';
+            moduleStyle = { ...{ minHeight: '50px' } }
+            if (isEmpty) {
+                moduleStyle = {
+                    ...moduleStyle, ...{
+                        backgroundImage: "url(" + Placeholder[2] + ")",
+                        height: '180px',
+                    }
+                };
+            }
+        }
 
         return (
             <div
                 className={`J_module d-module ${isActive ? 'active' : ''}`}
                 data-module-type-id={moduleTypeId}
                 ref={ref => this.moduleRef = ref}
+                style={moduleStyle}
             >
-                {this.state.isEmpty ? <div className="d-placeholder">请配置模块数据</div> : this.props.children}
+                {!isEmpty && this.props.children}
                 {isDecorate && <ModuleWrap
                     moduleData={moduleData}
                     moduleRef={this.moduleRef}

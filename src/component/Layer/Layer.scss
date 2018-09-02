@@ -13,6 +13,7 @@
         right: 0;
         bottom: 0;
         background: rgba(0, 0, 0, .5);
+        touch-action: none;
     }
     .d-img {
         position: absolute;
@@ -24,11 +25,21 @@
         img {
             max-width: 100%;
         }
-        i {
+        .d-close {
             position: absolute;
-            top: -10px;
-            right: -10px;
-            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: -15px;
+            right: -15px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #f3f5f7;
+            i {
+                font-size: 18px;
+                color: #999;
+            }
         }
     }
 }

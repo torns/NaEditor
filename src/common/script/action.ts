@@ -282,6 +282,23 @@ const DBAction = {
         };
     },
     /**
+     * 复制模块
+     */
+    async copyModule(moduleId: number, pageId: number) {
+        const result = (await axios(INTERFACE.copyModule, {
+            params: {
+                moduleId,
+                pageId,
+            }
+        })).data;
+        if (result.success === true) {
+            message.success('复制成功');
+            return result.data;
+        } else {
+            return {};
+        };
+    },
+    /**
      * 获取页面初始化数据
      * @param pageType 页面类型 0：装修 1：预览 2：浏览
      */
@@ -297,11 +314,15 @@ const DBAction = {
             return result.data;
         }
     },
+    /**
+     * 退出登录
+     */
+    async logout() {
+        return (await axios(INTERFACE.logout)).data;
+    }
 }
 
-// if ((window as any).BASE_DATA.dbSource === '1') {
 const Action = DBAction;
-// }
 
 (window as any).Action = Action;
 

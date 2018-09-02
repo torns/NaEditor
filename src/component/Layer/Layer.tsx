@@ -52,6 +52,11 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
         (document as any).querySelector('html').style.overflow = 'initial';
     }
 
+    preventScroll = (e: React.TouchEvent) => {
+        e.preventDefault();
+        e.cancelable = true;
+    }
+
     renderChild = () => {
 
         let {
@@ -62,12 +67,18 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
                 },
             },
         } = this.props;
-        console.log(rootEl);
+        if (!imgUrl) {
+            return null;
+        }
         return (
             <React.Fragment>
                 <div className="d-img">
                     <img src={imgUrl} />
-                    <Icon type="close" />
+                    <div
+                        className="d-close"
+                        onClick={this.onClose} >
+                        <Icon type="close" />
+                    </div>
                     <div className="d-hotspots-wrap">
                         {hotspots && hotspots.map((v: HotspotInfo) => {
                             <a href={v.url}></a>
@@ -75,7 +86,7 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
                     </div>
 
                 </div>
-                <div className="d-mask" onClick={this.onClose}></div>
+                <div className="d-mask" onClick={this.onClose} onTouchMove={this.preventScroll}></div>
             </React.Fragment>
         )
     }

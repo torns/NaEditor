@@ -60,6 +60,17 @@ html {
             height: calc(100% - 20px);
             border: none;
         }
+        &:empty {
+            &:after {
+                content: '在左侧表格点击页面项以预览该页面效果';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 25px;
+                color: #999;
+            }
+        }
     }
 }
 

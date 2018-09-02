@@ -6,28 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>预览</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
-        (() => {
-            function queryURL(url) {
-                var arr1 = url.split("?");
-                var params = arr1[1].split("&"); //进行分割成数组
-                var obj = {}; //声明对象
-                for (var i = 0; i < params.length; i++) {
-                    var param = params[i].split("="); //进行分割成数组
-                    obj[param[0]] = param[1]; //为对象赋值
-                }
-
-                return obj;
-            }
-
-            window.BASE_DATA = queryURL(location.href);
-
-        })();
-    </script>
-<link href="//h5editor.cn:8080/vendor.css" rel="stylesheet"><link href="//h5editor.cn:8080/page/preview.css" rel="stylesheet"></head>
+<link rel="shortcut icon" href="http://h5editor.cn:8080/bitbug_favicon.ico"><link href="http://h5editor.cn:8080/0.css" rel="stylesheet"><link href="http://h5editor.cn:8080/page/preview.css" rel="stylesheet"></head>
 
 <body>
     <div id="Container"></div>
-<script src="//h5editor.cn:8080/vendor.bundle.js"></script><script src="//h5editor.cn:8080/page/preview.bundle.js"></script></body>
+<script src="http://h5editor.cn:8080/vendor.bundle.js"></script><script src="http://h5editor.cn:8080/page/preview.bundle.js"></script></body>
 
 </html>

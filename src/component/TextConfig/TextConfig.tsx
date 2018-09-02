@@ -2,7 +2,7 @@ import * as  React from 'react';
 import { connect } from 'react-redux';
 import { Input, Slider } from 'antd';
 import { IState } from '../interface';
-import ColorPicker from 'rc-color-picker';
+// import ColorPicker from 'rc-color-picker';
 const { TextArea } = Input;
 
 interface TextConfigProps {
@@ -70,9 +70,9 @@ class TextConfig extends React.Component<TextConfigProps, TextConfigState> {
                     value={this.state.fontWeight}
                     onChange={(fontWeight: any) => { this.setState({ fontWeight }); }}
                 />
-                <p className="d-title">字体颜色</p>
-                <ColorPicker
-                />
+                {/* <p className="d-title">字体颜色</p>
+                    <ColorPicker />
+                <p /> */}
                 <p className="d-title">文本内容</p>
                 <TextArea
                     placeholder="请输入文本内容"

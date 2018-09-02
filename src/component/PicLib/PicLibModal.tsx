@@ -117,7 +117,9 @@ class PicLibModal extends React.Component<ContentProps, any> {
 
     uploadChange = (e: any) => {
         if (e.event) {
-            this.refreshImageList();
+            setTimeout(() => {
+                this.refreshImageList();
+            }, 1000);
         }
     }
 

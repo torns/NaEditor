@@ -1,8 +1,10 @@
 import React from 'react';
 import { Icon } from 'antd';
-import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+import QRCode from 'qrcode.react';
+import Action from '../../common/script/action';
+import { serverAddress } from '../../../config';
 
 interface TopbarProps {
     hasPreview?: boolean;
@@ -48,17 +50,26 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
     }
 
     renderPreview = () => {
-
+        const { pageId, pageInfo: { pageName } } = this.context.BASE_DATA;
         return (
             <div className={`d-preview-wrap ${this.state.isPreviewActive ? 'active' : ''}`}>
                 <div className="d-phone">
                     <div className="J_previewContainer d-preview-container">
                     </div>
                 </div>
+                <div className="d-desc">
+                    <div className="d-qrcode">
+                        <QRCode value={`${serverAddress}/page/preview?pageId=${pageId}`} />
+                    </div>
+                    <p>预览页有效期30分钟，发布后永久生效</p>
+                    <h2>{pageName}</h2>
+                </div>
                 <div
                     className="d-close-btn J_closeBtn"
                     onClick={this.closePreview}
-                ></div>
+                >
+                    <Icon type="close" />
+                </div>
                 <div className="d-canvas-filter"></div>
             </div>
         );
@@ -74,8 +85,8 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
 		</iframe>`;
     }
 
-    logout = () => {
-        Cookies.remove('pin');
+    logout = async () => {
+        const result = await Action.logout();
         location.href = '/page/login';
     }
 
@@ -108,7 +119,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
                     }
                     <div className="d-line"></div>
                     <div className="d-username">
-                        <span>{username}</span>
+                        <span>您好，{username}</span>
                         <Icon type="logout" onClick={this.logout} />
                     </div>
                 </div>

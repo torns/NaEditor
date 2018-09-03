@@ -4,6 +4,7 @@ import idb from 'idb';
 import DB from '../../db/dbConfig';
 import INTERFACE from './INTERFACE';
 import axios from 'axios';
+import isServer from './isServer';
 
 // let Action: any = {
 //     /**
@@ -324,6 +325,8 @@ const DBAction = {
 
 const Action = DBAction;
 
-(window as any).Action = Action;
+if (!isServer) {
+    (window as any).Action = Action;
+}
 
 export default Action;

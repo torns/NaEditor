@@ -41,7 +41,6 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
 
 
     componentWillMount() {
-
         // 初始化模块
         this.props.fetchModuleList(this.context.BASE_DATA.pageId.toString());
     }
@@ -159,7 +158,6 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
                 }
             });
         }
-
         return (
             <div className="d-module-list"
                 onDragOver={this.dragOver}

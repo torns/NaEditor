@@ -15,8 +15,7 @@ interface LayerState {
 
 }
 
-const rootEl = document.createElement('div');
-rootEl.classList.add('d-layer');
+
 
 export default class Layer extends React.Component<LayerProps, LayerState> {
 
@@ -29,9 +28,12 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
         BASE_DATA: PropTypes.object
     }
 
+    rootEl: HTMLDivElement = document.createElement('div');;
+
     componentDidMount() {
+        this.rootEl.classList.add('d-layer');
         if (this.context.BASE_DATA.pageType !== 0) {
-            document.body.appendChild(rootEl);
+            document.body.appendChild(this.rootEl);
 
             // 阻止滚动穿透
             (document as any).querySelector('html').style.overflow = 'hidden';
@@ -47,7 +49,7 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
     }
 
     closeModal = () => {
-        rootEl.remove();
+        this.rootEl.remove();
         // 滚动穿透还原
         (document as any).querySelector('html').style.overflow = 'initial';
     }
@@ -105,7 +107,7 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
         } else {
             return ReactDOM.createPortal(
                 this.renderChild(),
-                rootEl,
+                this.rootEl,
             );
         }
 

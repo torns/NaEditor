@@ -24,7 +24,7 @@ if (cliEntry) {
     entrys = result;
 }
 
-console.log(entrys);
+// console.log(entrys);
 const sourcePath = path.join(__dirname, '/src');
 
 let plugins = [
@@ -102,12 +102,16 @@ module.exports = {
     module: {
         rules: [{
                 test: /\.tsx?$/,
-                include: path.resolve(__dirname, "src"),
+                include: [
+                    path.resolve(__dirname, 'src'),
+                ],
                 loader: ["awesome-typescript-loader", ]
             },
             {
                 test: /\.jsx?/,
-                include: path.resolve(__dirname, "src"),
+                include: [
+                    path.resolve(__dirname, 'src'),
+                ],
                 use: ['babel-loader', ]
             },
 

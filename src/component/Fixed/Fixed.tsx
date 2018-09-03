@@ -15,10 +15,6 @@ interface FixedState {
 
 }
 
-const body = document.body;
-
-const rootEl = document.createElement('div');
-
 export default class Fixed extends React.Component<FixedProps, FixedState> {
 
 
@@ -26,22 +22,24 @@ export default class Fixed extends React.Component<FixedProps, FixedState> {
         BASE_DATA: PropTypes.object
     }
 
+    rootEl:HTMLDivElement = document.createElement('div');
+
     constructor(props: FixedProps) {
         super(props);
     }
 
     componentDidMount() {
         if (this.context.BASE_DATA.pageType !== 0) {
-            body.appendChild(rootEl);
+            document.body.appendChild(this.rootEl);
         }
     }
 
     componentWillUnmount() {
-        rootEl.remove();
+        this.rootEl.remove();
     }
 
     onClose = () => {
-        rootEl.remove();
+        this.rootEl.remove();
     }
 
     renderChild = () => {
@@ -121,7 +119,7 @@ export default class Fixed extends React.Component<FixedProps, FixedState> {
         } else {
             return ReactDOM.createPortal(
                 this.renderChild(),
-                rootEl,
+                this.rootEl,
             );
         }
 

@@ -8,7 +8,7 @@
         "start": "webpack-dev-server --config webpack.dev.js",
         "dev": "webpack --config webpack.dev.js -w",
         "build": "webpack --config webpack.build.js",
-        "server": "webpack --config webpack.server.js"
+        "server": "webpack --config webpack.server.js -w"
     },
     "repository": {
         "type": "git",

@@ -8,11 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "program": "${workspaceFolder}\\src\\server\\app.mjs",
-            "args": [
-                "--harmony",
-                "--experimental-modules",
-            ]
+            "program": "${workspaceFolder}\\dist\\server\\page.js"
         },
     ]
 }

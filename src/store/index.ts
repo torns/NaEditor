@@ -17,6 +17,8 @@ const composeEnhancers = composeWithDevTools({
 let initialState = {};
 if (!isServer()) {
     initialState = (window as any).__INITIAL_STATE__ || {};
+} else {
+
 }
 
 const store = createStore(reducer, initialState, composeEnhancers(

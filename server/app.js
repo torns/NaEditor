@@ -6,11 +6,12 @@ const app = new Koa();
 
 app.use(logger())
 
-app.use(async(ctx) => {
+app.use(async(ctx, next) => {
     let { pageId } = ctx.request.query;
-    pageId = Number.parseInt(pageId);
-    const { str, state } = renderPage();
     const BASE_DATA = await Action.getInitData(2, pageId);
+    pageId = Number.parseInt(pageId);
+    const { str, state } = await renderPage(BASE_DATA);
+
     ctx.body = `
         <!DOCTYPE html>
         <html>
@@ -30,7 +31,8 @@ app.use(async(ctx) => {
             <script src="http://localhost:8081/vendor.bundle.js"></script>
             <script src="http://localhost:8081/page/view.bundle.js"></script>
         </html>
-    `
+    `;
+    await next();
 });
 
 app.listen(8082);

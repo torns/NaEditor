@@ -195,6 +195,7 @@ import isServer from './isServer';
 
 const DBAction = {
     async getAllModule(pageId: number) {
+
         const { data } = (await axios(INTERFACE.getAllModule, {
             params: {
                 pageId,

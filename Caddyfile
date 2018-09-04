@@ -1,7 +1,5 @@
-localhost:8081 {
-    log stdout
-    root ./dist
-}
+
 http://h5editor.cn:8080 {
+    gzip
     root ./dist
 }

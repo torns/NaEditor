@@ -1,28 +1,23 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-
 import { Provider } from 'react-redux';
-import store from '../../src/store';
+import { createStore } from 'redux';
+
+import reducer from '../../src/reducers';
 import ContextProvider from '../../src/component/ContextProvider';
 import Canvas from '../../src/component/Canvas'
+import Action from '../../src/common/script/action';
 
 
 
 
-function renderPage() {
+async function renderPage(BASE_DATA) {
+    let { pageId } = BASE_DATA;
+    pageId = Number.parseInt(pageId);
+    const moduleList = await Action.getAllModule(pageId);
 
-    const BASE_DATA = {
-        username: 'zhusiyi111',
-        pageType: 2,
-        pageId: "91",
-        pageInfo: {
-            pageName: '31231',
-            id: 91,
-            moduleList: [1003, 1020, 1004],
-        }
-    }
-
-
+    const initialState = { module: { moduleList } };
+    const store = createStore(reducer, initialState);
 
     const View = (
         <Provider store={store} >
@@ -31,12 +26,13 @@ function renderPage() {
             </ContextProvider>
         </Provider>
     )
-    const state = JSON.stringify(store.getState())
     const str = renderToString(View);
-    return {
+    const state = JSON.stringify(store.getState())
+    const result = {
         str: str,
         state: state,
     }
+    return result;
 }
 
 

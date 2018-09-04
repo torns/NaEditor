@@ -40,17 +40,11 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
         BASE_DATA: PropTypes.object
     }
 
-
-    componentWillMount() {
-        if(isServer()){
-            // 初始化模块
-            this.props.fetchModuleList(this.context.BASE_DATA.pageId.toString());
-        }
-    }
-
     componentDidMount() {
-        // 开启loading
+        // 初始化模块
+        this.props.fetchModuleList(this.context.BASE_DATA.pageId.toString());
 
+        // 开启loading
         if (this.context.BASE_DATA.pageType === 0) { // type为0为装修
             setTimeout(() => {
                 (window as any).resizeIframe();

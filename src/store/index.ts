@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger'
 
 import reducer from '../reducers';
+import isServer from '../common/script/isServer';
 
 const middleware = [thunk]
 if (process.env.NODE_ENV !== 'production') {
@@ -13,7 +14,12 @@ const composeEnhancers = composeWithDevTools({
     // Specify here name, actionsBlacklist, actionsCreators and other options
 });
 
-const store = createStore(reducer, composeEnhancers(
+let initialState = {};
+if (!isServer()) {
+    initialState = (window as any).__INITIAL_STATE__ || {};
+}
+
+const store = createStore(reducer, initialState, composeEnhancers(
     applyMiddleware(...middleware),
     // other store enhancers if any
 ));

@@ -9,7 +9,6 @@ import Canvas from '../../src/component/Canvas'
 
 
 
-
 function renderPage() {
 
     const BASE_DATA = {

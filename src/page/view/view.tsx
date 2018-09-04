@@ -7,9 +7,22 @@ import Canvas from '../../component/Canvas';
 import Action from '../../common/script/action';
 import ContextProvider from '../../component/ContextProvider';
 import { IBASE_DATA } from '../../component/interface';
+import isServer from '../../common/script/isServer';
 
-Action.getInitData(2).then((BASE_DATA: IBASE_DATA) => {
-    ReactDOM.render(
+if (isServer()) {
+    Action.getInitData(2).then((BASE_DATA: IBASE_DATA) => {
+        ReactDOM.render(
+            <Provider store={store} >
+                <ContextProvider BASE_DATA={BASE_DATA}>
+                    <Canvas />
+                </ContextProvider>
+            </Provider>,
+            document.querySelector('#Container')
+        );
+    })
+} else {
+    const BASE_DATA = (window as any).BASE_DATA;
+    ReactDOM.hydrate(
         <Provider store={store} >
             <ContextProvider BASE_DATA={BASE_DATA}>
                 <Canvas />
@@ -17,5 +30,7 @@ Action.getInitData(2).then((BASE_DATA: IBASE_DATA) => {
         </Provider>,
         document.querySelector('#Container')
     );
-})
+}
+
+
 

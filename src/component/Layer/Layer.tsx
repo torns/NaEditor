@@ -28,15 +28,13 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
         BASE_DATA: PropTypes.object
     }
 
-    rootEl: HTMLDivElement = document.createElement('div');;
+    rootEl: HTMLDivElement | undefined = undefined;
 
     componentDidMount() {
+        this.rootEl = document.createElement('div');
         this.rootEl.classList.add('d-layer');
         if (this.context.BASE_DATA.pageType !== 0) {
             document.body.appendChild(this.rootEl);
-
-            // 阻止滚动穿透
-            (document as any).querySelector('html').style.overflow = 'hidden';
         }
     }
 
@@ -49,9 +47,7 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
     }
 
     closeModal = () => {
-        this.rootEl.remove();
-        // 滚动穿透还原
-        (document as any).querySelector('html').style.overflow = 'initial';
+        this.rootEl && this.rootEl.remove();
     }
 
     preventScroll = (e: React.TouchEvent) => {
@@ -105,10 +101,10 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
                 </Module>
             );
         } else {
-            return ReactDOM.createPortal(
+            return this.rootEl ? ReactDOM.createPortal(
                 this.renderChild(),
                 this.rootEl,
-            );
+            ) : null;
         }
 
     }

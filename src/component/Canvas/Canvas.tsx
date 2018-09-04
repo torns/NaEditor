@@ -11,6 +11,7 @@ import { fetchModuleList, focusModule, addModuleRequest } from '../../actions';
 import Carousel from '../Carousel';
 import Layer from '../Layer';
 import Fixed from '../Fixed';
+import isServer from '../../common/script/isServer';
 
 interface ICanvasProps {
     fetchModuleList: (pageId: number) => void;
@@ -41,8 +42,10 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
 
 
     componentWillMount() {
-        // 初始化模块
-        this.props.fetchModuleList(this.context.BASE_DATA.pageId.toString());
+        if(isServer()){
+            // 初始化模块
+            this.props.fetchModuleList(this.context.BASE_DATA.pageId.toString());
+        }
     }
 
     componentDidMount() {

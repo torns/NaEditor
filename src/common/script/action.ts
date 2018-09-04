@@ -303,8 +303,10 @@ const DBAction = {
      * 获取页面初始化数据
      * @param pageType 页面类型 0：装修 1：预览 2：浏览
      */
-    async getInitData(pageType: number) {
-        const pageId = (window as any).location.href.match(/pageId=([0-9]+)/)[1];
+    async getInitData(pageType: number, pageId?: number) {
+        if (!pageId && !isServer()) {
+            pageId = (window as any).location.href.match(/pageId=([0-9]+)/)[1];
+        }
         const result = (await axios(INTERFACE.getInitData, {
             params: {
                 pageId,

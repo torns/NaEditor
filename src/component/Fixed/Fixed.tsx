@@ -5,6 +5,7 @@ import { Icon } from 'antd';
 
 import Module from '../Module';
 import { IModuleData, HotspotInfo, IContext } from '../interface';
+import isServer from '../../common/script/isServer';
 
 
 interface FixedProps {
@@ -22,24 +23,25 @@ export default class Fixed extends React.Component<FixedProps, FixedState> {
         BASE_DATA: PropTypes.object
     }
 
-    rootEl:HTMLDivElement = document.createElement('div');
+    rootEl: HTMLDivElement | undefined = undefined;
 
     constructor(props: FixedProps) {
         super(props);
     }
 
     componentDidMount() {
+        this.rootEl = document.createElement('div');
         if (this.context.BASE_DATA.pageType !== 0) {
             document.body.appendChild(this.rootEl);
         }
     }
 
     componentWillUnmount() {
-        this.rootEl.remove();
+        this.rootEl && this.rootEl.remove();
     }
 
     onClose = () => {
-        this.rootEl.remove();
+        this.rootEl && this.rootEl.remove();
     }
 
     renderChild = () => {
@@ -117,10 +119,14 @@ export default class Fixed extends React.Component<FixedProps, FixedState> {
                 </Module>
             );
         } else {
-            return ReactDOM.createPortal(
-                this.renderChild(),
-                this.rootEl,
-            );
+            if (this.rootEl !== undefined) {
+                return ReactDOM.createPortal(
+                    this.renderChild(),
+                    this.rootEl,
+                );
+            } else {
+                return null;
+            }
         }
 
     }

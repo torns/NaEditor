@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Input } from 'antd';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { escape, unescape } from 'html-escaper';
 const { TextArea } = Input;
 
 interface UserDefineConfigProps {
@@ -38,7 +37,12 @@ class UserDefineConfig extends React.Component<UserDefineConfigProps, any> {
 
     }
 
-    getConfigData = () => ({ code: this.state.code });
+    getConfigData = () => {
+        const result = {
+            code: this.state.code
+        };
+        return result;
+    }
 
     toModuleData(configData: any) {
         const { moduleConfig } = this.props;
@@ -53,8 +57,8 @@ class UserDefineConfig extends React.Component<UserDefineConfigProps, any> {
             <div>
                 <TextArea
                     placeholder="在此输入代码"
-                    value={this.state.code}
-                    onChange={(e) => { this.setState({ code: e.target.value }); }}
+                    value={unescape(this.state.code || '')}
+                    onChange={(e) => { this.setState({ code: escape(e.target.value || '') }); }}
                 />
             </div>
         );

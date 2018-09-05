@@ -1,4 +1,4 @@
-import { SHOW_CONFIG, HIDE_CONFIG, SAVE_CONFIG_REQUEST, ADD_MODULE } from '../actions';
+import { SHOW_CONFIG, HIDE_CONFIG, SAVE_CONFIG_REQUEST, ADD_MODULE, UPDATE_MODULE } from '../actions';
 
 export default (state = { isVisiable: false, configData: {} }, action: any) => {
 
@@ -21,6 +21,15 @@ export default (state = { isVisiable: false, configData: {} }, action: any) => {
                 configData,
             });
         case ADD_MODULE: {
+            const { moduleData } = action;
+            const result = {
+                ...state, ...{
+                    moduleData,
+                }
+            };
+            return result;
+        }
+        case UPDATE_MODULE: {
             const { moduleData } = action;
             const result = {
                 ...state, ...{

@@ -12,31 +12,38 @@ import Action from '../../src/common/script/action';
 import renderPage from '../service/renderPage';
 
 export default async (ctx, next) => {
+    let SsrSrcipt, str;
+    
+    try {
+        let { pageId } = ctx.request.query;
+        pageId = Number.parseInt(pageId);
+        const BASE_DATA = await Action.getInitData(2, pageId);
+        const moduleList = await Action.getAllModule(pageId);
+        const initialState = { module: { moduleList } };
+        const store = createStore(reducer, initialState);
 
-    let { pageId } = ctx.request.query;
-    pageId = Number.parseInt(pageId);
-    const BASE_DATA = await Action.getInitData(2, pageId);
-    const moduleList = await Action.getAllModule(pageId);
-    const initialState = { module: { moduleList } };
-    const store = createStore(reducer, initialState);
+        const View = (
+            <Provider store={store} >
+                <ContextProvider BASE_DATA={BASE_DATA}>
+                    <Canvas />
+                </ContextProvider>
+            </Provider>
+        );
 
-    const View = (
-        <Provider store={store} >
-            <ContextProvider BASE_DATA={BASE_DATA}>
-                <Canvas />
-            </ContextProvider>
-        </Provider>
-    );
+        let { str, state } = await renderPage(View, store);
 
-    const { str, state } = await renderPage(View, store);
-
-    const SsrSrcipt = `
-        <script>window.BASE_DATA=${JSON.stringify(BASE_DATA)}</script>
-        <script>window.__INITIAL_STATE__=${state}</script>
-    `;
-
+        SsrSrcipt = `
+            <script>window.BASE_DATA=${JSON.stringify(BASE_DATA)}</script>
+            <script>window.__INITIAL_STATE__=${state}</script>
+        `;
+    } catch (e) {
+        console.error(e);
+        // 服务端报错，丢到客户端兜底处理
+        SsrSrcipt = '';
+        str = '';
+    }
     // 读取模板
-    const tpl = await new Promise((resolve, reject) => {
+    let tpl = await new Promise((resolve, reject) => {
         fs.readFile('./dist/page/view.html', (err, data) => {
             if (err) {
                 reject(err);
@@ -44,8 +51,7 @@ export default async (ctx, next) => {
                 resolve(data.toString());
             }
         })
-    })
-
+    });
     const result = tpl.replace('__SSR__STATE__', SsrSrcipt).replace('__SSR__ROOT__', str);
     ctx.body = result;
     await next();

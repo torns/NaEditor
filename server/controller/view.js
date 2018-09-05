@@ -13,7 +13,7 @@ import renderPage from '../service/renderPage';
 
 export default async (ctx, next) => {
     let SsrSrcipt, str;
-    
+
     try {
         let { pageId } = ctx.request.query;
         pageId = Number.parseInt(pageId);
@@ -30,7 +30,9 @@ export default async (ctx, next) => {
             </Provider>
         );
 
-        let { str, state } = await renderPage(View, store);
+        const page = await renderPage(View, store);
+        str = page.str;
+        const { state } = page;
 
         SsrSrcipt = `
             <script>window.BASE_DATA=${JSON.stringify(BASE_DATA)}</script>

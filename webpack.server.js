@@ -30,8 +30,8 @@ let result = {
     target: 'node',
     devtool: 'source-map',
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'server/[name].js',
+        path: path.resolve(__dirname, 'distServer'),
+        filename: '[name].js',
         publicPath: '/'
     },
     mode: "development",

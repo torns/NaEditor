@@ -11,7 +11,6 @@ import { fetchModuleList, focusModule, addModuleRequest } from '../../actions';
 import Carousel from '../Carousel';
 import Layer from '../Layer';
 import Fixed from '../Fixed';
-import isServer from '../../common/script/isServer';
 
 interface ICanvasProps {
     fetchModuleList: (pageId: number) => void;

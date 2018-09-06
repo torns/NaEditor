@@ -2,6 +2,7 @@ const config = require('./webpack.base');
 const glob = require('glob');
 const merge = require('webpack-merge');
 const path = require('path');
+const webpack = require('webpack');
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -35,6 +36,9 @@ let result = {
         publicPath: '/'
     },
     mode: "development",
+    externals: {
+        zepto: "zepto",
+    },
     module: {
         rules: [{
                 test: /\.tsx?$/,
@@ -85,6 +89,12 @@ let result = {
         new MiniCssExtractPlugin({
             filename: "[name].css",
             chunkFilename: "[id].css"
+        }),
+        new webpack.DefinePlugin({
+            PRODUCTION: JSON.stringify(true),
+            'process.env': {
+                NODE_ENV: JSON.stringify('production'),
+            }
         }),
         // new CleanWebpackPlugin(['dist']),
     ]),

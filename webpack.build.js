@@ -2,6 +2,7 @@ const config = require('./webpack.base');
 const glob = require('glob');
 const merge = require('webpack-merge');
 const path = require('path');
+const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -54,6 +55,12 @@ let result = merge(config, {
     },
     plugins: HtmlWebpackPlugins.concat([
         new LodashModuleReplacementPlugin(),
+        new webpack.DefinePlugin({
+            PRODUCTION: JSON.stringify(true),
+            'process.env': {
+                NODE_ENV: JSON.stringify('production'),
+            }
+        }),
         new MiniCssExtractPlugin({
             filename: "[name].css",
             chunkFilename: "[id].css"

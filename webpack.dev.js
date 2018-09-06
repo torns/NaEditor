@@ -6,6 +6,12 @@ const path = require('path');
 const plugins = [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+        PRODUCTION: JSON.stringify(false),
+        'process.env': {
+            NODE_ENV: JSON.stringify('development'),
+        }
+    }),
 ];
 
 

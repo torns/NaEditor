@@ -5,6 +5,7 @@
         "noImplicitAny": true,
         "target": "es6",
         "moduleResolution": "node",
+        "module": "esnext",
         "lib": [
             "dom",
             "es7"

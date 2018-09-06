@@ -147,6 +147,10 @@ module.exports = {
                 test: /\.(woff|woff2|ttf|eot)$/,
                 use: 'file-loader'
             },
+            {
+                test: require.resolve("zepto"),
+                use: "imports-loader?this=>window"
+            }
         ],
     },
     // externals: {

@@ -106,4 +106,4 @@ class Decorate extends React.Component<any, any> {
     }
 }
 
-export default hot(module)(Decorate);
+export default PRODUCTION ? Decorate : hot(module)(Decorate);

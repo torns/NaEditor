@@ -1,7 +1,6 @@
 import React, { RefObject } from 'react';
 import { connect } from 'react-redux';
 import debounce from 'lodash/debounce';
-// import $ from 'jquery';
 import PropTypes from 'prop-types';
 
 import { moduleTopChange, moduleHeightChange } from '../../actions';
@@ -98,19 +97,35 @@ class Module extends React.Component<ModuleProps, ModuleState> {
                 const ratio = entries[0].intersectionRatio;
                 if (ratio < 1 && container) {
                     // jq动画，待优化
-                    $(container).animate(
-                        {
-                            scrollTop: top - 50,
-                        }, {
-                            easing: 'swing',
-                        },
-                    );
+                    // container.scrollTo(0, top - 50);
+                    animate(top - 50, 300);
                 }
                 this.moduleRef && intersectionObserver.unobserve(this.moduleRef);
 
             });
             intersectionObserver.observe(this.moduleRef);
         }, 0)();
+
+        function animate(end: number, time: number) {
+
+            const el = (window as any).document.querySelector('.J_editorInstanceArea');
+            let currentTop = el.scrollTop;
+            const unit = (end - currentTop) / (time / 16);
+
+            function step() {
+                if (currentTop === end) {
+                    return;
+                }
+                currentTop += unit;
+                if (Math.abs(currentTop - end) < Math.abs(unit)) {
+                    currentTop = end;
+                } else {
+                    window.requestAnimationFrame(step);
+                }
+                el.scrollTo(0, currentTop);
+            }
+            window.requestAnimationFrame(step);
+        }
     }
 
     render() {

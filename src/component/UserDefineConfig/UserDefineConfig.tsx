@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Input } from 'antd';
 import { escape, unescape } from 'html-escaper';
+
 const { TextArea } = Input;
 
 interface UserDefineConfigProps {
@@ -58,7 +59,11 @@ class UserDefineConfig extends React.Component<UserDefineConfigProps, any> {
                 <TextArea
                     placeholder="在此输入代码"
                     value={unescape(this.state.code || '')}
-                    onChange={(e) => { this.setState({ code: escape(e.target.value || '') }); }}
+                    onChange={(e) => {
+                        const escaped = escape(e.target.value);
+                        console.log(escaped);
+                        this.setState({ code: escaped });
+                    }}
                 />
             </div>
         );

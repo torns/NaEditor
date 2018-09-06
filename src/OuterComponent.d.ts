@@ -6,5 +6,7 @@ declare module 'react-draft-wysiwyg';
 declare module 'rc-color-picker';
 declare module 'date-format';
 declare module 'html-escaper';
+declare module 'zepto';
 
-
+// webpack.DefinePlugin
+declare var PRODUCTION: boolean;

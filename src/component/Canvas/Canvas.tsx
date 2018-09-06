@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ReactLoading from 'react-loading';
+// import ReactLoading from 'react-loading';
 
 import { IModuleData, IState, IBASE_DATA, IContext } from '../interface';
 import UserDefine from '../UserDefine';
@@ -170,7 +170,7 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
                     ></div>}
                 {isLoading &&
                     <div className="d-loading">
-                        <ReactLoading type="spinningBubbles" color={'#1890ff'} />
+                        {/* <ReactLoading type="spinningBubbles" color={'#1890ff'} /> */}
                     </div>
                 }
                 {isDecorate && (!moduleList || moduleList.length === 0) && this.renderPlaceholder()}

@@ -1,7 +1,7 @@
 import React, { RefObject } from 'react';
 import { connect } from 'react-redux';
 import debounce from 'lodash/debounce';
-import $ from 'jquery';
+// import $ from 'jquery';
 import PropTypes from 'prop-types';
 
 import { moduleTopChange, moduleHeightChange } from '../../actions';

@@ -62,7 +62,7 @@ export default class UserDefine extends React.Component<UserDefineProps, UserDef
         }
         let renderCode = unescape(code);
         !code && (renderCode = ``);
-        $(el).html(renderCode);
+        (el as HTMLDivElement).innerHTML = renderCode;
     }
 
     componentDidMount() {
@@ -77,9 +77,7 @@ export default class UserDefine extends React.Component<UserDefineProps, UserDef
     /**
      * 
      */
-
     render() {
-        const { code } = this.state;
         return (
             <Module moduleData={this.props.moduleData}>
                 <div ref="module">

@@ -93,7 +93,19 @@ module.exports = {
                 vendor: {
                     name: "vendor",
                     test: /[\\/]node_modules[\\/]/,
-                    chunks: "all",
+                    chunks(chunk) {
+                        // 浏览页面单独打包
+                        return chunk.name !== 'page/view';
+                    },
+                    priority: 10,
+                },
+                viewVendor: {
+                    name: "viewVendor",
+                    test: /[\\/]node_modules[\\/]/,
+                    chunks(chunk) {
+                        // 浏览页面单独打包
+                        return chunk.name === 'page/view';
+                    },
                     priority: 10,
                 }
             }

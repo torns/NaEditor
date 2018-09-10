@@ -97,8 +97,8 @@ export default class Fixed extends React.Component<FixedProps, FixedState> {
                 <div className="d-img">
                     <img src={imgUrl} />
                     <div className="d-hotspots-wrap">
-                        {hotspots && hotspots.map((v: HotspotInfo) => {
-                            <a href={v.url}></a>
+                        {hotspots && hotspots.map((v: HotspotInfo, i: number) => {
+                            return <a key={i} href={v.url}></a>
                         })}
                     </div>
 

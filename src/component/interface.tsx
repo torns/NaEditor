@@ -12,6 +12,7 @@ export interface AreaInfo {
     y?: number;
     w?: number;
     h?: number;
+    ref?: number;
 }
 
 // 热区定义

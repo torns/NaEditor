@@ -323,10 +323,18 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         }
     }
 
+    addRef = (addRef: HotspotInfo[]) => {
+        return addRef.map(v => {
+            v.area && (v.area.ref = 375);
+            return v;
+        })
+    }
+
     handleOk = () => {
-        const { hotspots } = this.state;
+        let { hotspots } = this.state;
         if (this.isHotspotsLegal(hotspots)) {
             // const result = this.numberToPercent(hotspots)
+            hotspots = this.addRef(hotspots);
             this.props.onOk(hotspots);
         }
     }

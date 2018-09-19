@@ -7,8 +7,10 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "webpack-dev-server --config webpack.dev.js",
         "dev": "webpack --config webpack.dev.js -w",
+        "dev:server": "webpack --config webpack.server.js -w",
         "build": "webpack --config webpack.build.js",
-        "server": "webpack --config webpack.server.js -w"
+        "buildAll": "npm run build && npm run build:server",
+        "build:server": "webpack --config webpack.server.js"
     },
     "repository": {
         "type": "git",

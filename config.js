@@ -1,4 +1,5 @@
 // dev
 module.exports = {
-    serverAddress: `http://static.h5editor.cn`,
+    serverAddress: `http://h5editor.cn`,
+    staticAddress: `http://static.h5editor.cn`
 }

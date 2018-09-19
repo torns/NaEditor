@@ -76,7 +76,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname + '/dist'),
         filename: '[name].bundle.js',
-        publicPath: `${require('./config').serverAddress}/`,
+        publicPath: `${require('./config').staticAddress}/`,
     },
     stats: 'minimal',
     optimization: {

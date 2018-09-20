@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'antd';
+import { Icon, message } from 'antd';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import QRCode from 'qrcode.react';
@@ -90,6 +90,14 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
         location.href = '/page/login';
     }
 
+    publish = async () => {
+        const { pageId } = this.context.BASE_DATA;
+        const result = await Action.publishPage(pageId);
+        if (result.success) {
+            message.success('发布页面成功');
+        }
+    }
+
     render() {
         const { hasPreview, hasPublish, username } = this.props;
         const { isMounted } = this.state;
@@ -114,7 +122,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
                     {hasPublish &&
                         <React.Fragment>
                             <div className="d-line"></div>
-                            <div className="J_publish d-publish">发布</div>
+                            <div className="J_publish d-publish" onClick={this.publish}>发布</div>
                         </React.Fragment>
                     }
                     <div className="d-line"></div>

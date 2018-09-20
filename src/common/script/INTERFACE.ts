@@ -21,6 +21,7 @@ const INTERFACE = {
     addPage: `${SLD.backend}${prefix}/addPage`, // 新建页面
     deletePage: `${SLD.backend}${prefix}/deletePage`, // 删除页面
     copyPage: `${SLD.backend}${prefix}/copyPage`, // 复制页面
+    publishPage: `${SLD.backend}${prefix}/publishPage`, // 发布页面
     getInitData: `${SLD.backend}${prefix}/getInitData`, // 获取页面初始化数据
 
     logout: `${SLD.backend}${prefix}/logout`, // 退出登录

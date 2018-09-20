@@ -135,6 +135,16 @@ const DBAction = {
      */
     async logout() {
         return (await axios(INTERFACE.logout)).data;
+    },
+    /**
+     * 发布页面
+     */
+    async publishPage(pageId: number) {
+        return (await axios(INTERFACE.publishPage, {
+            params: {
+                pageId,
+            }
+        })).data;
     }
 }
 

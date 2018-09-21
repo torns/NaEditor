@@ -16,12 +16,11 @@ import ContextProvider from '../../component/ContextProvider';
 import ModuleNav from '../../component/ModuleNav';
 import Topbar from '../../component/TopBar';
 
-
 class Decorate extends React.Component<any, any> {
 
     static contextTypes = {
-        BASE_DATA: PropTypes.object
-    }
+        BASE_DATA: PropTypes.object,
+    };
 
     constructor(props: any) {
         super(props);
@@ -55,8 +54,8 @@ class Decorate extends React.Component<any, any> {
 
         ReactDOM.render(
             <Node />,
-            (window as any).document.querySelector('.J_canvas').contentWindow.document.querySelector('#Container')
-        )
+            (window as any).document.querySelector('.J_canvas').contentWindow.document.querySelector('#Container'),
+        );
     }
 
     closePreview = () => {
@@ -96,11 +95,11 @@ class Decorate extends React.Component<any, any> {
                                 className="cd-canvas J_canvas"
                                 src="/page/canvas.html"
                                 onLoad={this.iframeLoaded}
-                            ></iframe>
+                            />
                         </div>
                     </div>
                 </div>
-                <div className="J_previewWrap"></div>
+                <div className="J_previewWrap" />
             </div>
         );
     }

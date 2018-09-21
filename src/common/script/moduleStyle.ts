@@ -10,5 +10,5 @@ import '../../component/Layer/Layer.less';
 import '../../component/Fixed/Fixed.less';
 
 // 轮播样式
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';

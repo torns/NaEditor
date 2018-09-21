@@ -25,7 +25,7 @@ export default (state = { isVisiable: false, configData: {} }, action: any) => {
             const result = {
                 ...state, ...{
                     moduleData,
-                }
+                },
             };
             return result;
         }
@@ -34,7 +34,7 @@ export default (state = { isVisiable: false, configData: {} }, action: any) => {
             const result = {
                 ...state, ...{
                     moduleData,
-                }
+                },
             };
             return result;
         }

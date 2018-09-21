@@ -9,12 +9,6 @@ interface IContextProviderProps {
 
 class ContextProvider extends React.Component<IContextProviderProps, any> {
 
-    getChildContext() {
-        return {
-            BASE_DATA: this.BASE_DATA,
-        }
-    }
-
     static childContextTypes = {
         BASE_DATA: PropTypes.object,
     };
@@ -24,6 +18,12 @@ class ContextProvider extends React.Component<IContextProviderProps, any> {
     constructor(props: IContextProviderProps) {
         super(props);
         this.BASE_DATA = props.BASE_DATA;
+    }
+
+    getChildContext() {
+        return {
+            BASE_DATA: this.BASE_DATA,
+        };
     }
 
     render() {

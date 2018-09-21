@@ -15,12 +15,11 @@ interface UserDefineState {
     isActive: boolean;
 }
 
-
 export default class UserDefine extends React.Component<UserDefineProps, UserDefineState> {
 
     static contextTypes = {
-        BASE_DATA: PropTypes.object
-    }
+        BASE_DATA: PropTypes.object,
+    };
 
     static zeptoLoaded: boolean = false;
 
@@ -31,7 +30,7 @@ export default class UserDefine extends React.Component<UserDefineProps, UserDef
         this.state = {
             code: props.moduleData.data.code,
             isActive: props.moduleData.tempData && props.moduleData.tempData.isActive,
-        }
+        };
     }
 
     shouldComponentUpdate(nextProps: UserDefineProps, nextState: UserDefineState) {
@@ -52,7 +51,7 @@ export default class UserDefine extends React.Component<UserDefineProps, UserDef
     componentWillReceiveProps(nextProps: UserDefineProps) {
         this.setState({
             code: nextProps.moduleData.data.code,
-        })
+        });
     }
 
     /**
@@ -91,7 +90,7 @@ export default class UserDefine extends React.Component<UserDefineProps, UserDef
                     UserDefine.zeptoLoaded = true;
                 };
                 document.body.appendChild(script);
-            })
+            });
         }
 
     }
@@ -101,19 +100,15 @@ export default class UserDefine extends React.Component<UserDefineProps, UserDef
         this.excuteCode();
     }
 
-
     /**
-     * 
+     *
      */
     render() {
         return (
             <Module moduleData={this.props.moduleData}>
-                <div ref={(root: HTMLDivElement) => { this.root = root; }} >
-
-                </div>
+                <div ref={(root: HTMLDivElement) => { this.root = root; }} />
             </Module>
-        )
+        );
     }
-
 
 }

@@ -25,6 +25,10 @@ interface ICanvasState {
 
 class Canvas extends React.Component<ICanvasProps, ICanvasState> {
 
+    static contextTypes = {
+        BASE_DATA: PropTypes.object,
+    };
+
     root?: HTMLDivElement;
 
     constructor(props: ICanvasProps) {
@@ -32,11 +36,7 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
         this.state = {
             nextPlaceholder: undefined,
             isLoading: true,
-        }
-    }
-
-    static contextTypes = {
-        BASE_DATA: PropTypes.object
+        };
     }
 
     componentDidMount() {
@@ -66,7 +66,6 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
         }
     }
 
-
     dragOver = (e: React.DragEvent) => {
         const { nextPlaceholder } = this.state;
         if (nextPlaceholder === undefined) {
@@ -76,7 +75,9 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
             this.setState({
                 nextPlaceholder: placeholder,
             }, () => {
-                this.root && this.root.appendChild(placeholder);
+                if (this.root) {
+                    this.root.appendChild(placeholder);
+                }
                 (window as any).resizeIframe();
             });
         }
@@ -120,7 +121,7 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
                 <p>您还未添加任何模块</p>
                 <p>请将左侧模块拖动到这里</p>
             </div>
-        )
+        );
     }
 
     render() {
@@ -155,7 +156,8 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
             });
         }
         return (
-            <div className="d-module-list"
+            <div
+                className="d-module-list"
                 onDragOver={this.dragOver}
                 onDragLeave={this.dragLeave}
                 onDrop={(e: any) => { this.drop(e); }}  // TODO any?
@@ -167,7 +169,7 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
                         onDragOver={(e: React.DragEvent) => { e.stopPropagation(); }}
                         onDragLeave={(e: React.DragEvent) => { e.stopPropagation(); }}
                         onDrag={(e: React.DragEvent) => { e.stopPropagation(); }}
-                    ></div>}
+                    />}
                 {isLoading &&
                     <div className="d-loading">
                         {/* <ReactLoading type="spinningBubbles" color={'#1890ff'} /> */}
@@ -181,7 +183,7 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
 }
 
 const mapStateToProps = (state: IState) => {
-    return { moduleList: state.module.moduleList, };
+    return { moduleList: state.module.moduleList };
 };
 
 export default connect(mapStateToProps, {

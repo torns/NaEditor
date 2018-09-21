@@ -31,13 +31,13 @@ class LayerConfig extends Component<LayerConfigProps, LayerConfigState> {
                 data: {
                     imgUrl,
                     hotspots,
-                }
-            }
+                },
+            },
         } = props;
         this.state = {
             imgUrl,
             hotspots,
-        }
+        };
     }
 
     // TODO props:LayerConfigProps
@@ -46,8 +46,8 @@ class LayerConfig extends Component<LayerConfigProps, LayerConfigState> {
             moduleData: {
                 configData: {
                     imgUrl,
-                }
-            }
+                },
+            },
         } = props;
         this.setState({
             imgUrl,
@@ -66,7 +66,6 @@ class LayerConfig extends Component<LayerConfigProps, LayerConfigState> {
         });
         return result;
     }
-
 
     imgChange = (imgUrl: string) => {
         this.setState({
@@ -89,7 +88,7 @@ class LayerConfig extends Component<LayerConfigProps, LayerConfigState> {
                 <PicLib
                     defaultValue={imgUrl}
                     value={imgUrl}
-                    onChange={(imgUrl) => { this.imgChange(imgUrl) }}
+                    onChange={(imgUrl) => { this.imgChange(imgUrl); }}
                 />
                 <p className="d-title">热区设置</p>
                 <Hotspot

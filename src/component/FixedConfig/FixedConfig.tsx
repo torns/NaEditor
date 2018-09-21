@@ -15,18 +15,18 @@ const mapStateToProps = (state: IState) => {
 };
 
 enum EHorizontalDir {
-    Left = "left",
-    Right = "right",
+    Left = 'left',
+    Right = 'right',
 }
 
 enum EVerticalDir {
-    Top = "top",
-    Bottom = "bottom",
+    Top = 'top',
+    Bottom = 'bottom',
 }
 
 enum Unit {
-    percent = "%",
-    px = "px",
+    percent = '%',
+    px = 'px',
 }
 
 interface FixedConfigProps {
@@ -42,9 +42,9 @@ interface FixedConfigState {
     width: string;
     horizontalDir: EHorizontalDir.Left | EHorizontalDir.Right;
     verticalDir: EVerticalDir.Top | EVerticalDir.Bottom;
-    horizontalUnit: Unit,
-    verticalUnit: Unit,
-    widthUnit: Unit,
+    horizontalUnit: Unit;
+    verticalUnit: Unit;
+    widthUnit: Unit;
 }
 
 class FixedConfig extends Component<FixedConfigProps, FixedConfigState> {
@@ -64,8 +64,8 @@ class FixedConfig extends Component<FixedConfigProps, FixedConfigState> {
                     horizontalUnit,
                     verticalUnit,
                     widthUnit,
-                }
-            }
+                },
+            },
         } = props;
         this.state = {
             imgUrl,
@@ -78,9 +78,8 @@ class FixedConfig extends Component<FixedConfigProps, FixedConfigState> {
             horizontalUnit,
             verticalUnit,
             widthUnit,
-        }
+        };
     }
-
 
     getConfigData = () => {
         return this.state;
@@ -93,7 +92,6 @@ class FixedConfig extends Component<FixedConfigProps, FixedConfigState> {
         });
         return result;
     }
-
 
     imgChange = (imgUrl: string) => {
         this.setState({
@@ -124,7 +122,8 @@ class FixedConfig extends Component<FixedConfigProps, FixedConfigState> {
             <Select
                 defaultValue={horizontalDir || EHorizontalDir.Left}
                 onChange={(horizontalDir: any) => { this.setState({ horizontalDir }); }}
-                style={{ width: 90 }}>
+                style={{ width: 90 }}
+            >
                 <Option value={EHorizontalDir.Left}>距左边</Option>
                 <Option value={EHorizontalDir.Right}>距右边</Option>
             </Select>
@@ -134,7 +133,8 @@ class FixedConfig extends Component<FixedConfigProps, FixedConfigState> {
             <Select
                 defaultValue={verticalDir || EVerticalDir.Bottom}
                 onChange={(verticalDir: any) => { this.setState({ verticalDir }); }}
-                style={{ width: 90 }}>
+                style={{ width: 90 }}
+            >
                 <Option value={EVerticalDir.Top}>距顶部</Option>
                 <Option value={EVerticalDir.Bottom}>距底部</Option>
             </Select>
@@ -144,7 +144,8 @@ class FixedConfig extends Component<FixedConfigProps, FixedConfigState> {
             <Select
                 defaultValue={horizontalUnit || Unit.percent}
                 onChange={(horizontalUnit: any) => { this.setState({ horizontalUnit }); }}
-                style={{ width: 50 }}>
+                style={{ width: 50 }}
+            >
                 <Option value={Unit.percent}>%</Option>
                 <Option value={Unit.px}>px</Option>
             </Select>
@@ -154,7 +155,8 @@ class FixedConfig extends Component<FixedConfigProps, FixedConfigState> {
             <Select
                 defaultValue={verticalUnit || Unit.percent}
                 onChange={(verticalUnit: any) => { this.setState({ verticalUnit }); }}
-                style={{ width: 50 }}>
+                style={{ width: 50 }}
+            >
                 <Option value={Unit.percent}>%</Option>
                 <Option value={Unit.px}>px</Option>
             </Select>
@@ -164,12 +166,12 @@ class FixedConfig extends Component<FixedConfigProps, FixedConfigState> {
             <Select
                 defaultValue={widthUnit || Unit.percent}
                 onChange={(widthUnit: any) => { this.setState({ widthUnit }); }}
-                style={{ width: 50 }}>
+                style={{ width: 50 }}
+            >
                 <Option value={Unit.percent}>%</Option>
                 <Option value={Unit.px}>px</Option>
             </Select>
         );
-
 
         return (
             <div>
@@ -177,7 +179,7 @@ class FixedConfig extends Component<FixedConfigProps, FixedConfigState> {
                 <PicLib
                     defaultValue={imgUrl}
                     value={imgUrl}
-                    onChange={(imgUrl) => { this.imgChange(imgUrl) }}
+                    onChange={(imgUrl) => { this.imgChange(imgUrl); }}
                 />
                 <p className="d-title">热区配置</p>
                 <Hotspot

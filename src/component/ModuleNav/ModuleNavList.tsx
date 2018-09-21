@@ -21,7 +21,7 @@ class ModuleNavList extends React.Component<ModuleNavListProps, ModuleNavListSta
         super(props);
         this.state = {
             currentDrag: undefined,
-        }
+        };
     }
 
     /**

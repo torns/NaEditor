@@ -40,7 +40,7 @@ class TextConfig extends React.Component<TextConfigProps, TextConfigState> {
         });
     }
 
-    getConfigData = () => this.state
+    getConfigData = () => this.state;
 
     toModuleData(configData: any) {
         const { moduleConfig } = this.props;
@@ -77,7 +77,7 @@ class TextConfig extends React.Component<TextConfigProps, TextConfigState> {
                 <TextArea
                     placeholder="请输入文本内容"
                     value={this.state.text}
-                    autosize
+                    autosize={true}
                     onChange={(e) => { this.setState({ text: e.target.value }); }}
                 />
             </div>

@@ -9,7 +9,7 @@
             "parameters",
             "statements"
         ],
-        "class-name": true,
+        "class-name": false,
         "comment-format": [
             true,
             "check-space"
@@ -18,15 +18,12 @@
         "object-curly-spacing": true,
         "eofline": false,
         "forin": true,
-        "indent": [
-            true,
-            "spaces"
-        ],
+        "indent": false,
         "jsdoc-format": false,
         "label-position": true,
         "max-line-length": [
             true,
-            120
+            150
         ],
         "member-ordering": [
             true,
@@ -40,18 +37,8 @@
         "no-bitwise": true,
         "no-conditional-assignment": true,
         "no-consecutive-blank-lines": true,
-        // "no-console": [
-        //     true,
-        //     "debug",
-        //     "info",
-        //     "log",
-        //     "time",
-        //     "timeEnd",
-        //     "trace"
-        // ],
         "no-construct": true,
         "no-constructor-vars": false,
-        // "no-debugger": true,
         "no-duplicate-variable": true,
         "no-empty": false,
         "no-eval": true,
@@ -62,7 +49,6 @@
         "no-string-literal": true,
         "no-switch-case-fall-through": false,
         "no-trailing-whitespace": true,
-        "no-unused-expression": true,
         "no-use-before-declare": false,
         "no-var-keyword": true,
         "no-var-requires": false,
@@ -76,7 +62,7 @@
             "check-whitespace"
         ],
         "one-variable-per-declaration": [
-            true,
+            false,
             "ignore-for-loop"
         ],
         "quotemark": [
@@ -140,8 +126,16 @@
         "jsx-no-lambda": false,
         "jsx-no-string-ref": false,
         "jsx-boolean-value": [
-            true,
+            true
         ],
-        "jsx-wrap-multiline": false
+        "no-unused-expressions": [
+            "error",
+            {
+                "allowShortCircuit": true,
+                "allowTernary": true
+            }
+        ],
+        "jsx-wrap-multiline": false,
+        "jsx-no-multiline-js": false
     }
 }

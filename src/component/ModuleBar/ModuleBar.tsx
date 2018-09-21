@@ -23,8 +23,8 @@ interface ModuleBarState {
 class ModuleBar extends React.Component<ModuleBarProps, ModuleBarState> {
 
     static contextTypes = {
-        BASE_DATA: PropTypes.object
-    }
+        BASE_DATA: PropTypes.object,
+    };
 
     constructor(props: ModuleBarProps) {
         super(props);

@@ -40,7 +40,7 @@ class UserDefineConfig extends React.Component<UserDefineConfigProps, any> {
 
     getConfigData = () => {
         const result = {
-            code: this.state.code
+            code: this.state.code,
         };
         return result;
     }

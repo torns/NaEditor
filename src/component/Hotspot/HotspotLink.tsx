@@ -31,7 +31,7 @@ class HotspotLink extends React.Component<HotspotLinkProps, HotspotLinkState> {
         } = this.props;
         return (
             <InputGroup
-                compact
+                compact={true}
                 className="d-hotspot-link"
             >
                 <Input

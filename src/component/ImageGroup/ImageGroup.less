@@ -10,19 +10,17 @@
             .d-icon-up,
             .d-icon-down,
             .d-delete {
-                @extend .d-disabled;
+                &:extend(.d-disabled);
             }
-        }
-        // 倒数第二个元素不能下移
+        } // 倒数第二个元素不能下移
         &:nth-last-child(2) {
             .d-icon-down {
-                @extend .d-disabled;
+                &:extend(.d-disabled);
             }
-        }
-        // 第一个元素不能上移
+        } // 第一个元素不能上移
         &:first-child {
             .d-icon-up {
-                @extend .d-disabled;
+                &:extend(.d-disabled);
             }
         }
     }

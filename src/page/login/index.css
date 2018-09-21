@@ -10,6 +10,7 @@ h6,
 hr,
 p,
 blockquote,
+
 /* structural elements 缁撴瀯鍏冪礌 */
 
 dl,
@@ -18,9 +19,11 @@ dd,
 ul,
 ol,
 li,
+
 /* list elements 鍒楄〃鍏冪礌 */
 
 pre,
+
 /* text formatting elements 鏂囨湰鏍煎紡鍏冪礌 */
 
 fieldset,
@@ -28,6 +31,7 @@ lengend,
 button,
 input,
 textarea,
+
 /* form elements 琛ㄥ崟鍏冪礌 */
 
 th,
@@ -36,6 +40,8 @@ td {
     margin: 0;
     padding: 0;
 }
+
+
 /* 璁剧疆榛樿瀛椾綋 */
 
 body,
@@ -75,6 +81,8 @@ em,
 var {
     font-style: normal;
 }
+
+
 /* 灏嗘枩浣撴壎姝� */
 
 code,
@@ -84,18 +92,26 @@ samp,
 tt {
     font-family: "Courier New", Courier, monospace;
 }
+
+
 /* 缁熶竴绛夊瀛椾綋 */
 
 small {
     font-size: 12px;
 }
+
+
 /* 灏忎簬 12px 鐨勪腑鏂囧緢闅鹃槄璇伙紝璁� small 姝ｅ父鍖� */
+
+
 /* 閲嶇疆鍒楄〃鍏冪礌 */
 
 ul,
 ol {
     list-style: none;
 }
+
+
 /* 閲嶇疆鏂囨湰鏍煎紡鍏冪礌 */
 
 a {
@@ -117,18 +133,26 @@ q:before,
 q:after {
     content: '';
 }
+
+
 /* 閲嶇疆琛ㄥ崟鍏冪礌 */
 
 legend {
     color: #000;
 }
+
+
 /* for ie6 */
 
 fieldset,
 img {
     border: none;
 }
+
+
 /* img 鎼溅锛氳閾炬帴閲岀殑 img 鏃犺竟妗� */
+
+
 /* 娉細optgroup 鏃犳硶鎵舵 */
 
 button,
@@ -138,18 +162,24 @@ textarea {
     font-size: 100%;
     /* 浣垮緱琛ㄥ崟鍏冪礌鍦� ie 涓嬭兘缁ф壙瀛椾綋澶у皬 */
 }
+
+
 /* 閲嶇疆琛ㄦ牸鍏冪礌 */
 
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+
 /* 閲嶇疆 hr */
 
 hr {
     border: none;
     height: 1px;
 }
+
+
 /* 璁╅潪ie娴忚鍣ㄩ粯璁や篃鏄剧ず鍨傜洿婊氬姩鏉★紝闃叉鍥犳粴鍔ㄦ潯寮曡捣鐨勯棯鐑� */
 
 html {
@@ -386,8 +416,6 @@ input {
     margin-right: 10px;
 }
 
-
-
 .iPhone a,
 .Android a {
     font-size: 13px;
@@ -416,7 +444,11 @@ input {
     line-height: 20px;
     color: #bdbdbd;
 }
+
+
 /* 扫描登录开始 */
+
+
 /*.codebox{ width:199px; height:199px; border:1px solid #bdbdbd; margin:0 auto; }*/
 
 .codebox {

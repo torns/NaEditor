@@ -17,8 +17,8 @@ interface ImageHotspotState {
 export default class ImageHotspot extends React.Component<ImageHotspotProps, ImageHotspotState> {
 
     static contextTypes = {
-        BASE_DATA: PropTypes.object
-    }
+        BASE_DATA: PropTypes.object,
+    };
 
     constructor(props: ImageHotspotProps) {
         super(props);
@@ -57,11 +57,11 @@ export default class ImageHotspot extends React.Component<ImageHotspotProps, Ima
                         <a style={{ top, left, width, height }} key={i} href={v.url} >
                             {isDecorate && <span>热区{i + 1}</span>}
                         </a>
-                    )
+                    );
                 })
                 }
             </div>
-        )
+        );
     }
 
     render() {

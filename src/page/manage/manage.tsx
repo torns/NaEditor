@@ -47,7 +47,7 @@ class ManagePage extends React.Component<any, any> {
         const result = (await Axios(INTERFACE.deletePage, {
             params: {
                 pageId,
-            }
+            },
         })).data;
         if (result.success === true) {
             this.refreshList();
@@ -82,7 +82,7 @@ class ManagePage extends React.Component<any, any> {
         const result = (await Axios(INTERFACE.copyPage, {
             params: {
                 pageId,
-            }
+            },
         })).data;
         if (result.success === true) {
             this.refreshList();
@@ -95,14 +95,14 @@ class ManagePage extends React.Component<any, any> {
             title: '页面名称',
             key: 'pageName',
             render: (item: IPage) => {
-                return <a href={`/page/view?pageId=${item.id}`} target="_blank">{item.pageName}</a>
-            }
+                return <a href={`/page/view?pageId=${item.id}`} target="_blank">{item.pageName}</a>;
+            },
         }, {
             title: '创建时间',
             key: 'created',
             render: (item: IPage) => {
-                return format.asString('yyyy-MM-dd hh:mm:ss', new Date(item.created));;
-            }
+                return format.asString('yyyy-MM-dd hh:mm:ss', new Date(item.created));
+            },
         }, {
             title: '操作',
             key: 'action',
@@ -116,23 +116,24 @@ class ManagePage extends React.Component<any, any> {
                             <a style={{ marginLeft: '10px' }}>获取地址</a>
                         </Popover>
                         <a
-                            onClick={(e) => { e.stopPropagation(); this.copyPage(item.id) }}
+                            onClick={(e) => { e.stopPropagation(); this.copyPage(item.id); }}
                             style={{ marginLeft: '10px' }}
                         >
                             复制页面
                         </a>
                         <Popconfirm
-                            onConfirm={(e) => { e.stopPropagation(); this.deletePage(item.id) }}
+                            onConfirm={(e) => { e.stopPropagation(); this.deletePage(item.id); }}
                             title="确定删除该页面吗？"
                             okText="确定"
-                            cancelText="取消">
+                            cancelText="取消"
+                        >
                             <a style={{ marginLeft: '10px' }}>
                                 删除
                             </a>
                         </Popconfirm>
                     </React.Fragment >
                 );
-            }
+            },
         }];
 
         const { pageList, isModalVisible, username, previewPageId } = this.state;
@@ -155,7 +156,8 @@ class ManagePage extends React.Component<any, any> {
                                         this.setState({
                                             isModalVisible: true,
                                         });
-                                    }}>
+                                    }}
+                                >
                                     创建页面
                                 </Button>
                                 <CreatePageModal
@@ -174,7 +176,7 @@ class ManagePage extends React.Component<any, any> {
                             columns={columns}
                             dataSource={pageList}
                             rowKey="id"
-                            bordered
+                            bordered={true}
                             onRow={(record: IPage) => {
                                 return {
                                     onClick: () => {
@@ -188,8 +190,8 @@ class ManagePage extends React.Component<any, any> {
                         <div className="d-preview-wrap">
                             {previewPageId &&
                                 <React.Fragment>
-                                    <div className="d-header"></div>
-                                    <iframe src={`/page/preview?pageId=${previewPageId}`}></iframe>
+                                    <div className="d-header" />
+                                    <iframe src={`/page/preview?pageId=${previewPageId}`} />
                                 </React.Fragment>
                             }
                         </div>
@@ -197,11 +199,11 @@ class ManagePage extends React.Component<any, any> {
                 </div>
             </div>
 
-        )
+        );
     }
 }
 
 ReactDOM.render(
     <ManagePage />,
     document.querySelector('#app'),
-)
+);

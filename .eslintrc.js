@@ -21,10 +21,7 @@ module.exports = {
             "error",
             "tab"
         ],
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
+        "linebreak-style": [0, "error", "windows"],
         "quotes": [
             "error",
             "single"
@@ -33,8 +30,8 @@ module.exports = {
             "error",
             "always"
         ],
+        "no-console": false,
         "no-multi-spaces": 1,
-        "react/jsx-space-before-closing": 1, // 总是在自动关闭的标签前加一个空格，正常情况下也不需要换行
         "jsx-quotes": 1,
         "react/jsx-closing-bracket-location": 1, // 遵循JSX语法缩进/格式
         "react/jsx-boolean-value": 1, // 如果属性值为 true, 可以直接省略

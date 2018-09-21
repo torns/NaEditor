@@ -46,7 +46,7 @@ class PicLibModal extends React.Component<ContentProps, any> {
         const result = (await axios(INTERFACE.getImageList)).data;
         if (result.success === true) {
             const imgList = result.data.map((v: any) => {
-                const { name, url, } = v;
+                const { name, url } = v;
                 let isActive = false;
                 if (url === defaultValue) {
                     isActive = true;

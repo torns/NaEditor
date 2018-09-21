@@ -21,17 +21,15 @@ interface ModuleState {
 const Placeholder = {
     2: 'http://naeditor-image.oss-cn-shenzhen.aliyuncs.com/rq.jpg',
     // 4: 'http://naeditor-image.oss-cn-shenzhen.aliyuncs.com/lbt.jpg',
-}
-
+};
 
 class Module extends React.Component<ModuleProps, ModuleState> {
 
-    private moduleRef: any = React.createRef();
-
     static contextTypes = {
-        BASE_DATA: PropTypes.object
-    }
+        BASE_DATA: PropTypes.object,
+    };
 
+    private moduleRef: any = React.createRef();
 
     constructor(props: ModuleProps) {
         super(props);
@@ -41,7 +39,7 @@ class Module extends React.Component<ModuleProps, ModuleState> {
                 isActive: false,
                 top: 0,
                 height: 0,
-            }
+            };
         }
         this.state = {
             moduleData: props.moduleData,
@@ -137,20 +135,20 @@ class Module extends React.Component<ModuleProps, ModuleState> {
                 },
                 moduleTypeId,
                 configData,
-            }
+            },
         } = this.state;
         const isDecorate = this.context.BASE_DATA.pageType === 0;
         let moduleStyle = {};
         let isEmpty = false;
         if (isDecorate) {
             isEmpty = JSON.stringify(configData) === '{}';
-            moduleStyle = { ...{ minHeight: '50px' } }
+            moduleStyle = { ...{ minHeight: '50px' } };
             if (isEmpty) {
                 moduleStyle = {
                     ...moduleStyle, ...{
-                        backgroundImage: "url(" + Placeholder[2] + ")",
+                        backgroundImage: 'url(' + Placeholder[2] + ')',
                         height: '180px',
-                    }
+                    },
                 };
             }
         }

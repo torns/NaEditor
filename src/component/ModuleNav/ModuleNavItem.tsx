@@ -25,15 +25,15 @@ interface ModuleNavItemState {
 class ModuleNavItem extends React.Component<ModuleNavItemProps, ModuleNavItemState> {
 
     static contextTypes = {
-        BASE_DATA: PropTypes.object
-    }
+        BASE_DATA: PropTypes.object,
+    };
 
     constructor(props: ModuleNavItemProps) {
         super(props);
         this.state = {
             isDragOver: false,
             isVisible: true,
-        }
+        };
     }
 
     componentWillReceiveProps(nextProps: ModuleNavItemProps) {
@@ -62,7 +62,7 @@ class ModuleNavItem extends React.Component<ModuleNavItemProps, ModuleNavItemSta
         const {
             moduleData: {
                 moduleId,
-            }
+            },
         } = this.props;
         const { currentDrag } = this.props;
 

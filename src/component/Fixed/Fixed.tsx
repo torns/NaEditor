@@ -7,7 +7,6 @@ import Module from '../Module';
 import { IModuleData, HotspotInfo, IContext } from '../interface';
 import isServer from '../../common/script/isServer';
 
-
 interface FixedProps {
     moduleData: IModuleData;
 }
@@ -18,10 +17,9 @@ interface FixedState {
 
 export default class Fixed extends React.Component<FixedProps, FixedState> {
 
-
     static contextTypes = {
-        BASE_DATA: PropTypes.object
-    }
+        BASE_DATA: PropTypes.object,
+    };
 
     rootEl: HTMLDivElement | undefined = undefined;
 
@@ -37,11 +35,11 @@ export default class Fixed extends React.Component<FixedProps, FixedState> {
     }
 
     componentWillUnmount() {
-        this.rootEl && this.rootEl.remove();
+        this.rootEl && (this.rootEl.remove());
     }
 
     onClose = () => {
-        this.rootEl && this.rootEl.remove();
+        this.rootEl && (this.rootEl.remove());
     }
 
     renderChild = () => {
@@ -85,26 +83,27 @@ export default class Fixed extends React.Component<FixedProps, FixedState> {
         }
 
         return (
-            <div className="d-fixed"
+            <div
+                className="d-fixed"
                 style={{
                     left,
                     right,
                     top,
                     bottom,
-                    width: `${width ? `${width}${widthUnit}` : 'auto'}`
+                    width: `${width ? `${width}${widthUnit}` : 'auto'}`,
                 }}
             >
                 <div className="d-img">
                     <img src={imgUrl} />
                     <div className="d-hotspots-wrap">
                         {hotspots && hotspots.map((v: HotspotInfo, i: number) => {
-                            return <a key={i} href={v.url}></a>
+                            return <a key={i} href={v.url} />;
                         })}
                     </div>
 
                 </div>
             </div>
-        )
+        );
     }
 
     render() {

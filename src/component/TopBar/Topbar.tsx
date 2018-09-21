@@ -17,24 +17,23 @@ interface TopbarState {
     isPreviewActive: boolean;
 }
 
-
 class Topbar extends React.Component<TopbarProps, TopbarState> {
 
     static contextTypes = {
-        BASE_DATA: PropTypes.object
-    }
+        BASE_DATA: PropTypes.object,
+    };
 
     static defaultProps: TopbarProps = {
         hasPreview: true,
         hasPublish: true,
-    }
+    };
 
     constructor(props: TopbarProps) {
         super(props);
         this.state = {
             isMounted: false,
             isPreviewActive: false,
-        }
+        };
     }
 
     componentDidMount() {
@@ -54,8 +53,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
         return (
             <div className={`d-preview-wrap ${this.state.isPreviewActive ? 'active' : ''}`}>
                 <div className="d-phone">
-                    <div className="J_previewContainer d-preview-container">
-                    </div>
+                    <div className="J_previewContainer d-preview-container" />
                 </div>
                 <div className="d-desc">
                     <div className="d-qrcode">
@@ -70,7 +68,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
                 >
                     <Icon type="close" />
                 </div>
-                <div className="d-canvas-filter"></div>
+                <div className="d-canvas-filter" />
             </div>
         );
     }
@@ -81,7 +79,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
             isPreviewActive: true,
         });
         (document.querySelector('.J_previewContainer') as any).innerHTML = `
-		<iframe class="cd-canvas J_canvas" src="/page/preview?pageId=${pageId}">                
+		<iframe class="cd-canvas J_canvas" src="/page/preview?pageId=${pageId}">
 		</iframe>`;
     }
 
@@ -112,20 +110,21 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
                 <div className="d-right">
                     {hasPreview &&
                         <React.Fragment>
-                            <div className="d-line"></div>
+                            <div className="d-line" />
                             <div
                                 className="J_preview d-preview"
                                 onClick={this.preview}
-                            >预览</div>
+                            >预览
+                            </div>
                         </React.Fragment>
                     }
                     {hasPublish &&
                         <React.Fragment>
-                            <div className="d-line"></div>
+                            <div className="d-line" />
                             <div className="J_publish d-publish" onClick={this.publish}>发布</div>
                         </React.Fragment>
                     }
-                    <div className="d-line"></div>
+                    <div className="d-line" />
                     <div className="d-username">
                         <span>您好，{username}</span>
                         <Icon type="logout" onClick={this.logout} />
@@ -136,7 +135,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
                     (window as any).document.querySelector('.J_previewWrap'),
                 )}
             </div>
-        )
+        );
     }
 }
 

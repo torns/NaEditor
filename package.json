@@ -105,6 +105,7 @@
     },
     "devDependencies": {
         "awesome-typescript-loader": "^5.2.0",
+        "babel-eslint": "^9.0.0",
         "clean-webpack-plugin": "^0.1.19",
         "eslint": "^4.19.1",
         "eslint-config-airbnb": "^17.0.0",

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { addModuleRequest } from '../../actions';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { Icon } from 'antd';
 import PropTypes from 'prop-types';
@@ -20,15 +20,15 @@ interface ModuleListState {
 class ModuleList extends Component<ModuleListProps, ModuleListState> {
 
     static contextTypes = {
-        BASE_DATA: PropTypes.object
-    }
+        BASE_DATA: PropTypes.object,
+    };
 
     constructor(props: ModuleListProps) {
         super(props);
         this.addModule = this.addModule.bind(this);
         this.state = {
             list: [],
-        }
+        };
     }
 
     async componentDidMount() {
@@ -37,7 +37,7 @@ class ModuleList extends Component<ModuleListProps, ModuleListState> {
             const list = result.data.map((v: any) => {
                 v.isActive = true;
                 return v;
-            })
+            });
             this.setState({
                 list,
             });
@@ -53,7 +53,7 @@ class ModuleList extends Component<ModuleListProps, ModuleListState> {
         const args = {
             moduleTypeId,
             pageId,
-        }
+        };
         addModuleRequest(args);
     }
 
@@ -68,7 +68,7 @@ class ModuleList extends Component<ModuleListProps, ModuleListState> {
                 v.isActive = !v.isActive;
             }
             return v;
-        })
+        });
         this.setState({
             list: newList,
         });
@@ -84,7 +84,7 @@ class ModuleList extends Component<ModuleListProps, ModuleListState> {
                         <React.Fragment key={i}>
                             <div
                                 className={`d-module-cate ${moduleCate.isActive === true ? 'active' : ''}`}
-                                onClick={() => { this.activeChange(i) }}
+                                onClick={() => { this.activeChange(i); }}
                             >
                                 <Icon type="caret-right" />
                                 <span className="d-cate-name">{moduleCate.name}</span>
@@ -96,20 +96,20 @@ class ModuleList extends Component<ModuleListProps, ModuleListState> {
                                         className="d-module-item"
                                         data-type-id={module.moduleTypeId}
                                         draggable={true}
-                                        onDoubleClick={(e) => { this.addModule(module.moduleTypeId) }}
+                                        onDoubleClick={(e) => { this.addModule(module.moduleTypeId); }}
                                         onDragStart={this.moduleDragStart.bind(this, module.moduleTypeId)}
                                     >
                                         <div className="d-module-icon">
-                                            <span style={{ backgroundImage: `url(${module.iconUrl})` }}></span>
+                                            <span style={{ backgroundImage: `url(${module.iconUrl})` }} />
                                         </div>
                                         <span className="d-module-name">{module.moduleName}</span>
-                                    </div>
+                                    </div>,
                                 )}
                             </div>
-                        </React.Fragment>
+                        </React.Fragment>,
                     )}
                 </div>
-            )
+            );
         } else {
             return null;
         }

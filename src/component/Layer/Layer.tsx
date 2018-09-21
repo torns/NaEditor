@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import Module from '../Module';
 import { IModuleData, HotspotInfo, IContext } from '../interface';
 
-
 interface LayerProps {
     moduleData: IModuleData;
 }
@@ -15,20 +14,17 @@ interface LayerState {
 
 }
 
-
-
 export default class Layer extends React.Component<LayerProps, LayerState> {
 
+    static contextTypes = {
+        BASE_DATA: PropTypes.object,
+    };
+
+    rootEl: HTMLDivElement | undefined = undefined;
 
     constructor(props: LayerProps) {
         super(props);
     }
-
-    static contextTypes = {
-        BASE_DATA: PropTypes.object
-    }
-
-    rootEl: HTMLDivElement | undefined = undefined;
 
     componentDidMount() {
         this.rootEl = document.createElement('div');
@@ -74,19 +70,20 @@ export default class Layer extends React.Component<LayerProps, LayerState> {
                     <img src={imgUrl} />
                     <div
                         className="d-close"
-                        onClick={this.onClose} >
+                        onClick={this.onClose}
+                    >
                         <Icon type="close" />
                     </div>
                     <div className="d-hotspots-wrap">
                         {hotspots && hotspots.map((v: HotspotInfo) => {
-                            <a href={v.url}></a>
+                            <a href={v.url} />;
                         })}
                     </div>
 
                 </div>
-                <div className="d-mask" onClick={this.onClose} onTouchMove={this.preventScroll}></div>
+                <div className="d-mask" onClick={this.onClose} onTouchMove={this.preventScroll} />
             </React.Fragment>
-        )
+        );
     }
 
     render() {

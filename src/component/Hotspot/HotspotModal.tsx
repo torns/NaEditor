@@ -313,7 +313,7 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
                     y: transform(area.y || 0),
                     w: transform(area.w || 0),
                     h: transform(area.h || 0),
-                }
+                },
             };
             return result;
         });
@@ -327,7 +327,7 @@ class HotspotModal extends React.Component<HotspotModalProps, HotspotModalState>
         return addRef.map(v => {
             v.area && (v.area.ref = 375);
             return v;
-        })
+        });
     }
 
     handleOk = () => {

@@ -29,7 +29,7 @@ class PageForm extends React.Component<PageFormProps, any> {
                     resolve(result);
                 }
             });
-        })
+        });
 
     }
 
@@ -37,12 +37,11 @@ class PageForm extends React.Component<PageFormProps, any> {
         const { getFieldDecorator } = this.props.form;
         return (
             <Form layout="inline">
-                <FormItem label="页面名称"
-                >
+                <FormItem label="页面名称">
                     {getFieldDecorator('pageName', {
                         rules: [{ required: true, message: '请输入页面名称' }],
                     })(
-                        <Input placeholder="页面名称" />
+                        <Input placeholder="页面名称" />,
                     )}
                 </FormItem>
             </Form>
@@ -52,16 +51,15 @@ class PageForm extends React.Component<PageFormProps, any> {
 
 const PageFormWrap = Form.create()(PageForm);
 
-
 class CreateModalModal extends React.Component<ContentProps, any> {
+
+    form: any = {};
 
     constructor(props: ContentProps) {
         super(props);
         this.state = {
         };
     }
-
-    form: any = {};
 
     handleSubmit = async () => {
         const result = (await this.form.handleSubmit()).data;
@@ -89,9 +87,11 @@ class CreateModalModal extends React.Component<ContentProps, any> {
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
             >
-                <PageFormWrap wrappedComponentRef={(form: any) => {
-                    this.form = form;
-                }} />
+                <PageFormWrap
+                    wrappedComponentRef={(form: any) => {
+                        this.form = form;
+                    }}
+                />
             </Modal>
         );
     }

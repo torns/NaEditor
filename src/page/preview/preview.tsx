@@ -16,7 +16,6 @@ Action.getInitData(1).then((BASE_DATA: IBASE_DATA) => {
 				<Canvas />
 			</ContextProvider>
 		</Provider>,
-		document.querySelector('#Container')
+		document.querySelector('#Container'),
 	);
-})
-
+});

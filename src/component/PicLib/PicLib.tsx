@@ -73,7 +73,7 @@ class PicLib extends React.Component<PicLibProps, any> {
         const shouldRemove = !!onRemove;
         return (
             <InputGroup
-                compact
+                compact={true}
                 className="d-pic-lib"
             >
                 {shouldPosition &&

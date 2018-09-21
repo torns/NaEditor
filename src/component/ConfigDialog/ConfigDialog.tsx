@@ -72,7 +72,7 @@ class ConfigDialog extends React.Component<ConfigDialogProps, any> {
                     moduleData={moduleData}
                     ref={this.subRef}
                 />;
-            case 5://浮层
+            case 5: // 浮层
                 return <LayerConfig
                     moduleData={moduleData}
                     ref={this.subRef}

@@ -23,8 +23,8 @@ interface ModuleWrapState {
 class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
 
     static contextTypes = {
-        BASE_DATA: PropTypes.object
-    }
+        BASE_DATA: PropTypes.object,
+    };
 
     constructor(props: ModuleWrapProps) {
         super(props);
@@ -47,7 +47,7 @@ class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
                 insertAfter(placeholder, moduleRef);
                 (window as any).resizeIframe();
 
-                // 刷新本模块之后所有模块的top值 
+                // 刷新本模块之后所有模块的top值
                 // TODO 有性能问题，暂时屏蔽
                 // allModuleTopChange(moduleData.moduleId, placeholder.clientHeight);
             });

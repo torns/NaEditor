@@ -1,5 +1,7 @@
 
-http://h5editor.cn:8080 {
-    gzip
-    root ./dist
+http://localhost:3000/api {
+    log stdout
+    proxy / http://47.107.69.189 {
+        transparent
+    }
 }

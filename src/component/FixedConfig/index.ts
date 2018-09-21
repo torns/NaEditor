@@ -1,3 +1,3 @@
 import FixedConfig from './FixedConfig';
-import './FixedConfig.scss';
+import './FixedConfig.less';
 export default FixedConfig;

@@ -1,3 +1,3 @@
 import TextConfig from './TextConfig';
-import './TextConfig.scss';
+import './TextConfig.less';
 export default TextConfig;

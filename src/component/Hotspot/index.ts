@@ -1,7 +1,7 @@
 import Hotspot from './Hotspot';
 
-import './Hotspot.scss';
-import './HotspotModal.scss';
-import './Area.scss';
+import './Hotspot.less';
+import './HotspotModal.less';
+import './Area.less';
 
 export default Hotspot;

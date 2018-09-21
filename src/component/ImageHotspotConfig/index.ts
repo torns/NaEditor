@@ -1,3 +1,3 @@
 import ImageHotspotConfig from './ImageHotspotConfig';
-import './ImageHotspotConfig.scss';
+import './ImageHotspotConfig.less';
 export default ImageHotspotConfig;

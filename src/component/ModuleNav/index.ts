@@ -1,3 +1,3 @@
 import ModuleNav from './ModuleNav';
-import './ModuleNav.scss';
+import './ModuleNav.less';
 export default ModuleNav;

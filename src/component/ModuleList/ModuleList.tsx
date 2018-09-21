@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Icon } from 'antd';
 import PropTypes from 'prop-types';
 
-import './ModuleList.scss';
+import './ModuleList.less';
 import { IState } from '../interface';
 import INTERFACE from '../../common/script/INTERFACE';
 

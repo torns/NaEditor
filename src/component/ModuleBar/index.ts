@@ -1,3 +1,3 @@
 import ModuleBar from './ModuleBar';
-import './ModuleBar.scss';
+import './ModuleBar.less';
 export default ModuleBar;

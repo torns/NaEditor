@@ -1,5 +1,5 @@
 require('antd/dist/antd.css');
-import './index.scss';
+import './index.less';
 import './preview';
 
 // 模块样式

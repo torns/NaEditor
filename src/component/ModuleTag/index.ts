@@ -1,3 +1,3 @@
 import ModuleTag from './ModuleTag';
-import './ModuleTag.scss';
+import './ModuleTag.less';
 export default ModuleTag;

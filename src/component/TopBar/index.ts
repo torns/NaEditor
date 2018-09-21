@@ -1,3 +1,3 @@
 import Topbar from './Topbar';
-import './Topbar.scss';
+import './Topbar.less';
 export default Topbar;

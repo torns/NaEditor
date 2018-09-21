@@ -1,5 +1,5 @@
 require('antd/dist/antd.css');
-import './view.scss';
+import './view.less';
 import './view';
 
 // 模块样式

@@ -1,3 +1,3 @@
 import ModuleTagList from './ModuleTagList';
-import './ModuleTagList.scss';
+import './ModuleTagList.less';
 export default ModuleTagList;

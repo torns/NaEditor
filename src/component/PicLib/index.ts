@@ -1,8 +1,8 @@
 import { PicLibProps } from './PicLib';
 import PicLib from './PicLib';
 
-import './PicLib.scss';
-import './PicLibModal.scss';
+import './PicLib.less';
+import './PicLibModal.less';
 
 export { PicLibProps };
 export default PicLib;

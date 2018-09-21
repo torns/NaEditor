@@ -1,5 +1,5 @@
-@import '../../common/style/common.scss';
-$canvasOffsetTop:90px;
+@import '../../common/style/common.less';
+@canvasOffsetTop: 90px;
 .cd-main-area {
     position: fixed;
     top: 0;
@@ -20,7 +20,7 @@ $canvasOffsetTop:90px;
         transition: filter .5s ease-out;
         .cd-iframe-outer-warp {
             position: absolute;
-            top: $canvasOffsetTop;
+            top: @canvasOffsetTop;
             left: calc(50vw - 187px);
             margin: 0 auto 40px;
             border-radius: 2px 2px 0 0;
@@ -164,8 +164,7 @@ $canvasOffsetTop:90px;
         right: 100px;
         top: 0;
         bottom: 0;
-        z-index: -1;
-        // background: #a9a9a9;
+        z-index: -1; // background: #a9a9a9;
     }
     .d-phone {
         position: absolute;

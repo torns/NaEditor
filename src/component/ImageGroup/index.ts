@@ -1,3 +1,3 @@
 import ImageGroup from './ImageGroup';
-import './ImageGroup.scss';
+import './ImageGroup.less';
 export default ImageGroup;

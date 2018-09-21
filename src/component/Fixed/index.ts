@@ -1,3 +1,3 @@
 import Fixed from './Fixed';
-import './Fixed.scss';
+import './Fixed.less';
 export default Fixed;

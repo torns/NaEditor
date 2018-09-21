@@ -1,13 +1,13 @@
-$headerHeight:45px;
-$footerHeight:50px;
-$outerPadding:15px;
-$contentMinHeight:100px;
+@headerHeight: 45px;
+@footerHeight: 50px;
+@outerPadding: 15px;
+@contentMinHeight: 100px;
 .d-config-dialog {
     position: absolute;
     left: calc(50vw + 253px);
     box-sizing: border-box;
     width: 340px;
-    padding: 0 $outerPadding;
+    padding: 0 @outerPadding;
     background: #fff;
     z-index: 10;
     transition: top .2s ease-out;
@@ -16,12 +16,12 @@ $contentMinHeight:100px;
     .d-header {
         position: absolute;
         top: 0;
-        left: $outerPadding;
-        right: $outerPadding;
+        left: @outerPadding;
+        right: @outerPadding;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: $headerHeight;
+        height: @headerHeight;
         border-bottom: 1px solid #f2f2f2;
         i {
             float: right;
@@ -44,11 +44,11 @@ $contentMinHeight:100px;
     }
     .d-content {
         min-height: 100px;
-        max-height: 700px - $headerHeight - $footerHeight;
+        max-height: 700px - @headerHeight - @footerHeight;
         overflow-x: hidden;
         overflow-y: auto;
-        margin-top: $headerHeight;
-        margin-bottom: $footerHeight;
+        margin-top: @headerHeight;
+        margin-bottom: @footerHeight;
     }
     .d-footer {
         position: absolute;
@@ -58,9 +58,9 @@ $contentMinHeight:100px;
         box-sizing: border-box;
         border-top: 1px solid #f2f2f2;
         bottom: 0;
-        left: $outerPadding;
-        right: $outerPadding;
-        height: $footerHeight;
+        left: @outerPadding;
+        right: @outerPadding;
+        height: @footerHeight;
         button {
             margin: 0 10px;
         }

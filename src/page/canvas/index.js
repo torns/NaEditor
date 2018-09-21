@@ -1,6 +1,6 @@
 require('antd/dist/antd.css');
-import '../../common/style/common.scss';
-import './index.scss';
+import '../../common/style/common.less';
+import './index.less';
 
 // 模块样式
 import '../../common/script/moduleStyle';

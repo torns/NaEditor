@@ -1,2 +1,2 @@
-import './manage.scss';
+import './manage.less';
 import './manage';

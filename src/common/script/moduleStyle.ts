@@ -2,12 +2,12 @@
 require('antd/dist/antd.css');
 
 // 需要引入的样式
-import '../../component/Module/Module.scss';
-import '../../component/ModuleWrap/ModuleWrap.scss';
-import '../../component/Canvas/Canvas.scss';
-import '../../component/ImageHotspot/ImageHotspot.scss';
-import '../../component/Layer/Layer.scss';
-import '../../component/Fixed/Fixed.scss';
+import '../../component/Module/Module.less';
+import '../../component/ModuleWrap/ModuleWrap.less';
+import '../../component/Canvas/Canvas.less';
+import '../../component/ImageHotspot/ImageHotspot.less';
+import '../../component/Layer/Layer.less';
+import '../../component/Fixed/Fixed.less';
 
 // 轮播样式
 import "slick-carousel/slick/slick.css";

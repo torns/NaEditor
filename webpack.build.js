@@ -35,11 +35,11 @@ let result = merge(config, {
                 'css-loader',
             ]
         }, {
-            test: /\.scss$/,
+            test: /\.less$/,
             use: [
                 MiniCssExtractPlugin.loader,
                 'css-loader',
-                'sass-loader',
+                'less-loader',
             ]
         }, ]
     },

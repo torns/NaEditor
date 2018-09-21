@@ -7,7 +7,7 @@ import Decorate from './Decorate';
 import store from '../../store';
 import ContextProvider from '../../component/ContextProvider';
 import Action from '../../common/script/action';
-import './index.scss';
+import './index.less';
 
 Action.getInitData(0).then((BASE_DATA) => {
     ReactDom.render(

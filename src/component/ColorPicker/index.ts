@@ -1,3 +1,3 @@
 import ColorPicker from './ColorPicker';
-import './ColorPicker.scss';
+import './ColorPicker.less';
 export default ColorPicker;

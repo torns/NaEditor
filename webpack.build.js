@@ -17,7 +17,7 @@ const isAnalyze = process.env.npm_config_argv.includes('analyze');
 const HtmlWebpackPlugins = glob.sync('src/page/*/index.html').map((v) => {
     const name = v.replace(/src\/page\/(.*)\/index.html/ig, '$1');
     return new HtmlWebpackPlugin({
-        filename: `/page/${name}.html`,
+        filename: `./page/${name}.html`,
         template: v,
         chunks: [`page/${name}`],
         favicon: path.join(__dirname, '/src/assets/images/bitbug_favicon.ico'),

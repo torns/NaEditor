@@ -156,7 +156,6 @@ module.exports = {
     // externals: {
     //     jquery: 'jQuery',
     // },
-    devtool: 'cheap-module-eval-source-map',
     resolve: {
         extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
     },

@@ -14,30 +14,26 @@ const plugins = [new webpack.HotModuleReplacementPlugin(),
     ),
 ];
 module.exports = merge(config, {
-        mode: 'development',
-        devServer: {
-            contentBase: path.join(__dirname, '/dist'),
-            publicPath: '/',
-            port: 8081,
-            hot: true,
-            headers: {
-                'Access-Control-Allow-Origin': '*', // 5
-            },
-            disableHostCheck: true,
+    mode: 'development',
+    devtool: 'cheap-module-eval-source-map',
+    devServer: {
+        contentBase: path.join(__dirname, '/dist'),
+        publicPath: '/',
+        port: 8081,
+        hot: true,
+        headers: {
+            'Access-Control-Allow-Origin': '*', // 5
         },
-        node: {
-            fs: "empty"
-        },
-        module: {
-            rules: [{
-                test: /\.less/,
-                use: ['style-loader', 'css-loader', 'less-loader']
-            }, {
-                test: /\.css/,
-                use: ['style-loader', 'css-loader']
-            }, ]
-        },
-        plugins,
-    }
-
-)
+        disableHostCheck: true,
+    },
+    module: {
+        rules: [{
+            test: /\.less/,
+            use: ['style-loader', 'css-loader', 'less-loader']
+        }, {
+            test: /\.css/,
+            use: ['style-loader', 'css-loader']
+        }, ]
+    },
+    plugins,
+})

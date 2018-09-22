@@ -1,7 +1,8 @@
-const { serverAddress } = require('../../../config');
+const { serverAddress, viewAddress } = require('../../../config');
 
 const SLD = {
     backend: serverAddress,
+    view: viewAddress,
 };
 
 const prefix = '/api';
@@ -25,6 +26,8 @@ const INTERFACE = {
     getInitData: `${SLD.backend}${prefix}/getInitData`, // 获取页面初始化数据
 
     logout: `${SLD.backend}${prefix}/logout`, // 退出登录
+
+    viewAddress: `${SLD.view}/page`,
 };
 
 export default INTERFACE;

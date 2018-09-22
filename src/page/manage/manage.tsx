@@ -95,7 +95,7 @@ class ManagePage extends React.Component<any, any> {
             title: '页面名称',
             key: 'pageName',
             render: (item: IPage) => {
-                return <a href={`/page/view?pageId=${item.id}`} target="_blank">{item.pageName}</a>;
+                return <a href={`${INTERFACE.viewAddress}?pageId=${item.id}`} target="_blank">{item.pageName}</a>;
             },
         }, {
             title: '创建时间',
@@ -112,7 +112,7 @@ class ManagePage extends React.Component<any, any> {
                         <a href={`/page/decorate?pageId=${item.id}`} target="_blank">
                             去装修
                         </a>
-                        <Popover content={this.viewUrl(`${serverAddress}/page/view?pageId=${item.id}`)} title="浏览地址" trigger="hover">
+                        <Popover content={this.viewUrl(`${INTERFACE.viewAddress}?pageId=${item.id}`)} title="浏览地址" trigger="hover">
                             <a style={{ marginLeft: '10px' }}>获取地址</a>
                         </Popover>
                         <a

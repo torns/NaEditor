@@ -21,6 +21,14 @@ export interface HotspotInfo {
     area?: AreaInfo;
 }
 
+// 商品定义
+export interface IGoodsInfo {
+    name: string;
+    id: number;
+    img: string;
+    price?: number;
+}
+
 // tempData定义
 export interface ITempData {
     isActive: boolean;

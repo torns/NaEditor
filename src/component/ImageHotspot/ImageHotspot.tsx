@@ -5,6 +5,7 @@ import Module from '../Module';
 import { IModuleData, HotspotInfo } from '../interface';
 import { ImageInfo } from '../ImageHotspotConfig/interface';
 import Hotspot from '../Hotspot';
+import LazyImage from '../LazyImage';
 
 interface ImageHotspotProps {
     moduleData: IModuleData;
@@ -32,7 +33,7 @@ export default class ImageHotspot extends React.Component<ImageHotspotProps, Ima
         return (
             <div className="d-img-wrap">
                 {imgs.map((v, i) => (
-                    <img key={i} src={v.url} />
+                    <LazyImage key={i} src={v.url} />
                 ))}
             </div>
         );

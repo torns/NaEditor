@@ -5,7 +5,7 @@ host = `127.0.0.1`; //本地
 // dev
 module.exports = {
     host,
-    serverAddress: `http://h5editor.cn`,
-    staticAddress: `http://static.h5editor.cn`,
-    viewAddress: `http://view.h5editor.cn`,
+    serverAddress: `//h5editor.cn`,
+    staticAddress: `//static.h5editor.cn`,
+    viewAddress: `//view.h5editor.cn`,
 }

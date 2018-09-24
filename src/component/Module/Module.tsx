@@ -19,8 +19,8 @@ interface ModuleState {
 }
 
 const Placeholder = {
-    2: 'http://naeditor-image.oss-cn-shenzhen.aliyuncs.com/rq.jpg',
-    // 4: 'http://naeditor-image.oss-cn-shenzhen.aliyuncs.com/lbt.jpg',
+    2: '//naeditor-image.oss-cn-shenzhen.aliyuncs.com/rq.jpg',
+    // 4: '//naeditor-image.oss-cn-shenzhen.aliyuncs.com/lbt.jpg',
 };
 
 class Module extends React.Component<ModuleProps, ModuleState> {

@@ -24,6 +24,12 @@ class CarouselConfig extends React.Component<CarouselConfigProps, CarouselConfig
 
     toModuleData(configData: any) {
         const { moduleConfig } = this.props;
+        if (configData.imgs) {
+            configData.imgs = configData.imgs.map((v: ImageInfo) => {
+                v.url = v.url.replace(/https?:\/\//g, '//');
+                return v;
+            });
+        }
         const result = Object.assign({}, moduleConfig.moduleData, {
             data: configData,
         });

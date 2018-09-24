@@ -58,6 +58,12 @@ class ImageHotspotConfig extends Component<ImageHotspotConfigProps, ImageHotspot
 
     toModuleData(configData: ImageHotspotConfData) {
         const { moduleConfig } = this.props;
+        if (configData.imgs) {
+            configData.imgs = configData.imgs.map(v => {
+                v.url = v.url.replace(/https?:\/\//g, '//');
+                return v;
+            });
+        }
         const result = Object.assign({}, moduleConfig.moduleData, {
             data: configData,
         });

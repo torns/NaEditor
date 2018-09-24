@@ -2,15 +2,15 @@ const isServer = typeof window === 'undefined';
 
 let protocol;
 if (isServer) {
-    protocol = 'http://';
+    protocol = 'https://';
 } else {
     protocol = '//';
 }
 
 
 let host;
-host = `47.107.69.189`; //远程
-// host = `127.0.0.1`; //本地
+// host = `47.107.69.189`; //远程
+host = `127.0.0.1`; //本地
 
 // dev
 module.exports = {

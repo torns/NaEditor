@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { Input } from 'antd';
+import { connect } from 'react-redux';
 
-import { IModuleData, IModuleConfig } from '../interface';
+import { IModuleData, IModuleConfig, IState } from '../interface';
 import Module from '../Module';
+
+const mapStateToProps = (state: IState) => {
+    return {
+        moduleConfig: state.moduleConfig,
+    };
+};
 
 interface GoodsConfigProps {
     moduleData: IModuleData;
@@ -13,7 +20,7 @@ interface GoodsConfigState {
     moduleData: IModuleData;
 }
 
-export default class GoodsConfig extends Component<GoodsConfigProps, GoodsConfigState> {
+class GoodsConfig extends Component<GoodsConfigProps, GoodsConfigState> {
     constructor(props: GoodsConfigProps) {
         super(props);
         const { moduleData } = props;
@@ -22,27 +29,30 @@ export default class GoodsConfig extends Component<GoodsConfigProps, GoodsConfig
         };
     }
 
-    goodsChange = (e: change) => {
+    goodsChange = (strArr: string[]) => {
 
-        this.setState({
-            moduleData,
-        });
+        // this.setState({
+        //     moduleData,
+        // });
     }
 
     render() {
-        const {
-            moduleData,
-            moduleData: {
-                data: {
-                    goodsList,
-                },
-            },
-        } = this.state;
-        return <Module moduleData={moduleData}>
-            <Input
-                value={goodsList}
-                onChange={(e) => { this.goodsChange(e.target.value.split(',')); }}
-            />
-        </Module>;
+        return null;
+        // const {
+        //     moduleData,
+        //     moduleData: {
+        //         data: {
+        //             goodsList,
+        //         },
+        //     },
+        // } = this.state;
+        // return <Module moduleData={moduleData}>
+        //     <Input
+        //         value={goodsList}
+        //         onChange={(e) => { this.goodsChange(e.target.value.split(',')); }}
+        //     />
+        // </Module>;
     }
 }
+
+export default connect(mapStateToProps, {}, undefined, { withRef: true })(GoodsConfig);

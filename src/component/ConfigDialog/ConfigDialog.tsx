@@ -9,6 +9,7 @@ import TextConfig from '../TextConfig';
 import CarouselConfig from '../CarouselConfig';
 import LayerConfig from '../LayerConfig';
 import FixedConfig from '../FixedConfig';
+import GoodsConfig from '../GoodsConfig';
 
 interface ConfigDialogProps {
     module?: any;
@@ -79,6 +80,11 @@ class ConfigDialog extends React.Component<ConfigDialogProps, any> {
                 />;
             case 6: // 定位
                 return <FixedConfig
+                    moduleData={moduleData}
+                    ref={this.subRef}
+                />;
+            case 7: // 商品
+                return <GoodsConfig
                     moduleData={moduleData}
                     ref={this.subRef}
                 />;

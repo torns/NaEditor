@@ -17,41 +17,49 @@ interface GoodsConfigProps {
 }
 
 interface GoodsConfigState {
-    moduleData: IModuleData;
+    skuids: string;
 }
 
 class GoodsConfig extends Component<GoodsConfigProps, GoodsConfigState> {
     constructor(props: GoodsConfigProps) {
         super(props);
         const { moduleData } = props;
+        const { data: { skuids } } = moduleData;
         this.state = {
-            moduleData,
+            skuids,
         };
     }
 
-    goodsChange = (strArr: string[]) => {
+    skuChange = (skuids: string) => {
 
-        // this.setState({
-        //     moduleData,
-        // });
+        this.setState({
+            skuids,
+        });
+    }
+
+    getConfigData = () => {
+        return this.state;
+    }
+
+    toModuleData(configData: any) {
+        const { moduleConfig } = this.props;
+        const result = Object.assign({}, moduleConfig.moduleData, {
+            data: configData,
+        });
+        return result;
     }
 
     render() {
-        return null;
-        // const {
-        //     moduleData,
-        //     moduleData: {
-        //         data: {
-        //             goodsList,
-        //         },
-        //     },
-        // } = this.state;
-        // return <Module moduleData={moduleData}>
-        //     <Input
-        //         value={goodsList}
-        //         onChange={(e) => { this.goodsChange(e.target.value.split(',')); }}
-        //     />
-        // </Module>;
+        const {
+            skuids,
+        } = this.state;
+
+        return (
+            <Input
+                value={skuids}
+                onChange={(e) => { this.skuChange(e.target.value); }}
+            />
+        );
     }
 }
 

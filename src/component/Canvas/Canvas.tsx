@@ -11,6 +11,7 @@ import { fetchModuleList, focusModule, addModuleRequest } from '../../actions';
 import Carousel from '../Carousel';
 import Layer from '../Layer';
 import Fixed from '../Fixed';
+import Goods from '../Goods';
 
 interface ICanvasProps {
     fetchModuleList: (pageId: number) => void;
@@ -150,6 +151,8 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
                         return <Layer key={v.moduleId} moduleData={v} />;
                     case 6:
                         return <Fixed key={v.moduleId} moduleData={v} />;
+                    case 7: // 商品
+                        return <Goods key={v.moduleId} moduleData={v} />;
                     default:
                         return null;
                 }

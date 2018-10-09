@@ -15,6 +15,7 @@ interface GoodsState {
 }
 
 export default class Goods extends Component<GoodsProps, GoodsState> {
+
     constructor(props: GoodsProps) {
         super(props);
         const { moduleData } = this.props;
@@ -24,32 +25,54 @@ export default class Goods extends Component<GoodsProps, GoodsState> {
             skuids,
             goodsList,
         };
+        if (skuids) {
+            this.requestGoodsInfo(skuids);
+        }
     }
 
     async requestGoodsInfo(skuids: string) {
-        let result = await Axios.get(INTERFACE.getGoodsInfo, {
+        const result = (await Axios(INTERFACE.getGoodsInfo, {
             params: {
                 skuids,
             },
-        });
-        result = await result.data();
-        console.log(result);
+        })).data;
+
+        if (result.success === true) {
+            this.setState({
+                goodsList: result.data,
+            });
+        }
     }
 
     componentWillReceiveProps(nextProps: GoodsProps) {
         const { skuids } = nextProps.moduleData.data;
-        this.setState({
-            skuids,
-        }, () => {
-            this.requestGoodsInfo(skuids);
+        if (skuids !== this.state.skuids) {
+            this.setState({
+                skuids,
+            }, () => {
+                this.requestGoodsInfo(skuids);
+            });
+        }
+    }
+
+    renderGoodsList(goodsList: IGoodsInfo[]) {
+        return goodsList.map((v, i) => {
+            return (
+                <div key={v.id}>
+                    <img src={v.img} />
+                    <p key={v.id}>{v.name}</p>
+                    <p>{v.price}</p>
+                </div>
+            );
         });
     }
 
     render() {
         const { moduleData } = this.props;
+        const { goodsList } = this.state;
         return (
             <Module moduleData={moduleData}>
-                <div>d3213as</div>
+                {this.renderGoodsList(goodsList)}
             </Module>
         );
     }

@@ -75,7 +75,7 @@
         "qrcode.react": "^0.8.0",
         "rc-color-picker": "^1.2.6",
         "rc-editor-mention": "^1.1.7",
-        "react": "^16.4.1",
+        "react": "^16.5.2",
         "react-color": "^2.14.1",
         "react-dom": "^16.4.1",
         "react-draft-wysiwyg": "^1.12.13",

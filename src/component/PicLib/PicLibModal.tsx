@@ -59,12 +59,12 @@ class PicLibModal extends React.Component<ContentProps, any> {
         }
     }
 
-    renderTitle = () => (
-        <Fragment>
-            <span className="d-title">图片选择器</span>
-            <span className="d-desc">(支持格式为xxx)</span>
-        </Fragment>
-    )
+    renderTitle = () => {
+        return [
+            <span className="d-title" key={1}>图片选择器</span>,
+            <span className="d-desc" key={2}>(支持格式为xxx)</span>,
+        ];
+    }
 
     handleOk = () => {
         const activeList = this.state.imgList.filter((v: ImageInfo) => {

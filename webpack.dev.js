@@ -21,8 +21,12 @@ module.exports = merge(config, {
         publicPath: '/',
         port: 8081,
         hot: true,
+        allowedHosts: [
+            'h5editor.cn'
+        ],
         headers: {
-            'Access-Control-Allow-Origin': '*', // 5
+            'Access-Control-Allow-Origin': 'h5editor.cn', // 5
+            'Access-Control-Allow-Credentials': false
         },
         disableHostCheck: true,
     },

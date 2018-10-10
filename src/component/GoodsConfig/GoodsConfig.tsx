@@ -11,20 +11,28 @@ interface GoodsConfigProps {
 
 interface GoodsConfigState {
     skuids: string;
+    templateId: string;
 }
 
 class GoodsConfig extends Component<GoodsConfigProps, GoodsConfigState> {
     constructor(props: GoodsConfigProps) {
         super(props);
-        const { skuids } = props.moduleData.configData;
+        const { skuids, templateId } = props.moduleData.configData;
         this.state = {
             skuids,
+            templateId,
         };
     }
 
     skuChange = (skuids: string) => {
         this.setState({
             skuids,
+        });
+    }
+
+    templateChange = (templateId: string) => {
+        this.setState({
+            templateId,
         });
     }
 
@@ -49,14 +57,23 @@ class GoodsConfig extends Component<GoodsConfigProps, GoodsConfigState> {
 
     render() {
         const {
-            skuids,
+            skuids, templateId,
         } = this.state;
         return (
-            <Input
-                placeholder="请输入商品id，多个id以英文逗号隔开"
-                value={skuids}
-                onChange={(e) => { this.skuChange(e.target.value); }}
-            />
+            <div>
+                <p className="d-title">输入商品</p>
+                <Input
+                    placeholder="请输入商品id，多个id以英文逗号隔开"
+                    value={skuids}
+                    onChange={(e) => { this.skuChange(e.target.value); }}
+                />
+                <p className="d-title">模板选择</p>
+                <Input
+                    placeholder="请输入模板id，多个id以英文逗号隔开"
+                    value={templateId}
+                    onChange={(e) => { this.templateChange(e.target.value); }}
+                />
+            </div>
         );
     }
 }

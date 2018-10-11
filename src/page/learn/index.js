@@ -1,5 +1,6 @@
 import { createStore } from 'redux';
 
+console.log(111);
 
 function num(state = 0, action) {
 	switch (action.type) {
@@ -25,7 +26,6 @@ const store = createStore(num);
 store.subscribe(function() {
 	document.querySelector('#num').innerHTML = store.getState();
 });
-
 
 const btn = document.querySelector('#add');
 

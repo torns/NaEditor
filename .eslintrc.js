@@ -30,7 +30,7 @@ module.exports = {
             "error",
             "always"
         ],
-        "no-console": false,
+        "no-console": 0,
         "no-multi-spaces": 1,
         "jsx-quotes": 1,
         "react/jsx-closing-bracket-location": 1, // 遵循JSX语法缩进/格式

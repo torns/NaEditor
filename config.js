@@ -2,7 +2,7 @@ const isServer = typeof window === 'undefined';
 
 let protocol;
 if (isServer) {
-    protocol = 'https://';
+    protocol = 'http://';
 } else {
     protocol = '//';
 }

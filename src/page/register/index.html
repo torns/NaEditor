@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>注册</title>
+    <link rel="shortcut icon" href="http://static.h5editor.cn/bitbug_favicon.ico">
+    <link href="http://static.h5editor.cn/page/register.css" rel="stylesheet">
 </head>
 
 <body>
@@ -22,11 +24,11 @@
                     <!--注册-->
                     <div class="reg_main">
                         <div>
-                            <form action="/api/register" method="post">
+                            <form id="form" action="/api/register" method="post">
                                 <div class="list">
                                     <span class="text">用&nbsp;&nbsp;户&nbsp;&nbsp;名</span>
                                     <span id="usernameTipsSpan">
-                                        <input placeholder="请输入您的用户名"  class="listinp" type="text" name="username" style="color: #666666"/>     
+                                        <input placeholder="请输入您的用户名" id="username" class="listinp" type="text" name="username" style="color: #666666"/>     
                                     </span>
                                     <div class="tips" id="name_tips" style="top:217px; left:470px; position: absolute;">您的登录名,由汉字、字母、数字、下划线组成，不能是纯数字，长度为2-16位</div>
                                     <span class="check" id="usernameTips" style="display:none;top:217px; left:470px; position: absolute;"></span>
@@ -39,14 +41,14 @@
                                 <div class="list">
                                     <span class="text">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
                                     <span id="passTipsSpan">
-                                        <input class="listinp" type="password" placeholder="请输入密码"  name="password" style="color: #666666"/>
+                                        <input class="listinp" id="password" type="password" placeholder="请输入密码"  name="password" style="color: #666666"/>
                                     </span>
-                                   
+
                                 </div>
 
 
 
-
+                                <p id="errorHint"></p>
 
                                 <div class="reg_sumit">
                                     <a id="rptCommitSpan"><input name="rtpCommit" id="rtpCommit" type="submit" class="btn" value="立即注册" /></a>
@@ -64,6 +66,7 @@
         </div>
     </div>
 
+    <script src="http://static.h5editor.cn/page/register.bundle.js"></script>
 </body>
 
 </html>

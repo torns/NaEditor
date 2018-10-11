@@ -6,11 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>登录</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="http://static.h5editor.cn/bitbug_favicon.ico">
+    <link href="http://static.h5editor.cn/page/login.css" rel="stylesheet">
 </head>
 
 <body>
     <section id="h1" class="jawbone-takeover-minimulti jawbone-hero">
-        <i class="jawbone-hero-image" data-hero-image-fixed="true" data-hero-image-fade="true" data-hero-min-opacity=".3" style="opacity: 1.05;"></i>
+        <i class="jawbone-hero-image"></i>
         <div class="warp">
             <div class="loginbox">
                 <div class="cd-user-modal-container">
@@ -19,11 +21,11 @@
                         <li><a id="a_qrcode">扫码登录</a></li>
                     </ul>
                     <div id="cd-login">
-                        <form action="/api/login" method="post">
-                            <div class="list">
+                        <form id="form" action="/api/login" method="post">
+                            <div class="list" id="username">
                                 <input placeholder="用户名" class="listinp" name="username" type="text">
                             </div>
-                            <div class="list">
+                            <div class="list" id="password">
                                 <input class="listinp" type="password" placeholder="密码" name="password" id="password">
                             </div>
                             <!-- <a href="https://center.kehu51.com/users/sendpass.aspx" class="forget">忘记密码？</a> -->
@@ -34,6 +36,7 @@
                     </div>
                     </form>
                 </div>
+                <p id="errorHint"></p>
                 <div class="register">
                     没有账号?&nbsp;&nbsp;<a href="/page/register" class="registerfree">免费注册</a>
                 </div>
@@ -41,6 +44,7 @@
             </div>
         </div>
     </section>
+    <script src="http://static.h5editor.cn/page/login.bundle.js"></script>
 </body>
 
 </html>

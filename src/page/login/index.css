@@ -531,3 +531,16 @@ input {
         background-image: url(https://kehu51.com/imges_new/1440.jpg)
     }
 }
+
+#errorHint {
+    text-align: center;
+    color: red;
+    position: relative;
+    /* background: #ffebeb; */
+    color: #e4393c;
+    font-size: 14px;
+    /* border: 1px solid #faccc6; */
+    padding: 3px 10px 3px 40px;
+    line-height: 15px;
+    height: auto;
+}

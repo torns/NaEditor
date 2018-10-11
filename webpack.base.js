@@ -1,3 +1,4 @@
+/* eslint-disable */
 const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
@@ -95,7 +96,7 @@ module.exports = {
                     test: /[\\/]node_modules[\\/]/,
                     chunks(chunk) {
                         // 浏览页面单独打包
-                        return chunk.name !== 'page/view';
+                        return !['page/view', 'page/login', 'page/register'].includes(chunk.name);
                     },
                     priority: 10,
                 },

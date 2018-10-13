@@ -3,6 +3,7 @@ import { Input } from 'antd';
 import { connect } from 'react-redux';
 
 import { IModuleData, IModuleConfig, IState } from '../interface';
+import TemplateLib from '../TemplateLib';
 
 interface GoodsConfigProps {
     moduleData: IModuleData;
@@ -11,7 +12,7 @@ interface GoodsConfigProps {
 
 interface GoodsConfigState {
     skuids: string;
-    templateId: string;
+    templateId: number;
 }
 
 class GoodsConfig extends Component<GoodsConfigProps, GoodsConfigState> {
@@ -30,7 +31,7 @@ class GoodsConfig extends Component<GoodsConfigProps, GoodsConfigState> {
         });
     }
 
-    templateChange = (templateId: string) => {
+    templateChange = (templateId: number) => {
         this.setState({
             templateId,
         });
@@ -68,10 +69,9 @@ class GoodsConfig extends Component<GoodsConfigProps, GoodsConfigState> {
                     onChange={(e) => { this.skuChange(e.target.value); }}
                 />
                 <p className="d-title">模板选择</p>
-                <Input
-                    placeholder="请输入模板id，多个id以英文逗号隔开"
+                <TemplateLib
                     value={templateId}
-                    onChange={(e) => { this.templateChange(e.target.value); }}
+                    onChange={(templateId: number) => { this.templateChange(templateId); }}
                 />
             </div>
         );

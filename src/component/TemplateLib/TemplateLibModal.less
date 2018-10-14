@@ -24,6 +24,11 @@
                 display: block;
             }
         }
+        &:hover {
+            .d-operate {
+                display: block;
+            }
+        }
     }
     .d-template {
         position: relative;
@@ -54,5 +59,17 @@
         left: 0;
         right: 0;
         border: 2px solid #3089DC;
+    }
+    .d-operate {
+        display: none;
+        position: absolute;
+        left: 2px;
+        bottom: 2px;
+        right: 2px;
+        height: 22px;
+        background-color: white;
+        & i:hover {
+            color: #3089DC;
+        }
     }
 }

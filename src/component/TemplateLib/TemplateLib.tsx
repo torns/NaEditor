@@ -22,6 +22,7 @@ class TemplateLib extends React.Component<TemplateLibProps, TemplateLibState> {
                 value,
             };
         }
+        return null;
     }
 
     constructor(props: TemplateLibProps) {

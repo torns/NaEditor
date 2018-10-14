@@ -1,12 +1,14 @@
 import React from 'react';
-import { Modal, Row, Col, Input, Button } from 'antd';
+import { Modal, Row, Col, Input, Button, Icon, Tooltip } from 'antd';
 import axios from 'axios';
-const Search = Input.Search;
+const { Search } = Input;
 import update from 'immutability-helper';
 
 import './TemplateLibModal.less';
 import INTERFACE from '../../common/script/INTERFACE';
 import { ITemplateInfo } from '../interface';
+import EditTemplateModal from './EditTemplateModal';
+import { EditType } from './interface';
 
 interface templateInfo extends ITemplateInfo {
     active: boolean;
@@ -23,6 +25,9 @@ interface TemplateLibModalProps {
 interface TemplateLibModalState {
     templateId: number;
     templateList: templateInfo[];
+    isEditModal: boolean;
+    editType: EditType;
+    editingTemplateId: number;
 }
 
 class TemplateLibModal extends React.Component<TemplateLibModalProps, TemplateLibModalState> {
@@ -41,6 +46,9 @@ class TemplateLibModal extends React.Component<TemplateLibModalProps, TemplateLi
         this.state = {
             templateId: this.props.value,
             templateList: [],
+            isEditModal: false,
+            editingTemplateId: -1,
+            editType: EditType.Add,
         };
     }
 
@@ -73,7 +81,7 @@ class TemplateLibModal extends React.Component<TemplateLibModalProps, TemplateLi
     }
 
     renderTitle() {
-        return <p>模板库</p>;
+        return <span className="d-title">模板库</span>;
     }
 
     handleOk = () => {
@@ -100,12 +108,45 @@ class TemplateLibModal extends React.Component<TemplateLibModalProps, TemplateLi
             },
             templateId: { $set: templateId },
         });
-        this.setState(newState);
+        this.setState(Object.assign({}, this.state, newState));
+    }
+
+    closeEditModal = () => {
+        this.setState({
+            isEditModal: false,
+        });
+    }
+
+    editModalOk = () => {
+        this.fetchTemplateList();
+        this.closeEditModal();
+    }
+
+    /**
+     * 渲染编辑模板弹框
+     */
+    renderEditTemplate = () => {
+        const { editType, editingTemplateId, isEditModal } = this.state;
+        return isEditModal ? <EditTemplateModal
+            visible={this.state.isEditModal}
+            editType={editType}
+            onCancel={() => { this.closeEditModal(); }}
+            onOk={() => { this.editModalOk(); }}
+            templateId={editType === EditType.Edit ? editingTemplateId : undefined}
+        /> : null;
+    }
+
+    showEditModal = (templateId: number) => {
+        this.setState({
+            isEditModal: true,
+            editType: EditType.Edit,
+            editingTemplateId: templateId,
+        });
     }
 
     renderTemplateList = () => {
         const { templateList } = this.state;
-        return templateList.map((v: templateInfo) => <Col span={3} key={v.id}>
+        return templateList.map((v: templateInfo, i: number) => <Col span={3} key={i}>
             <div
                 className={`d-template-container ${v.active ? 'active' : ''}`}
                 onDoubleClick={this.handleOk}
@@ -117,6 +158,18 @@ class TemplateLibModal extends React.Component<TemplateLibModalProps, TemplateLi
                 />
                 <p className="d-template-name" title={v.name}>{v.name}</p>
                 <div className="d-template-mask" />
+                <div className="d-operate">
+                    <Tooltip title="编辑" placement="top">
+                        <Icon
+                            type="setting"
+                            style={{ fontSize: '20px' }}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                this.showEditModal(v.id);
+                            }}
+                        />
+                    </Tooltip>
+                </div>
             </div>
         </Col>);
     }
@@ -132,22 +185,32 @@ class TemplateLibModal extends React.Component<TemplateLibModalProps, TemplateLi
             onCancel={this.handleCancel}
         >
             <div className="d-content">
-                <Row>
+                <Row key={1}>
                     <Col span={4}>
                         <Search
                             placeholder="输入图片名称或关键字"
                         />
                     </Col >
                     <Col span={2} offset={18}>
-                        <Button className="d-upload-img" type="primary">
+                        <Button
+                            className="d-upload-img"
+                            type="primary"
+                            onClick={() => {
+                                this.setState({
+                                    editType: EditType.Add,
+                                    isEditModal: true,
+                                });
+                            }}
+                        >
                             新增模板
                         </Button>
                     </Col >
                 </Row>
-                <Row style={{ marginTop: '10px' }}>
+                <Row style={{ marginTop: '10px' }} key={2}>
                     {this.renderTemplateList()}
                 </Row>
             </div>
+            {this.renderEditTemplate()}
         </Modal>;
     }
 }

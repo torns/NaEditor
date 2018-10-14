@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import { IModuleData, IGoodsInfo } from '../interface';
+import { IModuleData, IGoodsInfo, IContext } from '../interface';
 import Module from '../Module';
 import Axios from '../../../node_modules/axios';
 import INTERFACE from '../../common/script/INTERFACE';
+import { GroupProps } from '../../../node_modules/antd/lib/input';
+import addStyle from '../../common/script/addStyle';
 
 interface GoodsProps {
     moduleData: IModuleData;
@@ -12,9 +15,14 @@ interface GoodsProps {
 interface GoodsState {
     skuids: string;
     goodsList: IGoodsInfo[];
+    templateId?: number;
 }
 
 export default class Goods extends Component<GoodsProps, GoodsState> {
+
+    static contextTypes = {
+        BASE_DATA: PropTypes.object,
+    };
 
     constructor(props: GoodsProps) {
         super(props);
@@ -44,13 +52,36 @@ export default class Goods extends Component<GoodsProps, GoodsState> {
         }
     }
 
+    async fetchTemplate(templateId: number) {
+        const result = (await Axios(INTERFACE.getTemplateInfo, {
+            params: {
+                id: templateId,
+            },
+        })).data;
+        if (result.success) {
+            const { template, style, id } = result.data;
+            const { BASE_DATA: { pageType } } = this.context as IContext;
+            addStyle(style, pageType, `template_${id}_style`);
+            this.setState({
+
+            });
+        }
+    }
+
     componentWillReceiveProps(nextProps: GoodsProps) {
-        const { skuids } = nextProps.moduleData.data;
+        const { skuids, templateId } = nextProps.moduleData.data;
         if (skuids !== this.state.skuids) {
             this.setState({
                 skuids,
             }, () => {
                 this.requestGoodsInfo(skuids);
+            });
+        }
+        if (templateId !== this.state.templateId) {
+            this.setState({
+                templateId,
+            }, () => {
+                this.fetchTemplate(templateId);
             });
         }
     }

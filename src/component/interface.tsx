@@ -78,11 +78,18 @@ export interface IState {
     moduleConfig: IModuleConfig;
 }
 
+// pageType
+export enum PageType {
+    Decorate,
+    Preview,
+    View,
+}
+
 // BASE_DATA
 export interface IBASE_DATA {
     pageId: string;
     pageInfo: any;
-    pageType: number;
+    pageType: PageType;
     username: string;
 }
 

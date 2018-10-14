@@ -57,6 +57,7 @@ class GoodsConfig extends Component<GoodsConfigProps, GoodsConfigState> {
     }
 
     render() {
+        const { moduleTypeId: moduleType } = this.props.moduleData;
         const {
             skuids, templateId,
         } = this.state;
@@ -70,6 +71,7 @@ class GoodsConfig extends Component<GoodsConfigProps, GoodsConfigState> {
                 />
                 <p className="d-title">模板选择</p>
                 <TemplateLib
+                    moduleType={moduleType}
                     value={templateId}
                     onChange={(templateId: number) => { this.templateChange(templateId); }}
                 />

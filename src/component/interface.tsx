@@ -30,6 +30,17 @@ export interface IGoodsInfo {
     description?: string;
 }
 
+// 模板定义
+export interface ITemplateInfo {
+    name: string;
+    id: number;
+    moduleType: number;
+    template?: string;
+    style?: string;
+    templateBabeled?: string;
+    imgUrl?: string;
+}
+
 // tempData定义
 export interface ITempData {
     isActive: boolean;

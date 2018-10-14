@@ -25,6 +25,8 @@ const INTERFACE = {
     publishPage: `${SLD.backend}${prefix}/publishPage`, // 发布页面
     getInitData: `${SLD.backend}${prefix}/getInitData`, // 获取页面初始化数据
 
+    getTemplateList: `${SLD.backend}${prefix}/getTemplateList`, // 获取模板列表
+
     getGoodsInfo: `${SLD.backend}${prefix}/getGoodsInfo`, // 获取商品信息
 
     logout: `${SLD.backend}${prefix}/logout`, // 退出登录

@@ -18,7 +18,6 @@ class TemplateForm extends React.Component<TemplateFormProps, any> {
         return new Promise((resolve, reject) => {
             this.props.form.validateFields(async (err, values) => {
                 if (!err) {
-                    console.log(values);
                     const result = await axios({
                         url: INTERFACE.updateTemplate,
                         data: values,
@@ -174,7 +173,6 @@ class EditTemplateModal extends React.Component<EditTemplateModalProps, EditTemp
     render() {
         const { visible, editType } = this.props;
         const { shouldFetch } = this.state;
-        console.log(shouldFetch);
         return (
             <Modal
                 visible={visible}

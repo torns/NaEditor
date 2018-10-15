@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Row, Col, Input, Button, Icon, Tooltip } from 'antd';
+import { Modal, Row, Col, Input, Button, Icon, Tooltip, Popconfirm, message } from 'antd';
 import axios from 'axios';
 const { Search } = Input;
 import update from 'immutability-helper';
@@ -144,6 +144,23 @@ class TemplateLibModal extends React.Component<TemplateLibModalProps, TemplateLi
         });
     }
 
+    /**
+     * 删除模板
+     */
+    deleteTemplate = async (id: number) => {
+        const result = (await axios(INTERFACE.deleteTemplate, {
+            params: {
+                id,
+            },
+        })).data;
+        if (result.success) {
+            message.success('删除成功！');
+            this.fetchTemplateList();
+        } else {
+            message.success(result.msg);
+        }
+    }
+
     renderTemplateList = () => {
         const { templateList } = this.state;
         return templateList.map((v: templateInfo, i: number) => <Col span={3} key={i}>
@@ -159,7 +176,7 @@ class TemplateLibModal extends React.Component<TemplateLibModalProps, TemplateLi
                 <p className="d-template-name" title={v.name}>{v.name}</p>
                 <div className="d-template-mask" />
                 <div className="d-operate">
-                    <Tooltip title="编辑" placement="top">
+                    <Tooltip title="编辑模板" placement="top">
                         <Icon
                             type="setting"
                             style={{ fontSize: '20px' }}
@@ -169,9 +186,26 @@ class TemplateLibModal extends React.Component<TemplateLibModalProps, TemplateLi
                             }}
                         />
                     </Tooltip>
+                    <Popconfirm
+                        title="确定要删除该模板吗？"
+                        placement="bottom"
+                        okText="确定"
+                        cancelText="取消"
+                        onConfirm={(e) => {
+                            e.stopPropagation();
+                            this.deleteTemplate(v.id);
+                        }}
+                    >
+                        <Tooltip title="删除模板" placement="top">
+                            <Icon
+                                type="delete"
+                                style={{ fontSize: '20px' }}
+                            />
+                        </Tooltip>
+                    </Popconfirm>
                 </div>
             </div>
-        </Col>);
+        </Col >);
     }
 
     render() {

@@ -124,6 +124,7 @@ module.exports = {
                 test: /\.jsx?/,
                 include: [
                     path.resolve(__dirname, 'src'),
+                    path.resolve(__dirname, 'config.js'),
                 ],
                 use: ['babel-loader', ]
             },

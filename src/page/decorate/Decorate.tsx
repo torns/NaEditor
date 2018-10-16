@@ -30,7 +30,6 @@ class Decorate extends React.Component<any, any> {
         (window as any).resizeIframe = debounce(() => {
             const iframeWin = (window as any).document.querySelector('.J_canvas').contentWindow;
             let height = iframeWin.document.querySelector('#Container').scrollHeight + 'px';
-            console.log(height);
             (window as any).document.querySelector('iframe.J_canvas').style.height = height;
         }, 50);
     }

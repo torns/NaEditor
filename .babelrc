@@ -3,7 +3,7 @@
         ["react"],
         ["env", {
             "targets": {
-                "chrome": "58",
+                "chrome": "49",
                 "ie": "11"
             }
         }]

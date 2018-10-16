@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 require('antd/dist/antd.css');
 import '../../common/style/common.less';
 import './index.less';

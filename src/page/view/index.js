@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 require('antd/dist/antd.css');
 import './view.less';
 import './view';

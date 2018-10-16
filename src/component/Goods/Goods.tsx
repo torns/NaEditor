@@ -1,12 +1,16 @@
 import React, { Component, ReactElement } from 'react';
 import PropTypes from 'prop-types';
-(window as any).React = React;
-(window as any).template = {};
 import { IModuleData, IGoodsInfo, IContext } from '../interface';
 import Module from '../Module';
 import Axios from '../../../node_modules/axios';
 import INTERFACE from '../../common/script/INTERFACE';
 import addStyle from '../../common/script/addStyle';
+import isServer from '../../common/script/isServer';
+
+if (!isServer()) {
+    (window as any).React = React;
+    (window as any).template = {};
+}
 
 interface GoodsProps {
     moduleData: IModuleData;

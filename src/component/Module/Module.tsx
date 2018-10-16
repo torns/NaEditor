@@ -2,7 +2,7 @@ import React, { RefObject } from 'react';
 import { connect } from 'react-redux';
 import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
-import 'intersection-observer';
+// import 'intersection-observer';
 
 import { moduleTopChange, moduleHeightChange } from '../../actions';
 import ModuleWrap from '../ModuleWrap';

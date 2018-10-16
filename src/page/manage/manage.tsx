@@ -112,7 +112,7 @@ class ManagePage extends React.Component<any, any> {
                         <a href={`/page/decorate?pageId=${item.id}`} target="_blank">
                             去装修
                         </a>
-                        <Popover content={this.viewUrl(`${INTERFACE.viewAddress}?pageId=${item.id}`)} title="浏览地址" trigger="hover">
+                        <Popover content={this.viewUrl(`https:${INTERFACE.viewAddress}?pageId=${item.id}`)} title="浏览地址" trigger="hover">
                             <a style={{ marginLeft: '10px' }}>获取地址</a>
                         </Popover>
                         <a

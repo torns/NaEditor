@@ -1,6 +1,6 @@
-const isServer = typeof window === 'undefined';
+var isServer = typeof window === 'undefined';
 
-let protocol;
+var protocol;
 if (isServer) {
     protocol = 'http://';
 } else {
@@ -8,7 +8,7 @@ if (isServer) {
 }
 
 
-let host;
+var host;
 // host = `47.107.69.189`; //远程
 host = `127.0.0.1`; //本地
 

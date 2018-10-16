@@ -1,7 +1,7 @@
 module.exports = {
 	plugins: {
-		'autoprefixer':{
+		'autoprefixer': {
 			browsers: ['ie >= 9']
 		}
 	}
-}
+};

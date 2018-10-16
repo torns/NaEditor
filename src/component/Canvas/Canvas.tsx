@@ -106,7 +106,7 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
 
     drop = async (e: DragEvent) => {
         const { pageId } = this.context.BASE_DATA;
-        const moduleTypeId = Number.parseInt(e.dataTransfer.getData('moduleTypeId'), 10);
+        const moduleTypeId = e.dataTransfer && Number.parseInt(e.dataTransfer.getData('moduleTypeId'), 10);
         const { addModuleRequest } = this.props;
         addModuleRequest({
             moduleTypeId,

@@ -29,7 +29,8 @@ class Decorate extends React.Component<any, any> {
     componentWillMount() {
         (window as any).resizeIframe = debounce(() => {
             const iframeWin = (window as any).document.querySelector('.J_canvas').contentWindow;
-            let height = iframeWin.document.body.scrollHeight + 'px';
+            let height = iframeWin.document.querySelector('#Container').scrollHeight + 'px';
+            console.log(height);
             (window as any).document.querySelector('iframe.J_canvas').style.height = height;
         }, 50);
     }
@@ -92,6 +93,7 @@ class Decorate extends React.Component<any, any> {
                     <div className="cd-iframe-outer-warp">
                         <div className="cd-iframe-warp">
                             <iframe
+                                scrolling="no"
                                 className="cd-canvas J_canvas"
                                 src="/page/canvas.html"
                                 onLoad={this.iframeLoaded}

@@ -2,6 +2,7 @@ import React, { RefObject } from 'react';
 import { connect } from 'react-redux';
 import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
+import 'intersection-observer';
 
 import { moduleTopChange, moduleHeightChange } from '../../actions';
 import ModuleWrap from '../ModuleWrap';
@@ -94,9 +95,7 @@ class Module extends React.Component<ModuleProps, ModuleState> {
             const intersectionObserver = new IntersectionObserver((entries) => {
                 const ratio = entries[0].intersectionRatio;
                 if (ratio < 1 && container) {
-                    // jq动画，待优化
-                    // container.scrollTo(0, top - 50);
-                    animate(top - 50, 300);
+                    animate(top - 50, 200);
                 }
                 this.moduleRef && intersectionObserver.unobserve(this.moduleRef);
 
@@ -120,7 +119,7 @@ class Module extends React.Component<ModuleProps, ModuleState> {
                 } else {
                     window.requestAnimationFrame(step);
                 }
-                el.scrollTo(0, currentTop);
+                el.scrollTop = currentTop;
             }
             window.requestAnimationFrame(step);
         }

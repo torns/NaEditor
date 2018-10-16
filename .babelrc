@@ -1,10 +1,19 @@
 {
-    "presets": ["react", "stage-0"],
+    "presets": [
+        ["react"],
+        ["env", {
+            "targets": {
+                "chrome": "58",
+                "ie": "11"
+            }
+        }]
+    ],
     "plugins": [
         ["react-hot-loader/babel"],
         ["import", {
             "libraryName": "antd"
         }],
+        ["transform-runtime"],
         ["transform-decorators-legacy"]
     ]
 }

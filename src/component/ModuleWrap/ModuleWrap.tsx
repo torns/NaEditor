@@ -52,17 +52,6 @@ class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
                 // allModuleTopChange(moduleData.moduleId, placeholder.clientHeight);
             });
 
-            function insertAfter(newEl: HTMLElement, targetEl: HTMLElement) {
-                let parentEl = targetEl.parentNode;
-                if (parentEl === null) {
-                    return;
-                }
-                if (parentEl.lastChild === targetEl) {
-                    parentEl.appendChild(newEl);
-                } else {
-                    parentEl.insertBefore(newEl, targetEl.nextSibling);
-                }
-            }
         }
         e.preventDefault();
         e.stopPropagation();
@@ -154,3 +143,15 @@ export default connect(mapStateToProps, {
     addModuleRequest,
     allModuleTopChange,
 })(ModuleWrap);
+
+function insertAfter(newEl: HTMLElement, targetEl: HTMLElement) {
+    let parentEl = targetEl.parentNode;
+    if (parentEl === null) {
+        return;
+    }
+    if (parentEl.lastChild === targetEl) {
+        parentEl.appendChild(newEl);
+    } else {
+        parentEl.insertBefore(newEl, targetEl.nextSibling);
+    }
+}

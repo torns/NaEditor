@@ -31,15 +31,15 @@ if (isServer()) {
         init(BASE_DATA);
     }
 
-    function init(BASE_DATA: IBASE_DATA) {
-        ReactDOM.hydrate(
-            <Provider store={store} >
-                <ContextProvider BASE_DATA={BASE_DATA}>
-                    <Canvas />
-                </ContextProvider>
-            </Provider>,
-            document.querySelector('#Container'),
-        );
-    }
+}
 
+function init(BASE_DATA: IBASE_DATA) {
+    ReactDOM.hydrate(
+        <Provider store={store} >
+            <ContextProvider BASE_DATA={BASE_DATA}>
+                <Canvas />
+            </ContextProvider>
+        </Provider>,
+        document.querySelector('#Container'),
+    );
 }

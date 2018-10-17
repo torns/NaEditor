@@ -86,10 +86,15 @@ class Module extends React.Component<ModuleProps, ModuleState> {
     }
 
     scrollIntoView() {
-        debounce(() => {
+        debounce(async () => {
             const clientRect = this.moduleRef.getBoundingClientRect();
             const { top } = clientRect;
             const container = document.querySelector('.J_editorInstanceArea');
+
+            // 如果浏览器不支持，则需引入polyfill
+            if ((window as any).IntersectionObserver === undefined) {
+                await import(`intersection-observer`);
+            }
 
             // 判断是否在当前屏幕内
             const intersectionObserver = new IntersectionObserver((entries) => {

@@ -61,7 +61,6 @@ class UserDefineConfig extends React.Component<UserDefineConfigProps, any> {
                     value={unescape(this.state.code || '')}
                     onChange={(e) => {
                         const escaped = escape(e.target.value);
-                        console.log(escaped);
                         this.setState({ code: escaped });
                     }}
                 />

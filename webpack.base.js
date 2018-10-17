@@ -77,23 +77,24 @@ module.exports = {
     output: {
         path: path.resolve(__dirname + '/dist'),
         filename: '[name].bundle.js',
+        // chunkFilename: '[id].chunk.js',
         publicPath: `${require('./config').staticAddress}/`,
     },
     stats: 'minimal',
     optimization: {
         splitChunks: {
             cacheGroups: {
-                // 注意: priority属性
-                // 其次: 打包业务中公共代码
-                // common: {
-                //     name: "common",
-                //     chunks: "all",
-                //     priority: 1
+                // 排除的chunk(通常是import()引入的)
+                // 'intersection-observer': {
+                //     name: 'intersection-observer',
+                //     test: /[\\/]node_modules[\\/]intersection-observer/,
+                //     priority: 20,
                 // },
                 // 首先: 打包node_modules中的文件
                 vendor: {
                     name: "vendor",
-                    test: /[\\/]node_modules[\\/]/,
+                    // 后视正则把需要异步载入的chunk断下来
+                    test: /[\\/]node_modules[\\/](?!intersection-observer|zepto)/,
                     chunks(chunk) {
                         // 浏览页面单独打包
                         return !['page/view', 'page/login', 'page/register'].includes(chunk.name);
@@ -102,7 +103,7 @@ module.exports = {
                 },
                 viewVendor: {
                     name: "viewVendor",
-                    test: /[\\/]node_modules[\\/]/,
+                    test: /[\\/]node_modules[\\/](?!zepto)/,
                     chunks(chunk) {
                         // 浏览页面单独打包
                         return chunk.name === 'page/view';

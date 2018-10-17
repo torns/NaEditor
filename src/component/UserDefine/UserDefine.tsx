@@ -3,7 +3,7 @@ import Module from '../Module';
 import PropTypes from 'prop-types';
 import { escape, unescape } from 'html-escaper';
 
-import { IModuleData } from '../interface';
+import { IModuleData, PageType } from '../interface';
 import isServer from '../../common/script/isServer';
 
 interface UserDefineProps {
@@ -20,8 +20,6 @@ export default class UserDefine extends React.Component<UserDefineProps, UserDef
     static contextTypes = {
         BASE_DATA: PropTypes.object,
     };
-
-    static zeptoLoaded: boolean = false;
 
     root?: HTMLDivElement;
 
@@ -65,39 +63,23 @@ export default class UserDefine extends React.Component<UserDefineProps, UserDef
         }
         let renderCode = unescape(code);
         !code && (renderCode = ``);
-        if (isServer()) {
-            // (el as HTMLDivElement).innerHTML = renderCode;
-        } else {
+        if (!isServer()) {
+            await import('zepto');
             // 客户端的script需要执行，所以用zepto
             (window as any).Zepto(el as HTMLDivElement).html(renderCode);
         }
     }
 
     async componentDidMount() {
-        await this.loadZepto();
         this.excuteCode();
-    }
-
-    async loadZepto() {
-        if (UserDefine.zeptoLoaded) {
-            return Promise.resolve();
-        } else {
-            return new Promise(resolve => {
-                const script = document.createElement('script');
-                script.src = `https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js`;
-                script.onload = () => {
-                    resolve();
-                    UserDefine.zeptoLoaded = true;
-                };
-                document.body.appendChild(script);
-            });
-        }
-
     }
 
     async componentDidUpdate() {
-        await this.loadZepto();
-        this.excuteCode();
+        const { pageType } = this.context.BASE_DATA;
+        // 只有装修页才会需要更新
+        if (pageType === PageType.Decorate) {
+            this.excuteCode();
+        }
     }
 
     /**

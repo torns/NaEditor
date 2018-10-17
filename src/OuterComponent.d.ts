@@ -7,6 +7,7 @@ declare module 'rc-color-picker';
 declare module 'date-format';
 declare module 'html-escaper';
 declare module 'zepto';
+declare module 'intersection-observer';
 
 // webpack.DefinePlugin
 declare var PRODUCTION: boolean;

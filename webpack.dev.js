@@ -15,7 +15,7 @@ const plugins = [new webpack.HotModuleReplacementPlugin(),
 ];
 module.exports = merge(config, {
 	mode: 'development',
-	// devtool: 'cheap-module-eval-source-map',
+	devtool: 'cheap-module-eval-source-map',
 	devServer: {
 		contentBase: path.join(__dirname, '/dist'),
 		publicPath: '/',

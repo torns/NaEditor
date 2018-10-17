@@ -1,5 +1,4 @@
 import React from 'react';
-/// <reference path="../OuterComponent.d.ts" />
 import Slider from 'react-slick';
 
 import Module from '../Module';

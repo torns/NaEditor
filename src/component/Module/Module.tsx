@@ -175,7 +175,7 @@ class Module extends React.Component<ModuleProps, ModuleState> {
 }
 
 const mapStateToProps = (state: IState) => {
-    return { module: state.module };   // TODO dispatch临时丢在这里
+    return { module: state.module };
 };
 
 const dispatchProps = {

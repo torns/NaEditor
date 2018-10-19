@@ -3,11 +3,11 @@ import view from '../controller/view';
 const router = new Router({});
 
 router.get('*', async(ctx, next) => {
-    await next();
+	await next();
 });
 
 router.get('/page', view);
 
 export default function() {
-    return router;
+	return router;
 }

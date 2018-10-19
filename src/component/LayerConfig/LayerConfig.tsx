@@ -40,8 +40,7 @@ class LayerConfig extends Component<LayerConfigProps, LayerConfigState> {
         };
     }
 
-    // TODO props:LayerConfigProps
-    componentWillReceiveProps(props: any) {
+    componentWillReceiveProps(props: LayerConfigProps) {
         const {
             moduleData: {
                 configData: {

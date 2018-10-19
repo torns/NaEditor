@@ -1,6 +1,5 @@
 import React, { MouseEventHandler, RefObject } from 'react';
 import { Modal, message } from 'antd';
-/// <reference path="../OuterComponent.d.ts" />
 import addEventListener from 'rc-util/lib/Dom/addEventListener';
 
 import { ImageInfo, HotspotInfo, AreaInfo } from '../interface';

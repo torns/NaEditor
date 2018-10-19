@@ -2,18 +2,9 @@ import React, { Component } from 'react';
 import { Input } from 'antd';
 import { connect } from 'react-redux';
 
-import { IModuleData, IModuleConfig, IState } from '../interface';
+import { IState } from '../interface';
+import { GoodsConfigProps, GoodsConfigState } from './interface';
 import TemplateLib from '../TemplateLib';
-
-interface GoodsConfigProps {
-    moduleData: IModuleData;
-    moduleConfig: IModuleConfig;
-}
-
-interface GoodsConfigState {
-    skuids: string;
-    templateId: number;
-}
 
 class GoodsConfig extends Component<GoodsConfigProps, GoodsConfigState> {
     constructor(props: GoodsConfigProps) {

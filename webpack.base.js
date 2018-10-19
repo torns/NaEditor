@@ -150,17 +150,13 @@ module.exports = {
                 test: /\.(woff|woff2|ttf|eot)$/,
                 use: 'file-loader'
             },
-            {
-                test: require.resolve("zepto"),
-                use: "imports-loader?this=>window"
-            }
         ],
     },
     // externals: {
     //     jquery: 'jQuery',
     // },
     resolve: {
-        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', '.d.ts'],
     },
     plugins,
 };

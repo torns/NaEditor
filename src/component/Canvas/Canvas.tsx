@@ -104,7 +104,7 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
         });
     }
 
-    drop = async (e: DragEvent) => {
+    drop = async (e: React.DragEvent) => {
         const { pageId } = this.context.BASE_DATA;
         const moduleTypeId = e.dataTransfer && Number.parseInt(e.dataTransfer.getData('moduleTypeId'), 10);
         const { addModuleRequest } = this.props;
@@ -163,7 +163,7 @@ class Canvas extends React.Component<ICanvasProps, ICanvasState> {
                 className="d-module-list"
                 onDragOver={this.dragOver}
                 onDragLeave={this.dragLeave}
-                onDrop={(e: any) => { this.drop(e); }}  // TODO any?
+                onDrop={(e: React.DragEvent) => { this.drop(e); }}
                 ref={(root: HTMLDivElement) => { this.root = root; }}
             >
                 {this.context.BASE_DATA.pageType === 0

@@ -57,7 +57,7 @@ class Topbar extends React.Component<TopbarProps, TopbarState> {
                 </div>
                 <div className="d-desc">
                     <div className="d-qrcode">
-                        <QRCode value={`${serverAddress}/page/preview?pageId=${pageId}`} />
+                        <QRCode value={`http:${serverAddress}/page/preview?pageId=${pageId}`} />
                     </div>
                     <p>预览页有效期30分钟，发布后永久生效</p>
                     <h2>{pageName}</h2>

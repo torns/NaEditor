@@ -194,7 +194,7 @@ html {
 .logo {
     width: 380px;
     height: 55px;
-    background: url(https://kehu51.com/imges_new/1440.jpg) no-repeat;
+    background: url(https://naeditor-image.oss-cn-shenzhen.aliyuncs.com/53461887534541440.jpg) no-repeat;
     margin: 0 auto;
 }
 
@@ -520,15 +520,9 @@ input {
     position: fixed
 }
 
-@media (min-width: 1367px) {
-    #h1.jawbone-takeover-minimulti .jawbone-hero-image {
-        background-image: url(https://kehu51.com/imges_new/1336.jpg)
-    }
-}
-
 @media (min-width: 1441px) {
     #h1.jawbone-takeover-minimulti .jawbone-hero-image {
-        background-image: url(https://kehu51.com/imges_new/1440.jpg)
+        background-image: url(https://naeditor-image.oss-cn-shenzhen.aliyuncs.com/53461887534541440.jpg)
     }
 }
 

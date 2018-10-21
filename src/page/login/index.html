@@ -8,9 +8,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="http://static.h5editor.cn/bitbug_favicon.ico">
     <link href="http://static.h5editor.cn/page/login.css" rel="stylesheet">
+    <link rel="shortcut icon" href="http://static.h5editor.cn/bitbug_favicon.ico">
+    <link href="http://static.h5editor.cn/page/login.css" rel="stylesheet">
 </head>
 
 <body>
+    <style>
+        .hint {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            margin-left: -220px;
+            width: 400px;
+            padding: 0 20px;
+            height: 170px;
+            text-align: center;
+            background: rgba(255, 255, 255, .8);
+            border-radius: 15px;
+            font-size: 16px;
+            line-height: 24px;
+            color: #333;
+            font-family: 'tahoma, arial, "Microsoft YaHei", "Hiragino Sans GB", u5b8bu4f53, sans-serif';
+        }
+    </style>
+    <div class="hint">
+        <p>感谢翻阅我的简历！</p>
+        <p>如果不想注册的话可以使用公共测试账号：</p>
+        <p>用户名：test 密码：test</p>
+        <p>操作说明/项目架构/源代码都在我的github账号：</p>
+        <p><a href="https://github.com/zhusiyi111">https://github.com/zhusiyi111<a></p>
+        <p>由于开发时间仓促，可能使用过程中会存在一些Bug，请多包涵~</p>
+    </div>
     <section id="h1" class="jawbone-takeover-minimulti jawbone-hero">
         <i class="jawbone-hero-image"></i>
         <div class="warp">
@@ -18,32 +46,33 @@
                 <div class="cd-user-modal-container">
                     <ul class="cd-switcher">
                         <li><a id="a_user" style="border-right: 1px solid #bdbdbd;color:#ffffff;">账号登录</a></li>
-                        <li><a id="a_qrcode">扫码登录</a></li>
-                    </ul>
-                    <div id="cd-login">
-                        <form id="form" action="/api/login" method="post">
-                            <div class="list" id="username">
-                                <input placeholder="用户名" class="listinp" name="username" type="text">
-                            </div>
-                            <div class="list" id="password">
-                                <input class="listinp" type="password" placeholder="密码" name="password" id="password">
-                            </div>
-                            <!-- <a href="https://center.kehu51.com/users/sendpass.aspx" class="forget">忘记密码？</a> -->
-                            <!-- <a class="remember"><input type="checkbox" class="rememberbox" style="vertical-align:-2px;" value="1" id="login-radio" name="rptAutoLogin" onclick="return rePassConfirm()">记住用户名</a> -->
-                            <div class="login">
-                                <input type="submit" class="btn" value="登&nbsp;&nbsp;&nbsp;&nbsp;录">
-                            </div>
+            <li><a id="a_qrcode">扫码登录</a></li>
+            </ul>
+            <div id="cd-login">
+                <form id="form" action="/api/login" method="post">
+                    <div class="list" id="username">
+                        <input placeholder="用户名" class="listinp" name="username" type="text">
                     </div>
-                    </form>
-                </div>
-                <p id="errorHint"></p>
-                <div class="register">
-                    没有账号?&nbsp;&nbsp;<a href="/page/register" class="registerfree">免费注册</a>
-                </div>
-
+                    <div class="list" id="password">
+                        <input class="listinp" type="password" placeholder="密码" name="password" id="password">
+                    </div>
+                    <!-- <a href="https://center.kehu51.com/users/sendpass.aspx" class="forget">忘记密码？</a> -->
+                    <!-- <a class="remember"><input type="checkbox" class="rememberbox" style="vertical-align:-2px;" value="1" id="login-radio" name="rptAutoLogin" onclick="return rePassConfirm()">记住用户名</a> -->
+                    <div class="login">
+                        <input type="submit" class="btn" value="登&nbsp;&nbsp;&nbsp;&nbsp;录">
+                    </div>
             </div>
-        </div>
+            </form>
+    </div>
+    <p id="errorHint"></p>
+    <div class="register">
+        没有账号?&nbsp;&nbsp;<a href="/page/register" class="registerfree">免费注册</a>
+    </div>
+
+    </div>
+    </div>
     </section>
+    <script src="http://static.h5editor.cn/page/login.bundle.js"></script>
     <script src="http://static.h5editor.cn/page/login.bundle.js"></script>
 </body>
 

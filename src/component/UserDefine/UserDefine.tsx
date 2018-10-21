@@ -64,7 +64,7 @@ export default class UserDefine extends React.Component<UserDefineProps, UserDef
         let renderCode = unescape(code);
         !code && (renderCode = ``);
         if (!isServer()) {
-            await import('zepto');
+            await import('n-zepto');
             // 客户端的script需要执行，所以用zepto
             (window as any).Zepto(el as HTMLDivElement).html(renderCode);
         }

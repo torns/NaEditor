@@ -94,7 +94,7 @@ module.exports = {
                 vendor: {
                     name: "vendor",
                     // 后视正则把需要异步载入的chunk断下来
-                    test: /[\\/]node_modules[\\/](?!intersection-observer|zepto)/,
+                    test: /[\\/]node_modules[\\/](?!intersection-observer|n-zepto)/,
                     chunks(chunk) {
                         // 浏览页面单独打包
                         return !['page/view', 'page/login', 'page/register'].includes(chunk.name);
@@ -103,7 +103,7 @@ module.exports = {
                 },
                 viewVendor: {
                     name: "viewVendor",
-                    test: /[\\/]node_modules[\\/](?!zepto)/,
+                    test: /[\\/]node_modules[\\/](?!n-zepto)/,
                     chunks(chunk) {
                         // 浏览页面单独打包
                         return chunk.name === 'page/view';

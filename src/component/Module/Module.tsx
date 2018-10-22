@@ -20,7 +20,7 @@ interface ModuleState {
 }
 
 const Placeholder = {
-    2: '//naeditor-image.oss-cn-shenzhen.aliyuncs.com/rq.jpg',
+    2: '//naeditor-image.oss-cn-shenzhen.aliyuncs.com/gajsdkglsdjhg45412355kl123j5.jpg',
     // 4: '//naeditor-image.oss-cn-shenzhen.aliyuncs.com/lbt.jpg',
 };
 

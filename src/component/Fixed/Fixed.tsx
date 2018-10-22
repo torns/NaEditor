@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
@@ -15,13 +15,13 @@ interface FixedState {
 
 }
 
-export default class Fixed extends React.Component<FixedProps, FixedState> {
+export default class Fixed extends PureComponent<FixedProps, FixedState> {
 
     static contextTypes = {
         BASE_DATA: PropTypes.object,
     };
 
-    rootEl: HTMLDivElement | undefined = undefined;
+    rootEl?: HTMLDivElement;
 
     constructor(props: FixedProps) {
         super(props);

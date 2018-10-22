@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import _ from 'lodash';
 
 import isServer from '../../common/script/isServer';
@@ -15,7 +15,7 @@ if (!IsServer) {
 
 }
 
-export default class LazyImage extends Component<LazyImageProps, any> {
+export default class LazyImage extends PureComponent<LazyImageProps, any> {
 
     static bindedFlag: boolean = false;
 

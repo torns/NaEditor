@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Icon, Tooltip, message } from 'antd';
@@ -20,7 +20,7 @@ interface ModuleBarState {
 
 }
 
-class ModuleBar extends React.Component<ModuleBarProps, ModuleBarState> {
+class ModuleBar extends PureComponent<ModuleBarProps, ModuleBarState> {
 
     static contextTypes = {
         BASE_DATA: PropTypes.object,

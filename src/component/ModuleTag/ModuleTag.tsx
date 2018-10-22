@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Tooltip } from 'antd';
 
@@ -14,7 +14,7 @@ interface ModuleTagState {
 
 }
 
-class ModuleTag extends React.Component<ModuleTagProps, ModuleTagState> {
+class ModuleTag extends PureComponent<ModuleTagProps, ModuleTagState> {
 
     constructor(props: ModuleTagProps) {
         super(props);

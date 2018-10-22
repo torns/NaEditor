@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { Icon, message } from 'antd';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -17,7 +17,7 @@ interface TopbarState {
     isPreviewActive: boolean;
 }
 
-class Topbar extends React.Component<TopbarProps, TopbarState> {
+class Topbar extends PureComponent<TopbarProps, TopbarState> {
 
     static contextTypes = {
         BASE_DATA: PropTypes.object,

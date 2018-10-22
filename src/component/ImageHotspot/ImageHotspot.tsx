@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import Module from '../Module';
@@ -15,7 +15,7 @@ interface ImageHotspotState {
     imgs: ImageInfo[];
 }
 
-export default class ImageHotspot extends React.Component<ImageHotspotProps, ImageHotspotState> {
+export default class ImageHotspot extends PureComponent<ImageHotspotProps, ImageHotspotState> {
 
     static contextTypes = {
         BASE_DATA: PropTypes.object,

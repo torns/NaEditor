@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Module from '../Module';
 
 import { IModuleData } from '../interface';
@@ -7,7 +7,7 @@ interface TextProps {
     moduleData: IModuleData;
 }
 
-class Text extends Component<TextProps, {}> {
+class Text extends PureComponent<TextProps, {}> {
     constructor(props: TextProps) {
         super(props);
     }

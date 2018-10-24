@@ -1,4 +1,8 @@
 import React, { RefObject } from 'react';
+// if (process.env.NODE_ENV !== 'production') {
+//     const { whyDidYouUpdate } = require('why-did-you-update');
+//     whyDidYouUpdate(React);
+// }
 import { connect } from 'react-redux';
 import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';

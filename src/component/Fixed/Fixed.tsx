@@ -31,6 +31,8 @@ export default class Fixed extends PureComponent<FixedProps, FixedState> {
         this.rootEl = document.createElement('div');
         if (this.context.BASE_DATA.pageType !== 0) {
             document.body.appendChild(this.rootEl);
+            // 触发一次更新，rootEl被渲染出来
+            this.forceUpdate();
         }
     }
 
@@ -81,7 +83,6 @@ export default class Fixed extends PureComponent<FixedProps, FixedState> {
             horizontalUnit = horizontalUnit;
             right = `${horizontal}${horizontalUnit}`;
         }
-
         return (
             <div
                 className="d-fixed"

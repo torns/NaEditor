@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -20,7 +20,7 @@ interface ModuleWrapState {
     nextPlaceholder?: HTMLDivElement;
 }
 
-class ModuleWrap extends React.Component<ModuleWrapProps, ModuleWrapState> {
+class ModuleWrap extends PureComponent<ModuleWrapProps, ModuleWrapState> {
 
     static contextTypes = {
         BASE_DATA: PropTypes.object,

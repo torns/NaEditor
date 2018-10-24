@@ -54,7 +54,7 @@ class GoodsConfig extends Component<GoodsConfigProps, GoodsConfigState> {
         } = this.state;
         return (
             <div>
-                <p className="d-title">输入商品</p>
+                <p className="d-title">输入商品（暂时只有10个商品，1~10）</p>
                 <Input
                     placeholder="请输入商品id，多个id以英文逗号隔开"
                     value={skuids}

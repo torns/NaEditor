@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
@@ -22,7 +22,7 @@ interface ModuleNavItemState {
     isVisible: boolean;
 }
 
-class ModuleNavItem extends React.Component<ModuleNavItemProps, ModuleNavItemState> {
+class ModuleNavItem extends PureComponent<ModuleNavItemProps, ModuleNavItemState> {
 
     static contextTypes = {
         BASE_DATA: PropTypes.object,
@@ -55,7 +55,7 @@ class ModuleNavItem extends React.Component<ModuleNavItemProps, ModuleNavItemSta
             isVisible: false,
         });
         onDragedChange(moduleId);
-        e.dataTransfer.setData('moduleId', moduleId);
+        e.dataTransfer && e.dataTransfer.setData('moduleId', moduleId);
     }
 
     onDragEnter = (e: DragEvent) => {

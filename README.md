@@ -4,8 +4,8 @@
 ![](
 https://naeditor-image.oss-cn-shenzhen.aliyuncs.com/jasdkfhdshfsadfhdjkhfhasdjkfhadsf.gif)
 
-### [线上地址](h5editor.cn)
-（如果不想注册，可以使用__测试账号__，__用户名：test__，__密码：test__）
+### [线上地址](http://h5editor.cn)
+（如果不想注册，也可以使用测试账号，__用户名：test__，__密码：test__）
 
 ### 总体架构
 ![](
@@ -19,11 +19,11 @@ https://naeditor-image.oss-cn-shenzhen.aliyuncs.com/gdsjhkglasdhsdlghdsagh.jpg)
 
 ### 后续工作：
 
-##### Bug:
+#### Bug:
 * 图片热区——绘制热区逻辑重构
 * ModuleBar高度更新不及时
 
-##### 产品需求方面：
+#### 产品需求方面：
 * 子页面
 * 真实的发布逻辑
 * 视频模块
@@ -36,7 +36,7 @@ https://naeditor-image.oss-cn-shenzhen.aliyuncs.com/gdsjhkglasdhsdlghdsagh.jpg)
 * ~~商品模块~~ 2018.10.10
 * ~~浏览页图片懒加载~~ 2018.9.23
 
-##### 前端：
+#### 前端：
 * 管理端（Vue）
 * 商品库组件
 * 链接选择工具
@@ -49,7 +49,7 @@ https://naeditor-image.oss-cn-shenzhen.aliyuncs.com/gdsjhkglasdhsdlghdsagh.jpg)
 * ~~浏览页接入React服务端渲染~~ 2018.9.5
 
 
-##### 服务端：
+#### 服务端：
 * XSS、CSRF漏洞
 * 用户登录态session存入redis
 * 密码校验MD5
@@ -63,15 +63,13 @@ https://naeditor-image.oss-cn-shenzhen.aliyuncs.com/gdsjhkglasdhsdlghdsagh.jpg)
 * ~~redis缓存页面渲染结果~~ 2018.9.20
 * ~~图片上传服务~~ 2018.8.22
 
-##### RN：
+#### RN：
 * 买一台iphone..
 * 接入浮层模块
 * 接入定位模块
 * 接入文字模块
-* 接入
 
-
-##### 持续集成与部署：
+#### 持续集成与部署：
 * 调研Docker
 * 编译报错回滚
 * 白屏测试

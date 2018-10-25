@@ -1,15 +1,13 @@
 ## H5Editor
 一个可视化运营页面搭建工具，在装修台中可以使用系统自带的图片热区、文字、轮播、浮层等模块，或使用自定义代码模块进行传统的HTML+CSS+JS开发，同时也有模拟真实业务场景的商品模块，用户可以录入商品并选择模板后自动展示商品列表。
 ### 效果展示：
-![](
-https://naeditor-image.oss-cn-shenzhen.aliyuncs.com/jasdkfhdshfsadfhdjkhfhasdjkfhadsf.gif)
+![image](https://raw.githubusercontent.com/wiki/zhusiyi111/NaEditor/jasdkfhdshfsadfhdjkhfhasdjkfhadsf.gif)
 
 ### [线上地址](http://h5editor.cn)
 （如果不想注册，也可以使用测试账号，__用户名：test__，__密码：test__）
 
 ### 总体架构
-![](
-https://naeditor-image.oss-cn-shenzhen.aliyuncs.com/gdsjhkglasdhsdlghdsagh.jpg)
+![image](https://raw.githubusercontent.com/wiki/zhusiyi111/NaEditor/gdsjhkglasdhsdlghdsagh.jpg)
 ### 兼容浏览器：
 * Chrome(推荐)
 * Safari
